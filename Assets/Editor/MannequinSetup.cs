@@ -247,9 +247,61 @@ public static class MannequinSetup
             state.motion = clip;
         }
 
+        AddRestPoseState(controller, clips);
+
         EditorUtility.SetDirty(controller);
         AssetDatabase.SaveAssets();
         return controller;
+    }
+
+    // ------------------------------------------------------------------
+    // Поза покоя: первый кадр Idle_Loop, стоящий на месте (скорость состояния = 0).
+    // Добавляется в существующий контроллер без пересборки префаба, чтобы не сбить настройки в Inspector.
+
+    private const string RestPoseState = "RestPose";
+
+    [InitializeOnLoadMethod]
+    private static void AutoAddRestPose()
+    {
+        EditorApplication.delayCall += () =>
+        {
+            if (EditorApplication.isPlayingOrWillChangePlaymode) return;
+            var controller = AssetDatabase.LoadAssetAtPath<AnimatorController>(ControllerPath);
+            if (controller == null || HasRestPose(controller)) return;
+            AddRestPoseMenu();
+        };
+    }
+
+    [MenuItem("Tools/Mannequin/Add Rest Pose")]
+    public static void AddRestPoseMenu()
+    {
+        var controller = AssetDatabase.LoadAssetAtPath<AnimatorController>(ControllerPath);
+        if (controller == null) { Debug.LogError("[Mannequin] Нет контроллера " + ControllerPath); return; }
+        var clips = AssetDatabase.LoadAllAssetsAtPath(ModelPath).OfType<AnimationClip>()
+            .Where(c => !c.name.StartsWith("__preview__")).ToList();
+        if (AddRestPoseState(controller, clips))
+        {
+            EditorUtility.SetDirty(controller);
+            AssetDatabase.SaveAssets();
+            Debug.Log("[Mannequin] В Animator добавлено состояние RestPose (первый кадр Idle_Loop).");
+        }
+    }
+
+    private static bool HasRestPose(AnimatorController controller)
+    {
+        return controller.layers[0].stateMachine.states.Any(s => s.state.name == RestPoseState);
+    }
+
+    private static bool AddRestPoseState(AnimatorController controller, List<AnimationClip> clips)
+    {
+        if (HasRestPose(controller)) return false;
+        AnimationClip idle = clips.FirstOrDefault(c => c.name == "Idle_Loop" || c.name.EndsWith("|Idle_Loop"));
+        if (idle == null) { Debug.LogWarning("[Mannequin] Клип Idle_Loop не найден"); return false; }
+
+        AnimatorState rest = controller.layers[0].stateMachine.AddState(RestPoseState, new Vector3(300f, -80f, 0f));
+        rest.motion = idle;
+        rest.speed = 0f; // стоит на одном кадре
+        return true;
     }
 
     /// <summary>

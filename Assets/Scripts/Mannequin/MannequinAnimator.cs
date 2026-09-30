@@ -13,6 +13,12 @@ public class MannequinAnimator : MonoBehaviour
     [SerializeField] private Animator animator;
 
     [Header("Замирание")]
+    [Tooltip("Состояние в Animator, в которое манекен всегда перетекает при замирании (первый кадр Idle_Loop)")]
+    [SerializeField] private string restPoseState = "RestPose";
+    [Tooltip("Выключено: всегда перетекает в позу покоя (стоит прямо, руки вниз). Включено: старые случайные позы")]
+    [SerializeField] private bool randomFreezePoses = false;
+
+    [Header("Случайные позы (только если включено Random Freeze Poses)")]
     [Tooltip("Позы, в которые манекен может «дотянуться» перед замиранием (имена клипов)")]
     [SerializeField] private string[] freezePoses =
     {
@@ -23,14 +29,13 @@ public class MannequinAnimator : MonoBehaviour
     [Range(0f, 1f)] [SerializeField] private float poseSwapChance = 0.6f;
     [Tooltip("Из какой части клипа брать случайный кадр позы")]
     [SerializeField] private Vector2 poseTimeRange = new Vector2(0.25f, 0.75f);
-    [Tooltip("При старте сцены манекен стоит в случайной позе")]
-    [SerializeField] private bool randomPoseOnStart = true;
 
     [Header("Атака")]
     [SerializeField] private string attackClip = "Punch_Cross";
 
     [Header("Голова")]
-    [SerializeField] private bool headLookAtPlayer = true;
+    [Tooltip("Доворачивать голову к игроку в конце замирания. Выдаёт живого манекена, поэтому по умолчанию выключено")]
+    [SerializeField] private bool turnHeadToPlayer = false;
     [SerializeField] private Transform headBone;
     [Range(0f, 1f)] [SerializeField] private float headLookWeight = 0.85f;
     [SerializeField] private float headMaxAngle = 75f;
@@ -42,6 +47,7 @@ public class MannequinAnimator : MonoBehaviour
     private Vector3 headLookTarget;
     private Transform headTarget;
     private Vector3 headLocalForward;
+    private bool hasRestState;
 
     public float AttackLength => GetLength(attackClip, 1f);
 
@@ -57,15 +63,24 @@ public class MannequinAnimator : MonoBehaviour
 
         if (headBone != null)
             headLocalForward = Quaternion.Inverse(headBone.rotation) * transform.forward;
+
+        hasRestState = animator.HasState(0, Animator.StringToHash(restPoseState));
+        if (!hasRestState)
+            Debug.LogWarning($"[Mannequin] В Animator нет состояния {restPoseState}. " +
+                             "Перезапусти Unity или выбери Tools > Mannequin > Add Rest Pose.", this);
     }
 
     private void Start()
     {
-        if (randomPoseOnStart && freezePoses.Length > 0)
+        if (randomFreezePoses && freezePoses.Length > 0)
         {
             string pose = freezePoses[Random.Range(0, freezePoses.Length)];
             animator.Play(pose, 0, Random.Range(poseTimeRange.x, poseTimeRange.y));
             animator.speed = 0f;
+        }
+        else
+        {
+            SnapToRestPose();
         }
     }
 
@@ -84,7 +99,10 @@ public class MannequinAnimator : MonoBehaviour
         headWeightTarget = 0f;
     }
 
-    /// <summary>Начать «дотягивание» позы. keepCurrentPose — замереть в том, что сейчас играет (например, в ударе).</summary>
+    /// <summary>
+    /// Начать «дотягивание». По умолчанию: плавный переход из того, что играет (шаг, бег, удар),
+    /// в позу покоя. keepCurrentPose работает только в режиме случайных поз.
+    /// </summary>
     public void BeginSettle(float duration, Transform lookAt)
     {
         BeginSettle(duration, lookAt, false);
@@ -98,7 +116,20 @@ public class MannequinAnimator : MonoBehaviour
         settleHoldPart = 0f;
         animator.speed = 1f;
 
-        if (!keepCurrentPose && freezePoses.Length > 0 && Random.value < poseSwapChance)
+        if (!randomFreezePoses)
+        {
+            // Анимация играет с полной скоростью, пока текущий шаг затухает и манекен выпрямляется.
+            // Переход заканчивается чуть раньше конца, чтобы поза успела встать полностью.
+            settleHoldPart = 1f;
+            if (hasRestState)
+                animator.CrossFadeInFixedTime(restPoseState, settleDuration * 0.9f, 0, 0f);
+            else
+            {
+                animator.SetFloat(SpeedParam, 0f);
+                animator.CrossFadeInFixedTime(LocomotionState, settleDuration * 0.9f, 0);
+            }
+        }
+        else if (!keepCurrentPose && freezePoses.Length > 0 && Random.value < poseSwapChance)
         {
             string pose = freezePoses[Random.Range(0, freezePoses.Length)];
             float t = Random.Range(poseTimeRange.x, poseTimeRange.y) * GetLength(pose, 1f);
@@ -108,13 +139,16 @@ public class MannequinAnimator : MonoBehaviour
         }
 
         headTarget = lookAt;
-        headWeightTarget = headLookAtPlayer && lookAt != null ? headLookWeight : 0f;
+        headWeightTarget = turnHeadToPlayer && lookAt != null ? headLookWeight : 0f;
     }
 
     public void Freeze()
     {
         settling = false;
-        animator.speed = 0f;
+        if (!randomFreezePoses && hasRestState)
+            SnapToRestPose(); // ровно первый кадр Idle_Loop, одинаковый у всех манекенов
+        else
+            animator.speed = 0f;
         // Запоминаем, куда смотрела голова: пока на манекен смотрят, голова больше не двигается
         if (headTarget != null) headLookTarget = headTarget.position;
         headTarget = null;
@@ -130,6 +164,14 @@ public class MannequinAnimator : MonoBehaviour
     }
 
     // ---------- Внутреннее ----------
+
+    private void SnapToRestPose()
+    {
+        if (!hasRestState) return;
+        // Состояние RestPose само стоит на месте (скорость состояния = 0), поэтому speed аниматора оставляем 1
+        animator.speed = 1f;
+        animator.Play(restPoseState, 0, 0f);
+    }
 
     private void Update()
     {

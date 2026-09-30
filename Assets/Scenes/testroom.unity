@@ -1051,13 +1051,25 @@ PrefabInstance:
       propertyPath: occluderLayers.m_Bits
       value: 51
       objectReference: {fileID: 0}
+    - target: {fileID: 6253672614298395059, guid: 0a00a1375f8e0d3448b1d84993465e86, type: 3}
+      propertyPath: headMaxAngle
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 6253672614298395059, guid: 0a00a1375f8e0d3448b1d84993465e86, type: 3}
+      propertyPath: headLookWeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6253672614298395059, guid: 0a00a1375f8e0d3448b1d84993465e86, type: 3}
+      propertyPath: turnHeadToPlayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7442986351460878947, guid: 0a00a1375f8e0d3448b1d84993465e86, type: 3}
       propertyPath: m_ObstacleAvoidanceType
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9180288060837973768, guid: 0a00a1375f8e0d3448b1d84993465e86, type: 3}
       propertyPath: settleDuration
-      value: 0.25
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 9180288060837973768, guid: 0a00a1375f8e0d3448b1d84993465e86, type: 3}
       propertyPath: sightBlockers.m_Bits

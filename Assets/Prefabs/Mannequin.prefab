@@ -110,7 +110,7 @@ MonoBehaviour:
   unseenDelay: 0.2
   occluderLayers:
     serializedVersion: 2
-    m_Bits: 4294967291
+    m_Bits: 51
   drawDebugLines: 1
 --- !u!114 &6253672614298395059
 MonoBehaviour:
@@ -156,7 +156,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MannequinBrain
   target: {fileID: 0}
   chaseSpeed: 4
+  searchSpeed: 2.2
   repathInterval: 0.1
+  eyeHeight: 1.6
+  sightDistance: 40
+  trackAfterLost: 0.4
+  playerBodyHeight: 0.9
+  seePlayerHead: 0
+  knowsWhenPlayerLooks: 1
+  sightBlockers:
+    serializedVersion: 2
+    m_Bits: 51
+  searchDuration: 6
+  searchRadius: 5
+  lookAroundTime: 0.8
   settleDuration: 0.25
   settleSlide: 0.5
   attackRange: 1.3
