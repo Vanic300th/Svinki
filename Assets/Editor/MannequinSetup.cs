@@ -12,6 +12,8 @@ using UnityEngine.AI;
 ///  • Build Prefab            — настройки импорта, Animator Controller, префаб Assets/Prefabs/Mannequin.prefab
 ///  • Setup NavMesh In Scene  — объект NavMesh с NavMeshSurface (+ автосборка при Play)
 ///  • Place Mannequin         — всё выше + ставит манекена в открытую сцену
+///  • Build Watcher Prefab    — Mannequin_Watcher: самостоятельный префаб без мозга, стоит и только поворачивает голову
+///  • Place Watcher           — ставит подглядывающего манекена в сцену (префаб собирается, если его нет)
 /// </summary>
 public static class MannequinSetup
 {
@@ -19,6 +21,7 @@ public static class MannequinSetup
     private const string MaterialPath = "Assets/Materials/Animated Character White.mat";
     private const string ControllerPath = "Assets/Animations/Mannequin.controller";
     private const string PrefabPath = "Assets/Prefabs/Mannequin.prefab";
+    private const string WatcherPrefabPath = "Assets/Prefabs/Mannequin_Watcher.prefab";
     private const float Height = 1.8f;
 
     // Скорости (м/с), при которых включается анимация в блендтри
@@ -48,25 +51,148 @@ public static class MannequinSetup
         if (prefab == null) return;
         SetupNavMesh();
 
+        Vector3 pos = PlaceInFrontOfPlayer(prefab, "Place Mannequin", 8f, 0f);
+        Debug.Log($"[Mannequin] Манекен поставлен в {pos}. Жми Play.");
+    }
+
+    [MenuItem("Tools/Mannequin/Place Watcher")]
+    public static void PlaceWatcher()
+    {
+        if (!NotPlaying()) return;
+        GameObject prefab = LoadOrBuildWatcher();
+        if (prefab == null) return;
+
+        // Ставим боком к игроку, чтобы сразу было видно, как голова поворачивается
+        Vector3 pos = PlaceInFrontOfPlayer(prefab, "Place Watcher", 6f, 90f);
+        Debug.Log($"[Mannequin] Подглядывающий поставлен в {pos} боком к тебе. Жми Play, отвернись и посмотри снова.");
+    }
+
+    [MenuItem("Tools/Mannequin/Build Watcher Prefab")]
+    public static void BuildWatcherPrefabMenu() => BuildWatcherPrefab();
+
+    /// <summary>
+    /// Mannequin_Watcher — самостоятельный префаб (не вариант): копия обычного манекена с той же моделью,
+    /// материалом и позой покоя, но без мозга и NavMeshAgent. Стоит на месте и только поворачивает голову.
+    /// С Mannequin.prefab не связан: правки обычного манекена сюда не попадают, и наоборот.
+    /// Build Watcher Prefab собирает копию заново (настройки Watcher в Inspector при этом сбросятся).
+    /// </summary>
+    public static GameObject BuildWatcherPrefab()
+    {
+        if (!NotPlaying()) return null;
+        GameObject basePrefab = AssetDatabase.LoadAssetAtPath<GameObject>(PrefabPath);
+        if (basePrefab == null) basePrefab = BuildPrefab();
+        if (basePrefab == null) return null;
+
+        // Собираем во временной сцене, чтобы не трогать открытую
+        var temp = EditorSceneManager.NewPreviewScene();
+        GameObject prefab = null;
+        try
+        {
+            // Копия обычного манекена, отвязанная от его префаба
+            var instance = (GameObject)PrefabUtility.InstantiatePrefab(basePrefab, temp);
+            PrefabUtility.UnpackPrefabInstance(instance, PrefabUnpackMode.OutermostRoot, InteractionMode.AutomatedAction);
+            instance.name = "Mannequin_Watcher";
+
+            // Ходить не нужно: сначала мозг (он требует агента), потом агент
+            var brain = instance.GetComponent<MannequinBrain>();
+            if (brain != null) Object.DestroyImmediate(brain);
+            var agent = instance.GetComponent<NavMeshAgent>();
+            if (agent != null) Object.DestroyImmediate(agent);
+
+            // Живые манекены обходят его, а не проходят насквозь
+            var obstacle = instance.AddComponent<NavMeshObstacle>();
+            obstacle.shape = NavMeshObstacleShape.Capsule;
+            obstacle.center = new Vector3(0f, Height / 2f, 0f);
+            obstacle.radius = 0.3f;
+            obstacle.height = Height;
+            obstacle.carving = true;
+
+            var watcher = instance.AddComponent<MannequinHeadWatcher>();
+            var wso = new SerializedObject(watcher);
+            wso.FindProperty("headBone").objectReferenceValue = FindDeep(instance.transform, "Head");
+            wso.FindProperty("neckBone").objectReferenceValue = FindDeep(instance.transform, "neck_01");
+            wso.ApplyModifiedPropertiesWithoutUndo();
+
+            EnsureFolder("Assets/Prefabs");
+            prefab = PrefabUtility.SaveAsPrefabAsset(instance, WatcherPrefabPath);
+        }
+        finally
+        {
+            EditorSceneManager.ClosePreviewScene(temp);
+        }
+
+        AssetDatabase.SaveAssets();
+        Debug.Log($"[Mannequin] Подглядывающий манекен готов (самостоятельный префаб): {WatcherPrefabPath}", prefab);
+        return prefab;
+    }
+
+    private static GameObject LoadOrBuildWatcher()
+    {
+        // Собираем, только если префаба нет (или остался старый вариант), чтобы не сбросить настройки из Inspector
+        GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(WatcherPrefabPath);
+        if (prefab == null || PrefabUtility.GetPrefabAssetType(prefab) == PrefabAssetType.Variant)
+            prefab = BuildWatcherPrefab();
+        return prefab;
+    }
+
+    // Раньше Watcher собирался как вариант Mannequin — при загрузке редактора переделываем его в самостоятельный
+    [InitializeOnLoadMethod]
+    private static void AutoConvertWatcherVariant()
+    {
+        EditorApplication.delayCall += () =>
+        {
+            if (EditorApplication.isPlayingOrWillChangePlaymode) return;
+            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(WatcherPrefabPath);
+            if (prefab == null || PrefabUtility.GetPrefabAssetType(prefab) != PrefabAssetType.Variant) return;
+            if (BuildWatcherPrefab() != null)
+                Debug.Log("[Mannequin] Mannequin_Watcher переделан из варианта в самостоятельный префаб.");
+        };
+    }
+
+    /// <summary>
+    /// BuildController пересоздаёт Mannequin.controller заново, а самостоятельный Watcher ссылается на него напрямую.
+    /// Обновляем ссылку, чтобы подглядывающий не остался без анимации (и позы покоя).
+    /// </summary>
+    private static void RelinkWatcherController(AnimatorController controller)
+    {
+        var watcher = AssetDatabase.LoadAssetAtPath<GameObject>(WatcherPrefabPath);
+        if (watcher == null || PrefabUtility.GetPrefabAssetType(watcher) == PrefabAssetType.Variant) return;
+
+        GameObject contents = PrefabUtility.LoadPrefabContents(WatcherPrefabPath);
+        try
+        {
+            foreach (Animator a in contents.GetComponentsInChildren<Animator>(true))
+                a.runtimeAnimatorController = controller;
+            PrefabUtility.SaveAsPrefabAsset(contents, WatcherPrefabPath);
+        }
+        finally
+        {
+            PrefabUtility.UnloadPrefabContents(contents);
+        }
+    }
+
+    private static Vector3 PlaceInFrontOfPlayer(GameObject prefab, string undoName, float distance, float extraYaw)
+    {
         var instance = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
-        Undo.RegisterCreatedObjectUndo(instance, "Place Mannequin");
+        Undo.RegisterCreatedObjectUndo(instance, undoName);
 
         Vector3 pos = new Vector3(0f, 0f, 7f);
         var playerController = Object.FindAnyObjectByType<GrayboxPlayerController>();
         Transform player = playerController != null ? playerController.transform : null;
-        if (player != null) pos = player.position + player.forward * 8f;
+        if (player != null) pos = player.position + player.forward * distance;
         if (NavMesh.SamplePosition(pos, out NavMeshHit hit, 10f, NavMesh.AllAreas)) pos = hit.position;
         instance.transform.position = pos;
         if (player != null)
         {
             Vector3 look = player.position - pos;
             look.y = 0f;
-            if (look.sqrMagnitude > 0.01f) instance.transform.rotation = Quaternion.LookRotation(look);
+            if (look.sqrMagnitude > 0.01f)
+                instance.transform.rotation = Quaternion.LookRotation(look) * Quaternion.Euler(0f, extraYaw, 0f);
         }
 
         Selection.activeGameObject = instance;
         SaveScene();
-        Debug.Log($"[Mannequin] Манекен поставлен в {pos}. Жми Play.");
+        return pos;
     }
 
     [MenuItem("Tools/Mannequin/Build Prefab")]
@@ -79,6 +205,7 @@ public static class MannequinSetup
         ConfigureImport();
         AnimatorController controller = BuildController();
         if (controller == null) return null;
+        RelinkWatcherController(controller);
 
         GameObject model = AssetDatabase.LoadAssetAtPath<GameObject>(ModelPath);
         Material white = AssetDatabase.LoadAssetAtPath<Material>(MaterialPath);
