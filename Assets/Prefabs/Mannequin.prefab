@@ -125,6 +125,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MannequinAnimator
   animator: {fileID: 6992621314563163441}
+  restPoseState: RestPose
+  randomFreezePoses: 0
   freezePoses:
   - Punch_Jab
   - Punch_Cross
@@ -136,12 +138,11 @@ MonoBehaviour:
   - Hit_Chest
   poseSwapChance: 0.6
   poseTimeRange: {x: 0.25, y: 0.75}
-  randomPoseOnStart: 1
   attackClip: Punch_Cross
-  headLookAtPlayer: 1
+  turnHeadToPlayer: 1
   headBone: {fileID: 5527038700730288331}
-  headLookWeight: 0.85
-  headMaxAngle: 75
+  headLookWeight: 1
+  headMaxAngle: 120
 --- !u!114 &9180288060837973768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,7 +156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MannequinBrain
   target: {fileID: 0}
-  chaseSpeed: 4
+  chaseSpeed: 2
   searchSpeed: 2.2
   repathInterval: 0.1
   eyeHeight: 1.6
@@ -170,7 +171,7 @@ MonoBehaviour:
   searchDuration: 6
   searchRadius: 5
   lookAroundTime: 0.8
-  settleDuration: 0.25
+  settleDuration: 0.15
   settleSlide: 0.5
   attackRange: 1.3
   attackCooldown: 1
