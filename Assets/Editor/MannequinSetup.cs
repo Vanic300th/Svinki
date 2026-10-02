@@ -14,6 +14,7 @@ using UnityEngine.AI;
 ///  • Place Mannequin         — всё выше + ставит манекена в открытую сцену
 ///  • Build Watcher Prefab    — Mannequin_Watcher: самостоятельный префаб без мозга, стоит и только поворачивает голову
 ///  • Place Watcher           — ставит подглядывающего манекена в сцену (префаб собирается, если его нет)
+///  • Build Thief Prefab / Place Thief — Воришка, см. ThiefSetup
 /// </summary>
 public static class MannequinSetup
 {
@@ -155,19 +156,23 @@ public static class MannequinSetup
     /// </summary>
     private static void RelinkWatcherController(AnimatorController controller)
     {
-        var watcher = AssetDatabase.LoadAssetAtPath<GameObject>(WatcherPrefabPath);
-        if (watcher == null || PrefabUtility.GetPrefabAssetType(watcher) == PrefabAssetType.Variant) return;
+        // Самостоятельные префабы (Подглядывающий, Воришка) ссылаются на контроллер напрямую
+        foreach (string path in new[] { WatcherPrefabPath, ThiefSetup.ThiefPrefabPath })
+        {
+            var standalone = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+            if (standalone == null || PrefabUtility.GetPrefabAssetType(standalone) == PrefabAssetType.Variant) continue;
 
-        GameObject contents = PrefabUtility.LoadPrefabContents(WatcherPrefabPath);
-        try
-        {
-            foreach (Animator a in contents.GetComponentsInChildren<Animator>(true))
-                a.runtimeAnimatorController = controller;
-            PrefabUtility.SaveAsPrefabAsset(contents, WatcherPrefabPath);
-        }
-        finally
-        {
-            PrefabUtility.UnloadPrefabContents(contents);
+            GameObject contents = PrefabUtility.LoadPrefabContents(path);
+            try
+            {
+                foreach (Animator a in contents.GetComponentsInChildren<Animator>(true))
+                    a.runtimeAnimatorController = controller;
+                PrefabUtility.SaveAsPrefabAsset(contents, path);
+            }
+            finally
+            {
+                PrefabUtility.UnloadPrefabContents(contents);
+            }
         }
     }
 

@@ -40,7 +40,7 @@ public class PlayerPickupInteractor : MonoBehaviour
             if (localPlayer != null && networkPickup != null)
                 localPlayer.RequestPickup(networkPickup);
             else if (networkPickup == null)
-                collected.PickUp();
+                collected.PickUp(gameObject); // одиночка: вещь уходит в комплект того, кто подобрал
         }
     }
 

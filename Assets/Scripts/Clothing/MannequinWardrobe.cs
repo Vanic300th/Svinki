@@ -1,11 +1,94 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// HUD-манекен: показывает одежду из PlayerOutfit своего игрока. Сам ничего не хранит —
+/// подписан на комплект и рисует то, что в нём есть (вещь добавили — надел, украли — снял).
+/// В одиночке сам находит своего игрока; в онлайне его привязывает NetworkPlayer владельца.
+/// </summary>
 [DisallowMultipleComponent]
 public sealed class MannequinWardrobe : MonoBehaviour
 {
     [SerializeField] private Transform mannequinRoot;
+    [Tooltip("Чей комплект показывать. Пусто = свой игрок в этой сцене (в онлайне привязывает NetworkPlayer)")]
+    [SerializeField] private PlayerOutfit outfit;
+    [Tooltip("Сколько секунд висит подсказка «Воришка украл: …»")]
+    [SerializeField, Min(0f)] private float messageTime = 2.5f;
+
     private readonly Dictionary<ClothingSlot, GameObject> equipped = new Dictionary<ClothingSlot, GameObject>();
+    private PlayerOutfit bound;
+    private string message;
+    private float messageUntil;
+    private GUIStyle messageStyle;
+
+    private void Start()
+    {
+        if (bound != null) return; // уже привязали снаружи
+        if (outfit == null) outfit = FindLocalOutfit();
+        if (outfit != null) Bind(outfit);
+    }
+
+    private PlayerOutfit FindLocalOutfit()
+    {
+        foreach (PlayerAvatar player in PlayerRegistry.Players)
+            if (player != null && player.IsLocal && player.gameObject.scene == gameObject.scene)
+                return player.Outfit;
+        return null;
+    }
+
+    private void OnDestroy() => Bind(null);
+
+    /// <summary>Показывать комплект другого игрока (в онлайне — свой у каждого клиента).</summary>
+    public void Bind(PlayerOutfit value)
+    {
+        if (bound != null)
+        {
+            bound.Added -= Equip;
+            bound.Removed -= HandleRemoved;
+        }
+        // Снимаем всё, что показывали для прошлого комплекта
+        foreach (GameObject shown in equipped.Values)
+            if (shown != null) Destroy(shown);
+        equipped.Clear();
+
+        bound = value;
+        if (bound == null) return;
+        bound.Added += Equip;
+        bound.Removed += HandleRemoved;
+        foreach (ClothingDefinition clothing in bound.Items) Equip(clothing);
+    }
+
+    public void Unequip(ClothingSlot slot)
+    {
+        if (!equipped.TryGetValue(slot, out GameObject old)) return;
+        if (old != null) Destroy(old);
+        equipped.Remove(slot);
+    }
+
+    /// <summary>Подсказка сверху экрана на пару секунд («Воришка украл: Шапка»).</summary>
+    public void ShowMessage(string text)
+    {
+        message = text;
+        messageUntil = Time.time + messageTime;
+    }
+
+    private void HandleRemoved(ClothingDefinition clothing, string reason)
+    {
+        if (clothing == null) return;
+        Unequip(clothing.Slot);
+        if (!string.IsNullOrEmpty(reason)) ShowMessage(reason + ": " + clothing.DisplayName);
+    }
+
+    private void OnGUI()
+    {
+        if (string.IsNullOrEmpty(message) || Time.time > messageUntil) return;
+        if (messageStyle == null)
+        {
+            messageStyle = new GUIStyle(GUI.skin.box) { alignment = TextAnchor.MiddleCenter, fontSize = 20 };
+            messageStyle.normal.textColor = new Color(1f, 0.45f, 0.35f);
+        }
+        GUI.Box(new Rect(Screen.width * 0.5f - 170f, 60f, 340f, 38f), message, messageStyle);
+    }
 
     public void Equip(ClothingDefinition clothing)
     {

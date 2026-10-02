@@ -7,11 +7,15 @@ using UnityEngine.Rendering;
 [DisallowMultipleComponent]
 public class PickupItem : MonoBehaviour
 {
-    public enum PickupAction { DisableObject, DestroyObject }
+    /// <summary>
+    /// HideObject — предмет прячется (выключаются модель и коллайдеры), но объект остаётся в сцене:
+    /// его можно вернуть на уровень (Воришка), и в онлайне сетевой объект не пропадает.
+    /// </summary>
+    public enum PickupAction { HideObject, DestroyObject }
 
     [Header("Pickup")]
     [SerializeField] private string itemName = "Предмет";
-    [SerializeField] private PickupAction afterPickup = PickupAction.DisableObject;
+    [SerializeField] private PickupAction afterPickup = PickupAction.HideObject;
     [SerializeField] private UnityEvent onPickedUp = new UnityEvent();
 
     [Header("Yellow highlight")]
@@ -32,9 +36,19 @@ public class PickupItem : MonoBehaviour
     private Texture2D sparkleTexture;
     private bool targeted;
     private bool pickedUp;
+    private bool available = true;
+    private bool[] rendererShown;
+    private Collider[] itemColliders;
+    private bool[] colliderShown;
 
     public string ItemName => itemName;
+    /// <summary>Кто подобрал предмет последним (объект камеры или игрока). null — неизвестно.</summary>
+    public GameObject Picker { get; private set; }
+    /// <summary>Предмет лежит на уровне: виден и его можно подобрать.</summary>
+    public bool IsAvailable => available;
     public event Action<PickupItem> PickedUp;
+    /// <summary>Предмет спрятали или снова показали.</summary>
+    public event Action<PickupItem> AvailabilityChanged;
 
     private sealed class RendererMaterials
     {
@@ -59,6 +73,8 @@ public class PickupItem : MonoBehaviour
         BoxCollider box = gameObject.AddComponent<BoxCollider>();
         box.center = localBounds.center;
         box.size = localBounds.size;
+        // Триггер: луч подбора его находит, а взгляд манекенов и игрока сквозь него проходит
+        box.isTrigger = true;
     }
 
     private void Awake()
@@ -69,18 +85,27 @@ public class PickupItem : MonoBehaviour
             if (renderer is MeshRenderer || renderer is SkinnedMeshRenderer)
                 meshes.Add(renderer);
         itemRenderers = meshes.ToArray();
+
+        // Запоминаем, что было включено изначально: часть рендеров (старый кубик) выключена специально
+        rendererShown = new bool[itemRenderers.Length];
+        for (int i = 0; i < itemRenderers.Length; i++) rendererShown[i] = itemRenderers[i].enabled;
+        itemColliders = GetComponentsInChildren<Collider>(true);
+        colliderShown = new bool[itemColliders.Length];
+        for (int i = 0; i < itemColliders.Length; i++) colliderShown[i] = itemColliders[i].enabled;
     }
 
     private void OnEnable()
     {
         if (itemRenderers == null) return;
-        pickedUp = false;
+        if (available) pickedUp = false;
         CreateGlowMaterials();
         CreateSparkles();
+        ApplyAvailability();
     }
 
     private void Update()
     {
+        if (!available) return;
         float pulse = 0.5f + 0.5f * Mathf.Sin(Time.time * 5f);
         float focusBoost = targeted ? 1.6f : 1f;
 
@@ -115,18 +140,47 @@ public class PickupItem : MonoBehaviour
         }
     }
 
-    public void PickUp()
+    public void PickUp() => PickUp(null);
+
+    /// <summary>Подобрать. picker — кто подобрал (игрок или его камера), чтобы вещь ушла именно ему.</summary>
+    public void PickUp(GameObject picker)
     {
-        if (pickedUp) return;
+        if (pickedUp || !available) return;
         pickedUp = true;
+        Picker = picker;
         PickedUp?.Invoke(this);
         onPickedUp.Invoke();
         Debug.Log("Picked up: " + itemName, this);
 
-        if (afterPickup == PickupAction.DisableObject)
-            gameObject.SetActive(false);
+        if (afterPickup == PickupAction.HideObject)
+            SetAvailable(false);
         else
             Destroy(gameObject);
+    }
+
+    /// <summary>
+    /// Спрятать (false) или снова выложить (true) предмет, не выключая объект.
+    /// Спрятанный не виден, не светится и луч подбора его не находит.
+    /// </summary>
+    public void SetAvailable(bool value)
+    {
+        if (available == value) return;
+        available = value;
+        if (available) pickedUp = false;
+        else SetTargeted(false);
+        ApplyAvailability();
+        AvailabilityChanged?.Invoke(this);
+    }
+
+    private void ApplyAvailability()
+    {
+        if (itemRenderers != null)
+            for (int i = 0; i < itemRenderers.Length; i++)
+                if (itemRenderers[i] != null) itemRenderers[i].enabled = available && rendererShown[i];
+        if (itemColliders != null)
+            for (int i = 0; i < itemColliders.Length; i++)
+                if (itemColliders[i] != null) itemColliders[i].enabled = available && colliderShown[i];
+        if (sparkles != null) sparkles.gameObject.SetActive(available);
     }
 
     private void CreateGlowMaterials()
