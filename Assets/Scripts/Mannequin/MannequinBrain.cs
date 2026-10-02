@@ -70,6 +70,7 @@ public class MannequinBrain : MonoBehaviour
     private MannequinVisibility visibility;
     private MannequinAnimator anim;
     private Camera playerCamera;
+    private GrayboxPlayerController playerController;
     private readonly RaycastHit[] hits = new RaycastHit[16];
 
     private float stateTimer, repathTimer, lastAttackEnd = -999f;
@@ -94,6 +95,7 @@ public class MannequinBrain : MonoBehaviour
             if (player != null) target = player.transform;
             else if (playerCamera != null) target = playerCamera.transform;
         }
+        if (target != null) playerController = target.GetComponent<GrayboxPlayerController>();
     }
 
     private void Start()
@@ -180,7 +182,10 @@ public class MannequinBrain : MonoBehaviour
         Vector3 eye = transform.position + Vector3.up * eyeHeight;
         if ((target.position - transform.position).sqrMagnitude > sightDistance * sightDistance) return false;
 
-        if (HasClearLine(eye, target.position + Vector3.up * playerBodyHeight)) return true; // тело игрока
+        float bodyHeight = playerController != null
+            ? Mathf.Lerp(playerBodyHeight, Mathf.Min(playerBodyHeight, 0.45f), playerController.CrouchAmount)
+            : playerBodyHeight;
+        if (HasClearLine(eye, target.position + Vector3.up * bodyHeight)) return true; // тело игрока
         if (seePlayerHead && playerCamera != null && HasClearLine(eye, playerCamera.transform.position)) return true; // голова
         return false;
     }

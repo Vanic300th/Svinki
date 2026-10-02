@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Rendering;
@@ -17,6 +18,7 @@ public class PickupItem : MonoBehaviour
     [SerializeField] private Color highlightColor = new Color(1f, 0.78f, 0.06f);
     [SerializeField, Min(0f)] private float glowStrength = 2.5f;
     [SerializeField, Min(0f)] private float sparkleRate = 16f;
+    [SerializeField] private bool preserveBaseColor;
 
     private const string SparkleObjectName = "Pickup Sparkles";
     private static readonly int BaseColorId = Shader.PropertyToID("_BaseColor");
@@ -32,6 +34,7 @@ public class PickupItem : MonoBehaviour
     private bool pickedUp;
 
     public string ItemName => itemName;
+    public event Action<PickupItem> PickedUp;
 
     private sealed class RendererMaterials
     {
@@ -90,13 +93,13 @@ public class PickupItem : MonoBehaviour
                 if (original == null || glowing == null) continue;
 
                 int colorProperty = original.HasProperty(BaseColorId) ? BaseColorId : ColorId;
-                if (original.HasProperty(colorProperty))
+                if (!preserveBaseColor && original.HasProperty(colorProperty))
                 {
                     Color baseColor = original.GetColor(colorProperty);
                     glowing.SetColor(colorProperty, Color.Lerp(baseColor, highlightColor, 0.35f + 0.2f * pulse));
                 }
 
-                if (glowing.HasProperty(EmissionColorId))
+                if (glowStrength > 0f && glowing.HasProperty(EmissionColorId))
                     glowing.SetColor(EmissionColorId, highlightColor * glowStrength * (0.65f + pulse * 0.7f) * focusBoost);
             }
         }
@@ -116,6 +119,7 @@ public class PickupItem : MonoBehaviour
     {
         if (pickedUp) return;
         pickedUp = true;
+        PickedUp?.Invoke(this);
         onPickedUp.Invoke();
         Debug.Log("Picked up: " + itemName, this);
 

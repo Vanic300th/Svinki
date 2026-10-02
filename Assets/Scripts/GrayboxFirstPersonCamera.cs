@@ -5,15 +5,18 @@ public class GrayboxFirstPersonCamera : MonoBehaviour
 {
     [SerializeField] private Transform target;
     [SerializeField] private float eyeHeight = 1.65f;
+    [SerializeField] private float crouchEyeHeight = 0.95f;
     [SerializeField] private float mouseSensitivity = 0.12f;
 
     private float yaw;
     private float pitch;
+    private GrayboxPlayerController playerController;
 
     private void Start()
     {
         if (target != null)
             yaw = target.eulerAngles.y;
+        playerController = target != null ? target.GetComponent<GrayboxPlayerController>() : null;
         LockCursor();
     }
 
@@ -40,11 +43,16 @@ public class GrayboxFirstPersonCamera : MonoBehaviour
         }
 
         target.rotation = Quaternion.Euler(0f, yaw, 0f);
-        transform.position = target.position + Vector3.up * eyeHeight;
+        float crouchAmount = playerController != null ? playerController.CrouchAmount : 0f;
+        transform.position = target.position + Vector3.up * Mathf.Lerp(eyeHeight, crouchEyeHeight, crouchAmount);
         transform.rotation = Quaternion.Euler(pitch, yaw, 0f);
     }
 
-    public void SetTarget(Transform value) => target = value;
+    public void SetTarget(Transform value)
+    {
+        target = value;
+        playerController = target != null ? target.GetComponent<GrayboxPlayerController>() : null;
+    }
 
     private static void LockCursor()
     {
