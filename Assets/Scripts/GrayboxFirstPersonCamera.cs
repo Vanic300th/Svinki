@@ -17,7 +17,7 @@ public class GrayboxFirstPersonCamera : MonoBehaviour
         if (target != null)
             yaw = target.eulerAngles.y;
         playerController = target != null ? target.GetComponent<GrayboxPlayerController>() : null;
-        LockCursor();
+        if (target != null) LockCursor();
     }
 
     private void LateUpdate()
@@ -42,7 +42,8 @@ public class GrayboxFirstPersonCamera : MonoBehaviour
             pitch = Mathf.Clamp(pitch - delta.y * mouseSensitivity, -200f, 200f);
         }
 
-        target.rotation = Quaternion.Euler(0f, yaw, 0f);
+        if (target.GetComponent<NetworkPlayer>() == null)
+            target.rotation = Quaternion.Euler(0f, yaw, 0f);
         float crouchAmount = playerController != null ? playerController.CrouchAmount : 0f;
         transform.position = target.position + Vector3.up * Mathf.Lerp(eyeHeight, crouchEyeHeight, crouchAmount);
         transform.rotation = Quaternion.Euler(pitch, yaw, 0f);
@@ -52,6 +53,16 @@ public class GrayboxFirstPersonCamera : MonoBehaviour
     {
         target = value;
         playerController = target != null ? target.GetComponent<GrayboxPlayerController>() : null;
+        if (target != null)
+        {
+            yaw = target.eulerAngles.y;
+            LockCursor();
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
     }
 
     private static void LockCursor()

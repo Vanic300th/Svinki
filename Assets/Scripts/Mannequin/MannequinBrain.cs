@@ -109,6 +109,11 @@ public class MannequinBrain : MonoBehaviour
 
     private void Update()
     {
+        if (target == null)
+        {
+            foreach (GrayboxPlayerController candidate in FindObjectsByType<GrayboxPlayerController>())
+                if (candidate.gameObject.scene == gameObject.scene) { SetTarget(candidate.transform); break; }
+        }
         if (target == null || !agent.isOnNavMesh) return;
 
         UpdateAwareness();
@@ -151,6 +156,12 @@ public class MannequinBrain : MonoBehaviour
                 }
                 break;
         }
+    }
+
+    public void SetTarget(Transform value)
+    {
+        target = value;
+        playerController = target != null ? target.GetComponent<GrayboxPlayerController>() : null;
     }
 
     // ---------- Что манекен знает об игроке ----------

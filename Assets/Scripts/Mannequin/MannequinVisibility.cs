@@ -39,6 +39,14 @@ public class MannequinVisibility : MonoBehaviour
     private readonly RaycastHit[] hits = new RaycastHit[16];
     private bool[] pointVisible;
     private float lastSeenTime = -999f;
+    private bool externalVision;
+    private bool serverSeen;
+
+    public void SetServerSeen(bool seen)
+    {
+        externalVision = true;
+        serverSeen = seen;
+    }
 
     private void Awake()
     {
@@ -49,6 +57,13 @@ public class MannequinVisibility : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (externalVision)
+        {
+            IsSeenRaw = serverSeen;
+            if (serverSeen) lastSeenTime = Time.time;
+            IsSeen = serverSeen || Time.time - lastSeenTime < unseenDelay;
+            return;
+        }
         if (observerCamera == null) observerCamera = Camera.main;
         IsSeenRaw = observerCamera != null && CheckVisible(observerCamera);
 

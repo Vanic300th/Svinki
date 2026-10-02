@@ -26,6 +26,8 @@ public sealed class ClothingPickup : MonoBehaviour
 
     private void HandlePickup(PickupItem _)
     {
+        // In multiplayer the server awards only the collecting player via NetworkPlayer.
+        if (GetComponent<NetworkPickup>() != null) return;
         if (clothing == null)
         {
             Debug.LogWarning("Для предмета не назначена одежда.", this);

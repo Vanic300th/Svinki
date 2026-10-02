@@ -10,6 +10,9 @@ public class PlayerPickupInteractor : MonoBehaviour
     private PickupItem target;
     private GUIStyle promptStyle;
     private GUIStyle crosshairStyle;
+    private NetworkPlayer localPlayer;
+
+    public void SetLocalPlayer(NetworkPlayer player) => localPlayer = player;
 
     private void Awake() => playerCamera = GetComponent<Camera>();
 
@@ -17,7 +20,8 @@ public class PlayerPickupInteractor : MonoBehaviour
     {
         PickupItem next = null;
         Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-        if (Physics.Raycast(ray, out RaycastHit hit, pickupDistance,
+        var physicsScene = localPlayer != null ? localPlayer.gameObject.scene.GetPhysicsScene() : gameObject.scene.GetPhysicsScene();
+        if (physicsScene.Raycast(ray.origin, ray.direction, out RaycastHit hit, pickupDistance,
                 Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide))
             next = hit.collider.GetComponentInParent<PickupItem>();
 
@@ -32,7 +36,11 @@ public class PlayerPickupInteractor : MonoBehaviour
         {
             PickupItem collected = target;
             target = null;
-            collected.PickUp();
+            NetworkPickup networkPickup = collected.GetComponent<NetworkPickup>();
+            if (localPlayer != null && networkPickup != null)
+                localPlayer.RequestPickup(networkPickup);
+            else if (networkPickup == null)
+                collected.PickUp();
         }
     }
 
