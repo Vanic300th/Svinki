@@ -15,6 +15,7 @@ using UnityEngine.AI;
 ///  • Build Watcher Prefab    — Mannequin_Watcher: самостоятельный префаб без мозга, стоит и только поворачивает голову
 ///  • Place Watcher           — ставит подглядывающего манекена в сцену (префаб собирается, если его нет)
 ///  • Build Thief Prefab / Place Thief — Воришка, см. ThiefSetup
+///  • Online > Build Online Prefabs / Place In Level — сетевые копии и расстановка в уровне, см. MannequinNetworkSetup
 /// </summary>
 public static class MannequinSetup
 {
@@ -48,7 +49,9 @@ public static class MannequinSetup
     public static void PlaceMannequin()
     {
         if (!NotPlaying()) return;
-        GameObject prefab = BuildPrefab();
+        // Готовый префаб не пересобираем — иначе сбросятся настройки из Inspector (скорость и т.п.)
+        GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(PrefabPath);
+        if (prefab == null) prefab = BuildPrefab();
         if (prefab == null) return;
         SetupNavMesh();
 
