@@ -157,6 +157,16 @@ public static class ThiefSetup
         GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(ThiefPrefabPath);
         if (prefab == null) prefab = BuildThiefPrefab();
         if (prefab == null) return;
+        PlaceThiefInScene(prefab);
+    }
+
+    /// <summary>
+    /// Ставит Воришку (обычного или онлайн-префаб) в открытую сцену у гнезда и готовит сцену под него.
+    /// </summary>
+    public static GameObject PlaceThiefInScene(GameObject prefab)
+    {
+        // Воришке нужен NavMesh
+        if (Object.FindAnyObjectByType<Unity.AI.Navigation.NavMeshSurface>() == null) MannequinSetup.SetupNavMesh();
 
         Undo.IncrementCurrentGroup();
         Undo.SetCurrentGroupName("Place Thief");
@@ -183,7 +193,7 @@ public static class ThiefSetup
                 }
             }
         }
-        else Debug.LogWarning("[Thief] В сцене нет игрока (GrayboxPlayerController) — воровать будет не у кого.");
+        else Debug.Log("[Thief] В сцене нет игрока (GrayboxPlayerController). Для уровня онлайна это нормально — игроки появятся из лобби.");
 
         // 2) Вещи: коллайдеры в триггеры — подбор работает, а взгляд сквозь них проходит
         int triggers = 0;
@@ -238,6 +248,7 @@ public static class ThiefSetup
         EditorSceneManager.MarkSceneDirty(instance.scene);
         Debug.Log($"[Thief] Воришка поставлен в {pos}, гнездо {(nestCreated ? "создано" : "уже было")}: {nest.transform.position}. " +
                   $"Коллайдеров вещей переведено в триггеры: {triggers}. Сохрани сцену (Ctrl+S) и жми Play.", instance);
+        return instance;
     }
 
     // ------------------------------------------------------------------

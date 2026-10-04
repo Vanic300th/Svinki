@@ -107,6 +107,7 @@ MonoBehaviour:
   - {fileID: 4781052278370187538}
   maxViewDistance: 60
   screenMargin: 0.03
+  networkScreenMargin: 0.1
   unseenDelay: 0.2
   occluderLayers:
     serializedVersion: 2
@@ -156,7 +157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MannequinBrain
   target: {fileID: 0}
-  chaseSpeed: 2
+  chaseSpeed: 1.5
   searchSpeed: 2.2
   repathInterval: 0.1
   eyeHeight: 1.6
@@ -171,7 +172,7 @@ MonoBehaviour:
   searchDuration: 6
   searchRadius: 5
   lookAroundTime: 0.8
-  settleDuration: 0.15
+  settleDuration: 0.1
   settleSlide: 0.5
   attackRange: 1.3
   attackCooldown: 1

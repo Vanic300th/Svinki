@@ -50,7 +50,7 @@ public sealed class NetworkPickup : NetworkBehaviour
     private void Update()
     {
         // Сервер раздаёт то, что сделали с вещью (подобрали, Воришка унёс или положил в гнездо)
-        if (!IsServerStarted) return;
+        if (NetworkObject == null || !IsServerStarted) return;
         if (position.Value != transform.position) position.Value = transform.position;
         if (available.Value != item.IsAvailable) available.Value = item.IsAvailable;
     }

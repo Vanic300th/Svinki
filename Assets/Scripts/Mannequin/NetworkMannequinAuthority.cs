@@ -3,7 +3,8 @@ using UnityEngine;
 using UnityEngine.AI;
 
 /// <summary>
-/// Сталкер в онлайне: мозг, агент и видимость работают только на сервере, клиенты только показывают.
+/// Сталкер в онлайне: мозг, агент и видимость работают только на сервере, клиенты только показывают
+/// (позиция — NetworkTransform, анимация — NetworkMannequinAnimation).
 /// Видимость сервер считает сам (MannequinVisibility проверяет всех игроков своей комнаты по их взгляду),
 /// здесь только выбирается цель — ближайший игрок комнаты.
 /// </summary>
@@ -13,6 +14,7 @@ public sealed class NetworkMannequinAuthority : NetworkBehaviour
     private MannequinBrain brain;
     private MannequinVisibility visibility;
     private NavMeshAgent agent;
+    private Transform currentTarget;
 
     private void Awake()
     {
@@ -32,17 +34,21 @@ public sealed class NetworkMannequinAuthority : NetworkBehaviour
         }
     }
 
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+        // Копии комнат на сервере лежат друг на друге, а обход агентов в Unity общий на все сцены —
+        // без этого манекены разных комнат расталкивали бы друг друга
+        if (agent != null) agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
+    }
+
     private void Update()
     {
-        if (!IsServerInitialized) return;
-        NetworkPlayer closest = null;
-        float best = float.PositiveInfinity;
-        foreach (NetworkPlayer player in FindObjectsByType<NetworkPlayer>())
-        {
-            if (player.gameObject.scene != gameObject.scene) continue;
-            float distance = (player.transform.position - transform.position).sqrMagnitude;
-            if (distance < best) { best = distance; closest = player; }
-        }
-        brain.SetTarget(closest != null ? closest.transform : null);
+        if (NetworkObject == null || !IsServerInitialized) return;
+        PlayerAvatar closest = PlayerRegistry.Nearest(transform.position, gameObject.scene);
+        Transform next = closest != null ? closest.transform : null;
+        if (next == currentTarget) return;
+        currentTarget = next;
+        brain.SetTarget(next);
     }
 }

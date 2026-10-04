@@ -3,10 +3,15 @@ using UnityEngine;
 
 /// <summary>
 /// Только визуал манекена: бег/ходьба, «дотягивание» позы и замирание, атака, поворот головы.
-/// Решений не принимает — команды приходят из MannequinBrain.
+/// Решений не принимает — команды приходят из мозга (MannequinBrain, ThiefBrain).
+/// В онлайне мозг работает на сервере, а NetworkMannequinAnimation пересылает эти же команды клиентам
+/// (событие Commanded → Execute у клиентов), поэтому манекен выглядит у всех одинаково.
 /// </summary>
 public class MannequinAnimator : MonoBehaviour
 {
+    /// <summary>Команды визуалу — то, что пересылается по сети.</summary>
+    public enum Command : byte { None = 0, StartMoving = 1, Settle = 2, Freeze = 3, Attack = 4 }
+
     private static readonly int SpeedParam = Animator.StringToHash("Speed");
     private const string LocomotionState = "Locomotion";
 
@@ -33,6 +38,10 @@ public class MannequinAnimator : MonoBehaviour
     [Header("Атака")]
     [SerializeField] private string attackClip = "Punch_Cross";
 
+    [Header("Движение")]
+    [Tooltip("Скорость проигрывания ходьбы и бега (у маленьких манекенов ноги короче — им нужно быстрее)")]
+    [SerializeField] private float moveAnimationSpeed = 1f;
+
     [Header("Голова")]
     [Tooltip("Доворачивать голову к игроку в конце замирания. Выдаёт живого манекена, поэтому по умолчанию выключено")]
     [SerializeField] private bool turnHeadToPlayer = false;
@@ -50,6 +59,14 @@ public class MannequinAnimator : MonoBehaviour
     private bool hasRestState;
 
     public float AttackLength => GetLength(attackClip, 1f);
+    /// <summary>Последняя скорость движения, которую передал мозг (м/с, уже с поправками мозга).</summary>
+    public float MoveSpeed { get; private set; }
+    /// <summary>Скорость проигрывания ходьбы и бега.</summary>
+    public float MoveAnimationSpeed { get => moveAnimationSpeed; set => moveAnimationSpeed = value; }
+    /// <summary>Мозг отдал команду (для сети: сервер пересылает её клиентам). Второй параметр — длительность.</summary>
+    public event System.Action<Command, float> Commanded;
+
+    private bool hasCommand; // команда уже пришла — Start не должен сбивать её позой покоя
 
     private void Awake()
     {
@@ -72,6 +89,7 @@ public class MannequinAnimator : MonoBehaviour
 
     private void Start()
     {
+        if (hasCommand) return;
         if (randomFreezePoses && freezePoses.Length > 0)
         {
             string pose = freezePoses[Random.Range(0, freezePoses.Length)];
@@ -88,15 +106,30 @@ public class MannequinAnimator : MonoBehaviour
 
     public void SetMoveSpeed(float metersPerSecond)
     {
+        MoveSpeed = metersPerSecond;
         animator.SetFloat(SpeedParam, metersPerSecond, 0.1f, Time.deltaTime);
     }
 
     public void StartMoving()
     {
+        hasCommand = true;
         settling = false;
-        animator.speed = 1f;
+        animator.speed = moveAnimationSpeed;
         animator.CrossFadeInFixedTime(LocomotionState, 0.15f, 0);
         headWeightTarget = 0f;
+        Commanded?.Invoke(Command.StartMoving, 0f);
+    }
+
+    /// <summary>Выполнить команду, пришедшую по сети (клиент повторяет то, что решил сервер).</summary>
+    public void Execute(Command command, float duration)
+    {
+        switch (command)
+        {
+            case Command.StartMoving: StartMoving(); break;
+            case Command.Settle: BeginSettle(duration, null); break;
+            case Command.Freeze: Freeze(); break;
+            case Command.Attack: PlayAttack(); break;
+        }
     }
 
     /// <summary>
@@ -110,6 +143,8 @@ public class MannequinAnimator : MonoBehaviour
 
     public void BeginSettle(float duration, Transform lookAt, bool keepCurrentPose)
     {
+        hasCommand = true;
+        Commanded?.Invoke(Command.Settle, duration);
         settling = true;
         settleTimer = 0f;
         settleDuration = Mathf.Max(0.01f, duration);
@@ -144,6 +179,8 @@ public class MannequinAnimator : MonoBehaviour
 
     public void Freeze()
     {
+        hasCommand = true;
+        Commanded?.Invoke(Command.Freeze, 0f);
         settling = false;
         if (!randomFreezePoses && hasRestState)
             SnapToRestPose(); // ровно первый кадр Idle_Loop, одинаковый у всех манекенов
@@ -157,6 +194,8 @@ public class MannequinAnimator : MonoBehaviour
 
     public void PlayAttack()
     {
+        hasCommand = true;
+        Commanded?.Invoke(Command.Attack, 0f);
         settling = false;
         animator.speed = 1f;
         animator.CrossFadeInFixedTime(attackClip, 0.1f, 0);

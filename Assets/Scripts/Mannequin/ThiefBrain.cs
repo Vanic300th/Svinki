@@ -9,6 +9,8 @@ using UnityEngine.AI;
 ///  • Если на уровне брать нечего — подкрадывается к игроку и выхватывает одну собранную вещь.
 ///  • Если он замер с вещью, а игрок подошёл вплотную — роняет её под ноги.
 /// Здесь только решения. Позы, бег и замирание делает MannequinAnimator, как у сталкера.
+/// В онлайне мозг работает только на сервере (NetworkThief): клиентам уходят позиция, анимация
+/// (NetworkMannequinAnimation) и какую вещь он несёт (CarriedChanged → ShowCarried у клиентов).
 /// </summary>
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(MannequinVisibility))]
@@ -32,7 +34,7 @@ public class ThiefBrain : MonoBehaviour
     [SerializeField] private float runSpeed = 5.5f;
     [Tooltip("Масштаб тела (его ставит Build Thief Prefab). Скорость для анимации делится на него, чтобы короткие ноги перебирали чаще")]
     [SerializeField] private float bodyScale = 0.6f;
-    [Tooltip("Во сколько раз быстрее проигрывать бег, чтобы ноги меньше скользили")]
+    [Tooltip("Во сколько раз быстрее проигрывать бег, чтобы ноги меньше скользили (передаётся в MannequinAnimator)")]
     [SerializeField] private float runAnimationSpeed = 1.4f;
     [Tooltip("Как часто пересчитывать путь (сек)")]
     [SerializeField] private float repathInterval = 0.15f;
@@ -74,11 +76,12 @@ public class ThiefBrain : MonoBehaviour
     public Goal CurrentGoal { get; private set; } = Goal.None;
     /// <summary>Вещь, которую он сейчас несёт (null — руки пустые).</summary>
     public ClothingPickup Carried => carried;
+    /// <summary>Взял вещь или положил (null). Для сети: сервер сообщает клиентам, что показать в руках.</summary>
+    public event System.Action<ClothingDefinition> CarriedChanged;
 
     private NavMeshAgent agent;
     private MannequinVisibility visibility;
     private MannequinAnimator anim;
-    private Animator animator;
 
     private Vector3 nestPosition;
     private Vector3 goalPoint;
@@ -97,7 +100,8 @@ public class ThiefBrain : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         visibility = GetComponent<MannequinVisibility>();
         anim = GetComponent<MannequinAnimator>();
-        animator = GetComponentInChildren<Animator>();
+        // Awake работает и у выключенного мозга (на клиентах), так что бег у всех проигрывается одинаково
+        anim.MoveAnimationSpeed = runAnimationSpeed;
     }
 
     private void Start()
@@ -270,7 +274,6 @@ public class ThiefBrain : MonoBehaviour
 
         agent.speed = runSpeed;
         anim.SetMoveSpeed(agent.velocity.magnitude / Mathf.Max(0.1f, bodyScale));
-        if (animator != null) animator.speed = runAnimationSpeed;
 
         switch (CurrentGoal)
         {
@@ -324,7 +327,15 @@ public class ThiefBrain : MonoBehaviour
     {
         carried = pickup;
         stash.Remove(pickup);
-        carriedVisual = CreateCarriedVisual(pickup.Clothing);
+        ShowCarried(pickup.Clothing);
+        CarriedChanged?.Invoke(pickup.Clothing);
+    }
+
+    /// <summary>Показать вещь в руке (шапку — на голове). null — убрать. Клиенты в онлайне вызывают это по сигналу сервера.</summary>
+    public void ShowCarried(ClothingDefinition clothing)
+    {
+        if (carriedVisual != null) Destroy(carriedVisual);
+        carriedVisual = clothing != null ? CreateCarriedVisual(clothing) : null;
     }
 
     private void DropIfCornered()
@@ -338,8 +349,8 @@ public class ThiefBrain : MonoBehaviour
         if (carried == null) return;
         ClothingPickup item = carried;
         carried = null;
-        if (carriedVisual != null) Destroy(carriedVisual);
-        carriedVisual = null;
+        ShowCarried(null);
+        CarriedChanged?.Invoke(null);
 
         Vector3 point;
         if (intoNest)
