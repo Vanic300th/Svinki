@@ -105,17 +105,19 @@ public sealed class MannequinWardrobe : MonoBehaviour
         slotRoot.layer = 5; // Только камера портрета (UI).
         slotRoot.transform.SetParent(mannequinRoot, false);
         equipped[clothing.Slot] = slotRoot;
+        Transform movementSource = bound != null ? bound.transform : mannequinRoot;
 
         if (clothing is ShoesClothing shoes)
         {
             float halfGap = shoes.PairSpacing * 0.5f;
-            AddPiece(clothing, slotRoot.transform, clothing.DisplayCenter + Vector3.left * halfGap, true);
-            AddPiece(clothing, slotRoot.transform, clothing.DisplayCenter + Vector3.right * halfGap, false);
+            AddPiece(clothing, slotRoot.transform, clothing.DisplayCenter + Vector3.left * halfGap, true, movementSource);
+            AddPiece(clothing, slotRoot.transform, clothing.DisplayCenter + Vector3.right * halfGap, false, movementSource);
         }
-        else AddPiece(clothing, slotRoot.transform, clothing.DisplayCenter, false);
+        else AddPiece(clothing, slotRoot.transform, clothing.DisplayCenter, false, movementSource);
     }
 
-    private static void AddPiece(ClothingDefinition clothing, Transform parent, Vector3 center, bool mirror)
+    private static void AddPiece(ClothingDefinition clothing, Transform parent, Vector3 center, bool mirror,
+        Transform movementSource)
     {
         GameObject holder = new GameObject(clothing.DisplayName + (mirror ? " L" : ""));
         holder.layer = 5;
@@ -147,6 +149,10 @@ public sealed class MannequinWardrobe : MonoBehaviour
             outline.transform.localScale = fabric.transform.localScale;
             PrepareModel(outline, clothing.OutlineMaterial);
         }
+
+        if ((clothing.Slot == ClothingSlot.Torso || clothing.Slot == ClothingSlot.Legs) &&
+            clothing.FlutterStrength > 0f)
+            holder.AddComponent<WornClothFlutter>().Initialize(clothing.FlutterStrength, movementSource);
     }
 
     private static void PrepareModel(GameObject model, Material material)

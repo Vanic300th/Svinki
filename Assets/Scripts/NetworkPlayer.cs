@@ -12,12 +12,13 @@ public sealed class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
 {
     [SerializeField] private ClothingDefinition[] clothingCatalog;
 
-    // Что собрал игрок: id вещей (имена ClothingDefinition). Ведёт сервер, получает только владелец.
-    private readonly SyncList<string> wornClothing = new SyncList<string>(new SyncTypeSettings(ReadPermission.OwnerOnly));
+    // Надетые вещи видят все игроки в комнате; сервер остаётся единственным источником изменений.
+    private readonly SyncList<string> wornClothing = new SyncList<string>(new SyncTypeSettings(ReadPermission.Observers));
 
     private GrayboxPlayerController motor;
     private PlayerOutfit outfit;
     private MannequinWardrobe wardrobe;
+    private WorldOutfitRenderer worldOutfit;
     // Кадр камеры владельца: нужен серверу, чтобы считать, видит ли игрок манекена
     private float viewFieldOfView = 60f;
     private float viewAspect = 16f / 9f;
@@ -41,6 +42,7 @@ public sealed class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
         // Игрок для манекенов (PlayerAvatar) и его комплект (PlayerOutfit) — обычные компоненты, добавляем сами
         if (GetComponent<PlayerAvatar>() == null) gameObject.AddComponent<PlayerAvatar>();
         outfit = GetComponent<PlayerOutfit>();
+        worldOutfit = GetComponent<WorldOutfitRenderer>();
         wornClothing.OnChange += OnWornClothingChanged;
     }
 
@@ -49,6 +51,7 @@ public sealed class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
         base.OnStartServer();
         outfit.Changed += ServerSyncOutfit;
         outfit.Removed += ServerOutfitRemoved;
+        ServerSyncOutfit();
     }
 
     public override void OnStopServer()
@@ -61,6 +64,8 @@ public sealed class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
     public override void OnStartClient()
     {
         base.OnStartClient();
+        if (worldOutfit != null) worldOutfit.SetFirstPersonHidden(IsOwner);
+        ApplyWornClothing();
         if (IsOwner) StartCoroutine(BindLocalView());
     }
 
@@ -230,9 +235,12 @@ public sealed class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
 
     private ClothingDefinition FindInCatalog(string clothingId)
     {
-        if (clothingCatalog == null) return null;
-        foreach (ClothingDefinition definition in clothingCatalog)
-            if (definition != null && definition.name == clothingId) return definition;
+        if (clothingCatalog != null)
+            foreach (ClothingDefinition definition in clothingCatalog)
+                if (definition != null && definition.name == clothingId) return definition;
+        if (outfit != null)
+            foreach (ClothingDefinition definition in outfit.StartingItems)
+                if (definition.name == clothingId) return definition;
         return null;
     }
 

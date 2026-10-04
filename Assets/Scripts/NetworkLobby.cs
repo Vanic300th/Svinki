@@ -205,7 +205,7 @@ public sealed class NetworkLobby : MonoBehaviour
         if (Application.isBatchMode) return;
         if (playing)
         {
-            GUI.Box(new Rect(12, 12, 190, 32), "Комната: " + code);
+            GUI.Box(new Rect(12, 50, 190, 32), "Комната: " + code);
             return;
         }
 

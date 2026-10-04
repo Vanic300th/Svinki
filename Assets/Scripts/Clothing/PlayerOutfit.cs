@@ -4,13 +4,18 @@ using UnityEngine;
 
 /// <summary>
 /// Что игрок уже собрал: по одной вещи на слот (голова, торс, ноги, обувь).
-/// Только данные — картинку в HUD рисует MannequinWardrobe, он подписан на события.
-/// Воришка забирает вещи отсюда же, а в онлайне синхронизировать нужно будет только этот список.
+/// Только данные — картинку в HUD рисует MannequinWardrobe, а на персонаже WorldOutfitRenderer.
+/// Воришка забирает вещи отсюда же; в онлайне сервер синхронизирует комплект через NetworkPlayer.
 /// </summary>
 [DisallowMultipleComponent]
 public sealed class PlayerOutfit : MonoBehaviour
 {
     private static readonly int SlotCount = Enum.GetValues(typeof(ClothingSlot)).Length;
+
+    [SerializeField] private HatClothing startingHat;
+    [SerializeField] private ShirtClothing startingTop;
+    [SerializeField] private PantsClothing startingPants;
+    [SerializeField] private ShoesClothing startingShoes;
 
     private readonly Dictionary<ClothingSlot, ClothingDefinition> worn = new Dictionary<ClothingSlot, ClothingDefinition>();
 
@@ -25,6 +30,22 @@ public sealed class PlayerOutfit : MonoBehaviour
     public bool IsEmpty => worn.Count == 0;
     public bool IsComplete => worn.Count >= SlotCount;
     public IEnumerable<ClothingDefinition> Items => worn.Values;
+
+    public IEnumerable<ClothingDefinition> StartingItems
+    {
+        get
+        {
+            if (startingHat != null) yield return startingHat;
+            if (startingTop != null) yield return startingTop;
+            if (startingPants != null) yield return startingPants;
+            if (startingShoes != null) yield return startingShoes;
+        }
+    }
+
+    private void Awake()
+    {
+        foreach (ClothingDefinition clothing in StartingItems) Add(clothing);
+    }
 
     public bool Has(ClothingSlot slot) => worn.ContainsKey(slot);
 

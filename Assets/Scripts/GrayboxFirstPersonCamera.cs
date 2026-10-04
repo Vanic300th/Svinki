@@ -12,6 +12,15 @@ public class GrayboxFirstPersonCamera : MonoBehaviour
     private float pitch;
     private GrayboxPlayerController playerController;
 
+    private void Awake()
+    {
+        // Своя 3D-модель остаётся видимой зеркалу, но не закрывает обзор от первого лица.
+        int mirrorLayer = LayerMask.NameToLayer("LocalPlayerMirror");
+        Camera view = GetComponent<Camera>();
+        if (view != null && mirrorLayer >= 0)
+            view.cullingMask &= ~(1 << mirrorLayer);
+    }
+
     private void Start()
     {
         if (target != null)

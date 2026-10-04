@@ -12,6 +12,8 @@ public abstract class ClothingDefinition : ScriptableObject
     [SerializeField] private Vector3 displayCenter;
     [SerializeField] private Vector2 displaySize = Vector2.one;
     [SerializeField] private Vector3 displayRotation;
+    [SerializeField, Range(0f, 0.15f), Tooltip("Насколько колышется мягкая одежда на персонаже. 0 отключает эффект.")]
+    private float flutterStrength = 0.04f;
 
     public abstract ClothingSlot Slot { get; }
     public string DisplayName => displayName;
@@ -22,4 +24,5 @@ public abstract class ClothingDefinition : ScriptableObject
     public Vector3 DisplayCenter => displayCenter;
     public Vector2 DisplaySize => displaySize;
     public Vector3 DisplayRotation => displayRotation;
+    public float FlutterStrength => flutterStrength;
 }
