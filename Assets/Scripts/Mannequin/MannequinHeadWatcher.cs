@@ -5,6 +5,8 @@ using UnityEngine;
 /// Пока игрок на него не смотрит — поворачивает голову к игроку.
 /// Как только посмотрел — голова застывает там, где была (если двигалась, доли секунды «дотягивает»).
 /// Поза покоя приходит от MannequinAnimator (тот же кадр, что у обычных манекенов), голова крутится поверх неё.
+/// В онлайне решает сервер (видят ли его игроки комнаты, куда повернуться), а клиенты получают
+/// два угла головы через NetworkHeadWatcher (SetRemote / SetRemoteAngles) и скрип по сигналу.
 /// </summary>
 [RequireComponent(typeof(MannequinVisibility))]
 [DefaultExecutionOrder(200)] // после MannequinVisibility (100): видимость этого кадра уже посчитана
@@ -20,7 +22,7 @@ public class MannequinHeadWatcher : MonoBehaviour
     [Range(0f, 0.8f)] [SerializeField] private float neckShare = 0.35f;
 
     [Header("Куда смотреть")]
-    [Tooltip("Пусто = камера игрока (глаза)")]
+    [Tooltip("Пусто = глаза ближайшего игрока этой комнаты")]
     [SerializeField] private Transform lookTarget;
     [Tooltip("Дальше этой дистанции не реагирует на игрока")]
     [SerializeField] private float reactDistance = 15f;
@@ -55,6 +57,13 @@ public class MannequinHeadWatcher : MonoBehaviour
 
     /// <summary>Голова сейчас двигается.</summary>
     public bool IsTurning { get; private set; }
+    /// <summary>Текущий поворот головы: x — влево/вправо, y — вверх/вниз (градусы, в осях тела).</summary>
+    public Vector2 Angles => new Vector2(yaw, pitch);
+    /// <summary>Голова тронулась со скрипом (для сети: сервер шлёт сигнал клиентам).</summary>
+    public event System.Action Creaked;
+
+    private bool remote;
+    private Vector2 remoteAngles;
 
     private MannequinVisibility visibility;
     private AudioSource audioSource;
@@ -98,8 +107,29 @@ public class MannequinHeadWatcher : MonoBehaviour
             restCached = true;
         }
 
-        UpdateAngles();
+        if (remote) UpdateRemote();
+        else UpdateAngles();
         ApplyHead();
+    }
+
+    // ---------- Онлайн (клиент) ----------
+
+    /// <summary>Клиент в онлайне: голову поворачивает сервер, сами не решаем.</summary>
+    public void SetRemote(bool value) => remote = value;
+
+    /// <summary>Углы головы, пришедшие с сервера.</summary>
+    public void SetRemoteAngles(Vector2 angles) => remoteAngles = angles;
+
+    /// <summary>Скрип шеи по сигналу с сервера.</summary>
+    public void PlayCreakRemote() => PlayCreak();
+
+    private void UpdateRemote()
+    {
+        // Сглаживаем между обновлениями с сервера (они приходят ~20 раз в секунду)
+        float remaining = Mathf.Abs(remoteAngles.x - yaw) + Mathf.Abs(remoteAngles.y - pitch);
+        yaw = Mathf.SmoothDamp(yaw, remoteAngles.x, ref yawVel, 0.06f);
+        pitch = Mathf.SmoothDamp(pitch, remoteAngles.y, ref pitchVel, 0.06f);
+        IsTurning = remaining > 0.5f;
     }
 
     // ---------- Куда и когда поворачивать ----------
@@ -149,6 +179,7 @@ public class MannequinHeadWatcher : MonoBehaviour
         {
             creakPlayed = true;
             PlayCreak();
+            Creaked?.Invoke();
         }
     }
 
@@ -178,6 +209,9 @@ public class MannequinHeadWatcher : MonoBehaviour
     private Vector3 LookPoint()
     {
         if (lookTarget != null) return lookTarget.position;
+        // Глаза ближайшего игрока своей комнаты (в онлайне на сервере их несколько)
+        PlayerAvatar player = PlayerRegistry.Nearest(transform.position, gameObject.scene);
+        if (player != null) return player.EyePosition;
         Camera cam = visibility.ObserverCamera != null ? visibility.ObserverCamera : Camera.main;
         return cam != null ? cam.transform.position : headBone.position + transform.forward;
     }

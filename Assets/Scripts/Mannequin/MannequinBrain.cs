@@ -71,6 +71,7 @@ public class MannequinBrain : MonoBehaviour
     private MannequinAnimator anim;
     private Camera playerCamera;
     private GrayboxPlayerController playerController;
+    private PlayerAvatar targetAvatar;
     private readonly RaycastHit[] hits = new RaycastHit[16];
 
     private float stateTimer, repathTimer, lastAttackEnd = -999f;
@@ -91,11 +92,12 @@ public class MannequinBrain : MonoBehaviour
 
         if (target == null)
         {
-            var player = FindAnyObjectByType<GrayboxPlayerController>();
-            if (player != null) target = player.transform;
-            else if (playerCamera != null) target = playerCamera.transform;
+            // Игрок своей сцены (в онлайне у каждой комнаты на сервере своя копия уровня)
+            foreach (GrayboxPlayerController player in FindObjectsByType<GrayboxPlayerController>())
+                if (player.gameObject.scene == gameObject.scene) { target = player.transform; break; }
+            if (target == null && playerCamera != null) target = playerCamera.transform;
         }
-        if (target != null) playerController = target.GetComponent<GrayboxPlayerController>();
+        SetTarget(target);
     }
 
     private void Start()
@@ -162,6 +164,7 @@ public class MannequinBrain : MonoBehaviour
     {
         target = value;
         playerController = target != null ? target.GetComponent<GrayboxPlayerController>() : null;
+        targetAvatar = target != null ? target.GetComponent<PlayerAvatar>() : null;
     }
 
     // ---------- Что манекен знает об игроке ----------
@@ -197,7 +200,11 @@ public class MannequinBrain : MonoBehaviour
             ? Mathf.Lerp(playerBodyHeight, Mathf.Min(playerBodyHeight, 0.45f), playerController.CrouchAmount)
             : playerBodyHeight;
         if (HasClearLine(eye, target.position + Vector3.up * bodyHeight)) return true; // тело игрока
-        if (seePlayerHead && playerCamera != null && HasClearLine(eye, playerCamera.transform.position)) return true; // голова
+        if (seePlayerHead) // голова
+        {
+            if (targetAvatar != null) return HasClearLine(eye, targetAvatar.EyePosition);
+            if (playerCamera != null) return HasClearLine(eye, playerCamera.transform.position);
+        }
         return false;
     }
 
@@ -207,7 +214,8 @@ public class MannequinBrain : MonoBehaviour
         float dist = dir.magnitude;
         if (dist < 0.01f) return true;
 
-        int count = Physics.RaycastNonAlloc(from, dir / dist, hits, dist - 0.05f, sightBlockers, QueryTriggerInteraction.Ignore);
+        // Физика своей сцены: в онлайне у каждой комнаты на сервере она отдельная
+        int count = gameObject.scene.GetPhysicsScene().Raycast(from, dir / dist, hits, dist - 0.05f, sightBlockers, QueryTriggerInteraction.Ignore);
         for (int i = 0; i < count; i++)
         {
             Transform t = hits[i].collider.transform;
