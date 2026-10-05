@@ -837,6 +837,7 @@ PlayerSettings:
   webProgressiveAssetLoading: 0
   scriptingDefineSymbols:
     Standalone: FISHNET;FISHNET_V4
+    WebGL: EOS_DISABLE
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:

@@ -18,6 +18,7 @@ public class PlayerPickupInteractor : MonoBehaviour
 
     private void Update()
     {
+        if (NetworkLobby.Instance != null && !NetworkLobby.Instance.InputAllowed) { if (target != null) target.SetTargeted(false); target = null; return; }
         PickupItem next = null;
         Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
         var physicsScene = localPlayer != null ? localPlayer.gameObject.scene.GetPhysicsScene() : gameObject.scene.GetPhysicsScene();
@@ -46,6 +47,7 @@ public class PlayerPickupInteractor : MonoBehaviour
 
     private void OnGUI()
     {
+        if (NetworkLobby.Instance != null && !NetworkLobby.Instance.InputAllowed) return;
         if (crosshairStyle == null)
         {
             crosshairStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, fontSize = 22 };

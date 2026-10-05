@@ -74,7 +74,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24344d91fb5524578882c680b0fdf0fb, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GrayboxPlayerController
   cameraTransform: {fileID: 0}
   moveSpeed: 7
@@ -94,7 +94,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: FishNet.Runtime::FishNet.Object.NetworkObject
   _localLevelOfDetailCalculationType: 0
   _useLevelOfDetail: 0
@@ -138,7 +138,7 @@ MonoBehaviour:
   _isSpawnable: 1
   _isGlobal: 0
   _initializeOrder: 0
-  _preventDespawnOnDisconnect: 0
+  _preventDespawnOnDisconnect: 1
   _defaultDespawnType: 0
   _initializedTimestamp: 0
 --- !u!114 &5008174764132338154
@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: FishNet.Runtime::FishNet.Component.Transforming.NetworkTransform
   _componentIndexCache: 255
   _addedNetworkObject: {fileID: 5688460071793996313}
@@ -167,8 +167,8 @@ MonoBehaviour:
   _extrapolation: 2
   _enableTeleport: 0
   _teleportThreshold: 1
-  _clientAuthoritative: 0
-  _sendToOwner: 1
+  _clientAuthoritative: 1
+  _sendToOwner: 0
   _interval: 1
   _synchronizePosition: 1
   _positionSensitivity: 0.001
@@ -197,7 +197,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 25e128fecea30498483f6f525a789448, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NetworkPlayer
   _componentIndexCache: 255
   _addedNetworkObject: {fileID: 5688460071793996313}
@@ -218,7 +218,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 396141612ec55024795d10b9ee13065a, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerOutfit
   startingHat: {fileID: 0}
   startingTop: {fileID: 0}
@@ -234,7 +234,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7ad4fe84ee894ffda1d37e60a037642e, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WorldOutfitRenderer
   characterVisual: {fileID: 4781253880562638468}
 --- !u!1001 &5030754357069068655
@@ -303,15 +303,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1676831429412873536, guid: b074d170c03524b76aecc5626a554fd8, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
-      value:
+      value: 
       objectReference: {fileID: 2100000, guid: 7679814e250b748d3872139c0d2cbf2f, type: 2}
     - target: {fileID: 1676831429412873536, guid: b074d170c03524b76aecc5626a554fd8, type: 3}
       propertyPath: 'm_Materials.Array.data[1]'
-      value:
+      value: 
       objectReference: {fileID: 2100000, guid: 7679814e250b748d3872139c0d2cbf2f, type: 2}
     - target: {fileID: 5866666021909216657, guid: b074d170c03524b76aecc5626a554fd8, type: 3}
       propertyPath: m_Controller
-      value:
+      value: 
       objectReference: {fileID: 9100000, guid: 9968d0e960d44e443b42c8ff95bad62e, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

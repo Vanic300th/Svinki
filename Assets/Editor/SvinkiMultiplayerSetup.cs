@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.IO;
+using System.Linq;
 using FishNet.Component.Spawning;
 using FishNet.Component.Transforming;
 using FishNet.Managing;
@@ -153,10 +154,36 @@ public static class SvinkiMultiplayerSetup
             scenes = new[] { LobbyScene, GameScene },
             locationPathName = destination,
             target = BuildTarget.StandaloneOSX,
-            options = BuildOptions.Development
+            options = BuildOptions.Development,
+            extraScriptingDefines = new[] { "EOS_DISABLE" } // Local integration test needs no EOS credentials.
         };
-        var report = BuildPipeline.BuildPlayer(options);
-        Debug.Log($"Mac test client: {report.summary.result}, {destination}");
+        var namedTarget = UnityEditor.Build.NamedBuildTarget.Standalone;
+        string previous = PlayerSettings.GetScriptingDefineSymbols(namedTarget);
+        if (!previous.Split(';').Contains("EOS_DISABLE"))
+        {
+            // The EOS config validator has no runtime EOS_DISABLE guard; reload its editor assembly first.
+            SessionState.SetString("Svinki.LocalBuild.PreviousDefines", previous);
+            SessionState.SetBool("Svinki.LocalBuild.Pending", true);
+            PlayerSettings.SetScriptingDefineSymbols(namedTarget, previous + ";EOS_DISABLE");
+            return;
+        }
+        SessionState.SetBool("Svinki.LocalBuild.Pending", false);
+        string restore = SessionState.GetString("Svinki.LocalBuild.PreviousDefines", previous);
+        try
+        {
+            var report = BuildPipeline.BuildPlayer(options);
+            Debug.Log($"Mac local test client: {report.summary.result}, {destination}");
+            if (report.summary.result != UnityEditor.Build.Reporting.BuildResult.Succeeded)
+                throw new System.InvalidOperationException("Local test build failed.");
+        }
+        finally { PlayerSettings.SetScriptingDefineSymbols(namedTarget, restore); }
+    }
+
+    [InitializeOnLoadMethod]
+    private static void ContinueLocalBuild()
+    {
+        if (SessionState.GetBool("Svinki.LocalBuild.Pending", false))
+            EditorApplication.delayCall += BuildMacTestClient;
     }
 
     private static void SetServerAuthority(NetworkTransform component)

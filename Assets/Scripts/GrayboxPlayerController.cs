@@ -35,8 +35,9 @@ public class GrayboxPlayerController : MonoBehaviour
 
     private void Update()
     {
-        // NetworkPlayer feeds this motor only on the server.
+        // NetworkPlayer drives the owning client; remote transforms arrive through FishNet.
         if (GetComponent<NetworkPlayer>() != null) return;
+        if (NetworkLobby.Instance != null && !NetworkLobby.Instance.InputAllowed) return;
         if (Keyboard.current == null || cameraTransform == null)
             return;
 
@@ -81,6 +82,12 @@ public class GrayboxPlayerController : MonoBehaviour
         bool sprinting = !isCrouching && sprint;
         float speed = isCrouching ? crouchSpeed : sprinting ? sprintSpeed : moveSpeed;
         characterController.Move((movement * speed + Vector3.up * verticalSpeed) * deltaTime);
+    }
+
+    public void SetRemoteStance(float amount)
+    {
+        characterController.height = Mathf.Lerp(standingHeight, Mathf.Min(crouchHeight, standingHeight), Mathf.Clamp01(amount));
+        characterController.center = standingCenter + Vector3.up * ((characterController.height - standingHeight) * .5f);
     }
 
     public void SetCamera(Transform value) => cameraTransform = value;

@@ -1,0 +1,184 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using TMPro;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem.UI;
+
+public sealed class SessionMenu : MonoBehaviour
+{
+    private NetworkLobby lobby;
+    private GameObject panel;
+    private TMP_Text status, title, roster;
+    private TMP_InputField nickname, code;
+    private readonly List<GameObject> controls = new List<GameObject>();
+    private TMP_FontAsset font;
+    private string layoutKey;
+    private EventSystem sessionEvents;
+    private void Start()
+    {
+        lobby = GetComponent<NetworkLobby>();
+        var eventSystem = FindAnyObjectByType<EventSystem>();
+        if (eventSystem == null)
+        {
+            var events = new GameObject("Session EventSystem"); events.transform.SetParent(transform);
+            events.AddComponent<EventSystem>(); events.AddComponent<InputSystemUIInputModule>();
+        }
+        else if (eventSystem.GetComponent<InputSystemUIInputModule>() == null)
+        {
+            var legacy = eventSystem.GetComponent<StandaloneInputModule>(); if (legacy != null) Destroy(legacy);
+            eventSystem.gameObject.AddComponent<InputSystemUIInputModule>();
+        }
+        sessionEvents = FindAnyObjectByType<EventSystem>();
+        UnityEngine.SceneManagement.SceneManager.sceneLoaded += OnSceneLoaded;
+        font = TMP_FontAsset.CreateFontAsset(lobby.MenuFont);
+        font.name = "Session dynamic font";
+        var canvasObject = new GameObject("Session Canvas", typeof(RectTransform), typeof(Canvas), typeof(UnityEngine.UI.CanvasScaler), typeof(UnityEngine.UI.GraphicRaycaster));
+        canvasObject.transform.SetParent(transform, false);
+        canvasObject.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
+        canvasObject.GetComponent<Canvas>().sortingOrder = 100;
+        var scaler = canvasObject.GetComponent<UnityEngine.UI.CanvasScaler>();
+        scaler.uiScaleMode = UnityEngine.UI.CanvasScaler.ScaleMode.ScaleWithScreenSize;
+        scaler.referenceResolution = new Vector2(1920, 1080); scaler.matchWidthOrHeight = .5f;
+        panel = new GameObject("Lobby panel", typeof(RectTransform), typeof(UnityEngine.UI.Image));
+        panel.transform.SetParent(canvasObject.transform, false);
+        RectTransform rect = panel.GetComponent<RectTransform>(); rect.anchorMin = rect.anchorMax = new Vector2(.5f, .5f);
+        rect.sizeDelta = new Vector2(900, 970);
+        panel.GetComponent<UnityEngine.UI.Image>().color = new Color(.04f, .055f, .085f, .98f);
+        title = Label("SVINKI", 52, 44, 800, 64, 38);
+        status = Label("", 52, 114, 800, 110, 24);
+        nickname = Input("Никнейм", 52, 230, 385, lobby.Nickname, 24);
+        code = Input("Код друга", 460, 230, 385, "", 6);
+        nickname.onEndEdit.AddListener(value => lobby.Nickname = value);
+        code.onValueChanged.AddListener(value => { if (value != value.ToUpperInvariant()) code.SetTextWithoutNotify(value.ToUpperInvariant()); });
+        roster = Label("", 52, 305, 800, 285, 26);
+        lobby.Changed += Refresh;
+        Refresh();
+    }
+    private void OnDestroy()
+    {
+        UnityEngine.SceneManagement.SceneManager.sceneLoaded -= OnSceneLoaded;
+        if (lobby != null) lobby.Changed -= Refresh;
+        if (font != null) Destroy(font);
+    }
+    private void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, UnityEngine.SceneManagement.LoadSceneMode mode)
+    {
+        foreach (EventSystem events in FindObjectsByType<EventSystem>(FindObjectsSortMode.None))
+            if (events != sessionEvents) { events.enabled = false; foreach (var module in events.GetComponents<BaseInputModule>()) module.enabled = false; }
+    }
+    private void Update()
+    {
+        if (panel != null) panel.SetActive(lobby.MenuVisible || !lobby.InSession && !lobby.Offline);
+    }
+    private void Refresh()
+    {
+        if (panel == null) return;
+        var snapshot = lobby.Snapshot;
+        title.text = lobby.Offline ? "SVINKI — одиночная игра" : lobby.InSession ? "ЛОББИ  " + snapshot.code : "SVINKI — игра с друзьями";
+        status.text = lobby.Status;
+        nickname.gameObject.SetActive(!lobby.InSession && !lobby.Offline && !lobby.Busy);
+        code.gameObject.SetActive(nickname.gameObject.activeSelf);
+        roster.text = string.Join("\n", snapshot.players.Select(p =>
+            (p.id == snapshot.host ? "Хост: " : "• ") + p.nickname + (p.id == lobby.Identity ? " (вы)" : "") + " — " +
+            (!p.connected ? "восстанавливает связь" : p.spectator ? "зритель" : p.ready ? "готов" : "не готов"))) +
+            (lobby.InSession ? "\n\nМест: " + snapshot.players.Length + "/6  ·  Раунд " + snapshot.round +
+             (snapshot.closed ? "  ·  Вход закрыт" : "  ·  Вход открыт") : "");
+        string key = snapshot.phase + ":" + lobby.IsHost + ":" + lobby.Busy + ":" + lobby.Offline + ":" +
+            string.Join(",", snapshot.players.Select(p => p.id + p.ready + p.connected)) + ":" + snapshot.closed;
+        if (key == layoutKey) return;
+        layoutKey = key;
+        foreach (GameObject control in controls) Destroy(control); controls.Clear();
+        int row = 0;
+        void Add(string label, Action action, bool enabled = true)
+        {
+            var button = Button(label, 52, 605 + row++ * 60, 795, action); button.interactable = enabled; controls.Add(button.gameObject);
+        }
+        if (lobby.Busy) { Add("Отменить подключение", lobby.Cancel); return; }
+        if (lobby.Offline) { Add("Вернуться в игру", Resume); Add("Выйти в меню", lobby.Leave); return; }
+        if (!lobby.InSession)
+        {
+#if !UNITY_WEBGL
+            Add("Создать лобби", () => { lobby.Nickname = nickname.text; lobby.CreateOnline(); });
+            Add("Продолжить с контрольной точки", () => { lobby.Nickname = nickname.text; lobby.CreateOnline(true); });
+            Add("Войти по коду", () => { lobby.Nickname = nickname.text; lobby.JoinOnline(code.text); });
+#endif
+            Add("Играть одному", lobby.StartOffline);
+#if UNITY_EDITOR || DEBUG
+            Add("Локальный тест: хост / клиент — F8 / F9", () => lobby.Report("В редакторе: F8 — хост, F9 — клиент на localhost; нужен второй экземпляр игры."));
+#endif
+            return;
+        }
+        if (snapshot.phase == SessionPhase.Lobby)
+        {
+            var self = snapshot.players.FirstOrDefault(p => p.id == lobby.Identity);
+            Add(self?.ready == true ? "Отменить готовность" : "Готов", () => lobby.Ready(self?.ready != true));
+            if (lobby.IsHost) Add("Начать раунд", lobby.StartRound, snapshot.players.Length > 0 && snapshot.players.All(p => p.ready && p.connected));
+        }
+        else if (snapshot.phase == SessionPhase.Round)
+        {
+            Add(lobby.IsSpectator ? "Продолжить наблюдение" : "Вернуться в игру", Resume);
+            if (lobby.IsHost) Add("Завершить раунд", lobby.EndRound);
+        }
+        Add("Скопировать код: " + snapshot.code, () => { GUIUtility.systemCopyBuffer = snapshot.code; lobby.Report("Код скопирован: " + snapshot.code); });
+        if (lobby.IsHost) Add(snapshot.closed ? "Открыть вход" : "Закрыть вход", lobby.ToggleAdmission);
+        Add(lobby.IsHost ? "Завершить сессию" : "Выйти из сессии", lobby.Leave);
+        if (lobby.IsHost)
+        {
+            int n = 0;
+            foreach (var player in snapshot.players.Where(p => p.id != snapshot.host))
+            {
+                string id = player.id;
+                var button = Button("× " + player.nickname, 600, 315 + n++ * 44, 245, () => lobby.Kick(id), 38);
+                controls.Add(button.gameObject);
+            }
+        }
+    }
+    private void Resume()
+    {
+        lobby.MenuVisible = false; Cursor.lockState = CursorLockMode.Locked; Cursor.visible = false;
+    }
+    private RectTransform Rect(string name, Transform parent, float x, float y, float width, float height)
+    {
+        var obj = new GameObject(name, typeof(RectTransform)); obj.transform.SetParent(parent, false);
+        var rect = obj.GetComponent<RectTransform>(); rect.anchorMin = rect.anchorMax = new Vector2(0, 1);
+        rect.pivot = new Vector2(0, 1); rect.anchoredPosition = new Vector2(x, -y); rect.sizeDelta = new Vector2(width, height);
+        return rect;
+    }
+    private TMP_Text Label(string text, float x, float y, float width, float height, float size, Transform parent = null)
+    {
+        var rect = Rect("Text", parent ?? panel.transform, x, y, width, height);
+        var label = rect.gameObject.AddComponent<TextMeshProUGUI>(); label.font = font; label.fontSize = size;
+        label.text = text; label.color = Color.white; label.richText = false; label.raycastTarget = false;
+        return label;
+    }
+    private UnityEngine.UI.Button Button(string text, float x, float y, float width, Action action, float height = 50)
+    {
+        var rect = Rect(text, panel.transform, x, y, width, height);
+        var image = rect.gameObject.AddComponent<UnityEngine.UI.Image>(); image.color = new Color(.16f, .26f, .36f);
+        var button = rect.gameObject.AddComponent<UnityEngine.UI.Button>(); button.targetGraphic = image;
+        var label = Label(text, 12, 5, width - 24, height - 10, 25, rect); label.alignment = TextAlignmentOptions.Center;
+        button.onClick.AddListener(() => action()); return button;
+    }
+    private TMP_InputField Input(string placeholder, float x, float y, float width, string value, int limit)
+    {
+        var rect = Rect(placeholder, panel.transform, x, y, width, 60);
+        rect.gameObject.AddComponent<UnityEngine.UI.Image>().color = new Color(.1f, .15f, .22f);
+        var viewport = Rect("Viewport", rect, 12, 8, width - 24, 44);
+        viewport.gameObject.AddComponent<UnityEngine.UI.RectMask2D>();
+        var text = Label("", 0, 0, width - 24, 44, 26, viewport);
+        var hint = Label(placeholder, 0, 0, width - 24, 44, 26, viewport); hint.color = new Color(.6f, .65f, .7f);
+        var input = rect.gameObject.AddComponent<TMP_InputField>(); input.textViewport = viewport;
+        input.textComponent = (TextMeshProUGUI)text; input.placeholder = hint; input.characterLimit = limit; input.text = value;
+        return input;
+    }
+#if UNITY_EDITOR || DEBUG
+    private void LateUpdate()
+    {
+        var keyboard = UnityEngine.InputSystem.Keyboard.current;
+        if (keyboard == null || lobby == null || lobby.InSession || lobby.Busy) return;
+        if (keyboard.f8Key.wasPressedThisFrame) lobby.DebugHost();
+        if (keyboard.f9Key.wasPressedThisFrame) lobby.DebugJoin();
+    }
+#endif
+}

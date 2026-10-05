@@ -112,3 +112,8 @@ InitTestScene*.unity*
 
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
+
+# Local EOS client configuration (copy the template in Docs)
+/Assets/StreamingAssets/svinki-eos.json
+/Assets/StreamingAssets/svinki-eos.json.meta
+/Assets/StreamingAssets/EOS/

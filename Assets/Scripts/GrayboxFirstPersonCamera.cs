@@ -33,18 +33,7 @@ public class GrayboxFirstPersonCamera : MonoBehaviour
     {
         if (target == null) return;
 
-        if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        }
-        else if (Cursor.lockState != CursorLockMode.Locked && Mouse.current != null &&
-                 Mouse.current.leftButton.wasPressedThisFrame)
-        {
-            LockCursor();
-        }
-
-        if (Cursor.lockState == CursorLockMode.Locked && Mouse.current != null)
+        if ((NetworkLobby.Instance == null || NetworkLobby.Instance.InputAllowed) && Cursor.lockState == CursorLockMode.Locked && Mouse.current != null)
         {
             Vector2 delta = Mouse.current.delta.ReadValue();
             yaw += delta.x * mouseSensitivity;
@@ -57,6 +46,8 @@ public class GrayboxFirstPersonCamera : MonoBehaviour
         transform.position = target.position + Vector3.up * Mathf.Lerp(eyeHeight, crouchEyeHeight, crouchAmount);
         transform.rotation = Quaternion.Euler(pitch, yaw, 0f);
     }
+
+    public void SetSpectatorMode() { target = null; playerController = null; }
 
     public void SetTarget(Transform value)
     {

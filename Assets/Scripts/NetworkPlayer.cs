@@ -31,7 +31,36 @@ public sealed class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
     private float pitch;
     private bool sprint;
     private bool crouch;
-    private bool jumpQueued;
+    private float nextPoseSend;
+    private readonly SyncVar<string> participantId = new SyncVar<string>();
+    private readonly SyncVar<string> participantName = new SyncVar<string>();
+    private readonly SyncVar<PlayerPose> pose = new SyncVar<PlayerPose>();
+    private Light remoteFlashlight;
+    public string ParticipantId => participantId.Value;
+    public string ParticipantName => participantName.Value;
+    public bool FlashlightOn => pose.Value.Flashlight;
+    public void SetIdentity(string id, string nickname) { participantId.Value = id; participantName.Value = nickname; }
+    public void RestoreOutfit(string[] ids)
+    {
+        var items = new List<ClothingDefinition>();
+        foreach (string id in ids) { var item = FindInCatalog(id); if (item != null) items.Add(item); }
+        GetComponent<PlayerOutfit>().SetItems(items);
+    }
+    public void FreezeDisconnected() { move = Vector2.zero; sprint = false; }
+    public override void OnOwnershipClient(NetworkConnection previousOwner)
+    {
+        base.OnOwnershipClient(previousOwner);
+        if (worldOutfit != null) worldOutfit.SetFirstPersonHidden(IsOwner);
+        if (IsOwner) StartCoroutine(BindLocalView()); else UnbindLocalView();
+    }
+    private void UnbindLocalView()
+    {
+        if (view == null) return;
+        view.SetTarget(null);
+        if (interactor != null) { interactor.SetLocalPlayer(null); interactor.enabled = false; }
+        if (wardrobe != null) wardrobe.Bind(null);
+        view = null; interactor = null;
+    }
 
     public float ViewYaw => yaw;
     public float ViewPitch => pitch;
@@ -39,6 +68,10 @@ public sealed class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
     private void Awake()
     {
         motor = GetComponent<GrayboxPlayerController>();
+        GameObject lamp = new GameObject("Remote flashlight"); lamp.transform.SetParent(transform, false);
+        remoteFlashlight = lamp.AddComponent<Light>(); remoteFlashlight.type = LightType.Spot;
+        remoteFlashlight.range = 18f; remoteFlashlight.spotAngle = 58f; remoteFlashlight.intensity = 2f;
+        remoteFlashlight.enabled = false;
         // Игрок для манекенов (PlayerAvatar) и его комплект (PlayerOutfit) — обычные компоненты, добавляем сами
         if (GetComponent<PlayerAvatar>() == null) gameObject.AddComponent<PlayerAvatar>();
         outfit = GetComponent<PlayerOutfit>();
@@ -71,11 +104,12 @@ public sealed class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
 
     private IEnumerator BindLocalView()
     {
-        while (Camera.main == null) yield return null;
+        while (Camera.main == null) { if (!IsOwner) yield break; yield return null; }
+        if (!IsOwner) yield break;
         view = Camera.main.GetComponent<GrayboxFirstPersonCamera>();
         interactor = Camera.main.GetComponent<PlayerPickupInteractor>();
         if (view != null) view.SetTarget(transform);
-        if (interactor != null) interactor.SetLocalPlayer(this);
+        if (interactor != null) { interactor.SetLocalPlayer(this); interactor.enabled = true; }
         // HUD-манекен своей комнаты показывает комплект этого игрока
         wardrobe = FindWardrobe();
         if (wardrobe != null) wardrobe.Bind(outfit);
@@ -85,13 +119,7 @@ public sealed class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
 
     public override void OnStopClient()
     {
-        if (IsOwner)
-        {
-            if (view != null) view.SetTarget(null);
-            if (interactor != null) interactor.SetLocalPlayer(null);
-            if (wardrobe != null) wardrobe.Bind(null);
-            NetworkLobby.Instance?.SetPlaying(false);
-        }
+        UnbindLocalView();
         base.OnStopClient();
     }
 
@@ -99,43 +127,44 @@ public sealed class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
     {
         if (IsOwner && view != null && Keyboard.current != null)
         {
-            Vector2 input = GrayboxPlayerController.ReadMoveInput();
-            float lookYaw = view.transform.eulerAngles.y;
-            float lookPitch = view.transform.eulerAngles.x;
-            bool isSprinting = Keyboard.current.leftShiftKey.isPressed || Keyboard.current.rightShiftKey.isPressed;
-            bool isCrouching = Keyboard.current.leftCtrlKey.isPressed || Keyboard.current.rightCtrlKey.isPressed;
-            bool jump = Keyboard.current.spaceKey.wasPressedThisFrame;
-            SubmitInputServerRpc(input, lookYaw, lookPitch, isSprinting, isCrouching, jump);
-
-            // Угол обзора и пропорции экрана меняются редко — шлём, только когда изменились
-            Camera camera = view.GetComponent<Camera>();
-            if (camera != null && (Mathf.Abs(camera.fieldOfView - sentFieldOfView) > 0.5f ||
-                                   Mathf.Abs(camera.aspect - sentAspect) > 0.01f))
+            bool allowed = NetworkLobby.Instance == null || NetworkLobby.Instance.InputAllowed;
+            move = allowed ? GrayboxPlayerController.ReadMoveInput() : Vector2.zero;
+            yaw = view.transform.eulerAngles.y; pitch = Mathf.DeltaAngle(0f, view.transform.eulerAngles.x);
+            sprint = allowed && (Keyboard.current.leftShiftKey.isPressed || Keyboard.current.rightShiftKey.isPressed);
+            crouch = allowed && (Keyboard.current.leftCtrlKey.isPressed || Keyboard.current.rightCtrlKey.isPressed);
+            motor.Simulate(move, yaw, allowed && Keyboard.current.spaceKey.wasPressedThisFrame, sprint, crouch, Time.deltaTime);
+            if (Time.unscaledTime >= nextPoseSend)
             {
-                sentFieldOfView = camera.fieldOfView;
-                sentAspect = camera.aspect;
+                nextPoseSend = Time.unscaledTime + .05f;
+                bool lightOn = view.GetComponent<FlashlightController>()?.IsOn ?? true;
+                SubmitPoseServerRpc(new PlayerPose { Yaw = yaw, Pitch = pitch, Crouch = motor.CrouchAmount, Flashlight = lightOn });
+            }
+            Camera camera = view.GetComponent<Camera>();
+            if (camera != null && (Mathf.Abs(camera.fieldOfView - sentFieldOfView) > .5f || Mathf.Abs(camera.aspect - sentAspect) > .01f))
+            {
+                sentFieldOfView = camera.fieldOfView; sentAspect = camera.aspect;
                 SubmitViewServerRpc(sentFieldOfView, sentAspect);
             }
         }
-
-        if (IsServerStarted)
+        else
         {
-            motor.Simulate(move, yaw, jumpQueued, sprint, crouch, Time.deltaTime);
-            jumpQueued = false;
+            yaw = pose.Value.Yaw; pitch = pose.Value.Pitch;
+            motor.SetRemoteStance(pose.Value.Crouch);
+        }
+        if (remoteFlashlight != null)
+        {
+            remoteFlashlight.enabled = !IsOwner && pose.Value.Flashlight;
+            remoteFlashlight.transform.position = EyePosition;
+            remoteFlashlight.transform.rotation = EyeRotation;
         }
     }
 
     [ServerRpc(RequireOwnership = true)]
-    private void SubmitInputServerRpc(Vector2 input, float lookYaw, float lookPitch,
-        bool isSprinting, bool isCrouching, bool jump, Channel channel = Channel.Unreliable)
+    private void SubmitPoseServerRpc(PlayerPose value, Channel channel = Channel.Unreliable)
     {
-        if (!float.IsFinite(lookYaw) || !float.IsFinite(lookPitch)) return;
-        move = Vector2.ClampMagnitude(input, 1f);
-        yaw = lookYaw;
-        pitch = Mathf.DeltaAngle(0f, lookPitch);
-        sprint = isSprinting;
-        crouch = isCrouching;
-        jumpQueued |= jump;
+        if (!float.IsFinite(value.Yaw) || !float.IsFinite(value.Pitch) || !float.IsFinite(value.Crouch)) return;
+        value.Crouch = Mathf.Clamp01(value.Crouch); pose.Value = value;
+        yaw = value.Yaw; pitch = value.Pitch;
     }
 
     [ServerRpc(RequireOwnership = true)]
@@ -255,9 +284,15 @@ public sealed class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
 
     bool IPlayerViewSource.IsLocalPlayer => IsOwner;
     bool IPlayerViewSource.HasView => IsServerStarted;
-    Vector3 IPlayerViewSource.EyePosition =>
+    public Vector3 EyePosition =>
         transform.position + Vector3.up * Mathf.Lerp(1.65f, 0.95f, motor.CrouchAmount); // как у камеры
-    Quaternion IPlayerViewSource.EyeRotation => Quaternion.Euler(pitch, yaw, 0f);
+    public Quaternion EyeRotation => Quaternion.Euler(pitch, yaw, 0f);
     float IPlayerViewSource.FieldOfView => viewFieldOfView;
     float IPlayerViewSource.Aspect => viewAspect;
+}
+
+public struct PlayerPose
+{
+    public float Yaw, Pitch, Crouch;
+    public bool Flashlight;
 }
