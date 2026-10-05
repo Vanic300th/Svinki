@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.NetworkInformation;
+using System.Net.Sockets;
 using FishNet.Broadcast;
 using FishNet.Connection;
 using FishNet.Managing;
@@ -31,8 +34,13 @@ public sealed class NetworkLobby : MonoBehaviour
     private readonly Dictionary<string, Room> rooms = new Dictionary<string, Room>();
     private readonly Dictionary<NetworkConnection, Room> memberships = new Dictionary<NetworkConnection, Room>();
     private NetworkManager manager;
-    private string address = "127.0.0.1";
+    private string address = "";
     private string portText = "7770";
+    private string connectedAddress = "";
+    private ushort connectedPort;
+    private string lanAddresses = "";
+    private bool hostingLocally;
+    private GUIStyle wrappedLabel;
     private string code = "";
     private string status = "Подключитесь к серверу";
     private bool playing;
@@ -81,7 +89,9 @@ public sealed class NetworkLobby : MonoBehaviour
     private void OnClientConnectionState(ClientConnectionStateArgs args)
     {
         if (args.ConnectionState == LocalConnectionState.Started)
-            status = "Подключено. Создайте комнату или введите код.";
+            status = hostingLocally
+                ? "Локальный сервер запущен. Создайте комнату и передайте другу IP этого компьютера."
+                : "Подключено к " + connectedAddress + ":" + connectedPort + ". Создайте комнату или введите код.";
         else if (args.ConnectionState == LocalConnectionState.Stopped)
         {
             playing = false;
@@ -96,6 +106,8 @@ public sealed class NetworkLobby : MonoBehaviour
         joining = reply.Accepted;
         if (reply.Accepted) code = reply.Code;
         status = reply.Message;
+        if (!reply.Accepted && reply.Message == "Комната с таким кодом не найдена.")
+            status += " Проверьте, что адрес сервера — IP хозяина, а не 127.0.0.1.";
     }
 
     private void OnRoomRequest(NetworkConnection connection, RoomRequest request, Channel _)
@@ -200,45 +212,118 @@ public sealed class NetworkLobby : MonoBehaviour
         return new string(chars);
     }
 
+    private static string FindLanAddresses()
+    {
+        var addresses = new HashSet<string>();
+        try
+        {
+            foreach (NetworkInterface network in NetworkInterface.GetAllNetworkInterfaces())
+            {
+                if (network.OperationalStatus != OperationalStatus.Up ||
+                    network.NetworkInterfaceType == NetworkInterfaceType.Loopback ||
+                    network.NetworkInterfaceType == NetworkInterfaceType.Tunnel) continue;
+                foreach (UnicastIPAddressInformation entry in network.GetIPProperties().UnicastAddresses)
+                {
+                    IPAddress ip = entry.Address;
+                    if (ip.AddressFamily != AddressFamily.InterNetwork || IPAddress.IsLoopback(ip)) continue;
+                    byte[] octets = ip.GetAddressBytes();
+                    bool privateAddress = octets[0] == 10 ||
+                        (octets[0] == 172 && octets[1] >= 16 && octets[1] <= 31) ||
+                        (octets[0] == 192 && octets[1] == 168);
+                    if (privateAddress) addresses.Add(ip.ToString());
+                }
+            }
+        }
+        catch (NetworkInformationException) { }
+        catch (PlatformNotSupportedException) { }
+        return addresses.Count == 0 ? "IP не найден — посмотрите IPv4 в настройках Wi-Fi" : string.Join(", ", addresses);
+    }
+
+    private void StartLocalServer(ushort port)
+    {
+        if (!manager.ServerManager.StartConnection(port))
+        {
+            status = "Не удалось запустить сервер на UDP " + port + ". Проверьте, не занят ли порт.";
+            return;
+        }
+        hostingLocally = true;
+        lanAddresses = FindLanAddresses();
+        connectedAddress = "127.0.0.1";
+        connectedPort = port;
+        if (!manager.ClientManager.StartConnection(connectedAddress, port))
+        {
+            manager.ServerManager.StopConnection(true);
+            hostingLocally = false;
+            status = "Сервер запущен, но локальный клиент не смог подключиться.";
+            return;
+        }
+        status = "Сервер запущен. Другу нужен ваш IP: " + lanAddresses + ", UDP " + port + ".";
+    }
+
     private void OnGUI()
     {
         if (Application.isBatchMode) return;
         if (playing)
         {
             GUI.Box(new Rect(12, 50, 190, 32), "Комната: " + code);
+            if (hostingLocally)
+                GUI.Box(new Rect(12, 88, 340, 48), "Для друга — IP: " + lanAddresses + "\nUDP порт: " + connectedPort);
             return;
         }
 
         float width = 380f;
-        GUILayout.BeginArea(new Rect((Screen.width - width) * 0.5f, 70f, width, 330f), GUI.skin.box);
+        if (wrappedLabel == null) wrappedLabel = new GUIStyle(GUI.skin.label) { wordWrap = true };
+        GUILayout.BeginArea(new Rect((Screen.width - width) * 0.5f, 70f, width, 390f), GUI.skin.box);
         GUILayout.Label("SVINKI — мультиплеер");
-        GUILayout.Label(status);
+        GUILayout.Label(status, wrappedLabel, GUILayout.Height(44f));
         if (!manager.ClientManager.Started)
         {
-            GUILayout.Label("Адрес сервера");
+            GUILayout.Label("Адрес сервера (IP хозяина в Wi-Fi)");
             address = GUILayout.TextField(address);
+            if (address.Trim() == "127.0.0.1" || address.Trim().Equals("localhost", StringComparison.OrdinalIgnoreCase))
+                GUILayout.Label("127.0.0.1 — это этот компьютер, не компьютер друга.", wrappedLabel);
             GUILayout.Label("UDP порт");
             portText = GUILayout.TextField(portText);
-            if (GUILayout.Button("Подключиться") && ushort.TryParse(portText, out ushort port))
-                manager.ClientManager.StartConnection(address.Trim(), port);
-            if (Application.isEditor && !manager.ServerManager.Started && GUILayout.Button("Локальный сервер для проверки"))
+            if (GUILayout.Button("Подключиться к серверу"))
             {
-                if (ushort.TryParse(portText, out ushort localPort))
+                if (string.IsNullOrWhiteSpace(address))
+                    status = "Введите IP компьютера хозяина. Код комнаты вводится после подключения.";
+                else if (address.Trim() == "127.0.0.1" ||
+                         address.Trim().Equals("localhost", StringComparison.OrdinalIgnoreCase))
+                    status = "127.0.0.1 ведёт на ваш компьютер. Введите IP компьютера хозяина.";
+                else if (!ushort.TryParse(portText, out ushort port))
+                    status = "Введите верный UDP порт.";
+                else
                 {
-                    manager.ServerManager.StartConnection(localPort);
-                    manager.ClientManager.StartConnection("127.0.0.1", localPort);
+                    connectedAddress = address.Trim();
+                    connectedPort = port;
+                    status = "Подключаемся к " + connectedAddress + ":" + port + "...";
+                    if (!manager.ClientManager.StartConnection(connectedAddress, port))
+                        status = "Не удалось подключиться к " + connectedAddress + ":" + port + ".";
                 }
+            }
+            if (!manager.ServerManager.Started && GUILayout.Button("Создать сервер в локальной сети"))
+            {
+                if (ushort.TryParse(portText, out ushort localPort)) StartLocalServer(localPort);
+                else status = "Введите верный UDP порт.";
             }
         }
         else if (!joining)
         {
+            if (hostingLocally)
+                GUILayout.Label("IP для друга: " + lanAddresses + " · UDP " + connectedPort, wrappedLabel);
             if (GUILayout.Button("Создать комнату"))
                 manager.ClientManager.Broadcast(new RoomRequest { Create = true });
             GUILayout.Label("Код комнаты");
             code = GUILayout.TextField(code, 6).ToUpperInvariant();
             if (GUILayout.Button("Войти по коду"))
                 manager.ClientManager.Broadcast(new RoomRequest { Create = false, Code = code });
-            if (GUILayout.Button("Отключиться")) manager.ClientManager.StopConnection();
+            if (GUILayout.Button("Отключиться"))
+            {
+                manager.ClientManager.StopConnection();
+                if (hostingLocally) manager.ServerManager.StopConnection(true);
+                hostingLocally = false;
+            }
         }
         else GUILayout.Label("Загружаем уровень...");
         GUILayout.EndArea();
