@@ -1,24 +1,9 @@
 fileFormatVersion: 2
-guid: e1f7fa1404ff1ae47b72047494c4917b
+guid: fca821cd9efa99e479925ab7fe038470
 ModelImporter:
   serializedVersion: 24600
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material.001
-    second: {fileID: 2100000, guid: 577b0a804fb766947a95f4f9f6d6c807, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: hoodie1
-    second: {fileID: 2100000, guid: 4df80d2f7c7a8f64f912b04b3cefd82c, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: hoodie1_Hood
-    second: {fileID: 2100000, guid: f0bed61976bfd8445ba7f1129af3a3a7, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -46,7 +31,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: 1
