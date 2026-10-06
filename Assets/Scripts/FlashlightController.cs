@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 public sealed class FlashlightController : MonoBehaviour
 {
     [SerializeField] private bool startOn = true;
+    [SerializeField, Tooltip("HUD этой сцены (префаб GameHUD). Пусто — найдётся сам")]
+    private GameHud hud;
 
     private Light flashlight;
     private bool isOn;
@@ -36,6 +38,7 @@ public sealed class FlashlightController : MonoBehaviour
 
     private void LateUpdate()
     {
+        UpdateHud();
         Camera camera = GetComponentInParent<Camera>();
         if (camera == null) return;
         if (motor == null)
@@ -105,10 +108,17 @@ public sealed class FlashlightController : MonoBehaviour
         if (flashlight != null) flashlight.enabled = isOn;
     }
 
-    private void OnGUI()
+    // Статус фонарика рисует HUD (префаб GameHUD).
+    private void UpdateHud()
     {
-        if (NetworkLobby.Instance != null && (!NetworkLobby.Instance.InputAllowed || NetworkLobby.Instance.MenuVisible)) return;
-        GUI.Box(new Rect(12f, 12f, 185f, 28f),
-            $"Фонарик [F]: {(isOn ? "вкл." : "выкл.")}");
+        if (hud == null) hud = GameHud.Find(this);
+        if (hud == null) return;
+        var lobby = NetworkLobby.Instance;
+        hud.SetFlashlight(lobby == null || lobby.InputAllowed && !lobby.MenuVisible, isOn);
+    }
+
+    private void OnDisable()
+    {
+        if (hud != null) hud.SetFlashlight(false, isOn);
     }
 }

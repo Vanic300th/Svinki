@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06f78c0b14a8740bbaa91ce69c53f54b, type: 3}
   m_Name: Shirt1
   m_EditorClassIdentifier: Assembly-CSharp::ShirtClothing
-  displayName: "\u0424\u0443\u0442\u0431\u043E\u043B\u043A\u0430"
+  displayName: T-Shirt
   model: {fileID: 919132149155446097, guid: 8483d90fae63548e6aa69b14450eec44, type: 3}
   fabricMaterial: {fileID: 2100000, guid: a81f994ce23394abeb8283d9aaca8a8f, type: 2}
   outlineMaterial: {fileID: 2100000, guid: f91a175a5a6cd489a8cc46d963ef138d, type: 2}

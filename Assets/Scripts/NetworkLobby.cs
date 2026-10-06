@@ -36,8 +36,8 @@ public sealed class NetworkLobby : MonoBehaviour
     public Font MenuFont => menuFont;
     [SerializeField] private ushort defaultPort = 7770;
     public SessionSnapshot Snapshot { get; private set; } = new SessionSnapshot();
-    public string Status { get; private set; } = "Создайте лобби или войдите по коду друга.";
-    public string Nickname { get; set; } = "Свинка";
+    public string Status { get; private set; } = "Create a lobby or join with a friend's code.";
+    public string Nickname { get; set; } = "Piggy";
     public bool Busy { get; private set; }
     public bool Offline { get; private set; }
     public bool MenuVisible { get; set; } = true;
@@ -82,7 +82,7 @@ public sealed class NetworkLobby : MonoBehaviour
         multipass.SetClientTransport<Tugboat>();
         eos = gameObject.AddComponent<EosSession>();
         eos.SessionClosed += EndFromService;
-        Nickname = PlayerPrefs.GetString("svinki.nickname", "Свинка");
+        Nickname = PlayerPrefs.GetString("svinki.nickname", "Piggy");
         manager.ServerManager.RegisterBroadcast<SessionRequest>(OnRequest);
         manager.ClientManager.RegisterBroadcast<SessionMessage>(OnMessage);
         manager.ServerManager.OnRemoteConnectionState += OnRemoteState;
@@ -123,7 +123,7 @@ public sealed class NetworkLobby : MonoBehaviour
         if (!hosting || manager == null || !manager.ServerManager.Started) return;
         foreach (NetworkConnection connection in connections.Where(p => p.Value.Id != hostIdentity).Select(p => p.Key).ToArray())
             if (connection.IsActive) manager.ServerManager.Broadcast(connection, new SessionMessage
-                { Terminal = true, Error = "Хост завершил игру. Контрольная точка остаётся у хоста." });
+                { Terminal = true, Error = "The host quit the game. The checkpoint stays with the host." });
         manager.ServerManager.StopConnection(true);
     }
     public void SetPlaying(bool value)
@@ -134,7 +134,7 @@ public sealed class NetworkLobby : MonoBehaviour
     public void Report(string message) { Status = message; Changed?.Invoke(); }
     private void Prepare(bool host, bool useOnline, bool continuing)
     {
-        if (cancelling || Busy || manager.ClientManager.Started || manager.ServerManager.Started || Offline) throw new InvalidOperationException("Сначала выйдите из текущей сессии.");
+        if (cancelling || Busy || manager.ClientManager.Started || manager.ServerManager.Started || Offline) throw new InvalidOperationException("Leave the current session first.");
         resume = continuing ? CheckpointStore.Read() : null;
         round = resume?.round ?? 1;
         hosting = host; online = useOnline; intentionalStop = false; closing = false;
@@ -155,7 +155,7 @@ public sealed class NetworkLobby : MonoBehaviour
         int token = ++operation;
         try
         {
-            Prepare(host, true, continuing); Busy = true; Report("Подключение к EOS…");
+            Prepare(host, true, continuing); Busy = true; Report("Connecting to EOS…");
             await eos.Authenticate(Nickname);
             if (token != operation) { await eos.Leave(); return; }
             identity = eos.Identity;
@@ -166,11 +166,11 @@ public sealed class NetworkLobby : MonoBehaviour
             var transport = multipass.GetTransport<FishNet.Transporting.FishyEOSPlugin.FishyEOS>();
             transport.SocketName = "SvinkiV1"; transport.RemoteProductUserId = hostIdentity;
             multipass.SetClientTransport(transport);
-            if (host && !multipass.StartConnection(true, transport.Index)) throw new InvalidOperationException("Не удалось запустить хост.");
+            if (host && !multipass.StartConnection(true, transport.Index)) throw new InvalidOperationException("Couldn't start the host.");
 #endif
-            if (!manager.ClientManager.StartConnection()) throw new InvalidOperationException("Не удалось начать подключение.");
+            if (!manager.ClientManager.StartConnection()) throw new InvalidOperationException("Couldn't start connecting.");
             connectionDeadline = Time.unscaledTime + 25f; awaitingHello = true;
-            Report("Подключение к хосту…");
+            Report("Connecting to the host…");
         }
         catch (Exception error)
         {
@@ -188,10 +188,10 @@ public sealed class NetworkLobby : MonoBehaviour
             code = host ? "LOCAL1" : ""; hostIdentity = host ? identity : "";
             var transport = multipass.GetTransport<Tugboat>(); transport.SetPort(defaultPort);
             multipass.SetClientTransport(transport);
-            if (host && !multipass.StartConnection(true, transport.Index)) throw new InvalidOperationException("Порт локального теста занят.");
-            if (!manager.ClientManager.StartConnection(address, defaultPort)) throw new InvalidOperationException("Локальный тест не подключился.");
+            if (host && !multipass.StartConnection(true, transport.Index)) throw new InvalidOperationException("The local test port is already in use.");
+            if (!manager.ClientManager.StartConnection(address, defaultPort)) throw new InvalidOperationException("The local test couldn't connect.");
             awaitingHello = true; connectionDeadline = Time.unscaledTime + 25f;
-            Report("Локальный тест: подключение…");
+            Report("Local test: connecting…");
         }
         catch (Exception error) { Busy = false; EndFromService(error.Message); }
     }
@@ -203,7 +203,7 @@ public sealed class NetworkLobby : MonoBehaviour
         if (string.IsNullOrEmpty(id)) { id = Guid.NewGuid().ToString("N"); PlayerPrefs.SetString(key, id); PlayerPrefs.Save(); }
         return id;
     }
-    private static string CleanNickname(string value) => string.IsNullOrWhiteSpace(value) ? "Свинка" : new string(value.Trim().Where(c => !char.IsControl(c) && c != '<' && c != '>').Take(24).ToArray());
+    private static string CleanNickname(string value) => string.IsNullOrWhiteSpace(value) ? "Piggy" : new string(value.Trim().Where(c => !char.IsControl(c) && c != '<' && c != '>').Take(24).ToArray());
     public void Ready(bool value) => Send(SessionAction.Ready, value);
     public void StartRound() => Send(SessionAction.Start);
     public void EndRound() => Send(SessionAction.EndRound);
@@ -220,7 +220,7 @@ public sealed class NetworkLobby : MonoBehaviour
         if (args.ConnectionState == LocalConnectionState.Started) Send(SessionAction.Hello);
         if (args.ConnectionState != LocalConnectionState.Stopped || intentionalStop || closing) return;
         MenuVisible = true;
-        if (hosting || !InSession) { EndFromService("Соединение закрыто. Контрольная точка остаётся у хоста."); return; }
+        if (hosting || !InSession) { EndFromService("Connection closed. The checkpoint stays with the host."); return; }
         if (reconnect == null) reconnect = StartCoroutine(Reconnect());
     }
     private IEnumerator Reconnect()
@@ -229,7 +229,7 @@ public sealed class NetworkLobby : MonoBehaviour
         var stale = new List<Scene>();
         for (int i = 0; i < SceneManager.sceneCount; i++) { var scene = SceneManager.GetSceneAt(i); if (scene.name == "SampleScene") stale.Add(scene); }
         foreach (Scene scene in stale) { var unload = SceneManager.UnloadSceneAsync(scene); if (unload != null) while (!unload.isDone) yield return null; }
-        Report("Связь потеряна. Пытаемся восстановить соединение (до 60 секунд)…");
+        Report("Connection lost. Trying to reconnect (up to 60 seconds)…");
         while (!intentionalStop && Time.unscaledTime < deadline)
         {
             yield return new WaitForSecondsRealtime(3f);
@@ -238,7 +238,7 @@ public sealed class NetworkLobby : MonoBehaviour
             if (state == LocalConnectionState.Stopped) manager.ClientManager.StartConnection();
         }
         reconnect = null;
-        if (!intentionalStop) EndFromService("Восстановить связь не удалось. Можно войти по коду снова как зритель.");
+        if (!intentionalStop) EndFromService("Couldn't reconnect. You can join with the code again as a spectator.");
     }
     private void OnMessage(SessionMessage message, Channel channel)
     {
@@ -250,7 +250,7 @@ public sealed class NetworkLobby : MonoBehaviour
         bool inRound = Snapshot.phase == SessionPhase.Round;
         if (!inRound) MenuVisible = true;
         if (inRound && IsSpectator) MenuVisible = false;
-        Report(inRound ? IsSpectator ? "Наблюдение до следующего раунда. ← / → — сменить игрока; Esc — меню." : "Раунд " + Snapshot.round + ". Esc — меню." : "Лобби " + Snapshot.code + ". Отметьте готовность.");
+        Report(inRound ? IsSpectator ? "Spectating until the next round. ← / → — switch player; Esc — menu." : "Round " + Snapshot.round + ". Esc — menu." : "Lobby " + Snapshot.code + ". Mark yourself as ready.");
     }
     private void OnRequest(NetworkConnection connection, SessionRequest request, Channel channel)
     {
@@ -258,14 +258,14 @@ public sealed class NetworkLobby : MonoBehaviour
         {
             if (connections.ContainsKey(connection)) return;
             string id = request.Identity;
-            if (request.Version != ProtocolVersion || string.IsNullOrEmpty(id) || id.Length > 64) { Reject(connection, "Несовместимая версия игры."); return; }
-            if (online && manager.TransportManager.Transport.GetConnectionAddress(connection.ClientId) != id) { Reject(connection, "Не удалось подтвердить гостевой профиль."); return; }
-            if (banned.Contains(id)) { Reject(connection, "Хост исключил вас из этой сессии."); return; }
+            if (request.Version != ProtocolVersion || string.IsNullOrEmpty(id) || id.Length > 64) { Reject(connection, "Incompatible game version."); return; }
+            if (online && manager.TransportManager.Transport.GetConnectionAddress(connection.ClientId) != id) { Reject(connection, "Couldn't verify the guest profile."); return; }
+            if (banned.Contains(id)) { Reject(connection, "The host kicked you from this session."); return; }
             members.TryGetValue(id, out Member member);
-            if (member != null && member.Connection != null) { Reject(connection, "Этот профиль уже подключён."); return; }
+            if (member != null && member.Connection != null) { Reject(connection, "This profile is already connected."); return; }
             bool returning = member != null && member.ReservedUntil > Time.unscaledTime;
             if (!returning && (admissionClosed || members.Count >= Capacity || phase == SessionPhase.Loading || phase == SessionPhase.Returning))
-            { Reject(connection, admissionClosed ? "Хост закрыл вход новым игрокам." : "Лобби заполнено или переключает раунд. Попробуйте позже."); return; }
+            { Reject(connection, admissionClosed ? "The host locked the lobby to new players." : "The lobby is full or switching rounds. Try again later."); return; }
             if (member == null)
             {
                 member = new Member { Id = id, Name = CleanNickname(request.Nickname), Spectator = phase == SessionPhase.Round,
@@ -304,7 +304,7 @@ public sealed class NetworkLobby : MonoBehaviour
                 if (caller.Id == hostIdentity && request.Target != hostIdentity && members.TryGetValue(request.Target ?? "", out Member kicked))
                 {
                     banned.Add(kicked.Id); RemoveMember(kicked); eos.Kick(kicked.Id);
-                    if (kicked.Connection != null) Reject(kicked.Connection, "Хост исключил вас из сессии.");
+                    if (kicked.Connection != null) Reject(kicked.Connection, "The host kicked you from the session.");
                 }
                 break;
             case SessionAction.Leave:
@@ -336,7 +336,7 @@ public sealed class NetworkLobby : MonoBehaviour
                     outfit = resume?.players.FirstOrDefault(saved => saved.id == p.Id)?.outfit ?? defaultItems }).ToArray()
             });
         }
-        catch (Exception error) { Report("Раунд не запущен: не удалось сохранить контрольную точку. " + error.Message); return; }
+        catch (Exception error) { Report("Round not started: couldn't save the checkpoint. " + error.Message); return; }
         phase = SessionPhase.Loading;
         foreach (Member member in members.Values) member.Spectator = false;
         // One host runs one round. NavMesh collider collection requires the default physics world.
@@ -396,7 +396,7 @@ public sealed class NetworkLobby : MonoBehaviour
         if (args.ConnectionState != RemoteConnectionState.Stopped || !connections.TryGetValue(connection, out Member member)) return;
         connections.Remove(connection); member.Connection = null; member.Ready = false;
         if (closing) return;
-        if (member.Id == hostIdentity) { EndFromService("Хост завершил сессию."); return; }
+        if (member.Id == hostIdentity) { EndFromService("The host ended the session."); return; }
         if (phase == SessionPhase.Round)
         {
             member.ReservedUntil = Time.unscaledTime + ReconnectGrace;
@@ -433,7 +433,7 @@ public sealed class NetworkLobby : MonoBehaviour
             Publish();
         }
         if (awaitingHello && Time.unscaledTime > connectionDeadline)
-        { awaitingHello = false; EndFromService("Хост не ответил. Проверьте код и соединение, затем повторите."); }
+        { awaitingHello = false; EndFromService("The host didn't respond. Check the code and your connection, then try again."); }
         if (!PlayerChat.ConsumedEscape && UnityEngine.InputSystem.Keyboard.current?.escapeKey.wasPressedThisFrame == true && (Snapshot.phase == SessionPhase.Round || Offline))
         {
             MenuVisible = !MenuVisible;
@@ -448,17 +448,17 @@ public sealed class NetworkLobby : MonoBehaviour
         else if (manager.ServerManager.Started)
             foreach (NetworkConnection connection in connections.Where(p => p.Value.Id != hostIdentity).Select(p => p.Key).ToArray())
                 if (connection.IsActive) manager.ServerManager.Broadcast(connection, new SessionMessage
-                    { Terminal = true, Error = "Хост завершил сессию. Контрольная точка остаётся у хоста." });
+                    { Terminal = true, Error = "The host ended the session. The checkpoint stays with the host." });
         await Task.Delay(150);
-        await StopSession(); Report("Сессия завершена. Контрольная точка сохранена у хоста.");
+        await StopSession(); Report("Session ended. The checkpoint is saved on the host.");
     }
     public async void Cancel()
     {
         cancelling = true; ++operation;
         Task pending = connectTask;
         await StopSession();
-        if (pending != null) { Busy = true; Report("Отменяем подключение…"); await pending; }
-        Busy = false; cancelling = false; Report("Подключение отменено.");
+        if (pending != null) { Busy = true; Report("Cancelling the connection…"); await pending; }
+        Busy = false; cancelling = false; Report("Connection cancelled.");
     }
     private async void EndFromService(string message) { ++operation; await StopSession(); Report(message); }
     private async Task StopSession()
@@ -493,7 +493,7 @@ public sealed class NetworkLobby : MonoBehaviour
     {
         if (Busy || InSession || Offline) return;
         int token = ++operation;
-        Busy = true; Offline = true; Report("Загрузка одиночной игры…");
+        Busy = true; Offline = true; Report("Loading solo game…");
         try
         {
             AsyncOperation load = SceneManager.LoadSceneAsync("SampleScene", LoadSceneMode.Additive);
@@ -515,7 +515,7 @@ public sealed class NetworkLobby : MonoBehaviour
             player.GetComponent<WorldOutfitRenderer>()?.SetFirstPersonHidden(true);
             Camera.main.GetComponent<GrayboxFirstPersonCamera>().SetTarget(player.transform);
             FindAnyObjectByType<MannequinWardrobe>()?.Bind(player.GetComponent<PlayerOutfit>());
-            MenuVisible = false; Report("Одиночная игра. Esc — меню.");
+            MenuVisible = false; Report("Solo game. Esc — menu.");
         }
         catch (Exception error) { await StopSession(); Report(error.Message); }
         finally { Busy = false; Changed?.Invoke(); }

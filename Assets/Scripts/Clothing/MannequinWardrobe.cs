@@ -12,14 +12,13 @@ public sealed class MannequinWardrobe : MonoBehaviour
     [SerializeField] private Transform mannequinRoot;
     [Tooltip("Чей комплект показывать. Пусто = свой игрок в этой сцене (в онлайне привязывает NetworkPlayer)")]
     [SerializeField] private PlayerOutfit outfit;
-    [Tooltip("Сколько секунд висит подсказка «Воришка украл: …»")]
+    [Tooltip("Сколько секунд висит подсказка «Thief stole: …»")]
     [SerializeField, Min(0f)] private float messageTime = 2.5f;
+    [Tooltip("HUD этой сцены (префаб GameHUD), там показывается подсказка. Пусто — найдётся сам")]
+    [SerializeField] private GameHud hud;
 
     private readonly Dictionary<ClothingSlot, GameObject> equipped = new Dictionary<ClothingSlot, GameObject>();
     private PlayerOutfit bound;
-    private string message;
-    private float messageUntil;
-    private GUIStyle messageStyle;
 
     private void Start()
     {
@@ -65,11 +64,11 @@ public sealed class MannequinWardrobe : MonoBehaviour
         equipped.Remove(slot);
     }
 
-    /// <summary>Подсказка сверху экрана на пару секунд («Воришка украл: Шапка»).</summary>
+    /// <summary>Подсказка сверху экрана на пару секунд («Thief stole: Hat»). Рисует HUD.</summary>
     public void ShowMessage(string text)
     {
-        message = text;
-        messageUntil = Time.time + messageTime;
+        if (hud == null) hud = GameHud.Find(this);
+        if (hud != null) hud.ShowNotification(text, messageTime);
     }
 
     private void HandleRemoved(ClothingDefinition clothing, string reason)
@@ -77,17 +76,6 @@ public sealed class MannequinWardrobe : MonoBehaviour
         if (clothing == null) return;
         Unequip(clothing.Slot);
         if (!string.IsNullOrEmpty(reason)) ShowMessage(reason + ": " + clothing.DisplayName);
-    }
-
-    private void OnGUI()
-    {
-        if (string.IsNullOrEmpty(message) || Time.time > messageUntil) return;
-        if (messageStyle == null)
-        {
-            messageStyle = new GUIStyle(GUI.skin.box) { alignment = TextAnchor.MiddleCenter, fontSize = 20 };
-            messageStyle.normal.textColor = new Color(1f, 0.45f, 0.35f);
-        }
-        GUI.Box(new Rect(Screen.width * 0.5f - 170f, 60f, 340f, 38f), message, messageStyle);
     }
 
     public void Equip(ClothingDefinition clothing)

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70b27f83dd31f44a38b5247716fe59e0, type: 3}
   m_Name: Pants1
   m_EditorClassIdentifier: Assembly-CSharp::PantsClothing
-  displayName: "\u0414\u0436\u0438\u043D\u0441\u044B"
+  displayName: Jeans
   model: {fileID: 919132149155446097, guid: c8eae2fec4826414fbb1815154fe740f, type: 3}
   fabricMaterial: {fileID: 2100000, guid: a22ab5ee7993d4491971ded7139357d4, type: 2}
   outlineMaterial: {fileID: 2100000, guid: 5c95f9b076e1f40b5b7eef79765688cd, type: 2}

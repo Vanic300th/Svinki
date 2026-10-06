@@ -15,7 +15,7 @@ public sealed class SessionCheckpoint
         if (version != 1 || scene != "SampleScene" || round < 1 || players == null || players.Length < 1 || players.Length > 6 ||
             players.Any(p => p == null || string.IsNullOrEmpty(p.id) || p.outfit == null) ||
             players.Select(p => p.id).Distinct().Count() != players.Length)
-            throw new InvalidDataException("Несовместимая или повреждённая контрольная точка.");
+            throw new InvalidDataException("Incompatible or corrupted checkpoint.");
     }
 }
 [Serializable]
@@ -31,7 +31,7 @@ public static class CheckpointStore
     public static SessionCheckpoint Read(string path = null)
     {
         var checkpoint = JsonUtility.FromJson<SessionCheckpoint>(File.ReadAllText(path ?? DefaultPath));
-        if (checkpoint == null) throw new InvalidDataException("Контрольная точка повреждена.");
+        if (checkpoint == null) throw new InvalidDataException("The checkpoint is corrupted.");
         checkpoint.Validate();
         return checkpoint;
     }

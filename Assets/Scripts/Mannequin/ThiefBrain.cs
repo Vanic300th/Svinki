@@ -20,7 +20,7 @@ public class ThiefBrain : MonoBehaviour
     public enum State { Frozen, Moving, Settling, Grabbing }
     public enum Goal { None, Item, Player, Nest }
 
-    private const string StolenReason = "Воришка украл";
+    private const string StolenReason = "Thief stole";
     private const float NestArriveDistance = 0.8f;
     private static bool quitting;
 

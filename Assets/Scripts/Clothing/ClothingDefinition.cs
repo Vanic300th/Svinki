@@ -4,7 +4,7 @@ public enum ClothingSlot { Head, Torso, Legs, Feet }
 
 public abstract class ClothingDefinition : ScriptableObject
 {
-    [SerializeField] private string displayName = "Новая одежда";
+    [SerializeField] private string displayName = "New clothing";
     [SerializeField] private GameObject model;
     [SerializeField] private Material fabricMaterial;
     [SerializeField] private Material outlineMaterial;

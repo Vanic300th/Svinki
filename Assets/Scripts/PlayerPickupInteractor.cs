@@ -8,8 +8,8 @@ public class PlayerPickupInteractor : MonoBehaviour
 
     private Camera playerCamera;
     private PickupItem target;
-    private GUIStyle promptStyle;
-    private GUIStyle crosshairStyle;
+    [SerializeField, Tooltip("HUD этой сцены (префаб GameHUD). Пусто — найдётся сам")]
+    private GameHud hud;
     private NetworkPlayer localPlayer;
     private Vector3 targetPoint;
     private ThrowableMannequin mannequinTarget;
@@ -90,35 +90,37 @@ public class PlayerPickupInteractor : MonoBehaviour
         }
     }
 
-    private void OnGUI()
+    // Прицел и подсказки рисует HUD (префаб GameHUD); здесь только решаем, что показать.
+    private void LateUpdate()
     {
-        if (PlayerChat.BlocksInput || NetworkLobby.Instance != null && !NetworkLobby.Instance.InputAllowed) return;
-        if (crosshairStyle == null)
+        if (hud == null) hud = GameHud.Find(this);
+        if (hud == null) return;
+        if (PlayerChat.BlocksInput || NetworkLobby.Instance != null && !NetworkLobby.Instance.InputAllowed)
         {
-            crosshairStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, fontSize = 22 };
-            crosshairStyle.normal.textColor = Color.white;
-            promptStyle = new GUIStyle(GUI.skin.box) { alignment = TextAnchor.MiddleCenter, fontSize = 17 };
-            promptStyle.normal.textColor = Color.yellow;
-        }
-
-        GUI.Label(new Rect(Screen.width * 0.5f - 12f, Screen.height * 0.5f - 14f, 24f, 28f), "+", crosshairStyle);
-        if (Hands?.GetComponent<PlayerKnockdown>()?.IsDown == true)
-        {
-            GUI.Box(new Rect(Screen.width * .5f - 155, Screen.height * .5f + 28, 310, 34), "Вас сбили! Поднимаемся…", promptStyle);
+            hud.SetCrosshair(false);
+            hud.HidePrompt();
             return;
         }
-        if (Hands?.Held != null)
-            GUI.Box(new Rect(Screen.width * .5f - 215, Screen.height * .5f + 28, 430, 34),
-                "ЛКМ — бросить • ПКМ / E — отпустить", promptStyle);
-        else if (mannequinTarget != null && !mannequinTarget.IsHeld)
-            GUI.Box(new Rect(Screen.width * .5f - 155, Screen.height * .5f + 28, 310, 34), "E — взять манекен", promptStyle);
+
+        hud.SetCrosshair(true);
+        PlayerMannequinCarry hands = Hands;
+        PlayerKnockdown knockdown = hands != null ? hands.GetComponent<PlayerKnockdown>() : null;
+        if (knockdown != null && knockdown.IsDown)
+        {
+            hud.ShowPrompt("You got knocked down! Getting up...");
+            return;
+        }
+
+        string text = null;
+        if (hands != null && hands.Held != null) text = "[LMB] Throw    [RMB / E] Drop";
+        else if (mannequinTarget != null && !mannequinTarget.IsHeld) text = "[E] Grab mannequin";
         if (target != null)
         {
             ClothingPickup clothing = target.GetComponent<ClothingPickup>();
             bool canCollect = clothing == null || clothing.CanCollect(gameObject);
-            GUI.Box(new Rect(Screen.width * 0.5f - 155f, Screen.height * 0.5f + 28f, 310f, 34f),
-                canCollect ? "E — подобрать: " + target.ItemName : "Этот слот одежды уже занят", promptStyle);
+            text = canCollect ? "[E] Pick up: " + target.ItemName : "This clothing slot is already taken";
         }
+        hud.ShowPrompt(text);
     }
 
     private void OnDisable()
@@ -126,5 +128,6 @@ public class PlayerPickupInteractor : MonoBehaviour
         if (target != null) target.SetTargeted(false);
         target = null;
         mannequinTarget = null;
+        if (hud != null) { hud.SetCrosshair(false); hud.HidePrompt(); }
     }
 }

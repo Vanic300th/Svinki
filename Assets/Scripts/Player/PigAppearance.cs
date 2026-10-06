@@ -59,10 +59,10 @@ public sealed class PigAppearance : MonoBehaviour
     private readonly List<Renderer> coloredParts = new List<Renderer>();
     private MaterialPropertyBlock colors;
     public static readonly string[] GlassesOptions = { "", "Round", "Square", "CatEye", "Aviator", "SunRound", "SunSquare" };
-    public static readonly string[] ColorNames = { "розовый", "кремовый", "шоколадный", "серый", "мятный", "голубой", "лавандовый", "коралловый" };
-    public static readonly string[] HairColorNames = { "каштановый", "чёрный", "блонд", "белый", "мятный", "синий", "фиолетовый", "малиновый" };
-    public static readonly string[] PatternNames = { "однотонный", "пятна", "полосы", "седло", "носочки" };
-    public static readonly string[] TattooNames = { "нет", "сердце", "звезда", "молния", "полосы на руках" };
+    public static readonly string[] ColorNames = { "pink", "cream", "chocolate", "gray", "mint", "sky blue", "lavender", "coral" };
+    public static readonly string[] HairColorNames = { "chestnut", "black", "blond", "white", "mint", "blue", "purple", "raspberry" };
+    public static readonly string[] PatternNames = { "solid", "spots", "stripes", "saddle", "socks" };
+    public static readonly string[] TattooNames = { "none", "heart", "star", "lightning", "arm stripes" };
     public static readonly Color[] SkinColors = {
         new Color(.81f, .365f, .32f), new Color(.94f, .80f, .63f), new Color(.32f, .16f, .10f), new Color(.48f, .51f, .56f),
         new Color(.38f, .77f, .60f), new Color(.36f, .62f, .89f), new Color(.68f, .46f, .82f), new Color(.95f, .39f, .28f) };

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cabfb54408bf24465b5dd78354df2c62, type: 3}
   m_Name: Sneakers2
   m_EditorClassIdentifier: Assembly-CSharp::ShoesClothing
-  displayName: "\u041A\u0440\u043E\u0441\u0441\u043E\u0432\u043A\u0438"
+  displayName: Sneakers
   model: {fileID: 919132149155446097, guid: 350b3188cabc3441db1b46e4dc9f817e, type: 3}
   fabricMaterial: {fileID: 2100000, guid: 66d5b794555be4ac998f189084f998e9, type: 2}
   outlineMaterial: {fileID: 2100000, guid: 008e2070947a94dd9933af752537694b, type: 2}

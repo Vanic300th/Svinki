@@ -75,7 +75,7 @@ NavMeshAgent:
   m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.22
-  m_Speed: 5.5
+  m_Speed: 2.5
   m_Acceleration: 40
   avoidancePriority: 50
   m_AngularSpeed: 720
@@ -110,7 +110,7 @@ MonoBehaviour:
   - {fileID: 1586806490989998638}
   - {fileID: 2111966776557481316}
   - {fileID: 8475209857157379199}
-  maxViewDistance: 60
+  maxViewDistance: 30
   screenMargin: 0.03
   networkScreenMargin: 0.1
   unseenDelay: 0.2
@@ -179,6 +179,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ThiefBrain
   nest: {fileID: 0}
   nestDropRadius: 1
+  dropOffPoints: []
   runSpeed: 5.5
   bodyScale: 0.6
   runAnimationSpeed: 1.4
@@ -227,22 +228,25 @@ MonoBehaviour:
   _spectatorInterpolation: 2
   _enableTeleport: 0
   _teleportThreshold: 1
-  <PrefabId>k__BackingField: 65535
+  <PrefabId>k__BackingField: 10
   <SpawnableCollectionId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 9986904381045301504
   SceneId: 0
   SerializedTransformProperties:
     Position: {x: 0, y: 0, z: 0}
-    Rotation: {x: 0, y: 0, z: 0, w: 0}
-    Scale: {x: 0, y: 0, z: 0}
-    IsValid: 0
+    Rotation: {x: 0, y: 0, z: 0, w: 1}
+    Scale: {x: 1, y: 1, z: 1}
+    IsValid: 1
   <IsNested>k__BackingField: 0
   WasActiveDuringEdit: 0
   WasActiveDuringEdit_Set1: 1
   <ComponentIndex>k__BackingField: 0
   <PredictedSpawn>k__BackingField: {fileID: 0}
   <PredictedOwner>k__BackingField: {fileID: 0}
-  NetworkBehaviours: []
+  NetworkBehaviours:
+  - {fileID: 6149114592688472716}
+  - {fileID: 5795782380132859313}
+  - {fileID: 7936284649236299261}
   InitializedParentNetworkBehaviour: {fileID: 0}
   InitializedNestedNetworkObjects: []
   RuntimeParentNetworkBehaviour: {fileID: 0}
@@ -253,7 +257,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _preventDespawnOnDisconnect: 0
   _defaultDespawnType: 0
-  _initializedTimestamp: 0
+  _initializedTimestamp: -8584103009078837018
 --- !u!114 &6149114592688472716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,9 +270,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FishNet.Runtime::FishNet.Component.Transforming.NetworkTransform
-  _componentIndexCache: 255
+  _componentIndexCache: 0
   _addedNetworkObject: {fileID: 3377496784248867368}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 3377496784248867368}
   _componentConfiguration: 0
   _synchronizeParent: 0
   _packing:
@@ -312,9 +316,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae400cadf2e890d45a6f65d2cf0022f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NetworkMannequinAnimation
-  _componentIndexCache: 255
+  _componentIndexCache: 1
   _addedNetworkObject: {fileID: 3377496784248867368}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 3377496784248867368}
 --- !u!114 &7936284649236299261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -327,9 +331,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1de64b2f17c2384bba3b8897e533d95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NetworkThief
-  _componentIndexCache: 255
+  _componentIndexCache: 2
   _addedNetworkObject: {fileID: 3377496784248867368}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 3377496784248867368}
 --- !u!1 &6443267331093633702
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.coplaydev.unity-mcp": "https://github.com/CoplayDev/unity-mcp.git?path=/MCPForUnity#main",
     "com.firstgeargames.fishnet": "https://github.com/FirstGearGames/FishNet.git?path=Assets/FishNet#4.7.3",
     "com.playeveryware.eos": "https://github.com/EOS-Contrib/eos_plugin_for_unity_upm.git#v6.2.0",
     "com.unity.ai.navigation": "2.0.14",

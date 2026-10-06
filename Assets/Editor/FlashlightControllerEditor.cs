@@ -9,6 +9,8 @@ public sealed class FlashlightControllerEditor : Editor
         serializedObject.Update();
         EditorGUILayout.PropertyField(serializedObject.FindProperty("startOn"),
             new GUIContent("Включён при старте"));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("hud"),
+            new GUIContent("HUD", "HUD этой сцены (префаб GameHUD). Пусто — найдётся сам"));
         serializedObject.ApplyModifiedProperties();
 
         FlashlightController controller = (FlashlightController)target;

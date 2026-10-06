@@ -124,15 +124,15 @@ public static class PigAppearanceVerification
         var menu = UnityEngine.Object.FindAnyObjectByType<PigAppearanceMenu>();
         var buttons = UnityEngine.Object.FindObjectsByType<UnityEngine.UI.Button>(FindObjectsSortMode.None);
         var preview = menu.GetComponentInChildren<PigAppearance>();
-        buttons.Single(b => b.name == "Борода").onClick.Invoke();
+        buttons.Single(b => b.name == "Beard").onClick.Invoke();
         if (preview.FaceCode != PigFace.Preset(1).Encode()) throw new Exception("Beard preset button failed.");
-        buttons.Single(b => b.name.StartsWith("Очки:")).onClick.Invoke();
-        buttons.Single(b => b.name.StartsWith("Серьга в ухе:")).onClick.Invoke();
-        buttons.Single(b => b.name.StartsWith("Пирсинг брови:")).onClick.Invoke();
+        buttons.Single(b => b.name.StartsWith("Glasses:")).onClick.Invoke();
+        buttons.Single(b => b.name.StartsWith("Earring:")).onClick.Invoke();
+        buttons.Single(b => b.name.StartsWith("Brow piercing:")).onClick.Invoke();
         if (preview.FaceCode != 496 || PigFace.Selected != 496) throw new Exception("Independent accessories or saved selection failed.");
-        buttons.Single(b => b.name == "Пирсинг").onClick.Invoke();
+        buttons.Single(b => b.name == "Piercings").onClick.Invoke();
         if (preview.FaceCode != PigFace.Preset(2).Encode()) throw new Exception("Piercing preset failed.");
-        foreach (string prefix in new[] { "Ирокез:", "Кольцо в носу:", "Цвет кожи:", "Окрас:", "Цвет узора:", "Цвет волос:" })
+        foreach (string prefix in new[] { "Mohawk:", "Nose ring:", "Skin color:", "Pattern:", "Pattern color:", "Hair color:" })
             buttons.Single(b => b.name.StartsWith(prefix)).onClick.Invoke();
         var extended = PigFace.Decode(PigFace.Selected);
         if (!extended.mohawk || !extended.nosePiercing || extended.skinColor != 1 || extended.pattern != 1 ||
@@ -140,7 +140,7 @@ public static class PigAppearanceVerification
             throw new Exception("Extended menu controls failed.");
         for (int style = 1; style < PigFace.GlassesCount; style++)
         {
-            buttons.Single(b => b.name.StartsWith("Очки:")).onClick.Invoke();
+            buttons.Single(b => b.name.StartsWith("Glasses:")).onClick.Invoke();
             if (PigFace.Decode(preview.FaceCode).glassesStyle != style) throw new Exception("Glasses menu cycle failed.");
         }
         var scroll = menu.GetComponentsInChildren<UnityEngine.UI.ScrollRect>().Single();

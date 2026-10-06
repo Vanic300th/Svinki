@@ -13,7 +13,7 @@ public class PickupItem : MonoBehaviour
     public enum PickupAction { HideObject, DestroyObject }
 
     [Header("Pickup")]
-    [SerializeField] private string itemName = "Предмет";
+    [SerializeField] private string itemName = "Item";
     [SerializeField] private PickupAction afterPickup = PickupAction.HideObject;
     [SerializeField] private UnityEvent onPickedUp = new UnityEvent();
 

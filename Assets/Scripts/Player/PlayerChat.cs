@@ -169,7 +169,7 @@ public sealed class PlayerChat : MonoBehaviour
         panel.GetComponent<UnityEngine.UI.Image>().color = new Color(.04f, .055f, .085f, .94f);
         var hint = CreateText("Chat Help", panel.transform);
         Stretch(hint.rectTransform, new Vector2(18, 62), new Vector2(-18, -12));
-        hint.text = "Чат  ·  Enter — отправить  ·  Esc — отменить";
+        hint.text = "Chat  ·  Enter — send  ·  Esc — cancel";
         hint.fontSize = 20; hint.color = new Color(.7f, .78f, .87f);
         var field = new GameObject("Message", typeof(RectTransform), typeof(UnityEngine.UI.Image));
         field.transform.SetParent(panel.transform, false);
@@ -180,7 +180,7 @@ public sealed class PlayerChat : MonoBehaviour
         Stretch(viewport.GetComponent<RectTransform>(), new Vector2(12, 4), new Vector2(-12, -4));
         var text = CreateText("Message Text", viewport.transform);
         var placeholder = CreateText("Placeholder", viewport.transform);
-        placeholder.text = "Введите сообщение…"; placeholder.color = new Color(.55f, .62f, .7f);
+        placeholder.text = "Type a message…"; placeholder.color = new Color(.55f, .62f, .7f);
         input = field.AddComponent<TMP_InputField>();
         input.textViewport = viewport.GetComponent<RectTransform>();
         input.textComponent = text; input.placeholder = placeholder;
