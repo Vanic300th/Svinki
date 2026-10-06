@@ -12,7 +12,7 @@ Shader "Svinki/Planar Mirror"
         {
             Name "Mirror"
             Tags { "LightMode" = "SRPDefaultUnlit" }
-            Cull Back
+            Cull Off
             ZWrite On
 
             HLSLPROGRAM

@@ -273,7 +273,7 @@ public sealed class ClothingLibraryImporter : AssetPostprocessor
             pickupData.FindProperty("itemName").stringValue = clothing.DisplayName;
             pickupData.FindProperty("highlightColor").colorValue = clothing.HighlightColor;
             pickupData.FindProperty("glowStrength").floatValue = 0f;
-            pickupData.FindProperty("sparkleRate").floatValue = 10f;
+            pickupData.FindProperty("sparkleRate").floatValue = 0f;
             pickupData.FindProperty("preserveBaseColor").boolValue = true;
             pickupData.ApplyModifiedPropertiesWithoutUndo();
 

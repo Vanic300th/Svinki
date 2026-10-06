@@ -1,0 +1,207 @@
+{
+  "version": 1,
+  "units": "metres",
+  "height_m": 1.96,
+  "front_blender": "-Y",
+  "rig": "Generic",
+  "bones": [
+    "Root",
+    "Hips",
+    "Spine",
+    "Head",
+    "UpperArm_L",
+    "Forearm_L",
+    "Hand_L",
+    "UpperArm_R",
+    "Forearm_R",
+    "Hand_R",
+    "Thigh_L",
+    "Shin_L",
+    "Foot_L",
+    "Thigh_R",
+    "Shin_R",
+    "Foot_R"
+  ],
+  "base_objects": [
+    "Body",
+    "Ear_L",
+    "Hoof_Hand_L",
+    "Hoof_Foot_L",
+    "Ear_R",
+    "Hoof_Hand_R",
+    "Hoof_Foot_R",
+    "Nostril_R",
+    "Nostril_L",
+    "Snout"
+  ],
+  "slots": {
+    "Eyes__Open": [
+      "Eye_Open_-1",
+      "Eye_Open_1"
+    ],
+    "Eyes__Squint": [
+      "Eye_Squint_-1",
+      "Eye_Squint_1"
+    ],
+    "Brows__Neutral": [
+      "Brow_Neutral_-1",
+      "Brow_Neutral_1"
+    ],
+    "Brows__Raised": [
+      "Brow_Raised_-1",
+      "Brow_Raised_1"
+    ],
+    "Brows__Confident": [
+      "Brow_Confident_-1",
+      "Brow_Confident_1"
+    ],
+    "Glasses__Round": [
+      "Glasses_Round"
+    ],
+    "Mustache__Curled": [
+      "Mustache_Curled"
+    ],
+    "Mustache__Classic": [
+      "Mustache_Classic"
+    ],
+    "Beard__Short": [
+      "Beard_Short"
+    ],
+    "EarPiercing__Hoop": [
+      "Piercing_EarHoop"
+    ],
+    "BrowPiercing__Bar": [
+      "Piercing_BrowBar"
+    ]
+  },
+  "default": [
+    "Eyes__Open",
+    "Brows__Neutral"
+  ],
+  "presets": {
+    "01_GlassesMustache": [
+      "Eyes__Open",
+      "Brows__Raised",
+      "Glasses__Round",
+      "Mustache__Curled"
+    ],
+    "02_Beard": [
+      "Eyes__Open",
+      "Brows__Neutral",
+      "Mustache__Classic",
+      "Beard__Short"
+    ],
+    "03_Piercings": [
+      "Eyes__Squint",
+      "Brows__Confident",
+      "EarPiercing__Hoop",
+      "BrowPiercing__Bar"
+    ]
+  },
+  "mesh_stats": {
+    "Body": {
+      "vertices": 5072,
+      "triangles": 10140
+    },
+    "Ear_L": {
+      "vertices": 578,
+      "triangles": 1152
+    },
+    "Hoof_Hand_L": {
+      "vertices": 362,
+      "triangles": 720
+    },
+    "Hoof_Foot_L": {
+      "vertices": 362,
+      "triangles": 720
+    },
+    "Ear_R": {
+      "vertices": 578,
+      "triangles": 1152
+    },
+    "Hoof_Hand_R": {
+      "vertices": 362,
+      "triangles": 720
+    },
+    "Hoof_Foot_R": {
+      "vertices": 362,
+      "triangles": 720
+    },
+    "Snout": {
+      "vertices": 912,
+      "triangles": 1820
+    },
+    "Nostril_R": {
+      "vertices": 178,
+      "triangles": 352
+    },
+    "Nostril_L": {
+      "vertices": 178,
+      "triangles": 352
+    },
+    "Eye_Open_-1": {
+      "vertices": 362,
+      "triangles": 720
+    },
+    "Eye_Open_1": {
+      "vertices": 362,
+      "triangles": 720
+    },
+    "Eye_Squint_-1": {
+      "vertices": 34,
+      "triangles": 64
+    },
+    "Eye_Squint_1": {
+      "vertices": 34,
+      "triangles": 64
+    },
+    "Brow_Neutral_-1": {
+      "vertices": 72,
+      "triangles": 140
+    },
+    "Brow_Neutral_1": {
+      "vertices": 72,
+      "triangles": 140
+    },
+    "Brow_Raised_-1": {
+      "vertices": 72,
+      "triangles": 140
+    },
+    "Brow_Raised_1": {
+      "vertices": 72,
+      "triangles": 140
+    },
+    "Brow_Confident_-1": {
+      "vertices": 72,
+      "triangles": 140
+    },
+    "Brow_Confident_1": {
+      "vertices": 72,
+      "triangles": 140
+    },
+    "Glasses_Round": {
+      "vertices": 888,
+      "triangles": 1764
+    },
+    "Mustache_Curled": {
+      "vertices": 192,
+      "triangles": 376
+    },
+    "Mustache_Classic": {
+      "vertices": 724,
+      "triangles": 1440
+    },
+    "Beard_Short": {
+      "vertices": 428,
+      "triangles": 852
+    },
+    "Piercing_EarHoop": {
+      "vertices": 256,
+      "triangles": 512
+    },
+    "Piercing_BrowBar": {
+      "vertices": 188,
+      "triangles": 364
+    }
+  }
+}

@@ -24,9 +24,11 @@ public sealed class NetworkLobby : MonoBehaviour
         public NetworkConnection Connection;
         public NetworkObject Avatar;
         public float ReservedUntil;
+        public int Appearance;
     }
     public const int Capacity = 6;
     public const float ReconnectGrace = 60f;
+    public const int ProtocolVersion = 2;
     public static NetworkLobby Instance { get; private set; }
     [SerializeField] private NetworkObject playerPrefab;
     [SerializeField] private GameObject offlinePlayerPrefab;
@@ -44,6 +46,13 @@ public sealed class NetworkLobby : MonoBehaviour
     public bool IsSpectator => Snapshot.players.Any(p => p.id == identity && p.spectator);
     public bool InputAllowed => !MenuVisible && (Offline || Snapshot.phase == SessionPhase.Round && !IsSpectator);
     public string Identity => identity;
+    public int SelectedAppearance => PigFace.Selected;
+    public void SelectAppearance(int value)
+    {
+        if (Busy || Offline || InSession && Snapshot.phase != SessionPhase.Lobby) return;
+        PigFace.SaveSelection(value);
+        if (InSession) Send(SessionAction.Appearance);
+    }
     public event Action Changed;
     private readonly Dictionary<string, Member> members = new Dictionary<string, Member>();
     private readonly Dictionary<NetworkConnection, Member> connections = new Dictionary<NetworkConnection, Member>();
@@ -69,6 +78,8 @@ public sealed class NetworkLobby : MonoBehaviour
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
         manager = GetComponent<NetworkManager>(); multipass = GetComponent<Multipass>();
+        // Cleanup can run before online authentication selects the EOS transport.
+        multipass.SetClientTransport<Tugboat>();
         eos = gameObject.AddComponent<EosSession>();
         eos.SessionClosed += EndFromService;
         Nickname = PlayerPrefs.GetString("svinki.nickname", "Свинка");
@@ -201,7 +212,8 @@ public sealed class NetworkLobby : MonoBehaviour
     private void Send(SessionAction action, bool value = false, string target = null)
     {
         if (manager.ClientManager.Started) manager.ClientManager.Broadcast(new SessionRequest
-        { Version = 1, Action = action, Identity = identity, Nickname = Nickname, Value = value, Target = target });
+        { Version = ProtocolVersion, Action = action, Identity = identity, Nickname = Nickname, Value = value,
+          Target = target, Appearance = SelectedAppearance });
     }
     private void OnClientState(ClientConnectionStateArgs args)
     {
@@ -246,7 +258,7 @@ public sealed class NetworkLobby : MonoBehaviour
         {
             if (connections.ContainsKey(connection)) return;
             string id = request.Identity;
-            if (request.Version != 1 || string.IsNullOrEmpty(id) || id.Length > 64) { Reject(connection, "Несовместимая версия игры."); return; }
+            if (request.Version != ProtocolVersion || string.IsNullOrEmpty(id) || id.Length > 64) { Reject(connection, "Несовместимая версия игры."); return; }
             if (online && manager.TransportManager.Transport.GetConnectionAddress(connection.ClientId) != id) { Reject(connection, "Не удалось подтвердить гостевой профиль."); return; }
             if (banned.Contains(id)) { Reject(connection, "Хост исключил вас из этой сессии."); return; }
             members.TryGetValue(id, out Member member);
@@ -256,7 +268,8 @@ public sealed class NetworkLobby : MonoBehaviour
             { Reject(connection, admissionClosed ? "Хост закрыл вход новым игрокам." : "Лобби заполнено или переключает раунд. Попробуйте позже."); return; }
             if (member == null)
             {
-                member = new Member { Id = id, Name = CleanNickname(request.Nickname), Spectator = phase == SessionPhase.Round };
+                member = new Member { Id = id, Name = CleanNickname(request.Nickname), Spectator = phase == SessionPhase.Round,
+                    Appearance = PigFace.Sanitize(request.Appearance) };
                 members.Add(id, member);
             }
             member.Connection = connection; member.ReservedUntil = 0; member.Ready = false;
@@ -268,6 +281,13 @@ public sealed class NetworkLobby : MonoBehaviour
         if (!connections.TryGetValue(connection, out Member caller)) return;
         switch (request.Action)
         {
+            case SessionAction.Appearance:
+                if (phase == SessionPhase.Lobby)
+                {
+                    caller.Appearance = PigFace.Sanitize(request.Appearance);
+                    caller.Ready = false;
+                }
+                break;
             case SessionAction.Ready:
                 if (phase == SessionPhase.Lobby) caller.Ready = request.Value;
                 break;
@@ -319,15 +339,25 @@ public sealed class NetworkLobby : MonoBehaviour
         catch (Exception error) { Report("Раунд не запущен: не удалось сохранить контрольную точку. " + error.Message); return; }
         phase = SessionPhase.Loading;
         foreach (Member member in members.Values) member.Spectator = false;
-        var data = new SceneLoadData("SampleScene"); data.Options.LocalPhysics = LocalPhysicsMode.Physics3D;
-        data.Options.AllowStacking = true;
+        // One host runs one round. NavMesh collider collection requires the default physics world.
+        var data = new SceneLoadData("SampleScene");
+        data.Options.AllowStacking = false;
         manager.SceneManager.LoadConnectionScenes(connections.Keys.ToArray(), data);
         Publish();
     }
     private void OnLoadEnd(SceneLoadEndEventArgs args)
     {
-        if (!args.QueueData.AsServer || phase != SessionPhase.Loading || args.LoadedScenes.Length == 0) return;
-        roundScene = args.LoadedScenes[0]; phase = SessionPhase.Round; Publish();
+        // Additive FishNet loads otherwise keep the bright Lobby RenderSettings active.
+        Scene presentation = args.LoadedScenes.FirstOrDefault(scene => scene.name == "SampleScene");
+        if (!presentation.IsValid() && args.SkippedSceneNames.Contains("SampleScene"))
+            presentation = SceneManager.GetSceneByName("SampleScene");
+        if (presentation.IsValid() && presentation.isLoaded) SceneManager.SetActiveScene(presentation);
+        if (!args.QueueData.AsServer || phase != SessionPhase.Loading) return;
+        Scene loaded = args.LoadedScenes.FirstOrDefault(scene => scene.name == "SampleScene");
+        if (!loaded.IsValid() && args.SkippedSceneNames.Contains("SampleScene"))
+            loaded = SceneManager.GetSceneByName("SampleScene");
+        if (!loaded.IsValid() || !loaded.isLoaded) return;
+        roundScene = loaded; phase = SessionPhase.Round; Publish();
     }
     private void OnPresence(ClientPresenceChangeEventArgs args)
     {
@@ -341,6 +371,7 @@ public sealed class NetworkLobby : MonoBehaviour
         string[] saved = resume?.players.FirstOrDefault(p => p.id == member.Id)?.outfit;
         if (saved != null) player.GetComponent<NetworkPlayer>().RestoreOutfit(saved);
         player.GetComponent<NetworkPlayer>().SetIdentity(member.Id, member.Name);
+        player.GetComponent<NetworkPlayer>().SetAppearance(member.Appearance);
         manager.ServerManager.Spawn(player, args.Connection, roundScene); member.Avatar = player;
     }
     private void ReturnToLobby()
@@ -388,7 +419,7 @@ public sealed class NetworkLobby : MonoBehaviour
             phase = phase, code = code, host = hostIdentity, round = round, closed = admissionClosed,
             players = members.Values.Select(p => new ParticipantSnapshot { id = p.Id, nickname = p.Name,
                 connected = p.Connection != null, ready = p.Ready, spectator = p.Spectator,
-                reservation = Mathf.Max(0f, p.ReservedUntil - Time.unscaledTime) }).ToArray()
+                reservation = Mathf.Max(0f, p.ReservedUntil - Time.unscaledTime), appearance = p.Appearance }).ToArray()
         };
         string json = JsonUtility.ToJson(snapshot);
         foreach (NetworkConnection connection in connections.Keys) if (connection.IsActive)
@@ -403,7 +434,7 @@ public sealed class NetworkLobby : MonoBehaviour
         }
         if (awaitingHello && Time.unscaledTime > connectionDeadline)
         { awaitingHello = false; EndFromService("Хост не ответил. Проверьте код и соединение, затем повторите."); }
-        if (UnityEngine.InputSystem.Keyboard.current?.escapeKey.wasPressedThisFrame == true && (Snapshot.phase == SessionPhase.Round || Offline))
+        if (!PlayerChat.ConsumedEscape && UnityEngine.InputSystem.Keyboard.current?.escapeKey.wasPressedThisFrame == true && (Snapshot.phase == SessionPhase.Round || Offline))
         {
             MenuVisible = !MenuVisible;
             Cursor.lockState = MenuVisible ? CursorLockMode.None : CursorLockMode.Locked; Cursor.visible = MenuVisible;
@@ -471,13 +502,15 @@ public sealed class NetworkLobby : MonoBehaviour
             if (token != operation) { if (scene.IsValid() && scene.isLoaded) await UnloadOffline(scene); return; }
             SceneManager.SetActiveScene(scene);
             foreach (GameObject root in scene.GetRootGameObjects())
-                foreach (NetworkBehaviour component in root.GetComponentsInChildren<NetworkBehaviour>(true)) Destroy(component);
+                foreach (NetworkBehaviour component in root.GetComponentsInChildren<NetworkBehaviour>(true)) component.enabled = false;
             foreach (GameObject root in scene.GetRootGameObjects())
                 foreach (NetworkObject component in root.GetComponentsInChildren<NetworkObject>(true))
                 { component.SetIsNetworked(false); component.gameObject.SetActive(true); }
-            // Network wrappers no longer block local pickup callbacks after their destruction.
-            await Task.Yield();
+            // Keep FishNet's cached component references valid when the scene unloads.
+            foreach (GameObject root in scene.GetRootGameObjects())
+                foreach (UnityEngine.AI.NavMeshAgent agent in root.GetComponentsInChildren<UnityEngine.AI.NavMeshAgent>(true)) agent.enabled = true;
             GameObject player = Instantiate(offlinePlayerPrefab, new Vector3(0f, .05f, -3f), Quaternion.identity);
+            player.GetComponentInChildren<PigAppearance>(true)?.Apply(SelectedAppearance);
             SceneManager.MoveGameObjectToScene(player, scene);
             player.GetComponent<WorldOutfitRenderer>()?.SetFirstPersonHidden(true);
             Camera.main.GetComponent<GrayboxFirstPersonCamera>().SetTarget(player.transform);

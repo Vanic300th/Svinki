@@ -32,21 +32,36 @@ public sealed class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
     private bool sprint;
     private bool crouch;
     private float nextPoseSend;
+    private float nextChatAllowed;
+    private float nextRagdollSend;
     private readonly SyncVar<string> participantId = new SyncVar<string>();
     private readonly SyncVar<string> participantName = new SyncVar<string>();
     private readonly SyncVar<PlayerPose> pose = new SyncVar<PlayerPose>();
+    private readonly SyncVar<int> pigFace = new SyncVar<int>();
+    private readonly SyncVar<KnockdownPose> knockdownPose = new SyncVar<KnockdownPose>();
+    private PlayerKnockdown knockdown;
+    private PigAppearance pigAppearance;
     private Light remoteFlashlight;
     public string ParticipantId => participantId.Value;
     public string ParticipantName => participantName.Value;
     public bool FlashlightOn => pose.Value.Flashlight;
+    public float MotionSpeed => pose.Value.Speed;
+    public float VerticalSpeed => pose.Value.VerticalSpeed;
+    public bool Grounded => pose.Value.Grounded;
     public void SetIdentity(string id, string nickname) { participantId.Value = id; participantName.Value = nickname; }
+    public void SetAppearance(int value)
+    {
+        pigFace.Value = PigFace.Sanitize(value);
+        pigAppearance?.Apply(pigFace.Value);
+    }
+    private void OnPigFaceChanged(int previous, int next, bool asServer) => pigAppearance?.Apply(next);
     public void RestoreOutfit(string[] ids)
     {
         var items = new List<ClothingDefinition>();
         foreach (string id in ids) { var item = FindInCatalog(id); if (item != null) items.Add(item); }
         GetComponent<PlayerOutfit>().SetItems(items);
     }
-    public void FreezeDisconnected() { move = Vector2.zero; sprint = false; }
+    public void FreezeDisconnected() { move = Vector2.zero; sprint = false; GetComponent<PlayerMannequinCarry>()?.Release(false); }
     public override void OnOwnershipClient(NetworkConnection previousOwner)
     {
         base.OnOwnershipClient(previousOwner);
@@ -68,14 +83,19 @@ public sealed class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
     private void Awake()
     {
         motor = GetComponent<GrayboxPlayerController>();
+        knockdown = GetComponent<PlayerKnockdown>();
+        knockdownPose.OnChange += OnKnockdownChanged;
         GameObject lamp = new GameObject("Remote flashlight"); lamp.transform.SetParent(transform, false);
         remoteFlashlight = lamp.AddComponent<Light>(); remoteFlashlight.type = LightType.Spot;
-        remoteFlashlight.range = 18f; remoteFlashlight.spotAngle = 58f; remoteFlashlight.intensity = 2f;
+        FlashlightController.ConfigureLight(remoteFlashlight);
         remoteFlashlight.enabled = false;
         // Игрок для манекенов (PlayerAvatar) и его комплект (PlayerOutfit) — обычные компоненты, добавляем сами
         if (GetComponent<PlayerAvatar>() == null) gameObject.AddComponent<PlayerAvatar>();
+        if (GetComponent<PlayerNameplate>() == null) gameObject.AddComponent<PlayerNameplate>();
         outfit = GetComponent<PlayerOutfit>();
         worldOutfit = GetComponent<WorldOutfitRenderer>();
+        pigAppearance = GetComponentInChildren<PigAppearance>(true);
+        pigFace.OnChange += OnPigFaceChanged;
         wornClothing.OnChange += OnWornClothingChanged;
     }
 
@@ -99,6 +119,8 @@ public sealed class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
         base.OnStartClient();
         if (worldOutfit != null) worldOutfit.SetFirstPersonHidden(IsOwner);
         ApplyWornClothing();
+        pigAppearance?.Apply(pigFace.Value);
+        knockdown?.ApplyNetworkPose(knockdownPose.Value);
         if (IsOwner) StartCoroutine(BindLocalView());
     }
 
@@ -106,6 +128,7 @@ public sealed class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
     {
         while (Camera.main == null) { if (!IsOwner) yield break; yield return null; }
         if (!IsOwner) yield break;
+        UnityEngine.SceneManagement.SceneManager.SetActiveScene(gameObject.scene);
         view = Camera.main.GetComponent<GrayboxFirstPersonCamera>();
         interactor = Camera.main.GetComponent<PlayerPickupInteractor>();
         if (view != null) view.SetTarget(transform);
@@ -127,7 +150,7 @@ public sealed class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
     {
         if (IsOwner && view != null && Keyboard.current != null)
         {
-            bool allowed = NetworkLobby.Instance == null || NetworkLobby.Instance.InputAllowed;
+            bool allowed = (knockdown == null || !knockdown.IsDown) && !PlayerChat.BlocksInput && (NetworkLobby.Instance == null || NetworkLobby.Instance.InputAllowed);
             move = allowed ? GrayboxPlayerController.ReadMoveInput() : Vector2.zero;
             yaw = view.transform.eulerAngles.y; pitch = Mathf.DeltaAngle(0f, view.transform.eulerAngles.x);
             sprint = allowed && (Keyboard.current.leftShiftKey.isPressed || Keyboard.current.rightShiftKey.isPressed);
@@ -136,8 +159,9 @@ public sealed class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
             if (Time.unscaledTime >= nextPoseSend)
             {
                 nextPoseSend = Time.unscaledTime + .05f;
-                bool lightOn = view.GetComponent<FlashlightController>()?.IsOn ?? true;
-                SubmitPoseServerRpc(new PlayerPose { Yaw = yaw, Pitch = pitch, Crouch = motor.CrouchAmount, Flashlight = lightOn });
+                bool lightOn = view.GetComponentInChildren<FlashlightController>()?.IsOn ?? false;
+                SubmitPoseServerRpc(new PlayerPose { Yaw = yaw, Pitch = pitch, Crouch = motor.CrouchAmount, Flashlight = lightOn,
+                    Speed = motor.MotionSpeed, VerticalSpeed = motor.VerticalVelocity, Grounded = motor.Grounded });
             }
             Camera camera = view.GetComponent<Camera>();
             if (camera != null && (Mathf.Abs(camera.fieldOfView - sentFieldOfView) > .5f || Mathf.Abs(camera.aspect - sentAspect) > .01f))
@@ -162,10 +186,66 @@ public sealed class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
     [ServerRpc(RequireOwnership = true)]
     private void SubmitPoseServerRpc(PlayerPose value, Channel channel = Channel.Unreliable)
     {
-        if (!float.IsFinite(value.Yaw) || !float.IsFinite(value.Pitch) || !float.IsFinite(value.Crouch)) return;
+        if (!float.IsFinite(value.Yaw) || !float.IsFinite(value.Pitch) || !float.IsFinite(value.Crouch) ||
+            !float.IsFinite(value.Speed) || !float.IsFinite(value.VerticalSpeed)) return;
+        value.Speed = Mathf.Clamp(value.Speed, 0, 12);
+        value.VerticalSpeed = Mathf.Clamp(value.VerticalSpeed, -40, 12);
         value.Crouch = Mathf.Clamp01(value.Crouch); pose.Value = value;
         yaw = value.Yaw; pitch = value.Pitch;
     }
+
+    // Hit detection belongs to the server; there is no client RPC that can knock somebody down.
+    public bool TryKnockDown(Vector3 direction)
+    {
+        if (NetworkObject == null || !IsServerInitialized || knockdown == null || !knockdown.CanFall) return false;
+        GetComponent<PlayerMannequinCarry>()?.Release(false);
+        knockdown.SetDown(true, direction);
+        knockdownPose.Value = new KnockdownPose { Down = true, Direction = direction, FallId = knockdown.FallId };
+        return true;
+    }
+
+    public void RecoverFromKnockdown()
+    {
+        if (NetworkObject == null || !IsServerInitialized) return;
+        knockdown?.SetDown(false, Vector3.zero);
+        knockdownPose.Value = new KnockdownPose { FallId = knockdown != null ? knockdown.FallId : 0 };
+    }
+
+    private void OnKnockdownChanged(KnockdownPose previous, KnockdownPose next, bool asServer)
+    {
+        if (!asServer && !IsServerInitialized) knockdown?.ApplyNetworkPose(next);
+    }
+
+    private void LateUpdate()
+    {
+        if (NetworkObject == null || !IsServerInitialized || knockdown == null || !knockdown.IsDown || Time.unscaledTime < nextRagdollSend) return;
+        nextRagdollSend = Time.unscaledTime + .05f;
+        RagdollObserversRpc(knockdown.CaptureRagdoll());
+    }
+
+    [ObserversRpc]
+    private void RagdollObserversRpc(RagdollFrame frame, Channel channel = Channel.Unreliable)
+    {
+        if (!IsServerInitialized) knockdown?.ReceiveRagdoll(frame);
+    }
+
+    public void SendChat(string message)
+    {
+        if (IsOwner && IsClientStarted) SendChatServerRpc(message);
+    }
+
+    [ServerRpc(RequireOwnership = true)]
+    private void SendChatServerRpc(string message)
+    {
+        if (Time.unscaledTime < nextChatAllowed) return;
+        string clean = PlayerChat.CleanMessage(message);
+        if (clean.Length == 0) return;
+        nextChatAllowed = Time.unscaledTime + .5f;
+        ShowChatObserversRpc(clean);
+    }
+
+    [ObserversRpc]
+    private void ShowChatObserversRpc(string message) => PlayerChatBubble.Show(gameObject, message);
 
     [ServerRpc(RequireOwnership = true)]
     private void SubmitViewServerRpc(float fieldOfView, float aspect)
@@ -175,21 +255,56 @@ public sealed class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
         viewAspect = Mathf.Clamp(aspect, 0.5f, 4f);
     }
 
-    public void RequestPickup(NetworkPickup pickup)
+    public void RequestPickup(NetworkPickup pickup, Vector3 hitPoint)
     {
         if (!IsOwner || pickup == null) return;
-        RequestPickupServerRpc(pickup.NetworkObject);
+        RequestPickupServerRpc(pickup.NetworkObject, hitPoint);
+    }
+
+    public void RequestMannequinGrab(NetworkThrowableMannequin mannequin, Vector3 hitPoint)
+    {
+        if (IsOwner && mannequin != null && (knockdown == null || !knockdown.IsDown)) GrabMannequinServerRpc(mannequin.NetworkObject, hitPoint);
     }
 
     [ServerRpc(RequireOwnership = true)]
-    private void RequestPickupServerRpc(NetworkObject target)
+    private void GrabMannequinServerRpc(NetworkObject target, Vector3 hitPoint)
     {
-        if (target == null || target.gameObject.scene != gameObject.scene) return;
+        if (knockdown != null && knockdown.IsDown) return;
+        if (target == null || target.gameObject.scene != gameObject.scene ||
+            !float.IsFinite(hitPoint.x) || !float.IsFinite(hitPoint.y) || !float.IsFinite(hitPoint.z)) return;
+        var mannequin = target.GetComponent<ThrowableMannequin>();
+        var collider = target.GetComponent<CapsuleCollider>();
+        if (mannequin == null || collider == null || !collider.enabled ||
+            Vector3.Distance(collider.ClosestPoint(hitPoint), hitPoint) > .15f) return;
+        Vector3 direction = hitPoint - EyePosition;
+        if (direction.magnitude > 3.8f || direction.magnitude < .01f ||
+            Vector3.Angle(EyeRotation * Vector3.forward, direction) > 28) return;
+        if (!gameObject.scene.GetPhysicsScene().Raycast(EyePosition, direction.normalized, out RaycastHit hit,
+            direction.magnitude + .1f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide) ||
+            !hit.collider.transform.IsChildOf(target.transform)) return;
+        mannequin.TryGrab(GetComponent<PlayerAvatar>());
+    }
+
+    public void RequestMannequinRelease(bool thrown)
+    {
+        if (IsOwner) ReleaseMannequinServerRpc(thrown);
+    }
+
+    [ServerRpc(RequireOwnership = true)]
+    private void ReleaseMannequinServerRpc(bool thrown) => GetComponent<PlayerMannequinCarry>()?.Held?.Release(thrown);
+
+    [ServerRpc(RequireOwnership = true)]
+    private void RequestPickupServerRpc(NetworkObject target, Vector3 hitPoint)
+    {
+        if (knockdown != null && knockdown.IsDown) return;
+        if (target == null || target.gameObject.scene != gameObject.scene ||
+            !float.IsFinite(hitPoint.x) || !float.IsFinite(hitPoint.y) || !float.IsFinite(hitPoint.z)) return;
         NetworkPickup pickup = target.GetComponent<NetworkPickup>();
         if (pickup == null || Vector3.Distance(transform.position, pickup.transform.position) > 3.8f) return;
         Collider itemCollider = pickup.GetComponentInChildren<Collider>();
-        Vector3 point = itemCollider != null ? itemCollider.bounds.center : pickup.transform.position;
-        Vector3 eye = transform.position + Vector3.up * Mathf.Lerp(1.65f, 0.95f, motor.CrouchAmount);
+        if (itemCollider == null || !itemCollider.enabled || Vector3.Distance(itemCollider.ClosestPoint(hitPoint), hitPoint) > .15f) return;
+        Vector3 point = hitPoint;
+        Vector3 eye = EyePosition;
         Vector3 toItem = point - eye;
         float distance = toItem.magnitude;
         if (distance > 3.8f || distance < 0.01f) return;
@@ -202,10 +317,9 @@ public sealed class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
     }
 
     /// <summary>Сервер: выдать вещь игроку. Она попадает в его PlayerOutfit, а владельцу приходит список.</summary>
-    public void AwardClothing(ClothingDefinition clothing)
+    public bool AwardClothing(ClothingDefinition clothing)
     {
-        if (!IsServerStarted || clothing == null) return;
-        outfit.Add(clothing);
+        return IsServerStarted && outfit != null && outfit.TryAdd(clothing);
     }
 
     // ---------- Комплект одежды ----------
@@ -285,7 +399,8 @@ public sealed class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
     bool IPlayerViewSource.IsLocalPlayer => IsOwner;
     bool IPlayerViewSource.HasView => IsServerStarted;
     public Vector3 EyePosition =>
-        transform.position + Vector3.up * Mathf.Lerp(1.65f, 0.95f, motor.CrouchAmount); // как у камеры
+        (knockdown != null && knockdown.VisualAmount > 0 ? knockdown.EyePosition : transform.position + Vector3.up * Mathf.Lerp(1.65f, 0.95f, motor.CrouchAmount))
+        + Quaternion.Euler(0f, yaw, 0f) * Vector3.forward * GrayboxFirstPersonCamera.EyeForwardOffset;
     public Quaternion EyeRotation => Quaternion.Euler(pitch, yaw, 0f);
     float IPlayerViewSource.FieldOfView => viewFieldOfView;
     float IPlayerViewSource.Aspect => viewAspect;
@@ -293,6 +408,6 @@ public sealed class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
 
 public struct PlayerPose
 {
-    public float Yaw, Pitch, Crouch;
-    public bool Flashlight;
+    public float Yaw, Pitch, Crouch, Speed, VerticalSpeed;
+    public bool Flashlight, Grounded;
 }

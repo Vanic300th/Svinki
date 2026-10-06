@@ -1,0 +1,163 @@
+{
+  "source_meshes": 33,
+  "bones": 16,
+  "slots": 18,
+  "geometry": {
+    "Body": {
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0
+    },
+    "Ear_L": {
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0
+    },
+    "Hoof_Hand_L": {
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0
+    },
+    "Hoof_Foot_L": {
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0
+    },
+    "Ear_R": {
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0
+    },
+    "Hoof_Hand_R": {
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0
+    },
+    "Hoof_Foot_R": {
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0
+    },
+    "Snout": {
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0
+    },
+    "Nostril_R": {
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0
+    },
+    "Nostril_L": {
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0
+    },
+    "Eye_Open_-1": {
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0
+    },
+    "Eye_Open_1": {
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0
+    },
+    "Eye_Squint_-1": {
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0
+    },
+    "Eye_Squint_1": {
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0
+    },
+    "Brow_Neutral_-1": {
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0
+    },
+    "Brow_Neutral_1": {
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0
+    },
+    "Brow_Raised_-1": {
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0
+    },
+    "Brow_Raised_1": {
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0
+    },
+    "Brow_Confident_-1": {
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0
+    },
+    "Brow_Confident_1": {
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0
+    },
+    "Glasses_Round": {
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0
+    },
+    "Glasses_Square": {
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0
+    },
+    "Glasses_CatEye": {
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0
+    },
+    "Glasses_Aviator": {
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0
+    },
+    "Glasses_SunRound": {
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0
+    },
+    "Glasses_SunSquare": {
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0
+    },
+    "Hair_Mohawk": {
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0
+    },
+    "Piercing_Septum": {
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0
+    },
+    "Mustache_Curled": {
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0
+    },
+    "Mustache_Classic": {
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0
+    },
+    "Beard_Short": {
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0
+    },
+    "Piercing_EarHoop": {
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0
+    },
+    "Piercing_BrowBar": {
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0
+    }
+  },
+  "fbx_imports": {
+    "Pig_Modular.fbx": {
+      "mesh_count": 33,
+      "bones": 16,
+      "appearance_roots_preserved": true
+    },
+    "Pig_01_GlassesMustache.fbx": {
+      "mesh_count": 16,
+      "bones": 16,
+      "appearance_roots_preserved": true
+    },
+    "Pig_02_Beard.fbx": {
+      "mesh_count": 16,
+      "bones": 16,
+      "appearance_roots_preserved": true
+    },
+    "Pig_03_Piercings.fbx": {
+      "mesh_count": 16,
+      "bones": 16,
+      "appearance_roots_preserved": true
+    }
+  },
+  "head_follow_max_error_m": 2.6519154790045204e-07,
+  "limb_pose_moved_vertices": 2851
+}

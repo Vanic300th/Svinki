@@ -9,6 +9,7 @@ using UnityEngine.AI;
 /// которую он несёт, — модель в руке (шапку на голове) клиент вешает сам.
 /// Вещи на уровне и в гнезде синхронизирует NetworkPickup, кражу из комплекта — NetworkPlayer.
 /// </summary>
+[DefaultExecutionOrder(-900)]
 [RequireComponent(typeof(ThiefBrain), typeof(MannequinVisibility))]
 public sealed class NetworkThief : NetworkBehaviour
 {
@@ -30,6 +31,12 @@ public sealed class NetworkThief : NetworkBehaviour
         carried.OnChange += OnCarriedSynced;
     }
 
+    private void Start()
+    {
+        if (agent != null)
+            agent.enabled = NetworkLobby.Instance == null || NetworkLobby.Instance.Offline || FishNet.InstanceFinder.IsServerStarted;
+    }
+
     private void OnDestroy()
     {
         if (brain != null) brain.CarriedChanged -= OnCarriedChanged;
@@ -43,13 +50,6 @@ public sealed class NetworkThief : NetworkBehaviour
         brain.enabled = false;
         visibility.enabled = false;
         if (agent != null) agent.enabled = false;
-    }
-
-    public override void OnStartServer()
-    {
-        base.OnStartServer();
-        // Копии комнат на сервере лежат друг на друге, а обход агентов общий на все сцены
-        if (agent != null) agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
     }
 
     public override void OnStartClient()

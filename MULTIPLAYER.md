@@ -11,6 +11,8 @@
 3. Скопировать `Docs/svinki-eos.example.json` в `Assets/StreamingAssets/svinki-eos.json`, заполнить теми же реквизитами. Игра создаёт собственный EOS Platform без оверлея и выполняет Connect DeviceID. Этот файл игнорируется Git; в настольной сборке он должен присутствовать. Клиентские EOS credentials распространяются с игрой; административные секреты туда не помещать.
 4. Открыть `Lobby`, нажать Play, создать лобби. Второй компьютер с теми же Product/Sandbox/Deployment должен войти по коду. Для проверки EOS нужны разные устройства: DeviceID на одном устройстве соответствует одному профилю.
 
+Имя рабочего файла должно быть именно `svinki-eos.json`, без `.example`. На Mac для проверки EOS в Play Mode выберите macOS в `File > Build Profiles`: при активной Windows-цели EOS SDK 6.2.0 выбирает Windows-библиотеку, которую редактор macOS загрузить не может. После изменения конфигурации пересоберите игру; существующие сборки не обновляются автоматически.
+
 Документация: [EOS Lobbies](https://dev.epicgames.com/docs/epic-online-services/multiplayer/lobbies-and-sessions/lobby-interface/lobbies-guide/lobbies-guide-intro), [EOS P2P](https://dev.epicgames.com/docs/epic-online-services/multiplayer/nat-p2p-interface), [EOS Plugin](https://github.com/EOS-Contrib/eos_plugin_for_unity).
 
 ## Правила сессии
@@ -40,6 +42,12 @@
 - `SessionCheckpointVerification.Run()` через Unity eval проверяет чтение/замену файла, сохранность при несовместимой версии, повреждённый JSON и пустой файл.
 
 ## Ассеты и сборки
+
+Для готовой Windows-версии выберите **Svinki → Сборка Windows → Собрать EXE и ZIP**. Игра появится в `Builds/Windows`, архив для друзей — `Builds/Svinki-Windows.zip`. Сборщик сам выбирает Windows x64 и после сборки возвращает прежнюю платформу редактора. Подробности — в [BUILD-WINDOWS.md](BUILD-WINDOWS.md).
+
+Игрок видит своё тело при взгляде вниз. Для первого лица используется копия кожи без головы и шеи, с костями основного персонажа; другие игроки и зеркала показывают полную модель. `Svinki > Configure first person body` пересоздаёт эту копию и назначает её обоим префабам игрока после изменения модели.
+
+Хост загружает один уровень с общей физикой Unity. Это позволяет `NavMeshAutoBake` собирать навигацию по коллайдерам уровня. Агентами управляет хост; в гостевых процессах навигационные агенты отключены. В одиночке агенты и подбор одежды работают локально.
 
 `Svinki > Configure friend sessions` настраивает префабы: клиентское движение, сохранение аватара при обрыве, Multipass (UDP тест + EOS), офлайн-персонаж и шрифт меню. Не выполнять во время Play. После добавления новых NetworkObject выполнить `Svinki > Rebuild FishNet scene IDs`.
 

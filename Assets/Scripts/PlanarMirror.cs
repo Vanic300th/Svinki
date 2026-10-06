@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 /// <summary>Отражает камеру игрока относительно плоскости зеркала и выводит результат на её поверхность.</summary>
 [DefaultExecutionOrder(1000)]
@@ -16,6 +17,7 @@ public sealed class PlanarMirror : MonoBehaviour
     private MaterialPropertyBlock surfaceProperties;
     private bool previousCulling;
     private bool renderingReflection;
+    private readonly Plane[] frustum = new Plane[6];
 
     private void OnEnable()
     {
@@ -36,6 +38,11 @@ public sealed class PlanarMirror : MonoBehaviour
         cameraObject.transform.SetParent(transform, false);
         reflectionCamera = cameraObject.AddComponent<Camera>();
         reflectionCamera.enabled = false;
+        var data = cameraObject.AddComponent<UniversalAdditionalCameraData>();
+        // Reflections stay HDR; the main camera applies its grading once to the surface.
+        data.renderPostProcessing = false;
+        data.requiresColorOption = CameraOverrideOption.Off;
+        data.requiresDepthOption = CameraOverrideOption.Off;
 
         surfaceProperties = new MaterialPropertyBlock();
         mirrorSurface.GetPropertyBlock(surfaceProperties);
@@ -43,10 +50,13 @@ public sealed class PlanarMirror : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (reflectionCamera == null) Initialize();
         if (reflectionCamera == null || sourceCamera == null) return;
+        Vector3 planePosition = mirrorSurface.bounds.center;
         Vector3 normal = transform.forward;
-        bool inFront = Vector3.Dot(sourceCamera.transform.position - transform.position, normal) > 0.05f;
-        if (!sourceCamera.isActiveAndEnabled || !inFront)
+        bool inFront = Vector3.Dot(sourceCamera.transform.position - planePosition, normal) > 0.05f;
+        GeometryUtility.CalculateFrustumPlanes(sourceCamera, frustum);
+        if (!sourceCamera.isActiveAndEnabled || !inFront || !GeometryUtility.TestPlanesAABB(frustum, mirrorSurface.bounds))
         {
             reflectionCamera.enabled = false;
             return;
@@ -61,20 +71,22 @@ public sealed class PlanarMirror : MonoBehaviour
         int mask = sourceCamera.cullingMask & ~(1 << 5); // HUD находится на слое UI.
         if (localPlayerLayer >= 0) mask |= 1 << localPlayerLayer;
         if (mirrorLayer >= 0) mask &= ~(1 << mirrorLayer);
+        int bodyLayer = LayerMask.NameToLayer("FirstPersonBody");
+        if (bodyLayer >= 0) mask &= ~(1 << bodyLayer);
         reflectionCamera.cullingMask = mask;
 
         Vector3 sourcePosition = sourceCamera.transform.position;
-        Vector3 reflectedPosition = sourcePosition - 2f * Vector3.Dot(sourcePosition - transform.position, normal) * normal;
+        Vector3 reflectedPosition = sourcePosition - 2f * Vector3.Dot(sourcePosition - planePosition, normal) * normal;
         Vector3 reflectedForward = Vector3.Reflect(sourceCamera.transform.forward, normal);
         Vector3 reflectedUp = Vector3.Reflect(sourceCamera.transform.up, normal);
         reflectionCamera.transform.SetPositionAndRotation(reflectedPosition,
             Quaternion.LookRotation(reflectedForward, reflectedUp));
 
-        float distance = -Vector3.Dot(normal, transform.position);
+        float distance = -Vector3.Dot(normal, planePosition);
         Matrix4x4 reflection = ReflectionMatrix(new Vector4(normal.x, normal.y, normal.z, distance));
         reflectionCamera.worldToCameraMatrix = sourceCamera.worldToCameraMatrix * reflection;
         reflectionCamera.projectionMatrix = sourceCamera.projectionMatrix;
-        Vector4 clipPlane = CameraSpacePlane(transform.position, normal);
+        Vector4 clipPlane = CameraSpacePlane(planePosition, normal);
         reflectionCamera.projectionMatrix = reflectionCamera.CalculateObliqueMatrix(clipPlane);
         reflectionCamera.enabled = true;
     }
@@ -83,7 +95,7 @@ public sealed class PlanarMirror : MonoBehaviour
     {
         int sourceWidth = Mathf.Max(1, sourceCamera.pixelWidth);
         int sourceHeight = Mathf.Max(1, sourceCamera.pixelHeight);
-        float scale = Mathf.Min(resolutionScale, 1024f / Mathf.Max(sourceWidth, sourceHeight));
+        float scale = Mathf.Min(resolutionScale, 768f / Mathf.Max(sourceWidth, sourceHeight));
         int width = Mathf.Max(128, Mathf.RoundToInt(sourceWidth * scale));
         int height = Mathf.Max(128, Mathf.RoundToInt(sourceHeight * scale));
         if (reflectionTexture != null && reflectionTexture.width == width && reflectionTexture.height == height)
@@ -94,7 +106,7 @@ public sealed class PlanarMirror : MonoBehaviour
             reflectionTexture.Release();
             Release(reflectionTexture);
         }
-        reflectionTexture = new RenderTexture(width, height, 24, RenderTextureFormat.ARGB32)
+        reflectionTexture = new RenderTexture(width, height, 24, RenderTextureFormat.DefaultHDR)
         {
             name = "Player Mirror Reflection",
             filterMode = FilterMode.Bilinear,

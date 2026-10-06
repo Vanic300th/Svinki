@@ -18,7 +18,12 @@ public class GrayboxPlayerController : MonoBehaviour
     private float standingHeight;
     private Vector3 standingCenter;
     private bool isCrouching;
+    private PlayerKnockdown knockdown;
     private readonly Collider[] standingOverlaps = new Collider[16];
+    public bool Grounded => characterController != null && characterController.isGrounded;
+    public float VerticalVelocity => verticalSpeed;
+    public float MotionSpeed => characterController != null
+        ? new Vector2(characterController.velocity.x, characterController.velocity.z).magnitude : 0;
 
     public float CrouchAmount => standingHeight > crouchHeight
         ? Mathf.Clamp01((standingHeight - characterController.height) / (standingHeight - crouchHeight))
@@ -27,6 +32,7 @@ public class GrayboxPlayerController : MonoBehaviour
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
+        knockdown = GetComponent<PlayerKnockdown>();
         standingHeight = characterController.height;
         standingCenter = characterController.center;
         if (cameraTransform == null && Camera.main != null)
@@ -37,7 +43,9 @@ public class GrayboxPlayerController : MonoBehaviour
     {
         // NetworkPlayer drives the owning client; remote transforms arrive through FishNet.
         if (GetComponent<NetworkPlayer>() != null) return;
-        if (NetworkLobby.Instance != null && !NetworkLobby.Instance.InputAllowed) return;
+        if (knockdown != null && knockdown.IsDown)
+        { Simulate(Vector2.zero, transform.eulerAngles.y, false, false, false, Time.deltaTime); return; }
+        if (PlayerChat.BlocksInput || NetworkLobby.Instance != null && !NetworkLobby.Instance.InputAllowed) return;
         if (Keyboard.current == null || cameraTransform == null)
             return;
 
@@ -61,6 +69,15 @@ public class GrayboxPlayerController : MonoBehaviour
 
     public void Simulate(Vector2 input, float yaw, bool jump, bool sprint, bool wantsCrouch, float deltaTime)
     {
+        if (knockdown != null && knockdown.IsDown)
+        {
+            isCrouching = true;
+            SetDownStance();
+            if (characterController.isGrounded) verticalSpeed = -2;
+            verticalSpeed += gravity * deltaTime;
+            characterController.Move((knockdown.ConsumeSlide(deltaTime) + Vector3.up * verticalSpeed) * deltaTime);
+            return;
+        }
         input = Vector2.ClampMagnitude(input, 1f);
         isCrouching = wantsCrouch || (isCrouching && !CanStandUp());
         float targetHeight = isCrouching ? Mathf.Min(crouchHeight, standingHeight) : standingHeight;
@@ -86,11 +103,18 @@ public class GrayboxPlayerController : MonoBehaviour
 
     public void SetRemoteStance(float amount)
     {
+        if (knockdown != null && knockdown.IsDown) { SetDownStance(); return; }
         characterController.height = Mathf.Lerp(standingHeight, Mathf.Min(crouchHeight, standingHeight), Mathf.Clamp01(amount));
         characterController.center = standingCenter + Vector3.up * ((characterController.height - standingHeight) * .5f);
     }
 
     public void SetCamera(Transform value) => cameraTransform = value;
+
+    private void SetDownStance()
+    {
+        characterController.height = Mathf.Max(characterController.radius * 2, .65f);
+        characterController.center = standingCenter + Vector3.up * ((characterController.height - standingHeight) * .5f);
+    }
 
     private bool CanStandUp()
     {

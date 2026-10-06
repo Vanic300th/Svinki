@@ -9,13 +9,14 @@ using UnityEngine.InputSystem.UI;
 public sealed class SessionMenu : MonoBehaviour
 {
     private NetworkLobby lobby;
-    private GameObject panel;
+    private GameObject panel, settingsPanel;
     private TMP_Text status, title, roster;
     private TMP_InputField nickname, code;
     private readonly List<GameObject> controls = new List<GameObject>();
     private TMP_FontAsset font;
     private string layoutKey;
     private EventSystem sessionEvents;
+    private PigAppearanceMenu appearanceMenu;
     private void Start()
     {
         lobby = GetComponent<NetworkLobby>();
@@ -45,14 +46,19 @@ public sealed class SessionMenu : MonoBehaviour
         panel.transform.SetParent(canvasObject.transform, false);
         RectTransform rect = panel.GetComponent<RectTransform>(); rect.anchorMin = rect.anchorMax = new Vector2(.5f, .5f);
         rect.sizeDelta = new Vector2(900, 970);
+        rect.anchoredPosition = new Vector2(-252, 0);
         panel.GetComponent<UnityEngine.UI.Image>().color = new Color(.04f, .055f, .085f, .98f);
-        title = Label("SVINKI", 52, 44, 800, 64, 38);
+        title = Label("SVINKI", 52, 44, 605, 64, 30);
+        Button("Настройки", 680, 50, 165, () => settingsPanel.SetActive(!settingsPanel.activeSelf));
         status = Label("", 52, 114, 800, 110, 24);
         nickname = Input("Никнейм", 52, 230, 385, lobby.Nickname, 24);
         code = Input("Код друга", 460, 230, 385, "", 6);
         nickname.onEndEdit.AddListener(value => lobby.Nickname = value);
         code.onValueChanged.AddListener(value => { if (value != value.ToUpperInvariant()) code.SetTextWithoutNotify(value.ToUpperInvariant()); });
         roster = Label("", 52, 305, 800, 285, 26);
+        appearanceMenu = gameObject.AddComponent<PigAppearanceMenu>();
+        appearanceMenu.Build(canvasObject.transform, font, lobby);
+        BuildSettings();
         lobby.Changed += Refresh;
         Refresh();
     }
@@ -69,7 +75,11 @@ public sealed class SessionMenu : MonoBehaviour
     }
     private void Update()
     {
-        if (panel != null) panel.SetActive(lobby.MenuVisible || !lobby.InSession && !lobby.Offline);
+        if (panel != null)
+        {
+            panel.SetActive(lobby.MenuVisible || !lobby.InSession && !lobby.Offline);
+            appearanceMenu?.SetVisible(panel.activeSelf);
+        }
     }
     private void Refresh()
     {
@@ -134,8 +144,38 @@ public sealed class SessionMenu : MonoBehaviour
             }
         }
     }
+    private void BuildSettings()
+    {
+        var box = Rect("Settings", panel.transform, 52, 310, 795, 280);
+        settingsPanel = box.gameObject;
+        settingsPanel.AddComponent<UnityEngine.UI.Image>().color = new Color(.07f,.10f,.15f,.99f);
+        Label("Чувствительность мыши", 24, 20, 730, 44, 26, box);
+        var value = Label("", 24, 65, 730, 34, 22, box);
+        var track = Rect("Mouse sensitivity", box, 28, 122, 735, 40);
+        var background = track.gameObject.AddComponent<UnityEngine.UI.Image>(); background.color = new Color(.15f,.22f,.30f);
+        var handleArea = Rect("Handle area", track, 12, 0, 711, 40);
+        var handle = Rect("Handle", handleArea, 0, 0, 24, 40);
+        handle.sizeDelta = new Vector2(24, 0); handle.pivot = new Vector2(.5f, .5f);
+        handle.anchoredPosition = Vector2.zero;
+        var handleImage = handle.gameObject.AddComponent<UnityEngine.UI.Image>(); handleImage.color = new Color(.55f,.77f,.85f);
+        var slider = track.gameObject.AddComponent<UnityEngine.UI.Slider>();
+        slider.minValue = .25f; slider.maxValue = 3; slider.handleRect = handle; slider.targetGraphic = handleImage;
+        slider.direction = UnityEngine.UI.Slider.Direction.LeftToRight;
+        slider.SetValueWithoutNotify(MouseSettings.Multiplier);
+        void RefreshValue(float v) => value.text = Mathf.RoundToInt(v * 100) + "%";
+        RefreshValue(slider.value);
+        slider.onValueChanged.AddListener(v => { MouseSettings.Set(v); RefreshValue(v); });
+        Label("25% — медленно                         300% — быстро", 24, 177, 730, 36, 20, box);
+        var reset = Rect("Reset sensitivity", box, 24, 225, 240, 38);
+        var resetImage = reset.gameObject.AddComponent<UnityEngine.UI.Image>(); resetImage.color = new Color(.16f,.26f,.36f);
+        var button = reset.gameObject.AddComponent<UnityEngine.UI.Button>(); button.targetGraphic = resetImage;
+        Label("По умолчанию", 12, 2, 215, 34, 20, reset).alignment = TextAlignmentOptions.Center;
+        button.onClick.AddListener(() => slider.value = 1);
+        settingsPanel.SetActive(false);
+    }
     private void Resume()
     {
+        settingsPanel.SetActive(false);
         lobby.MenuVisible = false; Cursor.lockState = CursorLockMode.Locked; Cursor.visible = false;
     }
     private RectTransform Rect(string name, Transform parent, float x, float y, float width, float height)
