@@ -283,7 +283,6 @@ MonoBehaviour:
   onPickedUp:
     m_PersistentCalls:
       m_Calls: []
-  highlightColor: {r: 0.98, g: 0.24, b: 0.23, a: 1}
   glowStrength: 0
   sparkleRate: 10
   preserveBaseColor: 1
@@ -920,7 +919,6 @@ MonoBehaviour:
   onPickedUp:
     m_PersistentCalls:
       m_Calls: []
-  highlightColor: {r: 0.31, g: 0.87, b: 0.4, a: 1}
   glowStrength: 0
   sparkleRate: 10
   preserveBaseColor: 1
@@ -2405,7 +2403,6 @@ MonoBehaviour:
   onPickedUp:
     m_PersistentCalls:
       m_Calls: []
-  highlightColor: {r: 1, g: 0.79, b: 0.13, a: 1}
   glowStrength: 0
   sparkleRate: 10
   preserveBaseColor: 1
@@ -3458,7 +3455,6 @@ MonoBehaviour:
   onPickedUp:
     m_PersistentCalls:
       m_Calls: []
-  highlightColor: {r: 0.2, g: 0.6, b: 1, a: 1}
   glowStrength: 0
   sparkleRate: 10
   preserveBaseColor: 1

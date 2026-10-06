@@ -3,7 +3,22 @@ guid: d5992eb8b6ffd5a4a93f98c746a95e0e
 ModelImporter:
   serializedVersion: 24600
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: loafers1_Material.001
+    second: {fileID: 2100000, guid: 33caf4a11674e8048af3c5e457a671e4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: loafers1_loafer
+    second: {fileID: 2100000, guid: 4569b0d7658b4714aa13bd5a0ec093c2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: loafers1_obvodka
+    second: {fileID: 2100000, guid: 2bed6405f3c0d1c4f8e44be62e1c70b5, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

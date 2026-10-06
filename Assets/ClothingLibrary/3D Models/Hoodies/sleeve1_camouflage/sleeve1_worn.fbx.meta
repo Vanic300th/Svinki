@@ -1,9 +1,14 @@
 fileFormatVersion: 2
-guid: 299ed65b2560e9f44a97eaee68f6e3d3
+guid: 860254e80a6ed5945ba8d29bd5aa6a14
 ModelImporter:
   serializedVersion: 24600
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sleeve1_hoodie1_Hood
+    second: {fileID: 2100000, guid: 27a8258ce454efd44a79a54096a88077, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

@@ -3,7 +3,22 @@ guid: 725d9f1b80b85a84db978972be18ba61
 ModelImporter:
   serializedVersion: 24600
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cap1_gudzik
+    second: {fileID: 2100000, guid: 8e06b77f7d6ef4f488149738c4abdca6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cap1_hat1_tex
+    second: {fileID: 2100000, guid: af649df1b005ac64881bbc0a7102ff7e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cap1_kozirok
+    second: {fileID: 2100000, guid: af8da4a0dbfdb9c43a5d283ca54fd0ec, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

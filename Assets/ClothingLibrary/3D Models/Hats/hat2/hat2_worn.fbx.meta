@@ -3,7 +3,12 @@ guid: 72ccb5f4f738bd14cac2552fd21fb601
 ModelImporter:
   serializedVersion: 24600
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: hat2_hat1_tex
+    second: {fileID: 2100000, guid: a431e818e38b1c545b6462779fe9a94d, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

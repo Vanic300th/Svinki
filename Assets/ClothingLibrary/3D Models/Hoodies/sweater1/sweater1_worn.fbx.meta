@@ -3,7 +3,12 @@ guid: 7817e5f04bf0d774e92dce860bbdabab
 ModelImporter:
   serializedVersion: 24600
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sweater1_hoodie1_Hood
+    second: {fileID: 2100000, guid: 6c6556da3f200854abbd5a1601ee4de8, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

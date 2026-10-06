@@ -3,7 +3,22 @@ guid: c9a221b4c676e2f47a593f983b7cb336
 ModelImporter:
   serializedVersion: 24600
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: hoodie1
+    second: {fileID: 2100000, guid: 49f08c5f70229dd4ebdecd035654a087, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: hoodie1_Hood
+    second: {fileID: 2100000, guid: 446752aea82d06643820aa3a2871b641, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: hoodie1_Material.001
+    second: {fileID: 2100000, guid: 9c6486ae2c8ea5e4a84565e623fbbfa2, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

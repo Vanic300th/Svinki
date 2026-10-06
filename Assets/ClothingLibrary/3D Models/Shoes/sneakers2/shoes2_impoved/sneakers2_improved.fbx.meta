@@ -1,9 +1,24 @@
 fileFormatVersion: 2
-guid: 860254e80a6ed5945ba8d29bd5aa6a14
+guid: 299ed65b2560e9f44a97eaee68f6e3d3
 ModelImporter:
   serializedVersion: 24600
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sneakers2
+    second: {fileID: 2100000, guid: a892904d6fbd8da4fbb39f38d3403a2b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sneakers2_SoOle
+    second: {fileID: 2100000, guid: 02ff13cd4cdb510499bd132f1b183153, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sneakers2_laces
+    second: {fileID: 2100000, guid: 1c81647831f7606488dec7d24f74080d, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
