@@ -138,18 +138,6 @@ public sealed class MannequinWardrobe : MonoBehaviour
         holder.transform.localScale = new Vector3(scaleX, scale, scale);
         holder.transform.localPosition = center - Vector3.Scale(source.center, holder.transform.localScale);
 
-        if (clothing.OutlineMaterial != null)
-        {
-            // Та же геометрия с раздуванием вершин вдоль нормалей:
-            // край повторяет форму одежды, а не прямоугольник её границ.
-            GameObject outline = Instantiate(clothing.Model, holder.transform);
-            outline.name = "Силуэт";
-            outline.transform.localPosition = fabric.transform.localPosition;
-            outline.transform.localRotation = fabric.transform.localRotation;
-            outline.transform.localScale = fabric.transform.localScale;
-            PrepareModel(outline, clothing.OutlineMaterial);
-        }
-
         if ((clothing.Slot == ClothingSlot.Torso || clothing.Slot == ClothingSlot.Legs) &&
             clothing.FlutterStrength > 0f)
             holder.AddComponent<WornClothFlutter>().Initialize(clothing.FlutterStrength, movementSource);
@@ -157,16 +145,9 @@ public sealed class MannequinWardrobe : MonoBehaviour
 
     private static void PrepareModel(GameObject model, Material material)
     {
-        foreach (Transform part in model.GetComponentsInChildren<Transform>(true))
-            part.gameObject.layer = 5;
-        foreach (Collider collider in model.GetComponentsInChildren<Collider>(true))
-            collider.enabled = false;
-        if (material == null) return;
+        ClothingVisuals.Prepare(model, material, 5);
         foreach (Renderer renderer in model.GetComponentsInChildren<Renderer>(true))
         {
-            Material[] materials = renderer.sharedMaterials;
-            for (int i = 0; i < materials.Length; i++) materials[i] = material;
-            renderer.sharedMaterials = materials;
             renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
         }
     }

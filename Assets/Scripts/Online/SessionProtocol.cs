@@ -1,13 +1,14 @@
 using FishNet.Broadcast;
 using System;
 public enum SessionPhase : byte { Menu, Lobby, Loading, Round, Returning }
-public enum SessionAction : byte { Hello, Ready, Start, EndRound, ToggleAdmission, Kick, Leave }
+public enum SessionAction : byte { Hello, Ready, Start, EndRound, ToggleAdmission, Kick, Leave, Appearance }
 public struct SessionRequest : IBroadcast
 {
     public int Version;
     public SessionAction Action;
     public string Identity, Nickname, Target;
     public bool Value;
+    public int Appearance;
 }
 public struct SessionMessage : IBroadcast
 {
@@ -28,4 +29,5 @@ public struct SessionMessage : IBroadcast
     public string id, nickname;
     public bool ready, connected, spectator;
     public float reservation;
+    public int appearance;
 }

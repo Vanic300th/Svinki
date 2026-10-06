@@ -26,7 +26,8 @@ public sealed class EosSession : MonoBehaviour
     private PlatformInterface platform;
     private ProductUserId user;
     private ulong memberNotify, authNotify;
-    private bool shuttingDown;
+    private bool shuttingDown, applicationQuitting;
+    private static bool ownsSdkInitialization;
     private LobbyInterface Lobby => platform.GetLobbyInterface();
     public async Task Authenticate(string nickname)
     {
@@ -39,10 +40,16 @@ public sealed class EosSession : MonoBehaviour
             if (settings == null || string.IsNullOrEmpty(settings.productId) || string.IsNullOrEmpty(settings.sandboxId) ||
                 string.IsNullOrEmpty(settings.deploymentId) || string.IsNullOrEmpty(settings.clientId) || string.IsNullOrEmpty(settings.clientSecret))
                 throw new InvalidOperationException("Заполните настройки проекта EOS в svinki-eos.json.");
+#if UNITY_EDITOR_OSX
+            // The SDK selects the Windows binary when a Windows build target is active on macOS.
+            if (Common.LIBRARY_NAME != "libEOSSDK-Mac-Shipping")
+                throw new InvalidOperationException("Для проверки EOS в редакторе на Mac выберите macOS в File > Build Profiles. Windows-сборку проверяйте на Windows.");
+#endif
             EOSManager.EOSSingleton.LoadEOSLibraries();
             var init = new InitializeOptions { ProductName = "Svinki", ProductVersion = "1.0" };
             Result result = PlatformInterface.Initialize(ref init);
             if (result != Result.Success && result != Result.AlreadyConfigured) Check(result, "Инициализация EOS");
+            if (result == Result.Success) ownsSdkInitialization = true;
             var options = new Options
             {
                 ProductId = settings.productId, SandboxId = settings.sandboxId, DeploymentId = settings.deploymentId,
@@ -203,15 +210,26 @@ public sealed class EosSession : MonoBehaviour
             SessionClosed?.Invoke("Хост завершил сессию или исключил вас. Контрольная точка остаётся у хоста.");
     }
     private void Update() { if (!shuttingDown) platform?.Tick(); }
+    private void OnApplicationQuit() { applicationQuitting = true; }
     private void OnDestroy()
     {
         shuttingDown = true;
-        if (platform == null) return;
-        GetComponent<FishNet.Managing.NetworkManager>()?.TransportManager?.Transport?.Shutdown();
-        if (memberNotify != 0) Lobby.RemoveNotifyLobbyMemberStatusReceived(memberNotify);
-        if (authNotify != 0) platform.GetConnectInterface().RemoveNotifyAuthExpiration(authNotify);
-        FishNet.Plugins.FishyEOS.Util.EOS.Platform = null;
-        platform.Release(); platform = null; PlatformInterface.Shutdown();
+        if (platform != null)
+        {
+            GetComponent<FishNet.Managing.NetworkManager>()?.TransportManager?.Transport?.Shutdown();
+            if (memberNotify != 0) Lobby.RemoveNotifyLobbyMemberStatusReceived(memberNotify);
+            if (authNotify != 0) platform.GetConnectInterface().RemoveNotifyAuthExpiration(authNotify);
+            FishNet.Plugins.FishyEOS.Util.EOS.Platform = null;
+            platform.Release(); platform = null;
+        }
+        // EOS_Initialize is once per process. Shutdown makes all later SDK calls invalid.
+        // Stopping Play or replacing this component releases only its platform instance.
+#if !UNITY_EDITOR
+        if (applicationQuitting && ownsSdkInitialization)
+        {
+            PlatformInterface.Shutdown(); ownsSdkInitialization = false;
+        }
+#endif
     }
     private static void Check(Result result, string operation)
     {

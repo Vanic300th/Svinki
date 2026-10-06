@@ -19,7 +19,7 @@ public sealed class PlayerOutfit : MonoBehaviour
 
     private readonly Dictionary<ClothingSlot, ClothingDefinition> worn = new Dictionary<ClothingSlot, ClothingDefinition>();
 
-    /// <summary>Вещь добавлена (или заменила другую в том же слоте).</summary>
+    /// <summary>Вещь добавлена в свободный слот.</summary>
     public event Action<ClothingDefinition> Added;
     /// <summary>Вещь пропала. Второй параметр — подпись для HUD («Воришка украл»); null — снять молча.</summary>
     public event Action<ClothingDefinition, string> Removed;
@@ -51,13 +51,17 @@ public sealed class PlayerOutfit : MonoBehaviour
 
     public ClothingDefinition Get(ClothingSlot slot) => worn.TryGetValue(slot, out ClothingDefinition item) ? item : null;
 
-    public void Add(ClothingDefinition clothing)
+    public bool CanEquip(ClothingDefinition clothing) => clothing != null && !Has(clothing.Slot);
+
+    public void Add(ClothingDefinition clothing) => TryAdd(clothing);
+
+    public bool TryAdd(ClothingDefinition clothing)
     {
-        if (clothing == null) return;
-        if (worn.TryGetValue(clothing.Slot, out ClothingDefinition current) && current == clothing) return;
+        if (!CanEquip(clothing)) return false;
         worn[clothing.Slot] = clothing;
         Added?.Invoke(clothing);
         Changed?.Invoke();
+        return true;
     }
 
     public bool Remove(ClothingSlot slot, string reason, out ClothingDefinition removed)

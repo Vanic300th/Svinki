@@ -19,6 +19,11 @@ public sealed class ClothingPickup : MonoBehaviour
     [SerializeField] private MannequinWardrobe wardrobe;
 
     private float hoverHeight = -1f;
+    private bool carriedByThief;
+    private float protectedUntil;
+    public bool CanBeStolen => !carriedByThief && Time.time >= protectedUntil;
+    public void ClaimByThief() => carriedByThief = true;
+    public void ProtectFromThieves(float seconds) => protectedUntil = Time.time + seconds;
 
     /// <summary>Все вещи одежды во всех сценах (комнатах), и лежащие, и подобранные.</summary>
     public static IReadOnlyList<ClothingPickup> All => all;
@@ -76,6 +81,7 @@ public sealed class ClothingPickup : MonoBehaviour
     /// <summary>Положить вещь на уровень: точка на полу, вещь повиснет над ней на своей высоте.</summary>
     public void PlaceAt(Vector3 floorPoint)
     {
+        carriedByThief = false;
         float height = HoverHeight;
         transform.position = floorPoint + Vector3.up * height;
         if (!gameObject.activeSelf) gameObject.SetActive(true);
@@ -87,15 +93,24 @@ public sealed class ClothingPickup : MonoBehaviour
     {
         foreach (ClothingPickup pickup in all)
             if (pickup != null && pickup.clothing == clothing && pickup.gameObject.scene == scene &&
-                pickup.Item != null && !pickup.Item.IsAvailable)
+                pickup.Item != null && !pickup.Item.IsAvailable && !pickup.carriedByThief)
                 return pickup;
         return null;
+    }
+
+    public bool CanCollect(GameObject picker)
+    {
+        if (clothing == null) return false;
+        PlayerAvatar player = PlayerRegistry.FromObject(picker);
+        if (player == null && PlayerRegistry.Players.Count == 1) player = PlayerRegistry.Players[0];
+        return player != null && player.Outfit != null && player.Outfit.CanEquip(clothing);
     }
 
     private void HandlePickup(PickupItem item)
     {
         // В онлайне вещь выдаёт сервер через NetworkPlayer
-        if (GetComponent<NetworkPickup>() != null) return;
+        NetworkPickup networkPickup = GetComponent<NetworkPickup>();
+        if (networkPickup != null && networkPickup.isActiveAndEnabled) return;
         if (clothing == null)
         {
             Debug.LogWarning("Для предмета не назначена одежда.", this);

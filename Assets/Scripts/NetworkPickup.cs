@@ -43,7 +43,7 @@ public sealed class NetworkPickup : NetworkBehaviour
     {
         if (!IsServerStarted || player == null || !item.IsAvailable) return;
         ClothingPickup clothing = GetComponent<ClothingPickup>();
-        if (clothing != null) player.AwardClothing(clothing.Clothing);
+        if (clothing != null && !player.AwardClothing(clothing.Clothing)) return;
         item.SetAvailable(false); // спрятать у всех: Update ниже разошлёт
     }
 

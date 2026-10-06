@@ -8,6 +8,7 @@ using UnityEngine.AI;
 /// Видимость сервер считает сам (MannequinVisibility проверяет всех игроков своей комнаты по их взгляду),
 /// здесь только выбирается цель — ближайший игрок комнаты.
 /// </summary>
+[DefaultExecutionOrder(-900)]
 [RequireComponent(typeof(MannequinBrain), typeof(MannequinVisibility))]
 public sealed class NetworkMannequinAuthority : NetworkBehaviour
 {
@@ -23,6 +24,14 @@ public sealed class NetworkMannequinAuthority : NetworkBehaviour
         agent = GetComponent<NavMeshAgent>();
     }
 
+    private void Start()
+    {
+        // Network prefabs start with navigation disabled: guests only display server poses.
+        // Start runs after the scene's NavMeshSurface has registered/baked its data.
+        if (agent != null)
+            agent.enabled = NetworkLobby.Instance == null || NetworkLobby.Instance.Offline || FishNet.InstanceFinder.IsServerStarted;
+    }
+
     public override void OnStartNetwork()
     {
         base.OnStartNetwork();
@@ -32,14 +41,6 @@ public sealed class NetworkMannequinAuthority : NetworkBehaviour
             visibility.enabled = false;
             if (agent != null) agent.enabled = false;
         }
-    }
-
-    public override void OnStartServer()
-    {
-        base.OnStartServer();
-        // Копии комнат на сервере лежат друг на друге, а обход агентов в Unity общий на все сцены —
-        // без этого манекены разных комнат расталкивали бы друг друга
-        if (agent != null) agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
     }
 
     private void Update()

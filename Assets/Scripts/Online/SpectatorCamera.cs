@@ -36,7 +36,7 @@ public sealed class SpectatorCamera : MonoBehaviour
         if (firstPerson != null) firstPerson.SetSpectatorMode();
         var pickup = camera.GetComponent<PlayerPickupInteractor>(); if (pickup != null) pickup.enabled = false;
         camera.transform.SetPositionAndRotation(target.EyePosition, target.EyeRotation);
-        camera.GetComponent<FlashlightController>()?.SetOn(target.FlashlightOn);
+        camera.GetComponentInChildren<FlashlightController>()?.SetOn(target.FlashlightOn);
     }
     private void Clear()
     {

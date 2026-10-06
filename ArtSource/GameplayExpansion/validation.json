@@ -1,0 +1,54 @@
+{
+  "offline": {
+    "legacyWalkAngle": 24.1185551,
+    "legacyTorchArmAngle": 80.12877,
+    "liveMouseSensitivity": 0.3,
+    "targetHighlight": true,
+    "tattooCombinations": 200
+  },
+  "fallStart": {
+    "bodies": 11,
+    "variedImpulses": 11.0,
+    "joints": 10
+  },
+  "recoveryAndThrow": {
+    "recovered": true,
+    "stableBodies": true,
+    "heldThenThrown": "Store display expansion 11",
+    "throwSpeed": 12.1655254,
+    "mannequins": 28
+  },
+  "interactionRay": {
+    "aimHighlight": true,
+    "wallOcclusion": true,
+    "lookAwayClears": true
+  },
+  "localhostHost": {
+    "spawned": true,
+    "tattoo": 1,
+    "legacyAnimation": true,
+    "mannequins": 28,
+    "clothes": 32
+  },
+  "savedLevel": {
+    "rooms": 14,
+    "footprintScale": 1.25,
+    "newRoomRoutes": 4,
+    "reachableClothing": 32,
+    "uniqueSceneIDs": 72,
+    "navMeshAsset": "Assets/Settings/StoreExpandedNavMesh.asset",
+    "agents": 8,
+    "throws": 28
+  },
+  "garments": {
+    "equippedSlots": 4,
+    "pigRestPoseFollowers": 5
+  },
+  "final": {
+    "scriptCompilation": true,
+    "shaderMessages": 0,
+    "consoleErrorsAfterFixes": 0,
+    "playerSelectionRestored": 385,
+    "mouseSettingRestored": 1
+  }
+}

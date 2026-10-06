@@ -29,6 +29,7 @@ public class ThiefBrain : MonoBehaviour
     [SerializeField] private Transform nest;
     [Tooltip("Как широко он раскидывает вещи в гнезде (м)")]
     [SerializeField] private float nestDropRadius = 1f;
+    [SerializeField] private Transform[] dropOffPoints = new Transform[0];
 
     [Header("Бег")]
     [SerializeField] private float runSpeed = 5.5f;
@@ -84,6 +85,9 @@ public class ThiefBrain : MonoBehaviour
     private MannequinAnimator anim;
 
     private Vector3 nestPosition;
+    private Vector3 deliveryPosition;
+    private int previousDropOff = -1;
+    private NavMeshPath deliveryPath;
     private Vector3 goalPoint;
     private ClothingPickup targetItem;
     private PlayerAvatar targetPlayer;
@@ -97,6 +101,7 @@ public class ThiefBrain : MonoBehaviour
 
     private void Awake()
     {
+        deliveryPath = new NavMeshPath();
         agent = GetComponent<NavMeshAgent>();
         visibility = GetComponent<MannequinVisibility>();
         anim = GetComponent<MannequinAnimator>();
@@ -114,6 +119,7 @@ public class ThiefBrain : MonoBehaviour
         nestPosition = nest != null ? nest.position : transform.position;
         if (NavMesh.SamplePosition(nestPosition, out NavMeshHit nestHit, 3f, NavMesh.AllAreas))
             nestPosition = nestHit.position;
+        deliveryPosition = nestPosition;
 
         agent.speed = runSpeed;
         agent.stoppingDistance = 0.2f;
@@ -192,7 +198,7 @@ public class ThiefBrain : MonoBehaviour
         targetPlayer = null;
 
         // 1) Несёт добычу — в гнездо
-        if (carried != null) { SetGoal(Goal.Nest, nestPosition); return; }
+        if (carried != null) { SetGoal(Goal.Nest, deliveryPosition); return; }
 
         // 2) На уровне лежит вещь — за ней
         if (FindLooseItem(out ClothingPickup item, out Vector3 itemPoint))
@@ -233,7 +239,7 @@ public class ThiefBrain : MonoBehaviour
         float bestSqr = float.PositiveInfinity;
         foreach (ClothingPickup pickup in ClothingPickup.All)
         {
-            if (pickup == null || !pickup.IsOnFloor || stash.Contains(pickup)) continue;
+            if (pickup == null || !pickup.IsOnFloor || !pickup.CanBeStolen || stash.Contains(pickup)) continue;
             if (pickup.gameObject.scene != gameObject.scene) continue; // вещи только своей комнаты
             float sqr = FlatSqr(pickup.transform.position);
             if (sqr >= bestSqr) continue;
@@ -284,7 +290,7 @@ public class ThiefBrain : MonoBehaviour
                 if (FlatDistance(targetPlayer.Position) <= stealReach) EnterGrabbing();
                 break;
             case Goal.Nest:
-                if (FlatDistance(nestPosition) <= NestArriveDistance) ArriveAtNest();
+                if (FlatDistance(goalPoint) <= NestArriveDistance) ArriveAtNest();
                 break;
         }
     }
@@ -310,15 +316,21 @@ public class ThiefBrain : MonoBehaviour
         }
         else if (CurrentGoal == Goal.Player)
         {
-            if (targetPlayer != null && targetPlayer.Outfit != null &&
-                FlatDistance(targetPlayer.Position) <= stealReach * 1.6f &&
-                targetPlayer.Outfit.RemoveRandom(StolenReason, out ClothingDefinition stolen))
+            if (targetPlayer != null && targetPlayer.Outfit != null && FlatDistance(targetPlayer.Position) <= stealReach * 1.6f)
             {
-                nextPlayerSteal = Time.time + playerStealCooldown;
-                ClothingPickup pickup = ClothingPickup.FindPickedUp(stolen, gameObject.scene);
-                if (pickup != null) Carry(pickup);
-                else Debug.LogWarning($"[Thief] Не нашёл объект вещи «{stolen.DisplayName}», она пропадёт. " +
-                                      "У вещей должно стоять After Pickup = Hide Object.", this);
+                var candidates = new List<ClothingPickup>();
+                foreach (ClothingDefinition clothing in targetPlayer.Outfit.Items)
+                {
+                    var pickup = ClothingPickup.FindPickedUp(clothing, gameObject.scene);
+                    if (pickup != null) candidates.Add(pickup);
+                }
+                if (candidates.Count == 0) { nextPlayerSteal = Time.time + 2; return; }
+                ClothingPickup selected = candidates[Random.Range(0, candidates.Count)];
+                if (targetPlayer.Outfit.Remove(selected.Clothing.Slot, StolenReason, out _))
+                {
+                    nextPlayerSteal = Time.time + playerStealCooldown;
+                    Carry(selected);
+                }
             }
         }
     }
@@ -326,9 +338,27 @@ public class ThiefBrain : MonoBehaviour
     private void Carry(ClothingPickup pickup)
     {
         carried = pickup;
+        pickup.ClaimByThief();
+        ChooseDelivery();
         stash.Remove(pickup);
         ShowCarried(pickup.Clothing);
         CarriedChanged?.Invoke(pickup.Clothing);
+    }
+
+    private void ChooseDelivery()
+    {
+        deliveryPosition = nestPosition;
+        if (dropOffPoints == null || dropOffPoints.Length == 0) return;
+        int first = Random.Range(0, dropOffPoints.Length);
+        for (int n = 0; n < dropOffPoints.Length; n++)
+        {
+            int index = (first + n) % dropOffPoints.Length;
+            Transform point = dropOffPoints[index];
+            if (point == null || index == previousDropOff || (point.position - transform.position).sqrMagnitude < 16) continue;
+            if (!NavMesh.SamplePosition(point.position, out NavMeshHit hit, 1.5f, agent.areaMask)) continue;
+            if (!agent.CalculatePath(hit.position, deliveryPath) || deliveryPath.status != NavMeshPathStatus.PathComplete) continue;
+            deliveryPosition = hit.position; previousDropOff = index; return;
+        }
     }
 
     /// <summary>Показать вещь в руке (шапку — на голове). null — убрать. Клиенты в онлайне вызывают это по сигналу сервера.</summary>
@@ -356,13 +386,14 @@ public class ThiefBrain : MonoBehaviour
         if (intoNest)
         {
             Vector2 r = Random.insideUnitCircle * nestDropRadius;
-            point = nestPosition + new Vector3(r.x, 0f, r.y);
+            point = deliveryPosition + new Vector3(r.x, 0f, r.y);
         }
         else point = transform.position + transform.forward * 0.5f;
 
         if (NavMesh.SamplePosition(point, out NavMeshHit hit, 1.5f, NavMesh.AllAreas)) point = hit.position;
-        else point = intoNest ? nestPosition : transform.position;
+        else point = intoNest ? deliveryPosition : transform.position;
         item.PlaceAt(point);
+        item.ProtectFromThieves(30);
 
         if (intoNest) stash.Add(item);
         else stash.Remove(item);
@@ -384,15 +415,7 @@ public class ThiefBrain : MonoBehaviour
 
         foreach (Collider c in model.GetComponentsInChildren<Collider>(true)) c.enabled = false;
         Renderer[] renderers = model.GetComponentsInChildren<Renderer>(true);
-        if (clothing.FabricMaterial != null)
-        {
-            foreach (Renderer r in renderers)
-            {
-                Material[] materials = r.sharedMaterials;
-                for (int i = 0; i < materials.Length; i++) materials[i] = clothing.FabricMaterial;
-                r.sharedMaterials = materials;
-            }
-        }
+        ClothingVisuals.Prepare(model, clothing.FabricMaterial, 0);
         if (renderers.Length == 0) return holder;
 
         // Размер — в метрах мира: сокет сидит на уменьшенных костях, поэтому меряем по настоящим границам

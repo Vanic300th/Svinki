@@ -21,7 +21,7 @@ public sealed class RoomPhysics : MonoBehaviour
         if (InstanceFinder.IsServerStarted)
         {
             var physicsScene = gameObject.scene.GetPhysicsScene();
-            if (physicsScene.IsValid()) physicsScene.Simulate(deltaTime);
+            if (physicsScene.IsValid() && physicsScene != Physics.defaultPhysicsScene) physicsScene.Simulate(deltaTime);
         }
     }
 }

@@ -1,0 +1,12 @@
+{
+    "combinations": 288,
+    "presets": 3,
+    "playerPrefabs": 2,
+    "extendedCombinations": 1120,
+    "colors": 8,
+    "patterns": 5,
+    "menuButtons": true,
+    "offlineSpawn": true,
+    "networkLobbySelection": true,
+    "networkSpawn": true
+}

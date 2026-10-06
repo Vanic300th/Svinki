@@ -100,7 +100,7 @@ public static class ClothingDemoSetup
         pickupData.FindProperty("itemName").stringValue = itemName;
         pickupData.FindProperty("highlightColor").colorValue = clothing.HighlightColor;
         pickupData.FindProperty("glowStrength").floatValue = 0f;
-        pickupData.FindProperty("sparkleRate").floatValue = 10f;
+        pickupData.FindProperty("sparkleRate").floatValue = 0f;
         pickupData.FindProperty("preserveBaseColor").boolValue = true;
         pickupData.FindProperty("onPickedUp").FindPropertyRelative("m_PersistentCalls.m_Calls").ClearArray();
         pickupData.ApplyModifiedProperties();

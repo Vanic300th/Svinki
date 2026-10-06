@@ -37,11 +37,14 @@ public sealed class WorldOutfitRenderer : MonoBehaviour
     private void ApplyVisibility()
     {
         int mirrorLayer = LayerMask.NameToLayer("LocalPlayerMirror");
-        int visualLayer = firstPersonHidden && mirrorLayer >= 0 ? mirrorLayer : gameObject.layer;
-        if (characterVisual != null) SetLayerRecursively(characterVisual, visualLayer);
-        foreach (GameObject item in equipped.Values)
-            if (item != null)
-                SetLayerRecursively(item.transform, visualLayer);
+        // The physical root uses Ignore Raycast, which the game camera excludes.
+        // Remote visuals must use Default instead of inheriting that collider layer.
+        int bodyLayer = firstPersonHidden && mirrorLayer >= 0 ? mirrorLayer : 0;
+        if (characterVisual != null) SetLayerRecursively(characterVisual, bodyLayer);
+        foreach (var pair in equipped)
+            if (pair.Value != null)
+                SetLayerRecursively(pair.Value.transform,
+                    firstPersonHidden && pair.Key == ClothingSlot.Head && mirrorLayer >= 0 ? mirrorLayer : 0);
     }
 
     private static void SetLayerRecursively(Transform root, int layer)
@@ -68,18 +71,21 @@ public sealed class WorldOutfitRenderer : MonoBehaviour
         equipped[clothing.Slot] = slot;
 
         Animator animator = characterVisual != null ? characterVisual.GetComponentInChildren<Animator>(true) : null;
+        Vector3 center = clothing.DisplayCenter;
+        center.z = clothing.Slot == ClothingSlot.Head ? .03f : clothing.Slot == ClothingSlot.Torso ? .27f :
+            clothing.Slot == ClothingSlot.Legs ? .19f : .09f;
         if (clothing is ShoesClothing shoes)
         {
             GameObject left = AddPiece(clothing, slot.transform,
-                clothing.DisplayCenter + Vector3.left * shoes.PairSpacing * .5f, true);
+                center + Vector3.left * shoes.PairSpacing * .5f, true);
             GameObject right = AddPiece(clothing, slot.transform,
-                clothing.DisplayCenter + Vector3.right * shoes.PairSpacing * .5f, false);
+                center + Vector3.right * shoes.PairSpacing * .5f, false);
             FollowBone(left, animator, HumanBodyBones.LeftFoot);
             FollowBone(right, animator, HumanBodyBones.RightFoot);
         }
         else
         {
-            GameObject piece = AddPiece(clothing, slot.transform, clothing.DisplayCenter, false);
+            GameObject piece = AddPiece(clothing, slot.transform, center, false);
             HumanBodyBones bone = clothing.Slot == ClothingSlot.Head ? HumanBodyBones.Head :
                 clothing.Slot == ClothingSlot.Torso ? HumanBodyBones.Chest : HumanBodyBones.Hips;
             FollowBone(piece, animator, bone);
@@ -89,8 +95,7 @@ public sealed class WorldOutfitRenderer : MonoBehaviour
 
     private static void FollowBone(GameObject piece, Animator animator, HumanBodyBones bone)
     {
-        if (animator == null || animator.avatar == null || !animator.avatar.isValid || !animator.isHuman) return;
-        Transform target = animator.GetBoneTransform(bone);
+        Transform target = PlayerAnimation.FindBone(animator, bone);
         if (target != null) piece.AddComponent<WornGarmentFollower>().Bind(target);
     }
 
@@ -111,17 +116,6 @@ public sealed class WorldOutfitRenderer : MonoBehaviour
         holder.transform.localScale = new Vector3(mirror ? -scale : scale, scale, scale);
         holder.transform.localPosition = center - Vector3.Scale(bounds.center, holder.transform.localScale);
 
-        if (clothing.OutlineMaterial != null)
-        {
-            GameObject outline = Instantiate(clothing.Model, holder.transform);
-            outline.name = "Contour";
-            outline.transform.SetLocalPositionAndRotation(Vector3.zero, fabric.transform.localRotation);
-            outline.transform.localScale = Vector3.one;
-            Prepare(outline, clothing.OutlineMaterial, parent.gameObject.layer);
-            foreach (Renderer renderer in outline.GetComponentsInChildren<Renderer>(true))
-                renderer.shadowCastingMode = ShadowCastingMode.Off;
-        }
-
         AddFlutter(clothing, holder);
         return holder;
     }
@@ -135,15 +129,7 @@ public sealed class WorldOutfitRenderer : MonoBehaviour
 
     private static void Prepare(GameObject model, Material material, int layer)
     {
-        foreach (Transform part in model.GetComponentsInChildren<Transform>(true)) part.gameObject.layer = layer;
-        foreach (Collider collider in model.GetComponentsInChildren<Collider>(true)) collider.enabled = false;
-        if (material == null) return;
-        foreach (Renderer renderer in model.GetComponentsInChildren<Renderer>(true))
-        {
-            Material[] materials = renderer.sharedMaterials;
-            for (int i = 0; i < materials.Length; i++) materials[i] = material;
-            renderer.sharedMaterials = materials;
-        }
+        ClothingVisuals.Prepare(model, material, layer);
     }
 
     private static Bounds LocalBounds(GameObject model, Transform reference)

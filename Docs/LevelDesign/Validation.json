@@ -1,0 +1,50 @@
+{
+  "scene": "Assets/Scenes/SampleScene.unity",
+  "pickups": 48,
+  "stalkers": 3,
+  "watchers": 4,
+  "thieves": 5,
+  "displayMannequins": 4,
+  "networkObjects": 60,
+  "uniqueNetworkIds": 60,
+  "unsetNetworkIds": 0,
+  "missingScripts": 0,
+  "reachablePickupLocations": 48,
+  "pickupLocations": 48,
+  "failedLocations": [],
+  "agentStarts": [
+    {
+      "name": "Mannequin_Online",
+      "sampled": true
+    },
+    {
+      "name": "Store stalker 1",
+      "sampled": true
+    },
+    {
+      "name": "Store stalker 2",
+      "sampled": true
+    },
+    {
+      "name": "Mannequin_Thief_Online",
+      "sampled": true
+    },
+    {
+      "name": "Mannequin_Thief_Online (1)",
+      "sampled": true
+    },
+    {
+      "name": "Mannequin_Thief_Online (2)",
+      "sampled": true
+    },
+    {
+      "name": "Mannequin_Thief_Online (3)",
+      "sampled": true
+    },
+    {
+      "name": "Mannequin_Thief_Online (4)",
+      "sampled": true
+    }
+  ],
+  "posterExists": true
+}
