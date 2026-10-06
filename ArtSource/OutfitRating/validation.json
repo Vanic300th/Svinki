@@ -1,0 +1,130 @@
+{
+  "combinations": 162,
+  "min": 77,
+  "max": 99,
+  "references": [
+    {
+      "name": "Милитари",
+      "rating": {
+        "score": 99,
+        "matching": 100,
+        "palette": 95,
+        "patterns": 100,
+        "completeness": 100,
+        "ratedItems": 4,
+        "verdict": "Цельный образ",
+        "strength": "Кепка с козырьком и Цветная футболка отлично сочетаются.",
+        "improvement": "Все четыре вещи поддерживают образ. Можно экспериментировать с деталями."
+      }
+    },
+    {
+      "name": "Стрит",
+      "rating": {
+        "score": 99,
+        "matching": 100,
+        "palette": 96,
+        "patterns": 100,
+        "completeness": 100,
+        "ratedItems": 4,
+        "verdict": "Цельный образ",
+        "strength": "Вязаная шапка и Худи с капюшоном отлично сочетаются.",
+        "improvement": "Все четыре вещи поддерживают образ. Можно экспериментировать с деталями."
+      }
+    },
+    {
+      "name": "Классика",
+      "rating": {
+        "score": 99,
+        "matching": 100,
+        "palette": 95,
+        "patterns": 100,
+        "completeness": 100,
+        "ratedItems": 4,
+        "verdict": "Цельный образ",
+        "strength": "Светлая шапка и Футболка с воротником отлично сочетаются.",
+        "improvement": "Все четыре вещи поддерживают образ. Можно экспериментировать с деталями."
+      }
+    },
+    {
+      "name": "Камо лонгслив",
+      "rating": {
+        "score": 98,
+        "matching": 100,
+        "palette": 88,
+        "patterns": 100,
+        "completeness": 100,
+        "ratedItems": 4,
+        "verdict": "Цельный образ",
+        "strength": "Кепка с козырьком и Камуфляжный лонгслив отлично сочетаются.",
+        "improvement": "Все четыре вещи поддерживают образ. Можно экспериментировать с деталями."
+      }
+    },
+    {
+      "name": "Затишний",
+      "rating": {
+        "score": 99,
+        "matching": 100,
+        "palette": 94,
+        "patterns": 100,
+        "completeness": 100,
+        "ratedItems": 4,
+        "verdict": "Цельный образ",
+        "strength": "Светлая шапка и Тёплый свитер отлично сочетаются.",
+        "improvement": "Все четыре вещи поддерживают образ. Можно экспериментировать с деталями."
+      }
+    },
+    {
+      "name": "Спорт",
+      "rating": {
+        "score": 99,
+        "matching": 100,
+        "palette": 96,
+        "patterns": 100,
+        "completeness": 100,
+        "ratedItems": 4,
+        "verdict": "Цельный образ",
+        "strength": "Вязаная шапка и Тёмная футболка отлично сочетаются.",
+        "improvement": "Все четыре вещи поддерживают образ. Можно экспериментировать с деталями."
+      }
+    }
+  ],
+  "mixed": {
+    "name": "Новый комплект: sweater1, pants2, hat1, sneakers2",
+    "rating": {
+      "score": 94,
+      "matching": 93,
+      "palette": 96,
+      "patterns": 98,
+      "completeness": 100,
+      "ratedItems": 4,
+      "verdict": "Цельный образ",
+      "strength": "Вязаная шапка и Джинсы отлично сочетаются.",
+      "improvement": "Попробуй другую пару: Тёплый свитер + Кеды со шнурками."
+    }
+  },
+  "clash": {
+    "name": "Смешение: shirt3, pants2, hat2, loafers1",
+    "rating": {
+      "score": 85,
+      "matching": 82,
+      "palette": 91,
+      "patterns": 93,
+      "completeness": 100,
+      "ratedItems": 4,
+      "verdict": "Хорошее сочетание",
+      "strength": "Светлая шапка и Джинсы отлично сочетаются.",
+      "improvement": "Попробуй другую пару: Цветная футболка + Кожаные лоферы."
+    }
+  },
+  "checks": [
+    "reference outfits",
+    "162 combinations",
+    "determinism",
+    "partial outfits",
+    "duplicate slots",
+    "unknown garments",
+    "mixed outfit",
+    "immutable inventory snapshot",
+    "network JSON roundtrip"
+  ]
+}

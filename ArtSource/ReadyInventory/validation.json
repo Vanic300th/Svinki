@@ -1,0 +1,8 @@
+{
+  "readyInventory": "passed: Tab/Esc, UI bounds, naked restoration, individual/all drops, reuse and fallback spawn, recollect by another server player, readiness consensus/cancellation, results, offline",
+  "physicalButton": "passed: live camera raycast, start HUD and E to results",
+  "fitting": "passed: 15 pickups, 18 poses, all 16 bones rebound per garment; glow only on hover",
+  "protocol": 4,
+  "multiplayerCoverage": "One host, two server avatars; separate clients not exercised",
+  "gameRestored": true
+}

@@ -1,0 +1,1156 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: GameEnglish_en
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: d8f06c436638a4cf4b2591f984702f23, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 753917952
+    m_Localized: "You got knocked down! Getting up\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278080
+    m_Localized: "W/S \u2014 push \u2022 A/D \u2014 steer \u2022 Shift \u2014 sprint\nLMB \u2014 launch \u2022 E \u2014 release"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278081
+    m_Localized: "You're riding! E / Space \u2014 hop out"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278082
+    m_Localized: The cart is moving too fast
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278083
+    m_Localized: "E \u2014 push cart \u2022 R \u2014 ride in basket"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278084
+    m_Localized: "LMB \u2014 throw \u2022 RMB / E \u2014 release"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278085
+    m_Localized: "E \u2014 grab mannequin"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278086
+    m_Localized: "E \u2014 cancel ready"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278087
+    m_Localized: "E \u2014 press Ready"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278088
+    m_Localized: "E \u2014 pick up: "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278089
+    m_Localized: This clothing slot is already occupied
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278090
+    m_Localized: Item
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278091
+    m_Localized: Create a lobby or join with a friend's code.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278092
+    m_Localized: Pig
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278093
+    m_Localized: The host ended the game. The host keeps the checkpoint.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278094
+    m_Localized: Leave the current session first.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278095
+    m_Localized: "Connecting to EOS\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278096
+    m_Localized: Could not start the host.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278097
+    m_Localized: Could not start the connection.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278098
+    m_Localized: "Connecting to the host\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278099
+    m_Localized: The local test port is in use.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278100
+    m_Localized: The local test could not connect.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278101
+    m_Localized: "Local test: connecting\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278102
+    m_Localized: Return to the Ready button in the starting room.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278103
+    m_Localized: Outfit rating rules could not be found.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278104
+    m_Localized: Applause!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278105
+    m_Localized: Love this outfit!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278106
+    m_Localized: Oink-oink!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278107
+    m_Localized: Connection closed. The host keeps the checkpoint.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278108
+    m_Localized: "Connection lost. Reconnecting (up to 60 seconds)\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278109
+    m_Localized: Reconnection failed. You can rejoin by code as a spectator.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278110
+    m_Localized: 'Outfit results for round '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278111
+    m_Localized: "Spectating until the next round. \u2190 / \u2192 \u2014 switch player; Esc \u2014 menu."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278112
+    m_Localized: 'Round '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278113
+    m_Localized: ". Esc \u2014 menu."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278114
+    m_Localized: 'Lobby '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278115
+    m_Localized: . Mark yourself ready.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278116
+    m_Localized: Incompatible game version.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278117
+    m_Localized: Could not verify the guest profile.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278118
+    m_Localized: The host removed you from this session.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278119
+    m_Localized: This profile is already connected.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278120
+    m_Localized: The host closed the lobby to new players.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278121
+    m_Localized: The lobby is full or changing rounds. Try again later.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278122
+    m_Localized: Go to the Ready button in the starting room.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278123
+    m_Localized: The host removed you from the session.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278124
+    m_Localized: 'Could not start the round: checkpoint could not be saved. '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278125
+    m_Localized: The host ended the session.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278126
+    m_Localized: The host did not respond. Check the code and connection, then try again.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278127
+    m_Localized: The host ended the session. The host keeps the checkpoint.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278128
+    m_Localized: Session ended. The host saved the checkpoint.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278129
+    m_Localized: "Cancelling connection\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278130
+    m_Localized: Connection cancelled.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278131
+    m_Localized: "Loading single player\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278132
+    m_Localized: "Single player. Esc \u2014 menu."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278133
+    m_Localized: 'Flashlight [F]: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278134
+    m_Localized: on
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278135
+    m_Localized: off
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278136
+    m_Localized: Stolen by a thief
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278137
+    m_Localized: 'Stolen: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278138
+    m_Localized: '
+
+      carrying: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278139
+    m_Localized: YOUR OUTFIT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278140
+    m_Localized: Close
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278141
+    m_Localized: Dropped clothes can be picked up again
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278142
+    m_Localized: Drop
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278143
+    m_Localized: Drop All
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278144
+    m_Localized: "Tab / I \u2014 inventory \xB7 Esc \u2014 close"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278145
+    m_Localized: Empty
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278146
+    m_Localized: No clothes equipped
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278147
+    m_Localized: 'Equipped: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278148
+    m_Localized: Press E at the Ready button to rate your outfit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278149
+    m_Localized: 'Ready at the entrance: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278150
+    m_Localized: "You're ready. Waiting for others \u2022 Stay near the entrance"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278151
+    m_Localized: Look at the Ready button and press E
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278152
+    m_Localized: Could not drop the item here. Try moving away from the wall.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278153
+    m_Localized: Dropped
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783278154
+    m_Localized: New clothing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472384
+    m_Localized: PIGS ON THE RUNWAY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472385
+    m_Localized: Pose
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472386
+    m_Localized: Applaud
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472387
+    m_Localized: Heart
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472388
+    m_Localized: Oink!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472389
+    m_Localized: "View Scores \u2192"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472390
+    m_Localized: 'Pose: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472391
+    m_Localized: Wave
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472392
+    m_Localized: Star
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472393
+    m_Localized: Spin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472394
+    m_Localized: Player's pose
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472395
+    m_Localized: 'Walk '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472396
+    m_Localized: ' of '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472397
+    m_Localized: s until scores
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472398
+    m_Localized: s until next
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472399
+    m_Localized: " \xB7 outfit on show"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472400
+    m_Localized: OUTFIT RESULTS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472401
+    m_Localized: See how well your clothes work together
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472402
+    m_Localized: PLAYERS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472403
+    m_Localized: Left
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472404
+    m_Localized: Right
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472405
+    m_Localized: Compatibility
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472406
+    m_Localized: Colours
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472407
+    m_Localized: Patterns
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472408
+    m_Localized: Outfit completeness
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472409
+    m_Localized: WHAT WORKS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472410
+    m_Localized: WHAT TO TRY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472411
+    m_Localized: Next Round
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472412
+    m_Localized: Main Menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472413
+    m_Localized: "OUTFIT RESULTS \xB7 ROUND "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472414
+    m_Localized: Keep Searching
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472415
+    m_Localized: Waiting for host
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472416
+    m_Localized: No players with clothes yet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472417
+    m_Localized: No clothes found yet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472418
+    m_Localized: No outfit yet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472419
+    m_Localized: Not rated
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472420
+    m_Localized: Collect clothes that look good together.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472421
+    m_Localized: No clothing found yet.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472422
+    m_Localized: These clothes do not have rating rules yet.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472423
+    m_Localized: Complete look
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472424
+    m_Localized: Great combination
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472425
+    m_Localized: Promising look
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472426
+    m_Localized: Outfit in progress
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472427
+    m_Localized: Mixed look
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472428
+    m_Localized: ' and '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472429
+    m_Localized: ' go really well together.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472430
+    m_Localized: ' are the best pair in your outfit.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472431
+    m_Localized: "First item found \u2014 start building your outfit."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472432
+    m_Localized: 'Some clothes are not rated yet: rules cover '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472433
+    m_Localized: 'Missing: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472434
+    m_Localized: 'Try a different pair: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472435
+    m_Localized: Several bold patterns clash. Try adding one solid-colour item.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472436
+    m_Localized: All four pieces work together. Try experimenting with the details.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472437
+    m_Localized: headwear
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472438
+    m_Localized: top
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472439
+    m_Localized: trousers
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472440
+    m_Localized: footwear
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472441
+    m_Localized: Incompatible or damaged checkpoint.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472442
+    m_Localized: The checkpoint is damaged.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472443
+    m_Localized: READY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472444
+    m_Localized: 'Online play is not configured: svinki-eos.json is missing. See MULTIPLAYER.md.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472445
+    m_Localized: Fill in your EOS project settings in svinki-eos.json.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472446
+    m_Localized: To test EOS in the Editor on Mac, select macOS in File > Build Profiles. Test Windows builds on Windows.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472447
+    m_Localized: Initializing EOS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472448
+    m_Localized: Could not create the EOS platform. Check your project settings.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472449
+    m_Localized: Enabling relay
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472450
+    m_Localized: Creating guest profile
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472451
+    m_Localized: Creating profile
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472452
+    m_Localized: Guest sign-in
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472453
+    m_Localized: The guest profile lost its EOS connection.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472454
+    m_Localized: Creating lobby
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472455
+    m_Localized: Could not find an available code. Try again.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472456
+    m_Localized: Enter the six-digit lobby code.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472457
+    m_Localized: Finding lobby
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472458
+    m_Localized: Searching by code
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472459
+    m_Localized: The lobby was not found or is already closed.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472460
+    m_Localized: Reading lobby
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472461
+    m_Localized: Joining lobby
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472462
+    m_Localized: The host ended the session or removed you. The host keeps the checkpoint.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472463
+    m_Localized: . Check your connection and EOS settings.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472464
+    m_Localized: EOS did not respond within 25 seconds. Check your connection and try again.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472465
+    m_Localized: Online play is only available in the desktop version.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472466
+    m_Localized: Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472467
+    m_Localized: Nickname
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472468
+    m_Localized: Friend's Code
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472469
+    m_Localized: "SVINKI \u2014 Single Player"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472470
+    m_Localized: 'LOBBY  '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472471
+    m_Localized: "SVINKI \u2014 Play with Friends"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472472
+    m_Localized: 'Host: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472473
+    m_Localized: ' (you)'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472474
+    m_Localized: reconnecting
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472475
+    m_Localized: spectator
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472476
+    m_Localized: ready
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472477
+    m_Localized: not ready
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472478
+    m_Localized: '
+
+
+      Players: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472479
+    m_Localized: "/6  \xB7  Round "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472480
+    m_Localized: "  \xB7  Admission closed"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472481
+    m_Localized: "  \xB7  Admission open"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472482
+    m_Localized: Cancel Connection
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472483
+    m_Localized: Resume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472484
+    m_Localized: "Ready \u2014 Rate Outfit at Entrance"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472485
+    m_Localized: Create Lobby
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472486
+    m_Localized: Continue from Checkpoint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472487
+    m_Localized: Join by Code
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472488
+    m_Localized: Play Solo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472489
+    m_Localized: "Local test: host / client \u2014 F8 / F9"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472490
+    m_Localized: "Editor: F8 \u2014 host, F9 \u2014 localhost client; a second game instance is required."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472491
+    m_Localized: Cancel Ready
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472492
+    m_Localized: Ready
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472493
+    m_Localized: Start Round
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472494
+    m_Localized: Resume Spectating
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472495
+    m_Localized: "Ready \u2014 At Entrance"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472496
+    m_Localized: 'Copy Code: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472497
+    m_Localized: 'Code copied: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472498
+    m_Localized: Open Admission
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472499
+    m_Localized: Close Admission
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472500
+    m_Localized: End Session
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472501
+    m_Localized: Leave Session
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472502
+    m_Localized: Mouse Sensitivity
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472503
+    m_Localized: "25% \u2014 slow                         300% \u2014 fast"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472504
+    m_Localized: Reset to Default
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472505
+    m_Localized: YOUR PIG
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472506
+    m_Localized: Mix accessories, colours and patterns
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472507
+    m_Localized: Glasses & Moustache
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472508
+    m_Localized: Beard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472509
+    m_Localized: Piercings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472510
+    m_Localized: 'Eyes: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472511
+    m_Localized: open
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472512
+    m_Localized: squinting
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472513
+    m_Localized: 'Brows: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472514
+    m_Localized: relaxed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472515
+    m_Localized: raised
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472516
+    m_Localized: cheeky
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472517
+    m_Localized: 'Glasses: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472518
+    m_Localized: none
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472519
+    m_Localized: round
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472520
+    m_Localized: square
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472521
+    m_Localized: cat-eye
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472522
+    m_Localized: aviator
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472523
+    m_Localized: round sunglasses
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472524
+    m_Localized: square sunglasses
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472525
+    m_Localized: 'Mohawk: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472526
+    m_Localized: 'Skin colour: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472527
+    m_Localized: 'Pattern: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472528
+    m_Localized: 'Pattern colour: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472529
+    m_Localized: 'Hair colour: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472530
+    m_Localized: 'Moustache: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472531
+    m_Localized: curled
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472532
+    m_Localized: straight
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472533
+    m_Localized: 'Beard: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472534
+    m_Localized: 'Ear piercing: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472535
+    m_Localized: 'Brow piercing: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472536
+    m_Localized: 'Tattoo: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472537
+    m_Localized: 'Nose ring: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472538
+    m_Localized: Scroll for more. Changes are saved.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472539
+    m_Localized: yes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472540
+    m_Localized: "Chat  \xB7  Enter \u2014 send  \xB7  Esc \u2014 cancel"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472541
+    m_Localized: "Type a message\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472542
+    m_Localized: pink
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472543
+    m_Localized: cream
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472544
+    m_Localized: chocolate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472545
+    m_Localized: grey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472546
+    m_Localized: mint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472547
+    m_Localized: blue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472548
+    m_Localized: lavender
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472549
+    m_Localized: coral
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472550
+    m_Localized: brown
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472551
+    m_Localized: black
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472552
+    m_Localized: blond
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472553
+    m_Localized: white
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472554
+    m_Localized: blue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472555
+    m_Localized: purple
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472556
+    m_Localized: magenta
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472557
+    m_Localized: solid
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472558
+    m_Localized: spots
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472559
+    m_Localized: stripes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472560
+    m_Localized: saddle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472561
+    m_Localized: socks
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472562
+    m_Localized: heart
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472563
+    m_Localized: star
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472564
+    m_Localized: lightning
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472565
+    m_Localized: arm stripes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472566
+    m_Localized: Hat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472567
+    m_Localized: T-shirt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472568
+    m_Localized: Jeans
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472569
+    m_Localized: Sneakers
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472570
+    m_Localized: Patterned trousers
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472571
+    m_Localized: Knitted hat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472572
+    m_Localized: Camouflage long sleeve
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472573
+    m_Localized: Lace-up sneakers
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472574
+    m_Localized: Cap
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472575
+    m_Localized: Leather loafers
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472576
+    m_Localized: Light hat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472577
+    m_Localized: Light trousers
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472578
+    m_Localized: Sport sneakers
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472579
+    m_Localized: Dark T-shirt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472580
+    m_Localized: Warm sweater
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472581
+    m_Localized: Collared shirt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472582
+    m_Localized: Hoodie
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472583
+    m_Localized: Colourful T-shirt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472584
+    m_Localized: Military
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472585
+    m_Localized: Streetwear
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472586
+    m_Localized: Classic
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472587
+    m_Localized: Camouflage casual
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472588
+    m_Localized: Cozy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 787472589
+    m_Localized: Sport
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

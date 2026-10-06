@@ -8,11 +8,13 @@ public class PlayerPickupInteractor : MonoBehaviour
 
     private Camera playerCamera;
     private PickupItem target;
-    [SerializeField, Tooltip("HUD этой сцены (префаб GameHUD). Пусто — найдётся сам")]
-    private GameHud hud;
+    [SerializeField] private GameHud hud;
     private NetworkPlayer localPlayer;
     private Vector3 targetPoint;
     private ThrowableMannequin mannequinTarget;
+    private RoundFinishStation finishTarget;
+    private ShoppingCart cartTarget;
+    private PlayerAvatar LocalAvatar => localPlayer != null ? localPlayer.GetComponent<PlayerAvatar>() : Hands?.GetComponent<PlayerAvatar>();
 
     private PlayerMannequinCarry Hands
     {
@@ -31,23 +33,37 @@ public class PlayerPickupInteractor : MonoBehaviour
 
     private void Update()
     {
-        if (PlayerChat.BlocksInput || NetworkLobby.Instance != null && !NetworkLobby.Instance.InputAllowed) { if (target != null) target.SetTargeted(false); target = null; mannequinTarget = null; return; }
+        if (PlayerChat.BlocksInput || NetworkLobby.Instance != null && !NetworkLobby.Instance.InputAllowed) { if (target != null) target.SetTargeted(false); target = null; mannequinTarget = null; finishTarget = null; cartTarget = null; return; }
         var hands = Hands;
         if (hands != null && hands.GetComponent<PlayerKnockdown>()?.IsDown == true)
         {
             if (target != null) target.SetTargeted(false);
-            target = null; mannequinTarget = null; return;
+            target = null; mannequinTarget = null; finishTarget = null; cartTarget = null; return;
+        }
+        var cart = ShoppingCart.For(LocalAvatar);
+        if (cart != null)
+        {
+            if (target != null) target.SetTargeted(false);
+            target = null; mannequinTarget = null; finishTarget = null; cartTarget = null;
+            if (Keyboard.current?.eKey.wasPressedThisFrame == true || cart.Rider == LocalAvatar && Keyboard.current?.spaceKey.wasPressedThisFrame == true)
+                UseCart(cart, false, false);
+            else if (cart.Driver == LocalAvatar && Mouse.current?.leftButton.wasPressedThisFrame == true)
+                UseCart(cart, false, true);
+            if (localPlayer == null && cart.Driver == LocalAvatar)
+                cart.SubmitInput(LocalAvatar, GrayboxPlayerController.ReadMoveInput(), Keyboard.current?.leftShiftKey.isPressed == true);
+            return;
         }
         if (hands != null && hands.Held != null)
         {
             if (target != null) target.SetTargeted(false);
-            target = null; mannequinTarget = null;
+            target = null; mannequinTarget = null; finishTarget = null; cartTarget = null;
             if (Mouse.current?.leftButton.wasPressedThisFrame == true) hands.Release(true);
             else if (Mouse.current?.rightButton.wasPressedThisFrame == true || Keyboard.current?.eKey.wasPressedThisFrame == true) hands.Release(false);
             return;
         }
         PickupItem next = null;
         mannequinTarget = null;
+        finishTarget = null; cartTarget = null;
         Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
         var physicsScene = localPlayer != null ? localPlayer.gameObject.scene.GetPhysicsScene() : gameObject.scene.GetPhysicsScene();
         if (physicsScene.Raycast(ray.origin, ray.direction, out RaycastHit hit, pickupDistance,
@@ -55,8 +71,18 @@ public class PlayerPickupInteractor : MonoBehaviour
         {
             next = hit.collider.GetComponentInParent<PickupItem>();
             mannequinTarget = hit.collider.GetComponentInParent<ThrowableMannequin>();
+            finishTarget = hit.collider.GetComponentInParent<RoundFinishStation>();
+            cartTarget = hit.collider.GetComponentInParent<ShoppingCart>();
             targetPoint = hit.point;
         }
+
+        if (cartTarget != null && (Keyboard.current?.eKey.wasPressedThisFrame == true || Keyboard.current?.rKey.wasPressedThisFrame == true))
+        {
+            if (target != null) target.SetTargeted(false); target = null;
+            UseCart(cartTarget, Keyboard.current.rKey.wasPressedThisFrame, false); return;
+        }
+        if (finishTarget != null && Keyboard.current?.eKey.wasPressedThisFrame == true)
+        { finishTarget.Press(); return; }
 
         if (mannequinTarget != null && !mannequinTarget.IsHeld && Keyboard.current?.eKey.wasPressedThisFrame == true)
         {
@@ -90,7 +116,15 @@ public class PlayerPickupInteractor : MonoBehaviour
         }
     }
 
-    // Прицел и подсказки рисует HUD (префаб GameHUD); здесь только решаем, что показать.
+    private void UseCart(ShoppingCart cart, bool sit, bool launch)
+    {
+        if (localPlayer != null) localPlayer.RequestCart(cart, sit, launch);
+        else if (cart != null && LocalAvatar != null)
+        {
+            if (ShoppingCart.For(LocalAvatar) == cart) cart.Release(LocalAvatar, launch);
+            else cart.TryUse(LocalAvatar, sit);
+        }
+    }
     private void LateUpdate()
     {
         if (hud == null) hud = GameHud.Find(this);
@@ -101,24 +135,34 @@ public class PlayerPickupInteractor : MonoBehaviour
             hud.HidePrompt();
             return;
         }
-
         hud.SetCrosshair(true);
-        PlayerMannequinCarry hands = Hands;
-        PlayerKnockdown knockdown = hands != null ? hands.GetComponent<PlayerKnockdown>() : null;
-        if (knockdown != null && knockdown.IsDown)
+        if (Hands?.GetComponent<PlayerKnockdown>()?.IsDown == true)
         {
-            hud.ShowPrompt("You got knocked down! Getting up...");
+            hud.ShowPrompt("You got knocked down! Getting up…");
             return;
         }
-
+        var cart = ShoppingCart.For(LocalAvatar);
+        if (cart != null)
+        {
+            hud.ShowPrompt(cart.Driver == LocalAvatar
+                ? "W/S — push • A/D — steer • Shift — sprint\nLMB — launch • E — release"
+                : "You're riding! E / Space — hop out");
+            return;
+        }
         string text = null;
-        if (hands != null && hands.Held != null) text = "[LMB] Throw    [RMB / E] Drop";
-        else if (mannequinTarget != null && !mannequinTarget.IsHeld) text = "[E] Grab mannequin";
+        if (cartTarget != null)
+            text = cartTarget.Speed > 3 ? "The cart is moving too fast" : "E — push cart • R — ride in basket";
+        else if (Hands?.Held != null)
+            text = "LMB — throw • RMB / E — release";
+        else if (mannequinTarget != null && !mannequinTarget.IsHeld)
+            text = "E — grab mannequin";
+        else if (finishTarget != null)
+            text = NetworkLobby.Instance?.IsFinishReady == true ? "E — cancel ready" : "E — press Ready";
         if (target != null)
         {
             ClothingPickup clothing = target.GetComponent<ClothingPickup>();
             bool canCollect = clothing == null || clothing.CanCollect(gameObject);
-            text = canCollect ? "[E] Pick up: " + target.ItemName : "This clothing slot is already taken";
+            text = canCollect ? "E — pick up: " + target.ItemName : "This clothing slot is already occupied";
         }
         hud.ShowPrompt(text);
     }
@@ -128,6 +172,7 @@ public class PlayerPickupInteractor : MonoBehaviour
         if (target != null) target.SetTargeted(false);
         target = null;
         mannequinTarget = null;
+        finishTarget = null; cartTarget = null;
         if (hud != null) { hud.SetCrosshair(false); hud.HidePrompt(); }
     }
 }

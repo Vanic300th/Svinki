@@ -13,6 +13,7 @@ public sealed class ClothingLibraryImporter : AssetPostprocessor
 {
     private const string Root = "Assets/ClothingLibrary";
     private const string Models = Root + "/Models";
+    private const string PigModels = Root + "/3D Models";
     private const string Definitions = Root + "/Generated/Definitions";
     private const string Pickups = Root + "/Generated/Pickups";
     private const string Materials = Root + "/Generated/Materials";
@@ -67,9 +68,11 @@ public sealed class ClothingLibraryImporter : AssetPostprocessor
         foreach (Category category in Categories)
         {
             string folder = Models + "/" + category.Folder;
+            string pigFolder = PigModels + "/" + category.Folder;
             foreach (string path in AssetDatabase.GetAllAssetPaths())
             {
-                if (!path.StartsWith(folder + "/", StringComparison.Ordinal) || !IsModel(path)) continue;
+                bool pig = path.StartsWith(pigFolder + "/", StringComparison.Ordinal) && path.EndsWith("_worn.fbx", StringComparison.OrdinalIgnoreCase);
+                if ((!path.StartsWith(folder + "/", StringComparison.Ordinal) && !pig) || !IsModel(path)) continue;
                 GameObject model = AssetDatabase.LoadAssetAtPath<GameObject>(path);
                 if (model == null) continue;
                 ClothingDefinition definition = FindDefinition(model, category);
@@ -79,6 +82,7 @@ public sealed class ClothingLibraryImporter : AssetPostprocessor
                     created++;
                 }
                 definitions.Add(definition);
+                if (definition.PigRigged) PigClothingFit.Prepare(definition);
                 EnsurePickupPrefab(definition, category);
             }
         }
@@ -145,7 +149,7 @@ public sealed class ClothingLibraryImporter : AssetPostprocessor
     private static bool ContainsModel(string[] paths)
     {
         foreach (string path in paths)
-            if (path.StartsWith(Models + "/", StringComparison.Ordinal) && IsModel(path)) return true;
+            if ((path.StartsWith(Models + "/", StringComparison.Ordinal) || path.StartsWith(PigModels + "/", StringComparison.Ordinal)) && IsModel(path)) return true;
         return false;
     }
 
@@ -208,7 +212,9 @@ public sealed class ClothingLibraryImporter : AssetPostprocessor
             "Assets/ClothingItems/" + category.Template + ".asset");
 
         SerializedObject data = new SerializedObject(item);
-        data.FindProperty("displayName").stringValue = model.name;
+        bool pig = AssetDatabase.GetAssetPath(model).StartsWith(PigModels + "/", StringComparison.Ordinal);
+        data.FindProperty("displayName").stringValue = pig ? PigClothingAssets.DisplayName(model.name) : model.name;
+        data.FindProperty("pigRigged").boolValue = pig;
         data.FindProperty("model").objectReferenceValue = model;
         // Без fabricMaterial исходные текстуры FBX сохраняются.
         if (template != null)
@@ -231,7 +237,15 @@ public sealed class ClothingLibraryImporter : AssetPostprocessor
     {
         string filename = Path.GetFileNameWithoutExtension(AssetDatabase.GetAssetPath(clothing));
         string path = Pickups + "/" + category.Folder + "/" + filename + ".prefab";
-        if (AssetDatabase.LoadAssetAtPath<GameObject>(path) != null) return;
+        var existing = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+        if (existing != null) { LinkPickup(clothing, existing); return; }
+
+        if (clothing.PigRigged)
+        {
+            PigClothingAssets.CreatePickup(clothing, path);
+            LinkPickup(clothing, AssetDatabase.LoadAssetAtPath<GameObject>(path));
+            return;
+        }
 
         GameObject root = new GameObject("Pickup " + clothing.DisplayName);
         try
@@ -284,8 +298,16 @@ public sealed class ClothingLibraryImporter : AssetPostprocessor
             root.AddComponent<NetworkObject>();
             root.AddComponent<NetworkPickup>();
             PrefabUtility.SaveAsPrefabAsset(root, path);
+            LinkPickup(clothing, AssetDatabase.LoadAssetAtPath<GameObject>(path));
         }
         finally { UnityEngine.Object.DestroyImmediate(root); }
+    }
+
+    private static void LinkPickup(ClothingDefinition clothing, GameObject prefab)
+    {
+        if (clothing.PickupPrefab == prefab) return;
+        var data = new SerializedObject(clothing); data.FindProperty("pickupPrefab").objectReferenceValue = prefab;
+        data.ApplyModifiedPropertiesWithoutUndo(); EditorUtility.SetDirty(clothing);
     }
 
     private static Material PickupContour(Category category, Color color)

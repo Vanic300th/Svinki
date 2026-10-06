@@ -1,0 +1,443 @@
+{
+  "count": 48,
+  "variants": 15,
+  "registered": true,
+  "old": 0,
+  "unreachable": [],
+  "uniqueSceneIds": 48,
+  "zeroSceneIds": 0,
+  "results": [
+    {
+      "name": "Hidden clothing 01 - Кепка с козырьком (Corner / 01 ВХОД / ПЕРСИК)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 3153843970,
+      "meshes": 1,
+      "sprites": 0
+    },
+    {
+      "name": "Hidden clothing 02 - Брюки с паттерном (Corner / 01 ВХОД / ПЕРСИК)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 3018577852,
+      "meshes": 1,
+      "sprites": 0
+    },
+    {
+      "name": "Hidden clothing 03 - Тёплый свитер (Corner / 01 ВХОД / ПЕРСИК)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 1071904251,
+      "meshes": 1,
+      "sprites": 0
+    },
+    {
+      "name": "Hidden clothing 04 - Джинсы (Corner / 02 АТРИУМ / ПОДИУМ)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 938145163,
+      "meshes": 1,
+      "sprites": 0
+    },
+    {
+      "name": "Hidden clothing 05 - Спортивные кроссовки (Corner / 02 АТРИУМ / ПОДИУМ)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 1946148286,
+      "meshes": 1,
+      "sprites": 0
+    },
+    {
+      "name": "Hidden clothing 06 - Светлые брюки (Corner / 02 АТРИУМ / ПОДИУМ)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 2012741426,
+      "meshes": 1,
+      "sprites": 0
+    },
+    {
+      "name": "Hidden clothing 07 - Кеды со шнурками (Corner / 03 БУТИК)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 3153591750,
+      "meshes": 1,
+      "sprites": 0
+    },
+    {
+      "name": "Hidden clothing 08 - Кожаные лоферы (Corner / 03 БУТИК)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 4226735966,
+      "meshes": 1,
+      "sprites": 0
+    },
+    {
+      "name": "Hidden clothing 09 - Камуфляжный лонгслив (Corner / 03 БУТИК)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 1072878856,
+      "meshes": 1,
+      "sprites": 0
+    },
+    {
+      "name": "Hidden clothing 10 - Худи с капюшоном (Corner / 04 ОБУВЬ / АТЕЛЬЕ)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 4293057999,
+      "meshes": 1,
+      "sprites": 0
+    },
+    {
+      "name": "Hidden clothing 11 - Цветная футболка (Corner / 04 ОБУВЬ / АТЕЛЬЕ)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 4294434762,
+      "meshes": 1,
+      "sprites": 0
+    },
+    {
+      "name": "Hidden clothing 12 - Светлая шапка (Corner / 04 ОБУВЬ / АТЕЛЬЕ)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 4158840265,
+      "meshes": 1,
+      "sprites": 0
+    },
+    {
+      "name": "Hidden clothing 13 - Тёмная футболка (Corner / 05 ЛАБИРИНТ ПРИМЕРОЧНЫХ)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 1073143653,
+      "meshes": 1,
+      "sprites": 0
+    },
+    {
+      "name": "Hidden clothing 14 - Вязаная шапка (Corner / 05 ЛАБИРИНТ ПРИМЕРОЧНЫХ)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 4227323335,
+      "meshes": 1,
+      "sprites": 0
+    },
+    {
+      "name": "Hidden clothing 15 - Футболка с воротником (Corner / 05 ЛАБИРИНТ ПРИМЕРОЧНЫХ)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 870513989,
+      "meshes": 1,
+      "sprites": 0
+    },
+    {
+      "name": "Hidden clothing 16 - Кепка с козырьком (Corner / 06 ГАЛЕРЕЯ)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 2079325658,
+      "meshes": 1,
+      "sprites": 0
+    },
+    {
+      "name": "Hidden clothing 17 - Брюки с паттерном (Corner / 06 ГАЛЕРЕЯ)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 4225949024,
+      "meshes": 1,
+      "sprites": 0
+    },
+    {
+      "name": "Hidden clothing 18 - Тёплый свитер (Corner / 06 ГАЛЕРЕЯ)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 4092065237,
+      "meshes": 1,
+      "sprites": 0
+    },
+    {
+      "name": "Hidden clothing 19 - Джинсы (Corner / 07 СЛУЖЕБНЫЙ СРЕЗ)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 3085358853,
+      "meshes": 1,
+      "sprites": 0
+    },
+    {
+      "name": "Hidden clothing 20 - Спортивные кроссовки (Corner / 07 СЛУЖЕБНЫЙ СРЕЗ)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 4160673205,
+      "meshes": 1,
+      "sprites": 0
+    },
+    {
+      "name": "Hidden clothing 21 - Светлые брюки (Corner / 07 СЛУЖЕБНЫЙ СРЕЗ)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 1006368084,
+      "meshes": 1,
+      "sprites": 0
+    },
+    {
+      "name": "Hidden clothing 22 - Кеды со шнурками (Corner / 08 СКЛАД / СТЕЛЛАЖИ)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 2147417907,
+      "meshes": 1,
+      "sprites": 0
+    },
+    {
+      "name": "Hidden clothing 23 - Кожаные лоферы (Corner / 08 СКЛАД / СТЕЛЛАЖИ)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 3086736767,
+      "meshes": 1,
+      "sprites": 0
+    },
+    {
+      "name": "Hidden clothing 24 - Камуфляжный лонгслив (Corner / 08 СКЛАД / СТЕЛЛАЖИ)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 872078777,
+      "meshes": 1,
+      "sprites": 0
+    },
+    {
+      "name": "Hidden clothing 25 - Худи с капюшоном (Corner / 09 АРХИВ КОЛЛЕКЦИЙ)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 4093564386,
+      "meshes": 1,
+      "sprites": 0
+    },
+    {
+      "name": "Hidden clothing 26 - Цветная футболка (Corner / 09 АРХИВ КОЛЛЕКЦИЙ)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 871290728,
+      "meshes": 1,
+      "sprites": 0
+    },
+    {
+      "name": "Hidden clothing 27 - Светлая шапка (Corner / 09 АРХИВ КОЛЛЕКЦИЙ)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 2012411735,
+      "meshes": 1,
+      "sprites": 0
+    },
+    {
+      "name": "Hidden clothing 28 - Тёмная футболка (Corner / 10 ГНЕЗДО ВОРИШЕК)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 4226012973,
+      "meshes": 1,
+      "sprites": 0
+    },
+    {
+      "name": "Hidden clothing 29 - Вязаная шапка (Corner / 10 ГНЕЗДО ВОРИШЕК)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 1071898074,
+      "meshes": 1,
+      "sprites": 0
+    },
+    {
+      "name": "Hidden clothing 30 - Футболка с воротником (Corner / 10 ГНЕЗДО ВОРИШЕК)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 4159633188,
+      "meshes": 1,
+      "sprites": 0
+    },
+    {
+      "name": "Hidden clothing 31 - Кепка с козырьком (Corner / 11 / VINTAGE)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 4159436154,
+      "meshes": 1,
+      "sprites": 0
+    },
+    {
+      "name": "Hidden clothing 32 - Брюки с паттерном (Corner / 11 / VINTAGE)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 3153778499,
+      "meshes": 1,
+      "sprites": 0
+    },
+    {
+      "name": "Hidden clothing 33 - Тёплый свитер (Corner / 11 / VINTAGE)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 4293132090,
+      "meshes": 1,
+      "sprites": 0
+    },
+    {
+      "name": "Hidden clothing 34 - Джинсы (Corner / 12 / SPORTS)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 871366028,
+      "meshes": 1,
+      "sprites": 0
+    },
+    {
+      "name": "Hidden clothing 35 - Спортивные кроссовки (Corner / 12 / SPORTS)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 3085950768,
+      "meshes": 1,
+      "sprites": 0
+    },
+    {
+      "name": "Hidden clothing 36 - Светлые брюки (Corner / 12 / SPORTS)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 870512580,
+      "meshes": 1,
+      "sprites": 0
+    },
+    {
+      "name": "Hidden clothing 37 - Кеды со шнурками (Corner / 13 / LOUNGE)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 3019625805,
+      "meshes": 1,
+      "sprites": 0
+    },
+    {
+      "name": "Hidden clothing 38 - Кожаные лоферы (Corner / 13 / LOUNGE)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 872404740,
+      "meshes": 1,
+      "sprites": 0
+    },
+    {
+      "name": "Hidden clothing 39 - Камуфляжный лонгслив (Corner / 13 / LOUNGE)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 4227782494,
+      "meshes": 1,
+      "sprites": 0
+    },
+    {
+      "name": "Hidden clothing 40 - Худи с капюшоном (Corner / 14 / SHOWROOM)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 4227528182,
+      "meshes": 1,
+      "sprites": 0
+    },
+    {
+      "name": "Hidden clothing 41 - Цветная футболка (Corner / 14 / SHOWROOM)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 2080109871,
+      "meshes": 1,
+      "sprites": 0
+    },
+    {
+      "name": "Hidden clothing 42 - Светлая шапка (Corner / 14 / SHOWROOM)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 4160149324,
+      "meshes": 1,
+      "sprites": 0
+    },
+    {
+      "name": "Hidden clothing 43 - Тёмная футболка (Corner / 01 ВХОД / ПЕРСИК)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 2012140879,
+      "meshes": 1,
+      "sprites": 0
+    },
+    {
+      "name": "Hidden clothing 44 - Вязаная шапка (Corner / 02 АТРИУМ / ПОДИУМ)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 3153518436,
+      "meshes": 1,
+      "sprites": 0
+    },
+    {
+      "name": "Hidden clothing 45 - Футболка с воротником (Corner / 03 БУТИК)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 1944835863,
+      "meshes": 1,
+      "sprites": 0
+    },
+    {
+      "name": "Hidden clothing 46 - Кепка с козырьком (Corner / 04 ОБУВЬ / АТЕЛЬЕ)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 1945886008,
+      "meshes": 1,
+      "sprites": 0
+    },
+    {
+      "name": "Hidden clothing 47 - Брюки с паттерном (Corner / 05 ЛАБИРИНТ ПРИМЕРОЧНЫХ)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 4227323136,
+      "meshes": 1,
+      "sprites": 0
+    },
+    {
+      "name": "Hidden clothing 48 - Тёплый свитер (Corner / 06 ГАЛЕРЕЯ)",
+      "available": true,
+      "reachable": true,
+      "rigged": true,
+      "sceneId": 2146891236,
+      "meshes": 1,
+      "sprites": 0
+    }
+  ]
+}

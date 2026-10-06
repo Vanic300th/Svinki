@@ -1,0 +1,455 @@
+{
+  "removedOldPickups": 32,
+  "newPickups": 48,
+  "variants": 15,
+  "rooms": [
+    "01 ВХОД / ПЕРСИК",
+    "02 АТРИУМ / ПОДИУМ",
+    "03 БУТИК",
+    "04 ОБУВЬ / АТЕЛЬЕ",
+    "05 ЛАБИРИНТ ПРИМЕРОЧНЫХ",
+    "06 ГАЛЕРЕЯ",
+    "07 СЛУЖЕБНЫЙ СРЕЗ",
+    "08 СКЛАД / СТЕЛЛАЖИ",
+    "09 АРХИВ КОЛЛЕКЦИЙ",
+    "10 ГНЕЗДО ВОРИШЕК",
+    "11 / VINTAGE",
+    "12 / SPORTS",
+    "13 / LOUNGE",
+    "14 / SHOWROOM"
+  ],
+  "items": [
+    {
+      "name": "Hidden clothing 01 - Кепка с козырьком (Corner / 01 ВХОД / ПЕРСИК)",
+      "clothing": "Кепка с козырьком",
+      "position": {
+        "x": -5.2,
+        "y": 0.015,
+        "z": -8.95
+      }
+    },
+    {
+      "name": "Hidden clothing 02 - Брюки с паттерном (Corner / 01 ВХОД / ПЕРСИК)",
+      "clothing": "Брюки с паттерном",
+      "position": {
+        "x": 5.2,
+        "y": 0.015,
+        "z": -8.95
+      }
+    },
+    {
+      "name": "Hidden clothing 03 - Тёплый свитер (Corner / 01 ВХОД / ПЕРСИК)",
+      "clothing": "Тёплый свитер",
+      "position": {
+        "x": -2.9,
+        "y": 0.015,
+        "z": -2.7
+      }
+    },
+    {
+      "name": "Hidden clothing 04 - Джинсы (Corner / 02 АТРИУМ / ПОДИУМ)",
+      "clothing": "Джинсы",
+      "position": {
+        "x": -11.45,
+        "y": 0.015,
+        "z": 1.05
+      }
+    },
+    {
+      "name": "Hidden clothing 05 - Спортивные кроссовки (Corner / 02 АТРИУМ / ПОДИУМ)",
+      "clothing": "Спортивные кроссовки",
+      "position": {
+        "x": 11.45,
+        "y": 0.015,
+        "z": 1.05
+      }
+    },
+    {
+      "name": "Hidden clothing 06 - Светлые брюки (Corner / 02 АТРИУМ / ПОДИУМ)",
+      "clothing": "Светлые брюки",
+      "position": {
+        "x": -11.45,
+        "y": 0.015,
+        "z": 21.45
+      }
+    },
+    {
+      "name": "Hidden clothing 07 - Кеды со шнурками (Corner / 03 БУТИК)",
+      "clothing": "Кеды со шнурками",
+      "position": {
+        "x": -28.95,
+        "y": 0.015,
+        "z": -3.95
+      }
+    },
+    {
+      "name": "Hidden clothing 08 - Кожаные лоферы (Corner / 03 БУТИК)",
+      "clothing": "Кожаные лоферы",
+      "position": {
+        "x": -13.55,
+        "y": 0.015,
+        "z": -3.95
+      }
+    },
+    {
+      "name": "Hidden clothing 09 - Камуфляжный лонгслив (Corner / 03 БУТИК)",
+      "clothing": "Камуфляжный лонгслив",
+      "position": {
+        "x": -28.95,
+        "y": 0.015,
+        "z": 13.95
+      }
+    },
+    {
+      "name": "Hidden clothing 10 - Худи с капюшоном (Corner / 04 ОБУВЬ / АТЕЛЬЕ)",
+      "clothing": "Худи с капюшоном",
+      "position": {
+        "x": 13.55,
+        "y": 0.015,
+        "z": 1.05
+      }
+    },
+    {
+      "name": "Hidden clothing 11 - Цветная футболка (Corner / 04 ОБУВЬ / АТЕЛЬЕ)",
+      "clothing": "Цветная футболка",
+      "position": {
+        "x": 28.95,
+        "y": 0.015,
+        "z": 1.05
+      }
+    },
+    {
+      "name": "Hidden clothing 12 - Светлая шапка (Corner / 04 ОБУВЬ / АТЕЛЬЕ)",
+      "clothing": "Светлая шапка",
+      "position": {
+        "x": 13.55,
+        "y": 0.015,
+        "z": 13.95
+      }
+    },
+    {
+      "name": "Hidden clothing 13 - Тёмная футболка (Corner / 05 ЛАБИРИНТ ПРИМЕРОЧНЫХ)",
+      "clothing": "Тёмная футболка",
+      "position": {
+        "x": -28.95,
+        "y": 0.015,
+        "z": 16.05
+      }
+    },
+    {
+      "name": "Hidden clothing 14 - Вязаная шапка (Corner / 05 ЛАБИРИНТ ПРИМЕРОЧНЫХ)",
+      "clothing": "Вязаная шапка",
+      "position": {
+        "x": -13.55,
+        "y": 0.015,
+        "z": 16.05
+      }
+    },
+    {
+      "name": "Hidden clothing 15 - Футболка с воротником (Corner / 05 ЛАБИРИНТ ПРИМЕРОЧНЫХ)",
+      "clothing": "Футболка с воротником",
+      "position": {
+        "x": -28.95,
+        "y": 0.015,
+        "z": 33.95
+      }
+    },
+    {
+      "name": "Hidden clothing 16 - Кепка с козырьком (Corner / 06 ГАЛЕРЕЯ)",
+      "clothing": "Кепка с козырьком",
+      "position": {
+        "x": -11.45,
+        "y": 0.015,
+        "z": 23.55
+      }
+    },
+    {
+      "name": "Hidden clothing 17 - Брюки с паттерном (Corner / 06 ГАЛЕРЕЯ)",
+      "clothing": "Брюки с паттерном",
+      "position": {
+        "x": 3.95,
+        "y": 0.015,
+        "z": 23.55
+      }
+    },
+    {
+      "name": "Hidden clothing 18 - Тёплый свитер (Corner / 06 ГАЛЕРЕЯ)",
+      "clothing": "Тёплый свитер",
+      "position": {
+        "x": -11.45,
+        "y": 0.015,
+        "z": 33.95
+      }
+    },
+    {
+      "name": "Hidden clothing 19 - Джинсы (Corner / 07 СЛУЖЕБНЫЙ СРЕЗ)",
+      "clothing": "Джинсы",
+      "position": {
+        "x": 6.05,
+        "y": 0.015,
+        "z": 23.55
+      }
+    },
+    {
+      "name": "Hidden clothing 20 - Спортивные кроссовки (Corner / 07 СЛУЖЕБНЫЙ СРЕЗ)",
+      "clothing": "Спортивные кроссовки",
+      "position": {
+        "x": 11.45,
+        "y": 0.015,
+        "z": 23.55
+      }
+    },
+    {
+      "name": "Hidden clothing 21 - Светлые брюки (Corner / 07 СЛУЖЕБНЫЙ СРЕЗ)",
+      "clothing": "Светлые брюки",
+      "position": {
+        "x": 6.05,
+        "y": 0.015,
+        "z": 33.95
+      }
+    },
+    {
+      "name": "Hidden clothing 22 - Кеды со шнурками (Corner / 08 СКЛАД / СТЕЛЛАЖИ)",
+      "clothing": "Кеды со шнурками",
+      "position": {
+        "x": 13.55,
+        "y": 0.015,
+        "z": 16.05
+      }
+    },
+    {
+      "name": "Hidden clothing 23 - Кожаные лоферы (Corner / 08 СКЛАД / СТЕЛЛАЖИ)",
+      "clothing": "Кожаные лоферы",
+      "position": {
+        "x": 33.95,
+        "y": 0.015,
+        "z": 16.05
+      }
+    },
+    {
+      "name": "Hidden clothing 24 - Камуфляжный лонгслив (Corner / 08 СКЛАД / СТЕЛЛАЖИ)",
+      "clothing": "Камуфляжный лонгслив",
+      "position": {
+        "x": 13.55,
+        "y": 0.015,
+        "z": 33.95
+      }
+    },
+    {
+      "name": "Hidden clothing 25 - Худи с капюшоном (Corner / 09 АРХИВ КОЛЛЕКЦИЙ)",
+      "clothing": "Худи с капюшоном",
+      "position": {
+        "x": -28.95,
+        "y": 0.015,
+        "z": 36.05
+      }
+    },
+    {
+      "name": "Hidden clothing 26 - Цветная футболка (Corner / 09 АРХИВ КОЛЛЕКЦИЙ)",
+      "clothing": "Цветная футболка",
+      "position": {
+        "x": 3.95,
+        "y": 0.015,
+        "z": 36.05
+      }
+    },
+    {
+      "name": "Hidden clothing 27 - Светлая шапка (Corner / 09 АРХИВ КОЛЛЕКЦИЙ)",
+      "clothing": "Светлая шапка",
+      "position": {
+        "x": -28.95,
+        "y": 0.015,
+        "z": 43.95
+      }
+    },
+    {
+      "name": "Hidden clothing 28 - Тёмная футболка (Corner / 10 ГНЕЗДО ВОРИШЕК)",
+      "clothing": "Тёмная футболка",
+      "position": {
+        "x": 6.05,
+        "y": 0.015,
+        "z": 36.05
+      }
+    },
+    {
+      "name": "Hidden clothing 29 - Вязаная шапка (Corner / 10 ГНЕЗДО ВОРИШЕК)",
+      "clothing": "Вязаная шапка",
+      "position": {
+        "x": 33.95,
+        "y": 0.015,
+        "z": 36.05
+      }
+    },
+    {
+      "name": "Hidden clothing 30 - Футболка с воротником (Corner / 10 ГНЕЗДО ВОРИШЕК)",
+      "clothing": "Футболка с воротником",
+      "position": {
+        "x": 6.05,
+        "y": 0.015,
+        "z": 43.95
+      }
+    },
+    {
+      "name": "Hidden clothing 31 - Кепка с козырьком (Corner / 11 / VINTAGE)",
+      "clothing": "Кепка с козырьком",
+      "position": {
+        "x": -28.95,
+        "y": 0.015,
+        "z": 46.05
+      }
+    },
+    {
+      "name": "Hidden clothing 32 - Брюки с паттерном (Corner / 11 / VINTAGE)",
+      "clothing": "Брюки с паттерном",
+      "position": {
+        "x": -15.05,
+        "y": 0.015,
+        "z": 46.05
+      }
+    },
+    {
+      "name": "Hidden clothing 33 - Тёплый свитер (Corner / 11 / VINTAGE)",
+      "clothing": "Тёплый свитер",
+      "position": {
+        "x": -28.95,
+        "y": 0.015,
+        "z": 63.95
+      }
+    },
+    {
+      "name": "Hidden clothing 34 - Джинсы (Corner / 12 / SPORTS)",
+      "clothing": "Джинсы",
+      "position": {
+        "x": -12.95,
+        "y": 0.015,
+        "z": 46.05
+      }
+    },
+    {
+      "name": "Hidden clothing 35 - Спортивные кроссовки (Corner / 12 / SPORTS)",
+      "clothing": "Спортивные кроссовки",
+      "position": {
+        "x": 0.950000048,
+        "y": 0.015,
+        "z": 46.05
+      }
+    },
+    {
+      "name": "Hidden clothing 36 - Светлые брюки (Corner / 12 / SPORTS)",
+      "clothing": "Светлые брюки",
+      "position": {
+        "x": -12.95,
+        "y": 0.015,
+        "z": 63.95
+      }
+    },
+    {
+      "name": "Hidden clothing 37 - Кеды со шнурками (Corner / 13 / LOUNGE)",
+      "clothing": "Кеды со шнурками",
+      "position": {
+        "x": 3.05,
+        "y": 0.015,
+        "z": 46.05
+      }
+    },
+    {
+      "name": "Hidden clothing 38 - Кожаные лоферы (Corner / 13 / LOUNGE)",
+      "clothing": "Кожаные лоферы",
+      "position": {
+        "x": 16.95,
+        "y": 0.015,
+        "z": 46.05
+      }
+    },
+    {
+      "name": "Hidden clothing 39 - Камуфляжный лонгслив (Corner / 13 / LOUNGE)",
+      "clothing": "Камуфляжный лонгслив",
+      "position": {
+        "x": 3.05,
+        "y": 0.015,
+        "z": 63.95
+      }
+    },
+    {
+      "name": "Hidden clothing 40 - Худи с капюшоном (Corner / 14 / SHOWROOM)",
+      "clothing": "Худи с капюшоном",
+      "position": {
+        "x": 19.05,
+        "y": 0.015,
+        "z": 46.05
+      }
+    },
+    {
+      "name": "Hidden clothing 41 - Цветная футболка (Corner / 14 / SHOWROOM)",
+      "clothing": "Цветная футболка",
+      "position": {
+        "x": 33.95,
+        "y": 0.015,
+        "z": 46.05
+      }
+    },
+    {
+      "name": "Hidden clothing 42 - Светлая шапка (Corner / 14 / SHOWROOM)",
+      "clothing": "Светлая шапка",
+      "position": {
+        "x": 19.05,
+        "y": 0.015,
+        "z": 63.95
+      }
+    },
+    {
+      "name": "Hidden clothing 43 - Тёмная футболка (Corner / 01 ВХОД / ПЕРСИК)",
+      "clothing": "Тёмная футболка",
+      "position": {
+        "x": 2.9,
+        "y": 0.015,
+        "z": -2.7
+      }
+    },
+    {
+      "name": "Hidden clothing 44 - Вязаная шапка (Corner / 02 АТРИУМ / ПОДИУМ)",
+      "clothing": "Вязаная шапка",
+      "position": {
+        "x": 11.45,
+        "y": 0.015,
+        "z": 21.45
+      }
+    },
+    {
+      "name": "Hidden clothing 45 - Футболка с воротником (Corner / 03 БУТИК)",
+      "clothing": "Футболка с воротником",
+      "position": {
+        "x": -13.55,
+        "y": 0.015,
+        "z": 13.95
+      }
+    },
+    {
+      "name": "Hidden clothing 46 - Кепка с козырьком (Corner / 04 ОБУВЬ / АТЕЛЬЕ)",
+      "clothing": "Кепка с козырьком",
+      "position": {
+        "x": 28.95,
+        "y": 0.015,
+        "z": 13.95
+      }
+    },
+    {
+      "name": "Hidden clothing 47 - Брюки с паттерном (Corner / 05 ЛАБИРИНТ ПРИМЕРОЧНЫХ)",
+      "clothing": "Брюки с паттерном",
+      "position": {
+        "x": -13.55,
+        "y": 0.015,
+        "z": 33.95
+      }
+    },
+    {
+      "name": "Hidden clothing 48 - Тёплый свитер (Corner / 06 ГАЛЕРЕЯ)",
+      "clothing": "Тёплый свитер",
+      "position": {
+        "x": 3.95,
+        "y": 0.015,
+        "z": 33.95
+      }
+    }
+  ]
+}

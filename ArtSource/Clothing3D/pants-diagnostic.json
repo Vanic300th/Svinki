@@ -1,0 +1,140 @@
+[
+  {
+    "name": "pants1",
+    "prepared": false,
+    "vertices": 4642,
+    "weights": [
+      "Root=0.0000",
+      "Hips=0.4826",
+      "Spine=0.0697",
+      "Head=0.0000",
+      "UpperArm_L=0.0000",
+      "Forearm_L=0.0484",
+      "Hand_L=0.0000",
+      "UpperArm_R=0.0000",
+      "Forearm_R=0.0429",
+      "Hand_R=0.0000",
+      "Thigh_L=0.0927",
+      "Shin_L=0.0862",
+      "Foot_L=0.0000",
+      "Thigh_R=0.0930",
+      "Shin_R=0.0845",
+      "Foot_R=0.0000"
+    ]
+  },
+  {
+    "name": "pants1",
+    "prepared": true,
+    "vertices": 4642,
+    "weights": [
+      "Root=0.0000",
+      "Hips=0.5697",
+      "Spine=0.0740",
+      "Head=0.0000",
+      "UpperArm_L=0.0000",
+      "Forearm_L=0.0000",
+      "Hand_L=0.0000",
+      "UpperArm_R=0.0000",
+      "Forearm_R=0.0000",
+      "Hand_R=0.0000",
+      "Thigh_L=0.0926",
+      "Shin_L=0.0862",
+      "Foot_L=0.0000",
+      "Thigh_R=0.0930",
+      "Shin_R=0.0846",
+      "Foot_R=0.0000"
+    ]
+  },
+  {
+    "name": "pants2",
+    "prepared": false,
+    "vertices": 4642,
+    "weights": [
+      "Root=0.0000",
+      "Hips=0.4826",
+      "Spine=0.0697",
+      "Head=0.0000",
+      "UpperArm_L=0.0000",
+      "Forearm_L=0.0484",
+      "Hand_L=0.0000",
+      "UpperArm_R=0.0000",
+      "Forearm_R=0.0429",
+      "Hand_R=0.0000",
+      "Thigh_L=0.0927",
+      "Shin_L=0.0862",
+      "Foot_L=0.0000",
+      "Thigh_R=0.0930",
+      "Shin_R=0.0845",
+      "Foot_R=0.0000"
+    ]
+  },
+  {
+    "name": "pants2",
+    "prepared": true,
+    "vertices": 4642,
+    "weights": [
+      "Root=0.0000",
+      "Hips=0.5697",
+      "Spine=0.0740",
+      "Head=0.0000",
+      "UpperArm_L=0.0000",
+      "Forearm_L=0.0000",
+      "Hand_L=0.0000",
+      "UpperArm_R=0.0000",
+      "Forearm_R=0.0000",
+      "Hand_R=0.0000",
+      "Thigh_L=0.0926",
+      "Shin_L=0.0862",
+      "Foot_L=0.0000",
+      "Thigh_R=0.0930",
+      "Shin_R=0.0846",
+      "Foot_R=0.0000"
+    ]
+  },
+  {
+    "name": "pants3",
+    "prepared": false,
+    "vertices": 4642,
+    "weights": [
+      "Root=0.0000",
+      "Hips=0.4826",
+      "Spine=0.0697",
+      "Head=0.0000",
+      "UpperArm_L=0.0000",
+      "Forearm_L=0.0484",
+      "Hand_L=0.0000",
+      "UpperArm_R=0.0000",
+      "Forearm_R=0.0429",
+      "Hand_R=0.0000",
+      "Thigh_L=0.0927",
+      "Shin_L=0.0862",
+      "Foot_L=0.0000",
+      "Thigh_R=0.0930",
+      "Shin_R=0.0845",
+      "Foot_R=0.0000"
+    ]
+  },
+  {
+    "name": "pants3",
+    "prepared": true,
+    "vertices": 4642,
+    "weights": [
+      "Root=0.0000",
+      "Hips=0.5697",
+      "Spine=0.0740",
+      "Head=0.0000",
+      "UpperArm_L=0.0000",
+      "Forearm_L=0.0000",
+      "Hand_L=0.0000",
+      "UpperArm_R=0.0000",
+      "Forearm_R=0.0000",
+      "Hand_R=0.0000",
+      "Thigh_L=0.0926",
+      "Shin_L=0.0862",
+      "Foot_L=0.0000",
+      "Thigh_R=0.0930",
+      "Shin_R=0.0846",
+      "Foot_R=0.0000"
+    ]
+  }
+]

@@ -55,7 +55,7 @@ public sealed class PlayerChat : MonoBehaviour
     }
 
     private bool CanChat => NetworkLobby.Instance == null ||
-        !NetworkLobby.Instance.MenuVisible && (NetworkLobby.Instance.Offline ||
+        !NetworkLobby.Instance.MenuVisible && !NetworkLobby.Instance.InventoryOpen && (NetworkLobby.Instance.Offline ||
         NetworkLobby.Instance.Snapshot.phase == SessionPhase.Round && !NetworkLobby.Instance.IsSpectator);
 
     private PlayerAvatar LocalPlayer()

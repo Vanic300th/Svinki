@@ -1,7 +1,7 @@
 using FishNet.Broadcast;
 using System;
-public enum SessionPhase : byte { Menu, Lobby, Loading, Round, Returning }
-public enum SessionAction : byte { Hello, Ready, Start, EndRound, ToggleAdmission, Kick, Leave, Appearance }
+public enum SessionPhase : byte { Menu, Lobby, Loading, Round, Returning, Results }
+public enum SessionAction : byte { Hello, Ready, Start, EndRound, ToggleAdmission, Kick, Leave, Appearance, Continue, FinishReady, RunwayReact, RunwayPose }
 public struct SessionRequest : IBroadcast
 {
     public int Version;
@@ -23,11 +23,14 @@ public struct SessionMessage : IBroadcast
     public int round;
     public bool closed;
     public ParticipantSnapshot[] players = Array.Empty<ParticipantSnapshot>();
+    public OutfitRoundResults results;
+    public string runwayReaction;
+    public int runwayReactionSequence;
 }
 [Serializable] public sealed class ParticipantSnapshot
 {
     public string id, nickname;
-    public bool ready, connected, spectator;
+    public bool ready, connected, spectator, finishReady;
     public float reservation;
     public int appearance;
 }

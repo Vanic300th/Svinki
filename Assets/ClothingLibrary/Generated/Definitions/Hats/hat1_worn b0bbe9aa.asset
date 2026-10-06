@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5968b83ea37fc4f01b3c5e697770692b, type: 3}
+  m_Name: hat1_worn b0bbe9aa
+  m_EditorClassIdentifier: Assembly-CSharp::HatClothing
+  displayName: Knitted hat
+  model: {fileID: 919132149155446097, guid: b0bbe9aa1ef384741aefbf509e3e85b7, type: 3}
+  fabricMaterial: {fileID: 0}
+  outlineMaterial: {fileID: 2100000, guid: aa2cf511bbc874172951bf40f2fced5b, type: 2}
+  highlightColor: {r: 0.98, g: 0.24, b: 0.23, a: 1}
+  displayCenter: {x: 0, y: 1.77, z: -0.25}
+  displaySize: {x: 0.32, y: 0.21}
+  displayRotation: {x: 0, y: 0, z: 0}
+  pigRigged: 1
+  pigWornModel: {fileID: 2553954349063555356, guid: 488ce40fba5d14807b219eccbba3c618, type: 3}
+  pickupPrefab: {fileID: 1403249651532600852, guid: 7e5bdca6dcac34e929c3bdc240a5d065, type: 3}
+  flutterStrength: 0.04

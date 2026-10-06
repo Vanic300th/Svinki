@@ -1,0 +1,17 @@
+{
+    "nickname": "GunDon",
+    "appearance": 295234092,
+    "clothing": [
+        "shirt2_worn b30105ae",
+        "sneakers3_worn 355e9906",
+        "pants2_worn b5b24f81"
+    ],
+    "position": {
+        "x": -1.3374334573745728,
+        "y": 0.07999980449676514,
+        "z": 0.03206612542271614
+    },
+    "offline": true,
+    "checkpoint": "{\n    \"version\": 1,\n    \"scene\": \"SampleScene\",\n    \"round\": 1,\n    \"players\": [\n        {\n            \"id\": \"0002430223eb419bb88b733bad0d39af\",\n            \"nickname\": \"GunDon\",\n            \"outfit\": []\n        }\n    ]\n}",
+    "checkpointExists": true
+}

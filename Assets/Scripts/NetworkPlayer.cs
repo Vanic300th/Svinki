@@ -61,7 +61,7 @@ public sealed class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
         foreach (string id in ids) { var item = FindInCatalog(id); if (item != null) items.Add(item); }
         GetComponent<PlayerOutfit>().SetItems(items);
     }
-    public void FreezeDisconnected() { move = Vector2.zero; sprint = false; GetComponent<PlayerMannequinCarry>()?.Release(false); }
+    public void FreezeDisconnected() { move = Vector2.zero; sprint = false; GetComponent<PlayerMannequinCarry>()?.Release(false); ShoppingCart.For(GetComponent<PlayerAvatar>())?.Release(GetComponent<PlayerAvatar>(), false); }
     public override void OnOwnershipClient(NetworkConnection previousOwner)
     {
         base.OnOwnershipClient(previousOwner);
@@ -159,6 +159,8 @@ public sealed class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
             if (Time.unscaledTime >= nextPoseSend)
             {
                 nextPoseSend = Time.unscaledTime + .05f;
+                var cart = ShoppingCart.For(GetComponent<PlayerAvatar>());
+                if (cart != null && cart.Driver == GetComponent<PlayerAvatar>()) CartControlServerRpc(cart.GetComponent<NetworkObject>(), move, sprint);
                 bool lightOn = view.GetComponentInChildren<FlashlightController>()?.IsOn ?? false;
                 SubmitPoseServerRpc(new PlayerPose { Yaw = yaw, Pitch = pitch, Crouch = motor.CrouchAmount, Flashlight = lightOn,
                     Speed = motor.MotionSpeed, VerticalSpeed = motor.VerticalVelocity, Grounded = motor.Grounded });
@@ -199,6 +201,7 @@ public sealed class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
     {
         if (NetworkObject == null || !IsServerInitialized || knockdown == null || !knockdown.CanFall) return false;
         GetComponent<PlayerMannequinCarry>()?.Release(false);
+        ShoppingCart.For(GetComponent<PlayerAvatar>())?.Release(GetComponent<PlayerAvatar>(), false);
         knockdown.SetDown(true, direction);
         knockdownPose.Value = new KnockdownPose { Down = true, Direction = direction, FallId = knockdown.FallId };
         return true;
@@ -253,6 +256,32 @@ public sealed class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
         if (!float.IsFinite(fieldOfView) || !float.IsFinite(aspect)) return;
         viewFieldOfView = Mathf.Clamp(fieldOfView, 20f, 120f);
         viewAspect = Mathf.Clamp(aspect, 0.5f, 4f);
+    }
+
+    public void RequestCart(ShoppingCart cart, bool sit, bool launch = false)
+    {
+        if (IsOwner && cart != null) CartUseServerRpc(cart.GetComponent<NetworkObject>(), sit, launch);
+    }
+    [ServerRpc(RequireOwnership = true)]
+    private void CartUseServerRpc(NetworkObject target, bool sit, bool launch)
+    {
+        if (target == null || target.gameObject.scene != gameObject.scene) return;
+        var cart = target.GetComponent<ShoppingCart>(); var avatar = GetComponent<PlayerAvatar>();
+        if (cart == null) return;
+        if (ShoppingCart.For(avatar) == cart) { cart.Release(avatar, launch && cart.Driver == avatar); return; }
+        if (launch || NetworkLobby.Instance?.CanEditOutfit(this) != true || knockdown?.IsDown == true) return;
+        var collider = cart.GetComponent<BoxCollider>();
+        Vector3 direction = collider.ClosestPoint(EyePosition) - EyePosition;
+        if (direction.magnitude > 3.8f || direction.magnitude < .01f || Vector3.Angle(EyeRotation * Vector3.forward, direction) > 45) return;
+        if (!gameObject.scene.GetPhysicsScene().Raycast(EyePosition, direction.normalized, out RaycastHit hit,
+            direction.magnitude + .2f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore) || !hit.collider.transform.IsChildOf(cart.transform)) return;
+        cart.TryUse(avatar, sit);
+    }
+    [ServerRpc(RequireOwnership = true)]
+    private void CartControlServerRpc(NetworkObject target, Vector2 movement, bool fast)
+    {
+        if (target == null || target.gameObject.scene != gameObject.scene || NetworkLobby.Instance?.CanEditOutfit(this) != true) return;
+        target.GetComponent<ShoppingCart>()?.SubmitInput(GetComponent<PlayerAvatar>(), movement, fast);
     }
 
     public void RequestPickup(NetworkPickup pickup, Vector3 hitPoint)
@@ -321,6 +350,16 @@ public sealed class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
     {
         return IsServerStarted && outfit != null && outfit.TryAdd(clothing);
     }
+    public void RequestDropClothing(ClothingSlot slot)
+    {
+        if (IsOwner) DropClothingServerRpc(slot);
+    }
+    [ServerRpc(RequireOwnership = true)]
+    private void DropClothingServerRpc(ClothingSlot slot)
+    {
+        if ((int)slot < 0 || (int)slot > 3 || NetworkLobby.Instance?.CanEditOutfit(this) != true) return;
+        ClothingDropper.TryDrop(GetComponent<PlayerAvatar>(), slot, NetworkObject.NetworkManager);
+    }
 
     // ---------- Комплект одежды ----------
 
@@ -337,6 +376,7 @@ public sealed class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
             foreach (string id in ids)
                 if (!wornClothing.Contains(id)) { same = false; break; }
         if (same) return;
+        NetworkLobby.Instance?.OutfitChanged(this);
 
         wornClothing.Clear();
         foreach (string id in ids) wornClothing.Add(id);

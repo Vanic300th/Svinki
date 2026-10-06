@@ -20,7 +20,7 @@ public class ThiefBrain : MonoBehaviour
     public enum State { Frozen, Moving, Settling, Grabbing }
     public enum Goal { None, Item, Player, Nest }
 
-    private const string StolenReason = "Thief stole";
+    private const string StolenReason = "Stolen by a thief";
     private const float NestArriveDistance = 0.8f;
     private static bool quitting;
 
@@ -406,7 +406,7 @@ public class ThiefBrain : MonoBehaviour
         bool onHead = clothing.Slot == ClothingSlot.Head && headSocket != null;
         Transform socket = onHead ? headSocket : handSocket != null ? handSocket : transform;
 
-        var holder = new GameObject("Украдено: " + clothing.DisplayName);
+        var holder = new GameObject("Stolen: " + clothing.DisplayName);
         holder.transform.SetParent(socket, false);
         GameObject model = Instantiate(clothing.Model, holder.transform);
         model.transform.localPosition = Vector3.zero;
@@ -531,7 +531,7 @@ public class ThiefBrain : MonoBehaviour
 
         if (!Application.isPlaying || !showStateLabel) return;
         string label = $"{CurrentState} / {CurrentGoal}";
-        if (carried != null && carried.Clothing != null) label += "\nнесёт: " + carried.Clothing.DisplayName;
+        if (carried != null && carried.Clothing != null) label += "\ncarrying: " + carried.Clothing.DisplayName;
         UnityEditor.Handles.Label(transform.position + Vector3.up * 1.4f, label);
 
         if (CurrentGoal != Goal.None)

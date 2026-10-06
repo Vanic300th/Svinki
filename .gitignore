@@ -117,3 +117,6 @@ InitTestScene*.unity*
 /Assets/StreamingAssets/svinki-eos.json
 /Assets/StreamingAssets/svinki-eos.json.meta
 /Assets/StreamingAssets/EOS/
+
+# macOS Finder metadata
+.DS_Store

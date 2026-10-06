@@ -1,0 +1,1 @@
+passed: online host rating, six fitted previews, UI text bounds, rotation, next round, offline rating and continue

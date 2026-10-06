@@ -35,7 +35,7 @@ public sealed class PlayerNameplate : MonoBehaviour
         Camera camera = Camera.main;
         canvas.enabled = !player.IsOwner && camera != null && Vector3.Distance(camera.transform.position, transform.position) < 25;
         if (!canvas.enabled) return;
-        label.text = string.IsNullOrWhiteSpace(player.ParticipantName) ? "Piggy" : player.ParticipantName;
+        label.text = string.IsNullOrWhiteSpace(player.ParticipantName) ? "Pig" : player.ParticipantName;
         canvas.transform.rotation = camera.transform.rotation;
         Vector3 anchor = knockdown != null ? knockdown.HeadPosition : transform.position;
         bool fallen = knockdown != null && knockdown.VisualAmount > .1f;

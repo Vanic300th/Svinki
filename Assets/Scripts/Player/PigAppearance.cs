@@ -59,8 +59,8 @@ public sealed class PigAppearance : MonoBehaviour
     private readonly List<Renderer> coloredParts = new List<Renderer>();
     private MaterialPropertyBlock colors;
     public static readonly string[] GlassesOptions = { "", "Round", "Square", "CatEye", "Aviator", "SunRound", "SunSquare" };
-    public static readonly string[] ColorNames = { "pink", "cream", "chocolate", "gray", "mint", "sky blue", "lavender", "coral" };
-    public static readonly string[] HairColorNames = { "chestnut", "black", "blond", "white", "mint", "blue", "purple", "raspberry" };
+    public static readonly string[] ColorNames = { "pink", "cream", "chocolate", "grey", "mint", "blue", "lavender", "coral" };
+    public static readonly string[] HairColorNames = { "brown", "black", "blond", "white", "mint", "blue", "purple", "magenta" };
     public static readonly string[] PatternNames = { "solid", "spots", "stripes", "saddle", "socks" };
     public static readonly string[] TattooNames = { "none", "heart", "star", "lightning", "arm stripes" };
     public static readonly Color[] SkinColors = {

@@ -20,5 +20,8 @@ MonoBehaviour:
   displayCenter: {x: 0, y: 0.12, z: -0.27}
   displaySize: {x: 0.2, y: 0.13}
   displayRotation: {x: 0, y: 0, z: 90}
-  outlineScale: 1.09
+  pigRigged: 0
+  pigWornModel: {fileID: 0}
+  pickupPrefab: {fileID: 0}
+  flutterStrength: 0.04
   pairSpacing: 0.25

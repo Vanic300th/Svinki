@@ -1,0 +1,31 @@
+{
+  "unity": "6000.6.2f1",
+  "date": "2026-10-06",
+  "protocol": 5,
+  "carts": 4,
+  "clothingAnchors": 48,
+  "offline": [
+    "100 valid permutations and preserved anchors",
+    "push, sprint, launch",
+    "seat, crouch, exit, re-entry",
+    "fitted clothing and pose on runway",
+    "automatic runway completion and continue"
+  ],
+  "localCoop": [
+    "host Editor and separate macOS development client",
+    "48 matching positions; rotations within FishNet compression tolerance",
+    "guest passenger follows host cart",
+    "wall crash releases passenger into ragdoll",
+    "guest re-entry and exit",
+    "shared reactions and poses",
+    "physical E and client driving RPC",
+    "reject cart interaction outside range",
+    "new round restores gameplay and changes shared layout"
+  ],
+  "compilationFailed": false,
+  "consoleErrors": 0,
+  "consoleWarnings": 0,
+  "originalPlayerAndCheckpointRestored": true,
+  "internetEosTested": false,
+  "localDevelopmentBuild": "Succeeded"
+}

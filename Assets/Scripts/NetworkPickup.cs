@@ -12,6 +12,7 @@ public sealed class NetworkPickup : NetworkBehaviour
 {
     // Сначала место, потом «видна», чтобы вещь не мелькнула на старом месте
     private readonly SyncVar<Vector3> position = new SyncVar<Vector3>();
+    private readonly SyncVar<Quaternion> rotation = new SyncVar<Quaternion>(Quaternion.identity);
     private readonly SyncVar<bool> available = new SyncVar<bool>(true);
 
     private PickupItem item;
@@ -20,6 +21,7 @@ public sealed class NetworkPickup : NetworkBehaviour
     {
         item = GetComponent<PickupItem>();
         position.OnChange += OnPositionChanged;
+        rotation.OnChange += OnRotationChanged;
         available.OnChange += OnAvailableChanged;
     }
 
@@ -27,6 +29,7 @@ public sealed class NetworkPickup : NetworkBehaviour
     {
         base.OnStartServer();
         position.Value = transform.position;
+        rotation.Value = transform.rotation;
         available.Value = item.IsAvailable;
     }
 
@@ -34,7 +37,7 @@ public sealed class NetworkPickup : NetworkBehaviour
     {
         base.OnStartClient();
         if (IsServerStarted) return; // хост: состояние и так общее
-        transform.position = position.Value;
+        transform.SetPositionAndRotation(position.Value, rotation.Value);
         item.SetAvailable(available.Value);
     }
 
@@ -52,6 +55,7 @@ public sealed class NetworkPickup : NetworkBehaviour
         // Сервер раздаёт то, что сделали с вещью (подобрали, Воришка унёс или положил в гнездо)
         if (NetworkObject == null || !IsServerStarted) return;
         if (position.Value != transform.position) position.Value = transform.position;
+        if (rotation.Value != transform.rotation) rotation.Value = transform.rotation;
         if (available.Value != item.IsAvailable) available.Value = item.IsAvailable;
     }
 
@@ -59,6 +63,11 @@ public sealed class NetworkPickup : NetworkBehaviour
     {
         if (asServer || IsServerStarted) return;
         transform.position = next;
+    }
+
+    private void OnRotationChanged(Quaternion previous, Quaternion next, bool asServer)
+    {
+        if (!asServer && !IsServerStarted) transform.rotation = next;
     }
 
     private void OnAvailableChanged(bool previous, bool next, bool asServer)

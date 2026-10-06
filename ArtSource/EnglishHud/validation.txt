@@ -1,0 +1,1 @@
+PASS: 282 English entries; menu, inventory, runway and results; all four garments, removal, live appearance and walking/crouch pose

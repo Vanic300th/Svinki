@@ -1,0 +1,282 @@
+Вас сбили! Поднимаемся…	You got knocked down! Getting up…
+W/S — толкать • A/D — поворот • Shift — разгон\nЛКМ — запустить • E — отпустить	W/S — push • A/D — steer • Shift — sprint\nLMB — launch • E — release
+Вы в тележке! E / Space — вылезти	You're riding! E / Space — hop out
+Тележка слишком быстро катится	The cart is moving too fast
+E — толкать тележку • R — сесть в корзину	E — push cart • R — ride in basket
+ЛКМ — бросить • ПКМ / E — отпустить	LMB — throw • RMB / E — release
+E — взять манекен	E — grab mannequin
+E — отменить готовность	E — cancel ready
+E — нажать «Готово»	E — press Ready
+E — подобрать: 	E — pick up: 
+Этот слот одежды уже занят	This clothing slot is already occupied
+Предмет	Item
+Создайте лобби или войдите по коду друга.	Create a lobby or join with a friend's code.
+Свинка	Pig
+Хост завершил игру. Контрольная точка остаётся у хоста.	The host ended the game. The host keeps the checkpoint.
+Сначала выйдите из текущей сессии.	Leave the current session first.
+Подключение к EOS…	Connecting to EOS…
+Не удалось запустить хост.	Could not start the host.
+Не удалось начать подключение.	Could not start the connection.
+Подключение к хосту…	Connecting to the host…
+Порт локального теста занят.	The local test port is in use.
+Локальный тест не подключился.	The local test could not connect.
+Локальный тест: подключение…	Local test: connecting…
+Вернись к кнопке «Готово» в стартовой комнате.	Return to the Ready button in the starting room.
+Не найдены правила оценки образов.	Outfit rating rules could not be found.
+Аплодисменты!	Applause!
+Люблю этот образ!	Love this outfit!
+Хрю-хрю!	Oink-oink!
+Соединение закрыто. Контрольная точка остаётся у хоста.	Connection closed. The host keeps the checkpoint.
+Связь потеряна. Пытаемся восстановить соединение (до 60 секунд)…	Connection lost. Reconnecting (up to 60 seconds)…
+Восстановить связь не удалось. Можно войти по коду снова как зритель.	Reconnection failed. You can rejoin by code as a spectator.
+Итоги образов за раунд 	Outfit results for round 
+Наблюдение до следующего раунда. ← / → — сменить игрока; Esc — меню.	Spectating until the next round. ← / → — switch player; Esc — menu.
+Раунд 	Round 
+. Esc — меню.	. Esc — menu.
+Лобби 	Lobby 
+. Отметьте готовность.	. Mark yourself ready.
+Несовместимая версия игры.	Incompatible game version.
+Не удалось подтвердить гостевой профиль.	Could not verify the guest profile.
+Хост исключил вас из этой сессии.	The host removed you from this session.
+Этот профиль уже подключён.	This profile is already connected.
+Хост закрыл вход новым игрокам.	The host closed the lobby to new players.
+Лобби заполнено или переключает раунд. Попробуйте позже.	The lobby is full or changing rounds. Try again later.
+Подойди к кнопке «Готово» в стартовой комнате.	Go to the Ready button in the starting room.
+Хост исключил вас из сессии.	The host removed you from the session.
+Раунд не запущен: не удалось сохранить контрольную точку. 	Could not start the round: checkpoint could not be saved. 
+Хост завершил сессию.	The host ended the session.
+Хост не ответил. Проверьте код и соединение, затем повторите.	The host did not respond. Check the code and connection, then try again.
+Хост завершил сессию. Контрольная точка остаётся у хоста.	The host ended the session. The host keeps the checkpoint.
+Сессия завершена. Контрольная точка сохранена у хоста.	Session ended. The host saved the checkpoint.
+Отменяем подключение…	Cancelling connection…
+Подключение отменено.	Connection cancelled.
+Загрузка одиночной игры…	Loading single player…
+Одиночная игра. Esc — меню.	Single player. Esc — menu.
+Фонарик [F]: 	Flashlight [F]: 
+вкл.	on
+выкл.	off
+Воришка украл	Stolen by a thief
+Украдено: 	Stolen: 
+\nнесёт: 	\ncarrying: 
+ТВОЯ ОДЕЖДА	YOUR OUTFIT
+Закрыть	Close
+Выброшенную вещь можно снова подобрать с пола	Dropped clothes can be picked up again
+Выбросить	Drop
+Выбросить всё	Drop All
+Tab / I — инвентарь · Esc — закрыть	Tab / I — inventory · Esc — close
+Ничего не надето	Empty
+На свинье нет одежды	No clothes equipped
+Надето вещей: 	Equipped: 
+Кнопка «Готово» у старта — E, чтобы оценить образ	Press E at the Ready button to rate your outfit
+У старта готовы: 	Ready at the entrance: 
+Ты готов. Ждём остальных • Уход от старта отменит готовность	You're ready. Waiting for others • Stay near the entrance
+Посмотри на кнопку «Готово» и нажми E	Look at the Ready button and press E
+Не удалось положить вещь на пол рядом. Попробуй отойти от стены.	Could not drop the item here. Try moving away from the wall.
+Выброшено	Dropped
+Новая одежда	New clothing
+СВИНКИ НА ПОДИУМЕ	PIGS ON THE RUNWAY
+Поза	Pose
+Аплодисменты	Applaud
+Сердечко	Heart
+Хрю!	Oink!
+К оценкам →	View Scores →
+Поза: 	Pose: 
+Приветствие	Wave
+Звезда	Star
+Поворот	Spin
+Поза участника	Player's pose
+Выход 	Walk 
+ из 	 of 
+ сек. до итогов	s until scores
+ сек. до следующего	s until next
+ · выход в собранном образе	 · outfit on show
+ИТОГИ ОБРАЗОВ	OUTFIT RESULTS
+Оцениваем, как вещи сочетаются друг с другом	See how well your clothes work together
+УЧАСТНИКИ	PLAYERS
+Влево	Left
+Вправо	Right
+Совместимость	Compatibility
+Цвета	Colours
+Узоры	Patterns
+Полнота комплекта	Outfit completeness
+УДАЧНОЕ СОЧЕТАНИЕ	WHAT WORKS
+ЧТО МОЖНО ПОПРОБОВАТЬ	WHAT TO TRY
+Следующий раунд	Next Round
+Выйти в меню	Main Menu
+ИТОГИ ОБРАЗОВ · РАУНД 	OUTFIT RESULTS · ROUND 
+Продолжить поиск	Keep Searching
+Ждём хоста	Waiting for host
+Участников с одеждой пока нет	No players with clothes yet
+Одежда пока не найдена	No clothes found yet
+Образ не собран	No outfit yet
+Нет оценки	Not rated
+Собери вещи, которые хорошо смотрятся вместе.	Collect clothes that look good together.
+Пока не найдено ни одной вещи.	No clothing found yet.
+Для этих вещей пока нет правил оценки.	These clothes do not have rating rules yet.
+Цельный образ	Complete look
+Хорошее сочетание	Great combination
+Есть идея	Promising look
+Образ ещё не собран	Outfit in progress
+Образ спорный	Mixed look
+ и 	 and 
+ отлично сочетаются.	 go really well together.
+ — самая удачная пара в образе.	 are the best pair in your outfit.
+Первая вещь найдена — можно собирать сочетания.	First item found — start building your outfit.
+Часть вещей пока не оценена: правила есть для 	Some clothes are not rated yet: rules cover 
+Не хватает: 	Missing: 
+Попробуй другую пару: 	Try a different pair: 
+Несколько активных узоров спорят друг с другом. Попробуй одну однотонную вещь.	Several bold patterns clash. Try adding one solid-colour item.
+Все четыре вещи поддерживают образ. Можно экспериментировать с деталями.	All four pieces work together. Try experimenting with the details.
+головной убор	headwear
+верх	top
+брюки	trousers
+обувь	footwear
+Несовместимая или повреждённая контрольная точка.	Incompatible or damaged checkpoint.
+Контрольная точка повреждена.	The checkpoint is damaged.
+ГОТОВО	READY
+Онлайн ещё не настроен: нужен файл svinki-eos.json. Инструкция — MULTIPLAYER.md.	Online play is not configured: svinki-eos.json is missing. See MULTIPLAYER.md.
+Заполните настройки проекта EOS в svinki-eos.json.	Fill in your EOS project settings in svinki-eos.json.
+Для проверки EOS в редакторе на Mac выберите macOS в File > Build Profiles. Windows-сборку проверяйте на Windows.	To test EOS in the Editor on Mac, select macOS in File > Build Profiles. Test Windows builds on Windows.
+Инициализация EOS	Initializing EOS
+Не удалось создать платформу EOS. Проверьте настройки проекта.	Could not create the EOS platform. Check your project settings.
+Включение ретрансляции	Enabling relay
+Создание гостевого профиля	Creating guest profile
+Создание профиля	Creating profile
+Вход гостя	Guest sign-in
+Гостевой профиль потерял соединение с EOS.	The guest profile lost its EOS connection.
+Создание лобби	Creating lobby
+Не удалось подобрать свободный код. Попробуйте снова.	Could not find an available code. Try again.
+Введите шестизначный код лобби.	Enter the six-digit lobby code.
+Поиск лобби	Finding lobby
+Поиск по коду	Searching by code
+Лобби не найдено или уже закрыто.	The lobby was not found or is already closed.
+Чтение лобби	Reading lobby
+Вход в лобби	Joining lobby
+Хост завершил сессию или исключил вас. Контрольная точка остаётся у хоста.	The host ended the session or removed you. The host keeps the checkpoint.
+. Проверьте сеть и настройки EOS.	. Check your connection and EOS settings.
+EOS не ответил за 25 секунд. Проверьте соединение и повторите.	EOS did not respond within 25 seconds. Check your connection and try again.
+Онлайн доступен только в настольной версии.	Online play is only available in the desktop version.
+Настройки	Settings
+Никнейм	Nickname
+Код друга	Friend's Code
+SVINKI — одиночная игра	SVINKI — Single Player
+ЛОББИ  	LOBBY  
+SVINKI — игра с друзьями	SVINKI — Play with Friends
+Хост: 	Host: 
+ (вы)	 (you)
+восстанавливает связь	reconnecting
+зритель	spectator
+готов	ready
+не готов	not ready
+\n\nМест: 	\n\nPlayers: 
+/6  ·  Раунд 	/6  ·  Round 
+  ·  Вход закрыт	  ·  Admission closed
+  ·  Вход открыт	  ·  Admission open
+Отменить подключение	Cancel Connection
+Вернуться в игру	Resume
+Готово — оценить образ у старта	Ready — Rate Outfit at Entrance
+Создать лобби	Create Lobby
+Продолжить с контрольной точки	Continue from Checkpoint
+Войти по коду	Join by Code
+Играть одному	Play Solo
+Локальный тест: хост / клиент — F8 / F9	Local test: host / client — F8 / F9
+В редакторе: F8 — хост, F9 — клиент на localhost; нужен второй экземпляр игры.	Editor: F8 — host, F9 — localhost client; a second game instance is required.
+Отменить готовность	Cancel Ready
+Готов	Ready
+Начать раунд	Start Round
+Продолжить наблюдение	Resume Spectating
+Готово — у старта	Ready — At Entrance
+Скопировать код: 	Copy Code: 
+Код скопирован: 	Code copied: 
+Открыть вход	Open Admission
+Закрыть вход	Close Admission
+Завершить сессию	End Session
+Выйти из сессии	Leave Session
+Чувствительность мыши	Mouse Sensitivity
+25% — медленно                         300% — быстро	25% — slow                         300% — fast
+По умолчанию	Reset to Default
+ТВОЯ СВИНЬЯ	YOUR PIG
+Сочетай аксессуары, цвета и окрас	Mix accessories, colours and patterns
+Очки и усы	Glasses & Moustache
+Борода	Beard
+Пирсинг	Piercings
+Глаза: 	Eyes: 
+открытые	open
+прищур	squinting
+Брови: 	Brows: 
+спокойные	relaxed
+приподнятые	raised
+наглые	cheeky
+Очки: 	Glasses: 
+нет	none
+круглые	round
+квадратные	square
+кошачьи	cat-eye
+авиаторы	aviator
+солнечные круглые	round sunglasses
+солнечные квадратные	square sunglasses
+Ирокез: 	Mohawk: 
+Цвет кожи: 	Skin colour: 
+Окрас: 	Pattern: 
+Цвет узора: 	Pattern colour: 
+Цвет волос: 	Hair colour: 
+Усы: 	Moustache: 
+закрученные	curled
+обычные	straight
+Борода: 	Beard: 
+Серьга в ухе: 	Ear piercing: 
+Пирсинг брови: 	Brow piercing: 
+Татуировка: 	Tattoo: 
+Кольцо в носу: 	Nose ring: 
+Прокручивай список. Выбор сохраняется.	Scroll for more. Changes are saved.
+да	yes
+Чат  ·  Enter — отправить  ·  Esc — отменить	Chat  ·  Enter — send  ·  Esc — cancel
+Введите сообщение…	Type a message…
+розовый	pink
+кремовый	cream
+шоколадный	chocolate
+серый	grey
+мятный	mint
+голубой	blue
+лавандовый	lavender
+коралловый	coral
+каштановый	brown
+чёрный	black
+блонд	blond
+белый	white
+синий	blue
+фиолетовый	purple
+малиновый	magenta
+однотонный	solid
+пятна	spots
+полосы	stripes
+седло	saddle
+носочки	socks
+сердце	heart
+звезда	star
+молния	lightning
+полосы на руках	arm stripes
+Шапка	Hat
+Футболка	T-shirt
+Джинсы	Jeans
+Кроссовки	Sneakers
+Брюки с паттерном	Patterned trousers
+Вязаная шапка	Knitted hat
+Камуфляжный лонгслив	Camouflage long sleeve
+Кеды со шнурками	Lace-up sneakers
+Кепка с козырьком	Cap
+Кожаные лоферы	Leather loafers
+Светлая шапка	Light hat
+Светлые брюки	Light trousers
+Спортивные кроссовки	Sport sneakers
+Тёмная футболка	Dark T-shirt
+Тёплый свитер	Warm sweater
+Футболка с воротником	Collared shirt
+Худи с капюшоном	Hoodie
+Цветная футболка	Colourful T-shirt
+Милитари	Military
+Стрит	Streetwear
+Классика	Classic
+Камо лонгслив	Camouflage casual
+Затишний	Cozy
+Спорт	Sport

@@ -43,7 +43,7 @@ public static class ClothingDemoSetup
 
         ClothingDefinition hat = MakeItem<HatClothing>("Hat1.asset", "Hat", "Hat1.fbx", hatFabric, redGlow,
             new Color(.98f, .24f, .23f), new Vector3(0f, 1.77f, -.25f), new Vector2(.32f, .21f));
-        ClothingDefinition shirt = MakeItem<ShirtClothing>("Shirt1.asset", "T-Shirt", "Shirt1 (3).fbx", shirtFabric, yellowGlow,
+        ClothingDefinition shirt = MakeItem<ShirtClothing>("Shirt1.asset", "T-shirt", "Shirt1 (3).fbx", shirtFabric, yellowGlow,
             new Color(1f, .79f, .13f), new Vector3(0f, 1.19f, -.29f), new Vector2(.85f, .67f), new Vector3(90f, 0f, 0f));
         ClothingDefinition pants = MakeItem<PantsClothing>("Pants1.asset", "Jeans", "pants1.fbx", pantsFabric, greenGlow,
             new Color(.31f, .87f, .40f), new Vector3(0f, .66f, -.27f), new Vector2(.52f, .87f), new Vector3(90f, 0f, 0f));
@@ -57,7 +57,7 @@ public static class ClothingDemoSetup
         wardrobeData.ApplyModifiedProperties();
 
         ConfigurePickup("Pickup Red Head", "Hat", hat, wardrobe);
-        ConfigurePickup("Pickup Yellow Torso", "T-Shirt", shirt, wardrobe);
+        ConfigurePickup("Pickup Yellow Torso", "T-shirt", shirt, wardrobe);
         ConfigurePickup("Pickup Green Legs", "Jeans", pants, wardrobe);
         ConfigurePickup("Pickup Blue Shoes", "Sneakers", shoes, wardrobe);
 

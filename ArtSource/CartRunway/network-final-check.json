@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "checks": [
+    "48 positions and rotations identical",
+    "atrium cart clear",
+    "distance rejection",
+    "physical E",
+    "client driving RPC",
+    "client launch and release",
+    "podium completion",
+    "next round and new layout"
+  ]
+}

@@ -20,4 +20,7 @@ MonoBehaviour:
   displayCenter: {x: 0, y: 1.19, z: -0.29}
   displaySize: {x: 0.85, y: 0.67}
   displayRotation: {x: 90, y: 0, z: 0}
+  pigRigged: 0
+  pigWornModel: {fileID: 0}
+  pickupPrefab: {fileID: 9165132522096015954, guid: 02e190b2cee26e64c88bcf9bbb8d82a7, type: 3}
   flutterStrength: 0.04

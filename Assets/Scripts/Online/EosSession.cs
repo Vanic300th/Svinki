@@ -35,20 +35,20 @@ public sealed class EosSession : MonoBehaviour
         if (platform == null)
         {
             string path = Path.Combine(Application.streamingAssetsPath, "svinki-eos.json");
-            if (!File.Exists(path)) throw new InvalidOperationException("Online isn't set up yet: svinki-eos.json is missing. See MULTIPLAYER.md.");
+            if (!File.Exists(path)) throw new InvalidOperationException("Online play is not configured: svinki-eos.json is missing. See MULTIPLAYER.md.");
             Settings settings = JsonUtility.FromJson<Settings>(File.ReadAllText(path));
             if (settings == null || string.IsNullOrEmpty(settings.productId) || string.IsNullOrEmpty(settings.sandboxId) ||
                 string.IsNullOrEmpty(settings.deploymentId) || string.IsNullOrEmpty(settings.clientId) || string.IsNullOrEmpty(settings.clientSecret))
-                throw new InvalidOperationException("Fill in the EOS project settings in svinki-eos.json.");
+                throw new InvalidOperationException("Fill in your EOS project settings in svinki-eos.json.");
 #if UNITY_EDITOR_OSX
             // The SDK selects the Windows binary when a Windows build target is active on macOS.
             if (Common.LIBRARY_NAME != "libEOSSDK-Mac-Shipping")
-                throw new InvalidOperationException("To test EOS in the editor on a Mac, select macOS in File > Build Profiles. Test the Windows build on Windows.");
+                throw new InvalidOperationException("To test EOS in the Editor on Mac, select macOS in File > Build Profiles. Test Windows builds on Windows.");
 #endif
             EOSManager.EOSSingleton.LoadEOSLibraries();
             var init = new InitializeOptions { ProductName = "Svinki", ProductVersion = "1.0" };
             Result result = PlatformInterface.Initialize(ref init);
-            if (result != Result.Success && result != Result.AlreadyConfigured) Check(result, "EOS initialization");
+            if (result != Result.Success && result != Result.AlreadyConfigured) Check(result, "Initializing EOS");
             if (result == Result.Success) ownsSdkInitialization = true;
             var options = new Options
             {
@@ -58,7 +58,7 @@ public sealed class EosSession : MonoBehaviour
                 CacheDirectory = Path.Combine(Application.persistentDataPath, "eos-cache"), TickBudgetInMilliseconds = 4
             };
             platform = PlatformInterface.Create(ref options);
-            if (platform == null) throw new InvalidOperationException("Couldn't create the EOS platform. Check the project settings.");
+            if (platform == null) throw new InvalidOperationException("Could not create the EOS platform. Check your project settings.");
             FishNet.Plugins.FishyEOS.Util.EOS.Platform = platform;
             var relay = new SetRelayControlOptions { RelayControl = RelayControl.AllowRelays };
             Check(platform.GetP2PInterface().SetRelayControl(ref relay), "Enabling relay");
@@ -67,7 +67,7 @@ public sealed class EosSession : MonoBehaviour
         var device = new CreateDeviceIdOptions { DeviceModel = SystemInfo.operatingSystemFamily.ToString() };
         platform.GetConnectInterface().CreateDeviceId(ref device, null, (ref CreateDeviceIdCallbackInfo info) => deviceTask.TrySetResult(info.ResultCode));
         Result created = await WithTimeout(deviceTask.Task);
-        if (created != Result.Success && created != Result.DuplicateNotAllowed) Check(created, "Creating a guest profile");
+        if (created != Result.Success && created != Result.DuplicateNotAllowed) Check(created, "Creating guest profile");
         await Login(nickname);
         var authOptions = new AddNotifyAuthExpirationOptions();
         authNotify = platform.GetConnectInterface().AddNotifyAuthExpiration(ref authOptions, null,
@@ -91,7 +91,7 @@ public sealed class EosSession : MonoBehaviour
             var create = new CreateUserOptions { ContinuanceToken = answer.ContinuanceToken };
             platform.GetConnectInterface().CreateUser(ref create, null, (ref CreateUserCallbackInfo info) => createTask.TrySetResult(info));
             CreateUserCallbackInfo newUser = await WithTimeout(createTask.Task);
-            Check(newUser.ResultCode, "Creating a profile"); user = newUser.LocalUserId;
+            Check(newUser.ResultCode, "Creating profile"); user = newUser.LocalUserId;
         }
         else { Check(answer.ResultCode, "Guest sign-in"); user = answer.LocalUserId; }
         Identity = user.ToString();
@@ -99,7 +99,7 @@ public sealed class EosSession : MonoBehaviour
     private async void RefreshLogin(string nickname)
     {
         try { await Login(nickname); }
-        catch (Exception) { SessionClosed?.Invoke("The guest profile lost its connection to EOS."); }
+        catch (Exception) { SessionClosed?.Invoke("The guest profile lost its EOS connection."); }
     }
     public async Task Create()
     {
@@ -127,18 +127,18 @@ public sealed class EosSession : MonoBehaviour
             try { reply = await WithTimeout(completion.Task); }
             catch { abandoned = true; throw; }
             if (reply.ResultCode == Result.LobbyLobbyAlreadyExists) continue;
-            Check(reply.ResultCode, "Creating the lobby");
+            Check(reply.ResultCode, "Creating lobby");
             Code = reply.LobbyId.ToString(); HostIdentity = Identity; Hosting = true; return;
         }
-        throw new InvalidOperationException("Couldn't find a free lobby code. Try again.");
+        throw new InvalidOperationException("Could not find an available code. Try again.");
     }
     public async Task Join(string code)
     {
         code = (code ?? "").Trim().ToUpperInvariant();
-        if (code.Length != 6) throw new InvalidOperationException("Enter the 6-character lobby code.");
+        if (code.Length != 6) throw new InvalidOperationException("Enter the six-digit lobby code.");
         // Search verifies the product bucket before joining a lobby with a globally unique override ID.
         var searchOptions = new CreateLobbySearchOptions { MaxResults = 1 };
-        Check(Lobby.CreateLobbySearch(ref searchOptions, out LobbySearch search), "Searching for the lobby");
+        Check(Lobby.CreateLobbySearch(ref searchOptions, out LobbySearch search), "Finding lobby");
         try
         {
             var id = new LobbySearchSetLobbyIdOptions { LobbyId = code };
@@ -146,14 +146,14 @@ public sealed class EosSession : MonoBehaviour
             var find = new LobbySearchFindOptions { LocalUserId = user };
             var found = new TaskCompletionSource<Result>();
             search.Find(ref find, null, (ref LobbySearchFindCallbackInfo info) => found.TrySetResult(info.ResultCode));
-            Check(await WithTimeout(found.Task), "Searching for the lobby");
+            Check(await WithTimeout(found.Task), "Finding lobby");
             var copy = new LobbySearchCopySearchResultByIndexOptions { LobbyIndex = 0 };
             Result result = search.CopySearchResultByIndex(ref copy, out LobbyDetails details);
-            if (result != Result.Success) throw new InvalidOperationException("Lobby not found or already closed.");
+            if (result != Result.Success) throw new InvalidOperationException("The lobby was not found or is already closed.");
             try
             {
                 var infoOptions = new LobbyDetailsCopyInfoOptions();
-                Check(details.CopyInfo(ref infoOptions, out LobbyDetailsInfo? info), "Reading the lobby");
+                Check(details.CopyInfo(ref infoOptions, out LobbyDetailsInfo? info), "Reading lobby");
                 if (info == null || info.Value.BucketId.ToString() != "svinki-v1") throw new InvalidOperationException("Incompatible game version.");
                 HostIdentity = info.Value.LobbyOwnerUserId.ToString();
                 var join = new JoinLobbyOptions { LocalUserId = user, LobbyDetailsHandle = details };
@@ -171,7 +171,7 @@ public sealed class EosSession : MonoBehaviour
                 Result joinedResult;
                 try { joinedResult = await WithTimeout(joined.Task); }
                 catch { abandoned = true; throw; }
-                if (joinedResult != Result.NoChange) Check(joinedResult, "Joining the lobby");
+                if (joinedResult != Result.NoChange) Check(joinedResult, "Joining lobby");
                 Code = code; Hosting = false;
             }
             finally { details.Release(); }
@@ -207,7 +207,7 @@ public sealed class EosSession : MonoBehaviour
         if (info.LobbyId.ToString() != Code || Hosting) return;
         if (info.CurrentStatus == LobbyMemberStatus.Closed || info.CurrentStatus == LobbyMemberStatus.Kicked && info.TargetUserId == user ||
             info.TargetUserId?.ToString() == HostIdentity && info.CurrentStatus != LobbyMemberStatus.Joined)
-            SessionClosed?.Invoke("The host ended the session or kicked you. The checkpoint stays with the host.");
+            SessionClosed?.Invoke("The host ended the session or removed you. The host keeps the checkpoint.");
     }
     private void Update() { if (!shuttingDown) platform?.Tick(); }
     private void OnApplicationQuit() { applicationQuitting = true; }
@@ -233,15 +233,15 @@ public sealed class EosSession : MonoBehaviour
     }
     private static void Check(Result result, string operation)
     {
-        if (result != Result.Success) throw new InvalidOperationException(operation + ": " + result + ". Check your network and EOS settings.");
+        if (result != Result.Success) throw new InvalidOperationException(operation + ": " + result + ". Check your connection and EOS settings.");
     }
     private static async Task<T> WithTimeout<T>(Task<T> task)
     {
-        if (await Task.WhenAny(task, Task.Delay(25000)) != task) throw new TimeoutException("EOS didn't respond within 25 seconds. Check your connection and try again.");
+        if (await Task.WhenAny(task, Task.Delay(25000)) != task) throw new TimeoutException("EOS did not respond within 25 seconds. Check your connection and try again.");
         return await task;
     }
 #else
-    public Task Authenticate(string nickname) => Task.FromException(new InvalidOperationException("Online is only available in the desktop version."));
+    public Task Authenticate(string nickname) => Task.FromException(new InvalidOperationException("Online play is only available in the desktop version."));
     public Task Create() => Authenticate("");
     public Task Join(string code) => Authenticate("");
     public Task Leave() => Task.CompletedTask;

@@ -57,7 +57,9 @@ public sealed class WorldOutfitRenderer : MonoBehaviour
     {
         if (clothing == null || !equipped.TryGetValue(clothing.Slot, out GameObject old)) return;
         equipped.Remove(clothing.Slot);
-        if (old != null) Destroy(old);
+        if (old != null) { old.SetActive(false); Destroy(old); }
+        if (clothing.Slot == ClothingSlot.Legs)
+            characterVisual?.GetComponentInChildren<PigClothingMask>(true)?.Restore();
     }
 
     private void Equip(ClothingDefinition clothing)
@@ -69,6 +71,15 @@ public sealed class WorldOutfitRenderer : MonoBehaviour
         slot.transform.SetParent(transform, false);
         slot.layer = gameObject.layer;
         equipped[clothing.Slot] = slot;
+
+        PigAppearance pig = characterVisual != null ? characterVisual.GetComponentInChildren<PigAppearance>(true) : null;
+        if (pig != null && PigClothingBinding.TryAttach(clothing, pig.ModelRoot, slot.transform))
+        {
+            ApplyVisibility();
+            return;
+        }
+        // Keep the original display fitting for clothes without the pig skeleton.
+        slot.transform.SetParent(transform, false);
 
         Animator animator = characterVisual != null ? characterVisual.GetComponentInChildren<Animator>(true) : null;
         Vector3 center = clothing.DisplayCenter;

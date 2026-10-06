@@ -29,7 +29,7 @@ public sealed class PigAppearanceMenu : MonoBehaviour
         root.anchoredPosition = new Vector2(462, 0);
         panel.GetComponent<UnityEngine.UI.Image>().color = new Color(.065f, .085f, .12f, .98f);
         Label("YOUR PIG", 26, 32, 428, 42, 30);
-        Label("Mix accessories, colors and patterns", 26, 76, 428, 30, 19);
+        Label("Mix accessories, colours and patterns", 26, 76, 428, 30, 19);
         RectTransform image = Rect("3D Pig Preview", panel.transform, 26, 120, 428, 350);
         var raw = image.gameObject.AddComponent<UnityEngine.UI.RawImage>(); raw.raycastTarget = false;
         CreatePreview(raw);
@@ -38,7 +38,7 @@ public sealed class PigAppearanceMenu : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             int index = i;
-            Button(new[] { "Glasses", "Beard", "Piercings" }[i], 26 + i * 146, 486, 136,
+            Button(new[] { "Glasses + Moustache", "Beard", "Piercings" }[i], 26 + i * 146, 486, 136,
                 () => { face = PigFace.Preset(index); Save(); });
         }
         CreateChoices();
@@ -50,22 +50,22 @@ public sealed class PigAppearanceMenu : MonoBehaviour
             TMP_Text text = button.GetComponentInChildren<TMP_Text>();
             refreshLabels.Add(() => text.text = label());
         }
-        Choice(() => "Eyes: " + (face.eyes == 0 ? "open" : "squint"), () => face.eyes = (face.eyes + 1) % 2);
-        Choice(() => "Brows: " + new[] { "calm", "raised", "cocky" }[face.brows], () => face.brows = (face.brows + 1) % 3);
-        Choice(() => "Glasses: " + new[] { "none", "round", "square", "cat-eye", "aviators", "round shades", "square shades" }[face.glassesStyle],
+        Choice(() => "Eyes: " + (face.eyes == 0 ? "open" : "squinting"), () => face.eyes = (face.eyes + 1) % 2);
+        Choice(() => "Brows: " + new[] { "relaxed", "raised", "cheeky" }[face.brows], () => face.brows = (face.brows + 1) % 3);
+        Choice(() => "Glasses: " + new[] { "none", "round", "square", "cat-eye", "aviator", "round sunglasses", "square sunglasses" }[face.glassesStyle],
             () => face.glassesStyle = (face.glassesStyle + 1) % PigFace.GlassesCount);
         Choice(() => "Mohawk: " + Yes(face.mohawk), () => face.mohawk = !face.mohawk);
-        Choice(() => "Skin color: " + PigAppearance.ColorNames[face.skinColor], () => face.skinColor = (face.skinColor + 1) % PigFace.ColorCount);
+        Choice(() => "Skin colour: " + PigAppearance.ColorNames[face.skinColor], () => face.skinColor = (face.skinColor + 1) % PigFace.ColorCount);
         Choice(() => "Pattern: " + PigAppearance.PatternNames[face.pattern], () => face.pattern = (face.pattern + 1) % PigFace.PatternCount);
-        Choice(() => "Pattern color: " + PigAppearance.HairColorNames[face.patternColor], () => face.patternColor = (face.patternColor + 1) % PigFace.ColorCount);
-        Choice(() => "Hair color: " + PigAppearance.HairColorNames[face.hairColor], () => face.hairColor = (face.hairColor + 1) % PigFace.ColorCount);
-        Choice(() => "Mustache: " + new[] { "none", "curled", "regular" }[face.mustache], () => face.mustache = (face.mustache + 1) % 3);
+        Choice(() => "Pattern colour: " + PigAppearance.HairColorNames[face.patternColor], () => face.patternColor = (face.patternColor + 1) % PigFace.ColorCount);
+        Choice(() => "Hair colour: " + PigAppearance.HairColorNames[face.hairColor], () => face.hairColor = (face.hairColor + 1) % PigFace.ColorCount);
+        Choice(() => "Moustache: " + new[] { "none", "curled", "straight" }[face.mustache], () => face.mustache = (face.mustache + 1) % 3);
         Choice(() => "Beard: " + Yes(face.beard), () => face.beard = !face.beard);
-        Choice(() => "Earring: " + Yes(face.earPiercing), () => face.earPiercing = !face.earPiercing);
+        Choice(() => "Ear piercing: " + Yes(face.earPiercing), () => face.earPiercing = !face.earPiercing);
         Choice(() => "Brow piercing: " + Yes(face.browPiercing), () => face.browPiercing = !face.browPiercing);
         Choice(() => "Tattoo: " + PigAppearance.TattooNames[face.tattoo], () => face.tattoo = (face.tattoo + 1) % PigFace.TattooCount);
         Choice(() => "Nose ring: " + Yes(face.nosePiercing), () => face.nosePiercing = !face.nosePiercing);
-        Label("Scroll the list. Your choice is saved.", 26, 911, 428, 36, 17);
+        Label("Scroll for more. Changes are saved.", 26, 911, 428, 36, 17);
         if (preview != null) preview.Apply(face.Encode());
     }
 
@@ -82,7 +82,7 @@ public sealed class PigAppearanceMenu : MonoBehaviour
 
     public void SelectFace(int code) { face = PigFace.Decode(PigFace.Sanitize(code)); Save(); }
 
-    private static string Yes(bool value) => value ? "yes" : "no";
+    private static string Yes(bool value) => value ? "yes" : "none";
     private void RotatePreview(float degrees)
     {
         if (previewCamera == null) return;
@@ -173,6 +173,7 @@ public sealed class PigAppearanceMenu : MonoBehaviour
         var image = r.gameObject.AddComponent<UnityEngine.UI.Image>(); image.color = new Color(.16f, .24f, .32f);
         var button = r.gameObject.AddComponent<UnityEngine.UI.Button>(); button.targetGraphic = image;
         var label = Label(text, 10, 3, width - 20, 34, 20, r); label.alignment = TextAlignmentOptions.Center;
+        label.enableAutoSizing = true; label.fontSizeMin = 12; label.fontSizeMax = 20;
         button.onClick.AddListener(() => action()); buttons.Add(button); return button;
     }
     private void OnDestroy()
