@@ -43,7 +43,7 @@ public static class CartRunwaySetup
             Material metal = Material("Cart Metal", new Color(.52f, .62f, .68f), .8f, .65f);
             Material rubber = Material("Cart Rubber", new Color(.025f, .035f, .05f), 0, .15f);
             Material peach = Material("Cart Peach", new Color(.98f, .38f, .27f), .1f, .4f);
-            Vector3[] points = { new Vector3(-3.7f, .03f, -6), new Vector3(3.7f, .03f, -6), new Vector3(-9, .03f, 18), new Vector3(22, .03f, 49) };
+            Vector3[] points = { new Vector3(-3.7f, .03f, -6), new Vector3(-6, .03f, 55), new Vector3(10.625f, .03f, 148.89423f) };
             for (int i = 0; i < points.Length; i++)
             {
                 string name = "Shopping Cart " + (i + 1);
@@ -98,7 +98,7 @@ public static class CartRunwaySetup
             var serialize = typeof(NetworkObject).GetMethod("ReserializeEditorSetValues", BindingFlags.Instance | BindingFlags.NonPublic);
             foreach (NetworkObject item in (List<NetworkObject>)create.Invoke(null, new object[] { scene, true, 0 })) serialize.Invoke(item, new object[] { true, false });
             EditorSceneManager.MarkSceneDirty(scene); EditorSceneManager.SaveScene(scene); AssetDatabase.SaveAssets();
-            return "Saved 4 network shopping carts and " + layout.Count + " clothing anchors";
+            return "Saved 3 network shopping carts and " + layout.Count + " clothing anchors";
         }
         finally { if (previous.IsValid() && previous.isLoaded) SceneManager.SetActiveScene(previous); if (opened) EditorSceneManager.CloseScene(scene, true); }
     }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>A display mannequin: carried kinematically, thrown with authoritative physics.</summary>
-[DefaultExecutionOrder(100), DisallowMultipleComponent, RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider))]
+[DefaultExecutionOrder(270), DisallowMultipleComponent, RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider))]
 public sealed class ThrowableMannequin : MonoBehaviour
 {
     private Rigidbody body;
@@ -53,7 +53,7 @@ public sealed class ThrowableMannequin : MonoBehaviour
         if (!HasAuthority || IsHeld || player == null || player.gameObject.scene != gameObject.scene ||
             Vector3.Distance(player.EyePosition, Center) > 3.8f) return false;
         var hands = player.GetComponent<PlayerMannequinCarry>();
-        if (hands == null || hands.Held != null) return false;
+        if (hands == null || hands.Held != null || player.GetComponent<PlayerMonkeyCarry>()?.Held != null) return false;
         RestoreCollisions();
         dangerousUntil = 0;
         ApplyHolder(player);

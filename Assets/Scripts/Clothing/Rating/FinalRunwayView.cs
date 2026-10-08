@@ -91,7 +91,7 @@ public sealed class FinalRunwayView : MonoBehaviour
     private void Present(OutfitResultEntry entry)
     {
         ClearPig(); localPose = 0;
-        nameLabel.text = entry.nickname + " · outfit on show";
+        nameLabel.text = entry.nickname + (entry.eliminated ? " · ghost — eliminated" : " · outfit on show");
         var prefab = Resources.Load<GameObject>("Pigs/PigAvatar"); if (prefab == null) return;
         pig = Instantiate(prefab, stage.transform); pig.name = "Runway Pig";
         var motion = pig.GetComponent<PigMotion>(); if (motion != null) motion.enabled = false;
@@ -106,6 +106,7 @@ public sealed class FinalRunwayView : MonoBehaviour
             if (!PigClothingBinding.TryAttach(definition, appearance.ModelRoot, holder.transform)) Destroy(holder);
         }
         foreach (Transform part in pig.GetComponentsInChildren<Transform>(true)) part.gameObject.layer = 30;
+        if (entry.eliminated) { pig.name = "Runway Ghost Pig"; pig.AddComponent<RunwayGhost>().Apply(); }
     }
     private void Animate(float time, int pose)
     {
@@ -115,6 +116,16 @@ public sealed class FinalRunwayView : MonoBehaviour
         float z = time < 2 ? Mathf.SmoothStep(-2.7f, .5f, time / 2) : time > 6 ? Mathf.SmoothStep(.5f, -2.7f, (time - 6) / 2) : .5f;
         pig.transform.localPosition = new Vector3(0, walking ? Mathf.Abs(Mathf.Sin(time * 9)) * .025f : .008f * Mathf.Sin(time * 3), z);
         pig.transform.localRotation = Quaternion.Euler(0, time > 6 ? 180 : time < 2 ? 0 : pose == 0 ? (time - 2) * 90 : 0, 0);
+        if (results.entries[index].eliminated)
+        {
+            pig.transform.localPosition += Vector3.up * (.18f + .045f * Mathf.Sin(time * 3));
+            Bone("UpperArm_L", new Vector3(0, 0, 18)); Bone("UpperArm_R", new Vector3(0, 0, -18));
+            if (!walking && pose == 1)
+            { Bone("UpperArm_R", new Vector3(-35, 0, -105)); Bone("Forearm_R", new Vector3(0, 0, Mathf.Sin(time * 10) * 25)); }
+            else if (!walking && pose == 2)
+            { Bone("UpperArm_L", new Vector3(0, 0, 110)); Bone("UpperArm_R", new Vector3(0, 0, -110)); }
+            return;
+        }
         if (walking)
         {
             float step = Mathf.Sin(time * 9) * 22;

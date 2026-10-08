@@ -13,12 +13,15 @@ public sealed class PlayerKnockdown : MonoBehaviour
     private float downUntil, immuneUntil;
     private RagdollFrame pendingFrame;
     public bool IsDown { get; private set; }
+    public int Hits { get; private set; }
+    public bool IsDead => Hits >= 2;
+    public int HitsRemaining => Mathf.Max(0, 2 - Hits);
     public uint FallId { get; private set; }
     public float VisualAmount { get; private set; }
     public Vector3 HeadPosition => head != null ? head.position : transform.position + Vector3.up * .45f;
     public Vector3 EyePosition => Vector3.Lerp(transform.position + Vector3.up * 1.65f, HeadPosition + Vector3.up * .15f, VisualAmount);
     public float EyeHeight => Mathf.Clamp(EyePosition.y - transform.position.y, .2f, 1.65f);
-    public bool CanFall => !IsDown && Time.time >= immuneUntil && isActiveAndEnabled;
+    public bool CanFall => !IsDead && !IsDown && Time.time >= immuneUntil && isActiveAndEnabled;
 
     private void Awake()
     {
@@ -39,12 +42,33 @@ public sealed class PlayerKnockdown : MonoBehaviour
         return true;
     }
 
+    // Called only by an authoritative NPC attack, never by a client damage RPC.
+    public bool TryMannequinHit(Vector3 impactDirection)
+    {
+        if (!CanFall || NetworkLobby.Instance?.Results != null) return false;
+        if (network != null) return network.TryMannequinHit(impactDirection);
+        ApplyHit(Hits + 1);
+        if (IsDead) DropOutfit(null);
+        GetComponent<PlayerMannequinCarry>()?.Release(false);
+        ShoppingCart.For(GetComponent<PlayerAvatar>())?.Release(GetComponent<PlayerAvatar>(), false);
+        SetDown(true, impactDirection);
+        return true;
+    }
+    public void ApplyHit(int count) => Hits = Mathf.Clamp(count, 0, 2);
+    public void DropOutfit(FishNet.Managing.NetworkManager server)
+    {
+        var avatar = GetComponent<PlayerAvatar>();
+        if (avatar == null) return;
+        for (int i = 0; i < 4; i++) ClothingDropper.TryDrop(avatar, (ClothingSlot)i, server, true);
+    }
+
     public void SetDown(bool down, Vector3 impactDirection)
     {
         if (IsDown == down) return;
         IsDown = down;
         if (down)
         {
+            GetComponent<PlayerMonkeyCarry>()?.Release();
             FallId++;
             direction = Vector3.ProjectOnPlane(impactDirection, Vector3.up).normalized;
             if (direction.sqrMagnitude < .01f) direction = transform.forward;
@@ -93,7 +117,7 @@ public sealed class PlayerKnockdown : MonoBehaviour
     private void Update()
     {
         bool authority = network == null || network.NetworkObject != null && network.IsServerInitialized;
-        if (authority && IsDown && Time.time >= downUntil)
+        if (authority && IsDown && !IsDead && Time.time >= downUntil)
         {
             if (network != null) network.RecoverFromKnockdown();
             else SetDown(false, direction);

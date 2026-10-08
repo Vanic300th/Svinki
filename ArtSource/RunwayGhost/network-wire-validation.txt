@@ -1,0 +1,2 @@
+PASS: host and guest receive identical result entries; only eliminated host marked ghost; preserved pre-round appearance; dead clothing empty
+PASS: standalone guest ghost rendering verified in capture; no runtime exception or shader-error log entries

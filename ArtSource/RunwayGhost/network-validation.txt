@@ -1,0 +1,1 @@
+PASS: eliminated host spectates until living guest finishes; final results retain both players; host ghost keeps original face, living guest stays alive

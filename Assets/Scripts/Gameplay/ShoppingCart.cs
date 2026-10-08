@@ -14,19 +14,20 @@ public sealed class ShoppingCart : MonoBehaviour
     private Quaternion homeRotation;
     private Vector2 input;
     private bool sprint;
-    private float inputUntil, impactSpeed;
-    private Vector3 impactVelocity;
-    private float nextWallCrash;
+    private float inputUntil;
+    private Vector3 previousPosition;
+    private float remoteSpeed;
     public PlayerAvatar Driver { get; private set; }
     public PlayerAvatar Rider { get; private set; }
     public bool HasAuthority => network == null || !network.isActiveAndEnabled || network.ServerActive;
-    public float Speed => body != null ? Vector3.ProjectOnPlane(body.linearVelocity, Vector3.up).magnitude : 0;
+    public float Speed => !HasAuthority ? remoteSpeed :
+        body != null ? Vector3.ProjectOnPlane(body.linearVelocity, Vector3.up).magnitude : 0;
     public static IReadOnlyList<ShoppingCart> All => carts;
     public static ShoppingCart For(PlayerAvatar player) => player == null ? null : carts.Find(c => c != null && (c.Driver == player || c.Rider == player));
     private void Awake()
     {
         body = GetComponent<Rigidbody>(); network = GetComponent<NetworkShoppingCart>();
-        home = transform.position; homeRotation = transform.rotation;
+        home = previousPosition = transform.position; homeRotation = transform.rotation;
     }
     private void Start() { if (HasAuthority) EnablePhysics(true); }
     private void OnEnable() { if (!carts.Contains(this)) carts.Add(this); }
@@ -35,12 +36,15 @@ public sealed class ShoppingCart : MonoBehaviour
     {
         body.isKinematic = !authority;
         body.useGravity = authority;
+        // NetworkTransform interpolates guests; Rigidbody interpolation would compete with it.
+        body.interpolation = authority ? RigidbodyInterpolation.Interpolate : RigidbodyInterpolation.None;
+        previousPosition = transform.position; remoteSpeed = 0;
     }
     public bool TryUse(PlayerAvatar player, bool sit)
     {
         if (!HasAuthority || player == null || player.gameObject.scene != gameObject.scene ||
-            player.GetComponent<PlayerKnockdown>()?.IsDown == true ||
-            player.GetComponent<PlayerMannequinCarry>()?.Held != null ||
+            !player.IsAlive || player.GetComponent<PlayerKnockdown>()?.IsDown == true ||
+            player.GetComponent<PlayerMannequinCarry>()?.Held != null || player.GetComponent<PlayerMonkeyCarry>()?.Held != null ||
             NetworkLobby.Instance?.Results != null) return false;
         var current = For(player);
         if (current == this) { Release(player, false); return true; }
@@ -83,7 +87,7 @@ public sealed class ShoppingCart : MonoBehaviour
     }
     private void Sync() => network?.SetOccupants(Driver, Rider);
     private bool Unavailable(PlayerAvatar player) => player == null || !player.isActiveAndEnabled ||
-        player.GetComponent<PlayerKnockdown>()?.IsDown == true ||
+        !player.IsAlive || player.GetComponent<PlayerKnockdown>()?.IsDown == true ||
         player.GetComponent<NetworkPlayer>() is NetworkPlayer p && p.IsServerInitialized && (!p.Owner.IsValid || !p.Owner.IsActive);
     private void FixedUpdate()
     {
@@ -105,8 +109,8 @@ public sealed class ShoppingCart : MonoBehaviour
         }
         else planar = Vector3.MoveTowards(planar, Vector3.zero, .9f * Time.fixedDeltaTime);
         body.linearVelocity = planar + Vector3.up * velocity.y;
-        impactVelocity = planar; impactSpeed = planar.magnitude;
-        if (impactSpeed > 4) StrikePlayers(planar);
+        // Walls stop the cart through physics; occupants stay attached during a crash.
+        if (planar.magnitude > 4) StrikePlayers(planar);
         if (transform.position.y < -8 || Vector3.Distance(transform.position, home) > 200)
         {
             if (Driver != null) Release(Driver, false);
@@ -116,7 +120,13 @@ public sealed class ShoppingCart : MonoBehaviour
     }
     private void LateUpdate()
     {
-        if (Driver != null) MovePlayer(Driver, transform.TransformPoint(new Vector3(0, 0, -1.15f)));
+        if (!HasAuthority)
+        {
+            float observed = Vector3.ProjectOnPlane(transform.position - previousPosition, Vector3.up).magnitude / Mathf.Max(Time.deltaTime, .001f);
+            remoteSpeed = Mathf.Lerp(remoteSpeed, observed, 1 - Mathf.Exp(-Time.deltaTime * 12));
+            previousPosition = transform.position;
+        }
+        if (Driver != null) MovePlayer(Driver, transform.TransformPoint(new Vector3(0, 0, -1.25f)));
         if (Rider != null)
         {
             Rider.GetComponent<GrayboxPlayerController>()?.SetRemoteStance(1);
@@ -157,18 +167,6 @@ public sealed class ShoppingCart : MonoBehaviour
             if (player == null || player == Driver || player == Rider || struck.TryGetValue(player, out float until) && Time.time < until) continue;
             if (player.GetComponent<PlayerKnockdown>()?.TryFall(velocity.normalized) == true) struck[player] = Time.time + 3;
         }
-    }
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (!HasAuthority || impactSpeed < 4.5f || Time.time < nextWallCrash) return;
-        bool wall = false;
-        foreach (ContactPoint contact in collision.contacts)
-            if (Mathf.Abs(contact.normal.y) < .5f && Vector3.Dot(contact.normal, impactVelocity.normalized) < -.3f) { wall = true; break; }
-        if (!wall) return;
-        nextWallCrash = Time.time + 1;
-        PlayerAvatar driver = Driver, rider = Rider;
-        if (driver != null) { Release(driver, false); driver.GetComponent<PlayerKnockdown>()?.TryFall(impactVelocity.normalized); }
-        if (rider != null) { Release(rider, false); rider.GetComponent<PlayerKnockdown>()?.TryFall(impactVelocity.normalized); }
     }
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)] private static void ResetStatics() => carts.Clear();
 }

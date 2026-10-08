@@ -55,7 +55,7 @@ public sealed class FlashlightController : MonoBehaviour
         stride += Time.deltaTime * Mathf.Lerp(3, 11, Mathf.Clamp01(speed / 10));
         lowered = Mathf.MoveTowards(lowered, isOn ? 0 : 1, Time.deltaTime * 5);
         float bob = Mathf.Clamp01(speed / 5) * .006f;
-        Vector2 mouse = !PlayerChat.BlocksInput && Mouse.current != null ? Mouse.current.delta.ReadValue() : Vector2.zero;
+        Vector2 mouse = !PlayerChat.BlocksInput && !EmoteWheel.BlocksInput && Mouse.current != null ? Mouse.current.delta.ReadValue() : Vector2.zero;
         Vector3 sway = new Vector3(Mathf.Clamp(-mouse.x * .00015f, -.015f, .015f),
             Mathf.Sin(stride) * bob - lowered * .045f, 0);
         transform.localPosition = Vector3.Lerp(transform.localPosition, restPosition + sway, Time.deltaTime * 12);
@@ -101,7 +101,7 @@ public sealed class FlashlightController : MonoBehaviour
 
     private void Update()
     {
-        if (PlayerChat.BlocksInput || NetworkLobby.Instance != null && !NetworkLobby.Instance.InputAllowed) return;
+        if (EmoteWheel.BlocksInput || PlayerChat.BlocksInput || NetworkLobby.Instance != null && !NetworkLobby.Instance.InputAllowed) return;
         if (Keyboard.current == null || !Keyboard.current.fKey.wasPressedThisFrame) return;
 
         isOn = !isOn;

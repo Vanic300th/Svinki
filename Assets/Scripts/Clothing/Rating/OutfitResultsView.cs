@@ -78,14 +78,14 @@ public sealed class OutfitResultsView : MonoBehaviour
                 bool exists = i < results.entries.Length;
                 players[i].gameObject.SetActive(exists);
                 if (exists) players[i].GetComponentInChildren<TMP_Text>().text =
-                    (i + 1) + ". " + results.entries[i].nickname + "\n" + results.entries[i].rating.score + " / 100";
+                    (i + 1) + ". " + results.entries[i].nickname + "\n" + (results.entries[i].eliminated ? "Ghost · eliminated" : results.entries[i].rating.score + " / 100");
             }
             Select(0);
             runway.Begin(results);
         }
         shown = results; runway.Tick(results);
         next.interactable = !runway.Showing && (lobby.Offline || lobby.IsHost);
-        continueLabel.text = lobby.Offline ? "Keep Searching" : lobby.IsHost ? "Next Round" : "Waiting for host";
+        continueLabel.text = lobby.Offline ? lobby.IsEliminated ? "Next Round" : "Keep Searching" : lobby.IsHost ? "Next Round" : "Waiting for host";
         if (Time.unscaledTime >= nextRender && cameraPreview != null)
         { nextRender = Time.unscaledTime + 1f / 15; cameraPreview.Render(); }
     }
@@ -99,10 +99,10 @@ public sealed class OutfitResultsView : MonoBehaviour
             ClearModel(); return;
         }
         var entry = shown.entries[index]; var rating = entry.rating;
-        playerName.text = entry.nickname;
+        playerName.text = entry.nickname + (entry.eliminated ? " · ghost" : "");
         score.text = rating.score + " / 100"; verdict.text = rating.verdict;
         strength.text = rating.strength; improvement.text = rating.improvement;
-        clothes.text = entry.names.Length == 0 ? "No clothes found yet" : string.Join("\n", entry.names);
+        clothes.text = entry.eliminated ? "Eliminated · original pig appearance" : entry.names.Length == 0 ? "No clothes found yet" : string.Join("\n", entry.names);
         int[] measures = { rating.matching, rating.palette, rating.patterns, rating.completeness };
         for (int i = 0; i < measures.Length; i++)
         { bars[i].rectTransform.sizeDelta = new Vector2(670 * measures[i] / 100f, 8); values[i].text = measures[i] + "%"; }
@@ -124,6 +124,7 @@ public sealed class OutfitResultsView : MonoBehaviour
             if (!PigClothingBinding.TryAttach(definition, appearance.ModelRoot, holder.transform)) Destroy(holder);
         }
         foreach (Transform part in model.GetComponentsInChildren<Transform>(true)) part.gameObject.layer = 30;
+        if (entry.eliminated) { model.name = "Presented ghost pig"; model.AddComponent<RunwayGhost>().Apply(); }
         yaw = 0; Rotate(0);
     }
     private void ClearModel() { if (model != null) { model.SetActive(false); Destroy(model); model = null; } }

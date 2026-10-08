@@ -1,0 +1,7 @@
+PASS: single-player one toy; 13 articulated bodies and pinned wrists; miss retained item; swing cooldown; successful NPC hit consumed toy; NPC physics fall and disabled brain/navigation
+PASS: actual 30-second timer, no early recovery, navigation restored; no replacement toy spawned
+PASS: ordinary display mannequin also consumes toy after one actual swing hit
+PASS: two players spawn exactly two toys on host/client; guest grab and carrier replicated; local guest rig has 13 physics bodies
+PASS: guest swing consumes one toy on both peers, hits one NPC, replicates actual fall and disables NPC brain
+PASS: network recovery replicated; host brain restored and actual skinned head returned to 1.53m; late spectator adds no toy
+PASS: next round spawns three fresh toys for three participants on host and both guests

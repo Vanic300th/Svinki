@@ -1,0 +1,10 @@
+PASS: Windows x64 Mono package built with monkey feature; ZIP CRC valid; required runtime files present; PE architecture AMD64; MonkeyToy type present in shipped Assembly-CSharp.dll
+Archive: /Users/chamber/Downloads/Telegram Desktop/Projects/Svinki/Builds/Svinki-Windows.zip
+Size: 80.0 MiB
+SHA-256: 8b038ae2495c0990c426e9d5ed9f1dc92aa8d436338d87c9c5e394a9cd3dcae5
+Runtime checks: macOS Editor host + standalone guests; Windows EXE not executed here.
+BuildReport: Succeeded, StandaloneWindows64, 20.86739 seconds, 1 error diagnostic and 3 warnings. The error is the cross-platform missing vswhere.exe toolset detection; the build and packaging completed successfully.
+
+Package refreshed with cart wall-collision fix. Latest build details: ArtSource/ExpandedRound/cart-wall-build-validation.txt.
+
+Historical checks above refer to the monkey/cart packages. Current Windows package verification: ArtSource/RunwayGhost/windows-validation.txt.

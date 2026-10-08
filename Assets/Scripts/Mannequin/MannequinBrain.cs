@@ -78,6 +78,7 @@ public class MannequinBrain : MonoBehaviour
     private Vector3 lastKnownPosition;
     private float lastSawPlayerTime = -999f;
     private bool seesPlayer;
+    private bool attackApplied;
 
     private Vector3 searchPoint;
     private bool hasSearchPoint;
@@ -111,12 +112,13 @@ public class MannequinBrain : MonoBehaviour
 
     private void Update()
     {
-        if (target == null)
+        if (NetworkLobby.Instance?.Results != null) { StopAgent(); return; }
+        if (targetAvatar == null || !targetAvatar.IsAlive)
         {
-            foreach (GrayboxPlayerController candidate in FindObjectsByType<GrayboxPlayerController>())
-                if (candidate.gameObject.scene == gameObject.scene) { SetTarget(candidate.transform); break; }
+            var candidate = PlayerRegistry.Nearest(transform.position, gameObject.scene);
+            SetTarget(candidate != null ? candidate.transform : null);
         }
-        if (target == null || !agent.isOnNavMesh) return;
+        if (target == null || !agent.isOnNavMesh) { StopAgent(); return; }
 
         UpdateAwareness();
         bool seen = visibility.IsSeen;
@@ -151,6 +153,13 @@ public class MannequinBrain : MonoBehaviour
             case State.Attacking:
                 if (seen) { EnterSettling(true, true); break; } // замирает прямо в ударе
                 FaceTarget();
+                if (!attackApplied && stateTimer >= Mathf.Min(.35f, anim.AttackLength * .45f))
+                {
+                    attackApplied = true;
+                    if (targetAvatar != null && targetAvatar.IsAlive && InAttackRange() &&
+                        HasClearLine(transform.position + Vector3.up * .8f, target.position + Vector3.up * .8f))
+                        targetAvatar.GetComponent<PlayerKnockdown>()?.TryMannequinHit(target.position - transform.position);
+                }
                 if (stateTimer >= anim.AttackLength)
                 {
                     lastAttackEnd = Time.time;
@@ -158,6 +167,12 @@ public class MannequinBrain : MonoBehaviour
                 }
                 break;
         }
+    }
+
+    public void ResumeAfterStun()
+    {
+        attackApplied = true; lastAttackEnd = Time.time; hasSearchPoint = false;
+        EnterFrozen();
     }
 
     public void SetTarget(Transform value)
@@ -329,7 +344,7 @@ public class MannequinBrain : MonoBehaviour
         StopAgent();
         agent.updateRotation = false;
         anim.PlayAttack();
-        // Урона и смерти пока нет — просто удар
+        attackApplied = false;
     }
 
     // ---------- Помощники ----------

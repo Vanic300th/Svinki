@@ -2061,6 +2061,7 @@ GameObject:
   - component: {fileID: 2241192336742952588}
   - component: {fileID: 1819843101586457906}
   - component: {fileID: 7813747200146692630}
+  - component: {fileID: 5556401046112280714}
   m_Layer: 2
   m_Name: OfflinePlayer
   m_TagString: Untagged
@@ -2252,6 +2253,18 @@ MonoBehaviour:
   - Bone: Head
     Center: {x: -0.0000017285347, y: 0.46605325, z: 0}
     Size: {x: 0.8383461, y: 0.44363835, z: 0.6318446}
+--- !u!114 &5556401046112280714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7226763799161931087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd1e2cc62e3834d67977d90dcab9e165, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMonkeyCarry
 --- !u!1 &7335298777296457380
 GameObject:
   m_ObjectHideFlags: 0

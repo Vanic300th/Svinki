@@ -1,0 +1,1 @@
+PASS: six actual 8 m/s wall contacts; driver and passenger stay attached and upright; no fall/hit change; wall blocks cart
