@@ -8,17 +8,17 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Material.001
-    second: {fileID: 2100000, guid: 577b0a804fb766947a95f4f9f6d6c807, type: 2}
+    second: {fileID: 2100000, guid: 25d09dda0f666304381bf38fb637a537, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: hoodie1
-    second: {fileID: 2100000, guid: 4df80d2f7c7a8f64f912b04b3cefd82c, type: 2}
+    second: {fileID: 2100000, guid: fd85c69e8e3ec1e4bb33150af885bb27, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: hoodie1_Hood
-    second: {fileID: 2100000, guid: f0bed61976bfd8445ba7f1129af3a3a7, type: 2}
+    second: {fileID: 2100000, guid: 843e956c4ec6cd34b96cc31639b64a3f, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
