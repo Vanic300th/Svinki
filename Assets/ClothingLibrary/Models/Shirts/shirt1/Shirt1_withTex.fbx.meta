@@ -8,12 +8,12 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: shirt1
-    second: {fileID: 2100000, guid: 429977da94160bd4fbbe16aaec79d07b, type: 2}
+    second: {fileID: 2100000, guid: 3bdf3752fe888544ab9726fe15515a21, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: shirt1_komirok
-    second: {fileID: 2100000, guid: 36f0737e0e6c85941b3097c63c4b42b5, type: 2}
+    second: {fileID: 2100000, guid: 6784e761b5aa8f343bcf4f80643bf401, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

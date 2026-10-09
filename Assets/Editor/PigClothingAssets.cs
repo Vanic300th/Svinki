@@ -248,6 +248,7 @@ public static class PigClothingAssets
         surface.BuildNavMesh();
         NavMeshData data = surface.navMeshData;
         const string path = "Assets/Settings/StoreExpandedNavMesh.asset";
+        data.name = Path.GetFileNameWithoutExtension(path); // asset main object name must match the file name
         var saved = AssetDatabase.LoadAssetAtPath<NavMeshData>(path);
         if (saved == null) AssetDatabase.CreateAsset(data, path);
         else if (saved != data)

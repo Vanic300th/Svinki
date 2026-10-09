@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c641d4fa7638247489b6dba5cad4db90, type: 3}
+  m_Name: Pig_Fall_Hit
+  m_EditorClassIdentifier: Assembly-CSharp::SoundEffect
+  clips:
+  - {fileID: 8300000, guid: d8499c22e4267e943b72e71d497edcf9, type: 3}
+  - {fileID: 8300000, guid: 05beb27f618457341b597344ecb0e08f, type: 3}
+  - {fileID: 8300000, guid: ae80f9a1f78f5354fb1a9ded44faa200, type: 3}
+  - {fileID: 8300000, guid: ba62c88e317eb2f49b4b4dfbd0b122e3, type: 3}
+  - {fileID: 8300000, guid: d98ae6f68a39bff4a976fdd5388492a9, type: 3}
+  volume: {x: 0.72, y: 0.855}
+  pitch: {x: 0.9, y: 1.05}
+  avoidRepeat: 1

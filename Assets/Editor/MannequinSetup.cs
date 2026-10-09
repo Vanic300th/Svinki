@@ -496,6 +496,7 @@ public static class MannequinSetup
         string dir = string.IsNullOrEmpty(scene.path) ? "Assets" : System.IO.Path.GetDirectoryName(scene.path).Replace('\\', '/');
         string path = $"{dir}/{(string.IsNullOrEmpty(scene.name) ? "Scene" : scene.name)}_NavMesh.asset";
         AssetDatabase.DeleteAsset(path);
+        surface.navMeshData.name = System.IO.Path.GetFileNameWithoutExtension(path);
         AssetDatabase.CreateAsset(surface.navMeshData, path);
         EditorUtility.SetDirty(surface);
     }

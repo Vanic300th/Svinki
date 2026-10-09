@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c641d4fa7638247489b6dba5cad4db90, type: 3}
+  m_Name: Mannequin_Impact_Heavy
+  m_EditorClassIdentifier: Assembly-CSharp::SoundEffect
+  clips:
+  - {fileID: 8300000, guid: 10d79b6e30454934685d7b2c91ce9070, type: 3}
+  - {fileID: 8300000, guid: cac46476d59523a45b68879f05f93151, type: 3}
+  - {fileID: 8300000, guid: 8b428d8d4c597e24681292d02cb24533, type: 3}
+  - {fileID: 8300000, guid: 2854d0822e780364c8dc347beb3cae35, type: 3}
+  - {fileID: 8300000, guid: c569e1329fb71084789cc9e870d374fe, type: 3}
+  volume: {x: 0.75, y: 0.9}
+  pitch: {x: 0.9, y: 1}
+  avoidRepeat: 1

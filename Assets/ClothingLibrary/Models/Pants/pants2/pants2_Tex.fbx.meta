@@ -8,12 +8,12 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: pants2
-    second: {fileID: 2100000, guid: 36238153e968a904e9593edf09dea6f7, type: 2}
+    second: {fileID: 2100000, guid: aac61db3fbc83274092bc7451d37f120, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: pants2_Light
-    second: {fileID: 2100000, guid: 516951e13ab14104e84876881a4bcb7e, type: 2}
+    second: {fileID: 2100000, guid: 94efe4368a0d3684b9afb493605d34de, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

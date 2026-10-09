@@ -105,6 +105,7 @@ public static class PigClothingFit
                         mesh.SetTriangles(Array.Empty<int>(),i);
                 mesh.RecalculateBounds();
                 string meshPath = Meshes + "/" + clothing.Model.name + " " + id + " " + part++ + ".asset";
+                mesh.name = System.IO.Path.GetFileNameWithoutExtension(meshPath); // asset main object name must match the file name
                 var savedMesh = AssetDatabase.LoadAssetAtPath<Mesh>(meshPath);
                 if (savedMesh == null) { AssetDatabase.CreateAsset(mesh,meshPath); savedMesh=mesh; }
                 else { CopyMesh(mesh,savedMesh); UnityEngine.Object.DestroyImmediate(mesh); EditorUtility.SetDirty(savedMesh); }

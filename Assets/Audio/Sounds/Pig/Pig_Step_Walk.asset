@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c641d4fa7638247489b6dba5cad4db90, type: 3}
+  m_Name: Pig_Step_Walk
+  m_EditorClassIdentifier: Assembly-CSharp::SoundEffect
+  clips:
+  - {fileID: 8300000, guid: 9f6cade77a6f9f141bf9e193ae74958a, type: 3}
+  - {fileID: 8300000, guid: 893697d6f75c4994fbfc5f4c70386c2b, type: 3}
+  - {fileID: 8300000, guid: beb51db2118c3e744a9cd73558fc8d34, type: 3}
+  - {fileID: 8300000, guid: ee99bb254f8ef374f8d4d7d04dcaa42d, type: 3}
+  - {fileID: 8300000, guid: 835145ef4933f1b48ac06d8a475b1820, type: 3}
+  - {fileID: 8300000, guid: 0bb9107735ac2b441a0a6c25b8a03095, type: 3}
+  - {fileID: 8300000, guid: ade931702816946429176c7582d60dae, type: 3}
+  - {fileID: 8300000, guid: f5241c24c12fc8f4c9355c22bae1abc7, type: 3}
+  - {fileID: 8300000, guid: 71c7d87972b57714daeec5a6221a3848, type: 3}
+  volume: {x: 0.248, y: 0.314}
+  pitch: {x: 0.92, y: 1.08}
+  avoidRepeat: 1

@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c641d4fa7638247489b6dba5cad4db90, type: 3}
+  m_Name: Mannequin_Carry_Creak
+  m_EditorClassIdentifier: Assembly-CSharp::SoundEffect
+  clips:
+  - {fileID: 8300000, guid: 89945b819e5770b4188d1d6215a22f87, type: 3}
+  - {fileID: 8300000, guid: 0142fae6990bc99438a27de38852cadd, type: 3}
+  - {fileID: 8300000, guid: 1ea5b0762bf90e444b9c176cfc6f4d8d, type: 3}
+  - {fileID: 8300000, guid: 8860f99525ec5ea448167e9cf27843a7, type: 3}
+  - {fileID: 8300000, guid: e7238e9226da78b43b29efe8d46c1658, type: 3}
+  - {fileID: 8300000, guid: 60c8523c550d9cb4e8b5fb23201ee9f0, type: 3}
+  - {fileID: 8300000, guid: 5e66b2449c81281418ca354ed89df3da, type: 3}
+  - {fileID: 8300000, guid: 02806bad50f74f042a6a0604b915535f, type: 3}
+  - {fileID: 8300000, guid: 31564993535fb8d40886f95f490a756e, type: 3}
+  - {fileID: 8300000, guid: 6e8b7c5c58d90e64bbedcfc057073257, type: 3}
+  - {fileID: 8300000, guid: b5368a02217ce9b4385d60b84526a52d, type: 3}
+  - {fileID: 8300000, guid: c884c7a872ae9a54eb80af4a6d29bec5, type: 3}
+  - {fileID: 8300000, guid: 8a1a177ac2cf96147bc7d3b0c302665e, type: 3}
+  - {fileID: 8300000, guid: 404a92eac30c8824eb83219808d5efd4, type: 3}
+  - {fileID: 8300000, guid: 78b01f3d2e1e24345a02c1d1cb979237, type: 3}
+  - {fileID: 8300000, guid: 4257e4eed2e6b654088223d0dbf69201, type: 3}
+  volume: {x: 0.175, y: 0.28}
+  pitch: {x: 0.95, y: 1.05}
+  avoidRepeat: 1

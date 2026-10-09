@@ -1,0 +1,2 @@
+PASS: merged project compiles, 30 departments, 3 carts, 12 aggressive mannequins, 96 valid clothing layout entries, 148 unique network scene IDs, registered photo camera, 28 mannequin audio components and both pig audio prefabs.
+PASS: navigation rebuilt for the combined scene; relocated READY button reachable.
