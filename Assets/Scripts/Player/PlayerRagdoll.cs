@@ -214,8 +214,9 @@ public sealed class PlayerRagdoll : MonoBehaviour
     private void OnDisable()
     {
         running = false; recoveryTime = 0;
-        foreach (Part part in parts) { part.Body.isKinematic = true; part.Collider.enabled = false; }
-        motion?.ResetPose();
+        // Physics bodies live outside the avatar; on scene unload they can be destroyed before this component.
+        foreach (Part part in parts) { if (part.Body != null) part.Body.isKinematic = true; if (part.Collider != null) part.Collider.enabled = false; }
+        if (motion != null) motion.ResetPose();
     }
     private void OnDestroy() { if (physicsRoot != null) Destroy(physicsRoot); }
 }

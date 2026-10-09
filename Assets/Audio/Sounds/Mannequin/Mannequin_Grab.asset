@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c641d4fa7638247489b6dba5cad4db90, type: 3}
+  m_Name: Mannequin_Grab
+  m_EditorClassIdentifier: Assembly-CSharp::SoundEffect
+  clips:
+  - {fileID: 8300000, guid: 1e799a56e9faae54bb8133203a3e43ff, type: 3}
+  - {fileID: 8300000, guid: df2feb7f238dc43439704faabce09410, type: 3}
+  - {fileID: 8300000, guid: 1dbf213fd33223d4798ef39d07fc8e0d, type: 3}
+  - {fileID: 8300000, guid: 6f5385219eea61b40962edd9ee311dda, type: 3}
+  - {fileID: 8300000, guid: 59f22a0214ec95a4fa7853c7cf1a0e3b, type: 3}
+  - {fileID: 8300000, guid: a89d4a6aaa26f71439a95acf1d98e980, type: 3}
+  - {fileID: 8300000, guid: 84f280629e9a7354889666f8f8c55eff, type: 3}
+  - {fileID: 8300000, guid: abf1bc59783f46f4a97215eff6251f73, type: 3}
+  volume: {x: 0.45, y: 0.6}
+  pitch: {x: 0.9, y: 1.1}
+  avoidRepeat: 1

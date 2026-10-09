@@ -76,7 +76,7 @@ public sealed class SessionMenu : MonoBehaviour
     }
     private void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, UnityEngine.SceneManagement.LoadSceneMode mode)
     {
-        foreach (EventSystem events in FindObjectsByType<EventSystem>(FindObjectsSortMode.None))
+        foreach (EventSystem events in FindObjectsByType<EventSystem>())
             if (events != sessionEvents) { events.enabled = false; foreach (var module in events.GetComponents<BaseInputModule>()) module.enabled = false; }
     }
     private void Update()

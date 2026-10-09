@@ -26,8 +26,11 @@ public sealed class EosSession : MonoBehaviour
     private PlatformInterface platform;
     private ProductUserId user;
     private ulong memberNotify, authNotify;
+    // Read only in player builds (#if !UNITY_EDITOR in OnDestroy), so the editor compiler reports them as unused.
+#pragma warning disable 0414
     private bool shuttingDown, applicationQuitting;
     private static bool ownsSdkInitialization;
+#pragma warning restore 0414
     private LobbyInterface Lobby => platform.GetLobbyInterface();
     public async Task Authenticate(string nickname)
     {

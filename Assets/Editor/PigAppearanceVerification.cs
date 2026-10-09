@@ -122,7 +122,7 @@ public static class PigAppearanceVerification
         if (!EditorApplication.isPlaying) throw new Exception("Enter Play mode.");
         originalFace = PigFace.Selected;
         var menu = UnityEngine.Object.FindAnyObjectByType<PigAppearanceMenu>();
-        var buttons = UnityEngine.Object.FindObjectsByType<UnityEngine.UI.Button>(FindObjectsSortMode.None);
+        var buttons = UnityEngine.Object.FindObjectsByType<UnityEngine.UI.Button>();
         var preview = menu.GetComponentInChildren<PigAppearance>();
         buttons.Single(b => b.name == "Beard").onClick.Invoke();
         if (preview.FaceCode != PigFace.Preset(1).Encode()) throw new Exception("Beard preset button failed.");
@@ -156,7 +156,7 @@ public static class PigAppearanceVerification
     {
         var lobby = NetworkLobby.Instance;
         if (!lobby.Offline || lobby.Busy) throw new Exception("Offline game is still loading.");
-        var pig = UnityEngine.Object.FindObjectsByType<PigAppearance>(FindObjectsSortMode.None)
+        var pig = UnityEngine.Object.FindObjectsByType<PigAppearance>()
             .Single(p => p.GetComponentInParent<GrayboxPlayerController>() != null);
         if (pig.FaceCode != PigFace.Selected) throw new Exception("Offline pig lost the selected face.");
         if (pig.GetComponent<PigMotion>() == null) throw new Exception("Pig motion missing.");
@@ -190,7 +190,7 @@ public static class PigAppearanceVerification
     public static string VerifyNetworkSpawn()
     {
         var lobby = NetworkLobby.Instance;
-        var player = UnityEngine.Object.FindObjectsByType<NetworkPlayer>(FindObjectsSortMode.None)
+        var player = UnityEngine.Object.FindObjectsByType<NetworkPlayer>()
             .Single(p => p.IsOwner && p.ParticipantId == lobby.Identity);
         if (player.GetComponentInChildren<PigAppearance>().FaceCode != PigFace.Selected)
             throw new Exception("Network spawn lost selected face.");
