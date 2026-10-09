@@ -23,6 +23,53 @@ public sealed class PigMotion : MonoBehaviour
     private float standingFootHeight;
     private float phase, gait, torchWeight;
     private float squash, squashVelocity;
+    public PigEmote ActiveEmote { get; private set; }
+    public const float EmoteDuration = 3f;
+    private float emoteStarted;
+    public static bool CanEmote(PlayerAvatar player) => player != null && player.isActiveAndEnabled && player.IsAlive &&
+        player.GetComponent<PlayerKnockdown>()?.IsDown != true && ShoppingCart.For(player) == null &&
+        player.GetComponent<PlayerMonkeyCarry>()?.Held == null && player.GetComponent<PlayerMannequinCarry>()?.Held == null;
+    public void PlayEmote(PigEmote kind)
+    {
+        if (kind < PigEmote.None || kind > PigEmote.Shrug) return;
+        ActiveEmote = kind; emoteStarted = Time.time;
+    }
+    private void Gesture(string name, Vector3 angles, float weight)
+    {
+        if (bones.TryGetValue(name, out var bone))
+            bone.localRotation = Quaternion.Slerp(bone.localRotation, rest[bone].rotation * Quaternion.Euler(angles), weight);
+    }
+    private void ApplyEmote(float speed)
+    {
+        float t = Time.time - emoteStarted;
+        if (ActiveEmote == PigEmote.None) return;
+        if (t >= EmoteDuration || speed > .3f || !CanEmote(GetComponentInParent<PlayerAvatar>())) { ActiveEmote = PigEmote.None; return; }
+        float w = Mathf.SmoothStep(0, 1, Mathf.Min(t / .18f, (EmoteDuration - t) / .35f));
+        float beat = Mathf.Sin(t * 6);
+        switch (ActiveEmote)
+        {
+            case PigEmote.Wave:
+                Gesture("UpperArm_R", new Vector3(-35, 0, -105), w); Gesture("Forearm_R", new Vector3(0, 0, Mathf.Sin(t * 10) * 25), w); break;
+            case PigEmote.Cheer:
+                Gesture("UpperArm_L", new Vector3(-15, 0, 145), w); Gesture("UpperArm_R", new Vector3(-15, 0, -145), w);
+                Gesture("Forearm_L", new Vector3(0, 0, beat * 18), w); Gesture("Forearm_R", new Vector3(0, 0, -beat * 18), w); Gesture("Head", new Vector3(-8, 0, 0), w); break;
+            case PigEmote.Clap:
+                float clap = Mathf.Sin(t * 12) * 24;
+                Gesture("UpperArm_L", new Vector3(-55, 0, 35), w); Gesture("UpperArm_R", new Vector3(-55, 0, -35), w);
+                Gesture("Forearm_L", new Vector3(-15, 0, -55 + clap), w); Gesture("Forearm_R", new Vector3(-15, 0, 55 - clap), w); break;
+            case PigEmote.Dance:
+                Gesture("Hips", new Vector3(0, beat * 10, beat * 10), w); Gesture("Spine", new Vector3(0, -beat * 10, -beat * 8), w);
+                Gesture("UpperArm_L", new Vector3(-20, 0, 65 + beat * 25), w); Gesture("UpperArm_R", new Vector3(-20, 0, -65 - beat * 25), w);
+                Gesture("Thigh_L", new Vector3(beat * 12, 0, 0), w); Gesture("Thigh_R", new Vector3(-beat * 12, 0, 0), w); break;
+            case PigEmote.Laugh:
+                Gesture("Spine", new Vector3(Mathf.Sin(t * 15) * 7, 0, 0), w); Gesture("Head", new Vector3(12 + Mathf.Sin(t * 15) * 8, 0, 0), w);
+                Gesture("UpperArm_L", new Vector3(-40, 0, 40), w); Gesture("UpperArm_R", new Vector3(-40, 0, -40), w);
+                Gesture("Forearm_L", new Vector3(-55, 0, 30), w); Gesture("Forearm_R", new Vector3(-55, 0, -30), w); break;
+            case PigEmote.Shrug:
+                Gesture("UpperArm_L", new Vector3(-15, 0, 65), w); Gesture("UpperArm_R", new Vector3(-15, 0, -65), w);
+                Gesture("Forearm_L", new Vector3(-50, 0, 25), w); Gesture("Forearm_R", new Vector3(-50, 0, -25), w); Gesture("Head", new Vector3(0, 0, Mathf.Sin(t * 2) * 8), w); break;
+        }
+    }
 
     private void Awake()
     {
@@ -64,7 +111,7 @@ public sealed class PigMotion : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (knockdown != null && knockdown.IsDown) return;
+        if (knockdown != null && knockdown.IsDown) { ActiveEmote = PigEmote.None; return; }
         bool local = network == null || network.IsOwner;
         float speed = motor == null ? 0 : local ? motor.MotionSpeed : network.MotionSpeed;
         bool grounded = motor == null || (local ? motor.Grounded : network.Grounded);
@@ -112,6 +159,12 @@ public sealed class PigMotion : MonoBehaviour
         UpdateSquash(crouch, Time.deltaTime);
         float height = 1 - squash * (squash >= 0 ? .42f : .75f);
         visual.localScale = Vector3.Scale(baseScale, new Vector3(1 + squash * .40f, height, 1 + squash * .28f));
+        if (GetComponentInParent<PlayerMonkeyCarry>()?.Held != null)
+        {
+            Gesture("UpperArm_R", new Vector3(-70, 0, -20), 1);
+            Gesture("Forearm_R", new Vector3(-30, 0, 0), 1);
+        }
+        ApplyEmote(speed);
         if (motor != null && lamp == null && bones.TryGetValue("Hand_L", out Transform hand))
         {
             lamp = FlashlightController.CreateModel(hand, "Pig Held Flashlight");
@@ -133,6 +186,7 @@ public sealed class PigMotion : MonoBehaviour
 
     public void ResetPose()
     {
+        ActiveEmote = PigEmote.None;
         foreach (var pair in rest)
             pair.Key.SetLocalPositionAndRotation(pair.Value.position, pair.Value.rotation);
         visual.localPosition = basePosition;

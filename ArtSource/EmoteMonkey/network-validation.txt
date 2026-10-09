@@ -1,0 +1,2 @@
+PASS: protocol 9 host + standalone guest; both gestures visible on both clients; movement cancels on both; duration clears on both; invalid request rejected; two toys for two participants; guest carry replicates; gesture while holding toy rejected by server
+PASS: actual guest swing consumed one toy on host and guest; aggressive mannequin ragdoll and 30-second inactivity replicated to both

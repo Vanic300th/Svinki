@@ -1,0 +1,10 @@
+PASS: guest request stores clothing on host; cargo and outfit replicate to both processes
+PASS: actual physics throw hits host; host pig uses 11 real body bones; camera/body fall; display throws do not consume lives
+PASS: wall raycast blocks actual guest model; nickname remains visible in screen overlay
+PASS: actual NPC attacks cause host two hits; death keeps server and round alive; spectator targets living guest; input blocked and clothes dropped
+PASS: guest two hits; everyone dead completes round; results retain both participants
+PASS: round 2 respawns host and guest, resets lives, elimination flags, cart cargo
+PASS: living guest READY completes round while host is eliminated
+PASS: eliminated guest reconnects with zero lives and spectates; cannot respawn during same round
+PASS: guest drives cart with keyboard input, sees interpolated movement and nonzero speed, releases cart; three carts remain above floor
+PASS: actual physics throw hits host; host pig uses 11 real body bones; camera/body fall; display throws do not consume lives

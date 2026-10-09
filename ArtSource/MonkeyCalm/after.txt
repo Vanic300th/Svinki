@@ -1,0 +1,2 @@
+Bodies=13; hanging=True; free hand=True; peak angular deg/s=8933.78; residual mean linear m/s=0.3733; residual angular deg/s=280.65
+Miss retained=True; release=True

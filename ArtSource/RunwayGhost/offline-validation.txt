@@ -1,0 +1,1 @@
+PASS: living pig unaffected; actual two-hit death automatically presents matching ghost; customization/patterns/tattoo preserved; shared materials untouched; JSON ghost flag retained; scores use same ghost; Next Round resets death

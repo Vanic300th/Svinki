@@ -7,9 +7,9 @@ using UnityEngine.SceneManagement;
 public static class ClothingDropper
 {
     private static readonly RaycastHit[] hits = new RaycastHit[24];
-    public static bool TryDrop(PlayerAvatar player, ClothingSlot slot, NetworkManager server = null)
+    public static bool TryDrop(PlayerAvatar player, ClothingSlot slot, NetworkManager server = null, bool eliminated = false)
     {
-        if (player == null || player.GetComponent<PlayerKnockdown>()?.IsDown == true) return false;
+        if (player == null || !eliminated && player.GetComponent<PlayerKnockdown>()?.IsDown == true) return false;
         var clothing = player.Outfit.Get(slot); if (clothing == null) return false;
         var pickup = ClothingPickup.FindPickedUp(clothing, player.gameObject.scene);
         if (pickup == null && clothing.PickupPrefab == null) return false;
@@ -25,6 +25,20 @@ public static class ClothingDropper
         if (!player.Outfit.Remove(slot, "Dropped", out _)) return false;
         pickup.PlaceAt(floor); pickup.ProtectFromThieves(3);
         return true;
+    }
+    public static bool TryPlace(ClothingDefinition clothing, PlayerAvatar player, NetworkManager server = null)
+    {
+        if (clothing == null || clothing.PickupPrefab == null || player == null || !FloorPoint(player, clothing.Slot, out Vector3 floor)) return false;
+        var obj = Object.Instantiate(clothing.PickupPrefab, floor + Vector3.up * .025f, Quaternion.identity);
+        SceneManager.MoveGameObjectToScene(obj, player.gameObject.scene);
+        var pickup = obj.GetComponent<ClothingPickup>();
+        if (server != null) server.ServerManager.Spawn(obj.GetComponent<NetworkObject>(), null, player.gameObject.scene);
+        else
+        {
+            if (obj.TryGetComponent<NetworkPickup>(out var np)) np.enabled = false;
+            if (obj.TryGetComponent<NetworkObject>(out var no)) { no.SetIsNetworked(false); no.enabled = false; }
+        }
+        pickup.PlaceAt(floor); pickup.ProtectFromThieves(3); return true;
     }
     private static bool FloorPoint(PlayerAvatar player, ClothingSlot slot, out Vector3 floor)
     {

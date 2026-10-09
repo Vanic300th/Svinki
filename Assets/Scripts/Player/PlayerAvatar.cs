@@ -32,6 +32,7 @@ public sealed class PlayerAvatar : MonoBehaviour
 
     /// <summary>Точка у ног игрока.</summary>
     public Vector3 Position => transform.position;
+    public bool IsAlive => GetComponent<PlayerKnockdown>()?.IsDead != true;
     /// <summary>Откуда игрок смотрит.</summary>
     public Vector3 EyePosition => TryGetView(out PlayerView view) ? view.Eye : transform.position + Vector3.up * 1.6f;
     /// <summary>Настоящая скорость игрока (м/с).</summary>

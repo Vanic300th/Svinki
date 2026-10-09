@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[DefaultExecutionOrder(200)]
 public class GrayboxFirstPersonCamera : MonoBehaviour
 {
     public const float EyeForwardOffset = 0.22f;
@@ -38,7 +39,7 @@ public class GrayboxFirstPersonCamera : MonoBehaviour
     {
         if (target == null) return;
 
-        if ((knockdown == null || !knockdown.IsDown) && !PlayerChat.BlocksInput && (NetworkLobby.Instance == null || NetworkLobby.Instance.InputAllowed) && Cursor.lockState == CursorLockMode.Locked && Mouse.current != null)
+        if ((knockdown == null || !knockdown.IsDown) && !PlayerChat.BlocksInput && !EmoteWheel.BlocksInput && (NetworkLobby.Instance == null || NetworkLobby.Instance.InputAllowed) && Cursor.lockState == CursorLockMode.Locked && Mouse.current != null)
         {
             Vector2 delta = Mouse.current.delta.ReadValue();
             yaw += delta.x * MouseSensitivity;

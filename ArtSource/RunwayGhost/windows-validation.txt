@@ -1,0 +1,5 @@
+PASS: current Windows x64 ZIP CRC and required runtime files; shipped game assembly includes RunwayGhost and MonkeyToy; wall-crash ejection state absent
+Size: 80.0 MiB (83919314 bytes)
+SHA-256: 3ccdca2066de10236c93455921fd3f797bcbb397e66b89e60f1a54b85978c5ea
+Runtime integration: macOS Editor host and standalone guest; Windows EXE not executed here.
+BuildReport: Succeeded, 55.722382 seconds, 1 error diagnostic and 3 warnings. Existing EOS cross-platform vswhere.exe toolset detection diagnostic; package creation succeeded. Report confirms RunwayGhost.cs, material and shader in packed assets.

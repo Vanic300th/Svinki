@@ -45,6 +45,12 @@ public class GrayboxPlayerController : MonoBehaviour
         if (GetComponent<NetworkPlayer>() != null) return;
         if (knockdown != null && knockdown.IsDown)
         { Simulate(Vector2.zero, transform.eulerAngles.y, false, false, false, Time.deltaTime); return; }
+        if (EmoteWheel.BlocksInput)
+        {
+            Simulate(Vector2.zero, cameraTransform != null ? cameraTransform.eulerAngles.y : transform.eulerAngles.y,
+                false, false, false, Time.deltaTime);
+            return;
+        }
         if (PlayerChat.BlocksInput || NetworkLobby.Instance != null && !NetworkLobby.Instance.InputAllowed) return;
         if (Keyboard.current == null || cameraTransform == null)
             return;

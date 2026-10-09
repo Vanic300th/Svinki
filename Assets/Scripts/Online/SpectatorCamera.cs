@@ -5,6 +5,7 @@ public sealed class SpectatorCamera : MonoBehaviour
 {
     private NetworkLobby lobby;
     private NetworkPlayer target;
+    public static NetworkPlayer CurrentTarget { get; private set; }
     private int index;
     private void Awake() => lobby = GetComponent<NetworkLobby>();
     private void LateUpdate()
@@ -16,7 +17,7 @@ public sealed class SpectatorCamera : MonoBehaviour
         foreach (PlayerAvatar avatar in PlayerRegistry.Players)
         {
             var player = avatar != null ? avatar.GetComponent<NetworkPlayer>() : null;
-            if (player != null && player.IsSpawned) players.Add(player);
+            if (player != null && player.IsSpawned && avatar.IsAlive) players.Add(player);
         }
         players.Sort((a, b) => string.CompareOrdinal(a.ParticipantId, b.ParticipantId));
         var keyboard = Keyboard.current;
@@ -29,7 +30,7 @@ public sealed class SpectatorCamera : MonoBehaviour
         index = (index % players.Count + players.Count) % players.Count;
         if (target != players[index])
         {
-            Clear(); target = players[index];
+            Clear(); target = players[index]; CurrentTarget = target;
             target.GetComponent<WorldOutfitRenderer>()?.SetFirstPersonHidden(true);
         }
         var firstPerson = camera.GetComponent<GrayboxFirstPersonCamera>();
@@ -41,7 +42,7 @@ public sealed class SpectatorCamera : MonoBehaviour
     private void Clear()
     {
         if (target != null) target.GetComponent<WorldOutfitRenderer>()?.SetFirstPersonHidden(target.IsOwner);
-        target = null;
+        target = null; CurrentTarget = null;
     }
     private void OnDisable() => Clear();
 }

@@ -42,7 +42,13 @@ public sealed class PlayerRagdoll : MonoBehaviour
         var appearance = GetComponentInChildren<PigAppearance>(true);
         if (appearance == null) return false;
         var bones = new Dictionary<string, Transform>();
-        foreach (Transform bone in appearance.ModelRoot.GetComponentsInChildren<Transform>(true)) bones[bone.name] = bone;
+        // Garments contain unused copies of the source rig. Only bones actually used by
+        // the pig body may drive the physics fall (especially on the host).
+        foreach (SkinnedMeshRenderer skin in appearance.ModelRoot.GetComponentsInChildren<SkinnedMeshRenderer>(true))
+            foreach (Transform bone in skin.bones)
+                if (bone != null && !bones.ContainsKey(bone.name)) bones.Add(bone.name, bone);
+        foreach (Transform bone in appearance.ModelRoot.GetComponentsInChildren<Transform>(true))
+            if (!bones.ContainsKey(bone.name)) bones.Add(bone.name, bone);
         string[] names = { "Hips", "Spine", "Head", "UpperArm_L", "Forearm_L", "UpperArm_R", "Forearm_R", "Thigh_L", "Shin_L", "Thigh_R", "Shin_R" };
         foreach (string name in names) if (!bones.ContainsKey(name)) return false;
         physicsRoot = new GameObject("Player ragdoll physics");

@@ -1,0 +1,5 @@
+PASS: ZIP CRC; Windows AMD64 EXE; Mono gameplay assembly with emote wheel, pig gestures, smooth single-hand monkey grip and runway ghosts; scene package and EOS config included
+Bytes: 83921223
+SHA256: 22a48392f82b97515cf5a9a8e04745d655cce1feacf684a82da220043e2818fd
+Windows executable was not run on macOS; runtime checks used Unity Editor and a Mac standalone guest.
+Unity BuildReport: Succeeded; 21.269 seconds; 1 non-fatal EOS WindowsBuilder diagnostic (vswhere.exe unavailable on macOS); 2 warnings.

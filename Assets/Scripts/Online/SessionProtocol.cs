@@ -30,7 +30,7 @@ public struct SessionMessage : IBroadcast
 [Serializable] public sealed class ParticipantSnapshot
 {
     public string id, nickname;
-    public bool ready, connected, spectator, finishReady;
+    public bool ready, connected, spectator, finishReady, eliminated;
     public float reservation;
     public int appearance;
 }

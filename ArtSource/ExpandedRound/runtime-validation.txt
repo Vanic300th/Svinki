@@ -1,0 +1,3 @@
+PASS: cargo eight items, capacity rejection, stale revision rejection, store/wear/unload, no item duplication, cart push/release
+PASS: offline two hits, no repeat hit during knockdown, full pig rig physics, corpse stays down, clothes dropped, restart visible
+PASS: new round resets hits and cart cargo

@@ -1,0 +1,1 @@
+PASS: area=13087.4983215332 (x3), 3 carts, 12 stalkers, 16 connected new rooms, 148 unique network IDs, wall READY, shader valid

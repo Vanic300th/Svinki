@@ -9,10 +9,10 @@ public sealed class OutfitRoundResults
     public OutfitResultEntry[] entries = Array.Empty<OutfitResultEntry>();
 
     public static OutfitResultEntry Rate(OutfitRatingCatalog rules, string id, string nickname, int appearance,
-        IEnumerable<ClothingDefinition> outfit)
+        IEnumerable<ClothingDefinition> outfit, bool eliminated = false)
     {
-        var clothes = (outfit ?? Enumerable.Empty<ClothingDefinition>()).Where(c => c != null).OrderBy(c => c.Slot).ToArray();
-        return new OutfitResultEntry { id = id, nickname = nickname, appearance = appearance,
+        var clothes = (eliminated ? Enumerable.Empty<ClothingDefinition>() : outfit ?? Enumerable.Empty<ClothingDefinition>()).Where(c => c != null).OrderBy(c => c.Slot).ToArray();
+        return new OutfitResultEntry { id = id, nickname = nickname, appearance = appearance, eliminated = eliminated,
             clothing = clothes.Select(c => c.name).ToArray(), names = clothes.Select(c => c.DisplayName).ToArray(), rating = rules.Evaluate(clothes) };
     }
 }
@@ -22,6 +22,7 @@ public sealed class OutfitResultEntry
 {
     public string id, nickname;
     public int appearance;
+    public bool eliminated;
     public int presentationPose;
     public string[] clothing = Array.Empty<string>(), names = Array.Empty<string>();
     public OutfitRating rating;

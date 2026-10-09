@@ -34,7 +34,7 @@ public static class PlayerRegistry
     {
         results.Clear();
         foreach (PlayerAvatar player in Players)
-            if (player != null && player.gameObject.scene == scene)
+            if (player != null && player.IsAlive && player.gameObject.scene == scene)
                 results.Add(player);
     }
 
@@ -45,7 +45,7 @@ public static class PlayerRegistry
         float bestSqr = maxDistance * maxDistance;
         foreach (PlayerAvatar player in Players)
         {
-            if (player == null || player.gameObject.scene != scene) continue;
+            if (player == null || !player.IsAlive || player.gameObject.scene != scene) continue;
             Vector3 d = player.Position - position;
             d.y = 0f;
             float sqr = d.sqrMagnitude;

@@ -1,0 +1,8 @@
+PASS: Editor host + standalone Mac guest, protocol 10.
+PASS: guest to host spatial audio RMS: near(2m) 0.149511; mid(13.5m) 0.074695; far(35m) 0.000000.
+PASS: host to guest voice RMS 0.148372.
+PASS: no local echo (guest received zero frames during own transmission).
+PASS: malformed packet and immediate duplicate rejected by server.
+PASS: two messages replicated to both histories and remained after 6.4s world bubble expiry.
+Synthetic tones only; no personal microphone captured.
+PASS: eliminated guest cannot transmit: synthetic frames sent for 2 seconds, server relayed count unchanged.

@@ -1,0 +1,5 @@
+PASS: Windows x64 archive CRC and required files; new game assembly contains monkey feature and no cart wall-crash ejection state
+SHA-256: 8b038ae2495c0990c426e9d5ed9f1dc92aa8d436338d87c9c5e394a9cd3dcae5
+Size: 83898769 bytes
+Runtime: six actual wall impacts at 8 m/s, driver and passenger; no falls or ejection (macOS Editor). Windows EXE not run here.
+BuildReport: Succeeded; 19.066773 seconds; 1 error diagnostic and 2 warnings. Existing EOS cross-platform toolset detection reports missing vswhere.exe; package creation succeeded.

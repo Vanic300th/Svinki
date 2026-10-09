@@ -63,6 +63,8 @@ public sealed class SessionMenu : MonoBehaviour
         resultsView = gameObject.AddComponent<OutfitResultsView>();
         resultsView.Build(canvasObject.transform, font, lobby);
         gameObject.AddComponent<OutfitInventoryView>().Build(canvasObject.transform, font, lobby);
+        gameObject.AddComponent<CartCargoView>().Build(canvasObject.transform, font, lobby);
+        gameObject.AddComponent<PlayerRoundHud>().Build(canvasObject.transform, font, lobby);
         lobby.Changed += Refresh;
         Refresh();
     }

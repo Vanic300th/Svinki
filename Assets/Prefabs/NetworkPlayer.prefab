@@ -363,6 +363,7 @@ GameObject:
   - component: {fileID: 8198203216678804902}
   - component: {fileID: 3005653165059835547}
   - component: {fileID: 5109756373995449406}
+  - component: {fileID: 8185749594323633689}
   m_Layer: 2
   m_Name: NetworkPlayer
   m_TagString: Untagged
@@ -695,6 +696,18 @@ MonoBehaviour:
   - Bone: Head
     Center: {x: -0.0000017285347, y: 0.46605325, z: 0}
     Size: {x: 0.8383461, y: 0.44363835, z: 0.6318446}
+--- !u!114 &8185749594323633689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1355753730630067540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd1e2cc62e3834d67977d90dcab9e165, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMonkeyCarry
 --- !u!1 &1448374944125701201
 GameObject:
   m_ObjectHideFlags: 0

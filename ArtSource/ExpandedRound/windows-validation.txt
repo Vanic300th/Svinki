@@ -1,0 +1,3 @@
+PASS: Windows x64 build succeeded; ZIP CRC valid; EXE, UnityPlayer, runtime assembly, EOS configuration and compressed game data present; BuildReport confirms Lobby and SampleScene included
+SHA256: 43022651bae06f8e2abce7744dfdfd779cd87c08245c8f1b5cd9dd1d51013931
+BuildReport: Succeeded; diagnostic: vswhere.exe missing during PlatformToolsets detection on macOS; Windows runtime not executed here

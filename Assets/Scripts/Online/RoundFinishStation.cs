@@ -15,7 +15,7 @@ public sealed class RoundFinishStation : MonoBehaviour
     public static RoundFinishStation ForScene(Scene scene) => stations.Find(s => s != null && s.gameObject.scene == scene);
     public bool Contains(PlayerAvatar player)
     {
-        if (player == null || player.gameObject.scene != gameObject.scene || player.GetComponent<PlayerKnockdown>()?.IsDown == true) return false;
+        if (player == null || !player.IsAlive || player.gameObject.scene != gameObject.scene || player.GetComponent<PlayerKnockdown>()?.IsDown == true) return false;
         Vector3 delta = player.Position - Center;
         return Mathf.Abs(delta.y) < 1.8f && new Vector2(delta.x, delta.z).sqrMagnitude <= radius * radius;
     }
@@ -27,11 +27,11 @@ public sealed class RoundFinishStation : MonoBehaviour
     private void Start()
     {
         var labelObject = new GameObject("Ready button label"); labelObject.transform.SetParent(transform, false);
-        labelObject.transform.localPosition = new Vector3(0, .15f, -.225f);
+        labelObject.transform.localPosition = new Vector3(0, 0, -.205f);
         var label = labelObject.AddComponent<TextMeshPro>();
         label.font = PlayerChat.Instance.Font; label.text = "READY";
-        label.fontSize = 2.3f; label.alignment = TextAlignmentOptions.Center; label.color = new Color(.02f, .09f, .04f);
-        label.rectTransform.sizeDelta = new Vector2(1.45f, .45f);
+        label.fontSize = 1.15f; label.alignment = TextAlignmentOptions.Center; label.color = new Color(.02f, .09f, .04f);
+        label.rectTransform.sizeDelta = new Vector2(.43f, .23f);
     }
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     private static void ResetStatics() => stations.Clear();

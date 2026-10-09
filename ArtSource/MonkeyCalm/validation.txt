@@ -1,0 +1,3 @@
+PASS: Unity runtime, 13 physical bodies, one pinned wrist, torso hanging below grip, free opposite hand, missed swing retains toy, release works.
+After identical movement and camera turns, residual motion sampled over 2 seconds: mean linear speed 3.8745 -> 0.3733 m/s; mean angular speed 1864.71 -> 280.65 deg/s. Peak motion during turns was unchanged.
+Stronger damping and reduced joint ranges apply only to MonkeyToy, preserving mannequin physics.

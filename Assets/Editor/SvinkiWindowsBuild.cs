@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
+using UnityEditor.Build.Profile;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
@@ -123,15 +124,19 @@ public static class SvinkiWindowsBuild
         }
         AssetDatabase.SaveAssets();
         SessionState.SetInt(Key + "OriginalTarget", (int)EditorUserBuildSettings.activeBuildTarget);
+        SessionState.SetString(Key + "OriginalProfile", AssetDatabase.GetAssetPath(BuildProfile.GetActiveBuildProfile()));
         SessionState.SetInt(Key + "OriginalBackend", (int)PlayerSettings.GetScriptingBackend(Standalone));
         SessionState.SetBool(Key + "SettingsSaved", true);
         // Mono builds on both macOS and Windows without a Windows C++ toolchain.
         if (PlayerSettings.GetScriptingBackend(Standalone) != ScriptingImplementation.Mono2x)
             PlayerSettings.SetScriptingBackend(Standalone, ScriptingImplementation.Mono2x);
-        EditorUserBuildSettings.selectedStandaloneTarget = BuildTarget.StandaloneWindows64;
         Current = Stage.SwitchToWindows;
         SessionState.SetString(Key + "Result", "Переключение на Windows x64…");
-        if (EditorUserBuildSettings.activeBuildTarget != BuildTarget.StandaloneWindows64 &&
+        var windowsProfile = AssetDatabase.LoadAssetAtPath<BuildProfile>("Assets/Settings/Build Profiles/Windows.asset");
+        // Activating a profile already queues the platform switch. Do not queue it twice.
+        if (windowsProfile != null && BuildProfile.GetActiveBuildProfile() != windowsProfile)
+            BuildProfile.SetActiveBuildProfile(windowsProfile);
+        else if (EditorUserBuildSettings.activeBuildTarget != BuildTarget.StandaloneWindows64 &&
             !EditorUserBuildSettings.SwitchActiveBuildTargetAsync(BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows64))
             throw new InvalidOperationException("Unity не смогла переключиться на Windows x64. Проверьте Console.");
         Delay();
@@ -226,8 +231,13 @@ public static class SvinkiWindowsBuild
         if (PlayerSettings.GetScriptingBackend(Standalone) != backend)
             PlayerSettings.SetScriptingBackend(Standalone, backend);
         var target = (BuildTarget)SessionState.GetInt(Key + "OriginalTarget", (int)BuildTarget.StandaloneWindows64);
-        EditorUserBuildSettings.selectedStandaloneTarget = target;
-        if (EditorUserBuildSettings.activeBuildTarget != target)
+        var originalProfile = AssetDatabase.LoadAssetAtPath<BuildProfile>(SessionState.GetString(Key + "OriginalProfile", ""));
+        if (originalProfile != null && BuildProfile.GetActiveBuildProfile() != originalProfile)
+        {
+            BuildProfile.SetActiveBuildProfile(originalProfile);
+            SessionState.SetBool(Key + "RestoreQueued", true);
+        }
+        else if (EditorUserBuildSettings.activeBuildTarget != target)
         {
             if (!EditorUserBuildSettings.SwitchActiveBuildTargetAsync(BuildPipeline.GetBuildTargetGroup(target), target))
                 throw new InvalidOperationException("Сборка закончилась, но Unity не смогла вернуть платформу " + target + ". Выберите её в Build Profiles.");

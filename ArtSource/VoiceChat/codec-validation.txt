@@ -1,0 +1,1 @@
+PASS: 100 independently decodable ADPCM packets; SNR 31.1 dB; 48 kHz stereo capture downmixed and resampled; malformed packets rejected; duplicate/reorder/wrap checks; gain full at 2 m, half at 13.5 m, silent from 25 m

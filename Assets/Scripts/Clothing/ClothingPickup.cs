@@ -19,9 +19,9 @@ public sealed class ClothingPickup : MonoBehaviour
     [SerializeField] private MannequinWardrobe wardrobe;
 
     private float hoverHeight = -1f;
-    private bool carriedByThief;
+    private bool carriedByThief, consumedByCargo;
     private float protectedUntil;
-    public bool CanBeStolen => !carriedByThief && Time.time >= protectedUntil;
+    public bool CanBeStolen => !carriedByThief && !consumedByCargo && Time.time >= protectedUntil;
     public void ClaimByThief() => carriedByThief = true;
     public void ProtectFromThieves(float seconds) => protectedUntil = Time.time + seconds;
 
@@ -73,6 +73,8 @@ public sealed class ClothingPickup : MonoBehaviour
     }
 
     /// <summary>Спрятать вещь с уровня (её унёс Воришка). В комплект игроку она не попадает.</summary>
+    public void TakeForCargo() { consumedByCargo = true; TakeAway(); }
+
     public void TakeAway()
     {
         if (Item != null) Item.SetAvailable(false);
@@ -93,7 +95,7 @@ public sealed class ClothingPickup : MonoBehaviour
     {
         foreach (ClothingPickup pickup in all)
             if (pickup != null && pickup.clothing == clothing && pickup.gameObject.scene == scene &&
-                pickup.Item != null && !pickup.Item.IsAvailable && !pickup.carriedByThief)
+                pickup.Item != null && !pickup.Item.IsAvailable && !pickup.carriedByThief && !pickup.consumedByCargo)
                 return pickup;
         return null;
     }
@@ -103,7 +105,7 @@ public sealed class ClothingPickup : MonoBehaviour
         if (clothing == null) return false;
         PlayerAvatar player = PlayerRegistry.FromObject(picker);
         if (player == null && PlayerRegistry.Players.Count == 1) player = PlayerRegistry.Players[0];
-        return player != null && player.Outfit != null && player.Outfit.CanEquip(clothing);
+        return player != null && player.IsAlive && player.Outfit != null && player.Outfit.CanEquip(clothing);
     }
 
     private void HandlePickup(PickupItem item)

@@ -11,7 +11,7 @@ using UnityEngine;
 /// Отдельный слой для стен не нужен: обзор закрывает ЛЮБОЙ коллайдер,
 /// кроме слоя Ignore Raycast (на нём игрок) и самого манекена.
 /// </summary>
-[DefaultExecutionOrder(100)] // после камеры, чтобы проверять актуальный поворот взгляда
+[DefaultExecutionOrder(250)] // после камеры, чтобы проверять актуальный поворот взгляда
 public class MannequinVisibility : MonoBehaviour
 {
     [Header("Кто смотрит")]
@@ -77,7 +77,7 @@ public class MannequinVisibility : MonoBehaviour
             return CheckView(PlayerView.FromCamera(observerCamera), null);
 
         PlayerRegistry.GetPlayers(gameObject.scene, roomPlayers);
-        if (roomPlayers.Count == 0)
+        if (roomPlayers.Count == 0 && PlayerRegistry.Players.Count == 0)
         {
             // Старые сцены без игроков в реестре — как раньше, главной камерой
             Camera main = Camera.main;

@@ -33,11 +33,51 @@ public sealed class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
     private bool crouch;
     private float nextPoseSend;
     private float nextChatAllowed;
+    private VoicePlayback voicePlayback;
+    private float voiceBudget=8,voiceBudgetAt,lastVoiceAt=-10;
+    private ushort lastVoiceSequence;
+    public int RelayedVoiceFrames { get; private set; }
+    public void SendVoice(ushort sequence,byte[] packet)
+    { if(IsOwner&&IsClientStarted)VoiceServerRpc(sequence,packet); }
+    [ServerRpc(RequireOwnership = true)]
+    private void VoiceServerRpc(ushort sequence,byte[] packet,Channel channel=Channel.Unreliable)
+    {
+        if(!VoiceCodec.IsValid(packet)||IsDead||NetworkLobby.Instance?.CanEditOutfit(this)!=true)return;
+        float now=Time.unscaledTime;
+        voiceBudget=Mathf.Min(8,voiceBudget+Mathf.Max(0,now-voiceBudgetAt)*60);voiceBudgetAt=now;
+        if(voiceBudget<1||now-lastVoiceAt<.5f&&!VoiceCodec.IsNewer(sequence,lastVoiceSequence))return;
+        voiceBudget-=1;lastVoiceAt=now;lastVoiceSequence=sequence;RelayedVoiceFrames++;
+        VoiceObserversRpc(sequence,packet);
+    }
+    [ObserversRpc]
+    private void VoiceObserversRpc(ushort sequence,byte[] packet,Channel channel=Channel.Unreliable)
+    {
+        if(IsOwner||!IsClientStarted)return;
+        if(voicePlayback==null)voicePlayback=GetComponent<VoicePlayback>()??gameObject.AddComponent<VoicePlayback>();
+        voicePlayback.Receive(sequence,packet);
+    }
+    private readonly SyncVar<uint> emote = new SyncVar<uint>();
+    private float emoteUntil, nextEmoteAllowed;
+    private PigMotion pigMotion;
+    public void RequestEmote(PigEmote kind) { if (IsOwner) EmoteServerRpc((byte)kind); }
+    private void OnEmoteChanged(uint previous, uint next, bool asServer)
+    { if (asServer || !IsServerInitialized) pigMotion?.PlayEmote((PigEmote)(next & 7u)); }
+    [ServerRpc(RequireOwnership = true)]
+    private void EmoteServerRpc(byte kind)
+    {
+        if (kind < 1 || kind > 6 || Time.time < nextEmoteAllowed || NetworkLobby.Instance?.CanEditOutfit(this) != true ||
+            !PigMotion.CanEmote(GetComponent<PlayerAvatar>())) return;
+        nextEmoteAllowed = Time.time + .8f; emoteUntil = Time.time + PigMotion.EmoteDuration;
+        emote.Value = ((emote.Value & ~7u) + 8u) | kind;
+    }
     private float nextRagdollSend;
     private readonly SyncVar<string> participantId = new SyncVar<string>();
     private readonly SyncVar<string> participantName = new SyncVar<string>();
     private readonly SyncVar<PlayerPose> pose = new SyncVar<PlayerPose>();
     private readonly SyncVar<int> pigFace = new SyncVar<int>();
+    private readonly SyncVar<int> hitsTaken = new SyncVar<int>();
+    public int HitsTaken => hitsTaken.Value;
+    public bool IsDead => hitsTaken.Value >= 2;
     private readonly SyncVar<KnockdownPose> knockdownPose = new SyncVar<KnockdownPose>();
     private PlayerKnockdown knockdown;
     private PigAppearance pigAppearance;
@@ -61,7 +101,7 @@ public sealed class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
         foreach (string id in ids) { var item = FindInCatalog(id); if (item != null) items.Add(item); }
         GetComponent<PlayerOutfit>().SetItems(items);
     }
-    public void FreezeDisconnected() { move = Vector2.zero; sprint = false; GetComponent<PlayerMannequinCarry>()?.Release(false); ShoppingCart.For(GetComponent<PlayerAvatar>())?.Release(GetComponent<PlayerAvatar>(), false); }
+    public void FreezeDisconnected() { GetComponent<PlayerMonkeyCarry>()?.Release(); move = Vector2.zero; sprint = false; GetComponent<PlayerMannequinCarry>()?.Release(false); ShoppingCart.For(GetComponent<PlayerAvatar>())?.Release(GetComponent<PlayerAvatar>(), false); }
     public override void OnOwnershipClient(NetworkConnection previousOwner)
     {
         base.OnOwnershipClient(previousOwner);
@@ -85,6 +125,7 @@ public sealed class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
         motor = GetComponent<GrayboxPlayerController>();
         knockdown = GetComponent<PlayerKnockdown>();
         knockdownPose.OnChange += OnKnockdownChanged;
+        hitsTaken.OnChange += (previous, next, asServer) => knockdown?.ApplyHit(next);
         GameObject lamp = new GameObject("Remote flashlight"); lamp.transform.SetParent(transform, false);
         remoteFlashlight = lamp.AddComponent<Light>(); remoteFlashlight.type = LightType.Spot;
         FlashlightController.ConfigureLight(remoteFlashlight);
@@ -95,6 +136,8 @@ public sealed class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
         outfit = GetComponent<PlayerOutfit>();
         worldOutfit = GetComponent<WorldOutfitRenderer>();
         pigAppearance = GetComponentInChildren<PigAppearance>(true);
+        pigMotion = pigAppearance?.GetComponent<PigMotion>();
+        emote.OnChange += OnEmoteChanged;
         pigFace.OnChange += OnPigFaceChanged;
         wornClothing.OnChange += OnWornClothingChanged;
     }
@@ -120,6 +163,8 @@ public sealed class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
         if (worldOutfit != null) worldOutfit.SetFirstPersonHidden(IsOwner);
         ApplyWornClothing();
         pigAppearance?.Apply(pigFace.Value);
+        pigMotion?.PlayEmote((PigEmote)(emote.Value & 7u));
+        knockdown?.ApplyHit(hitsTaken.Value);
         knockdown?.ApplyNetworkPose(knockdownPose.Value);
         if (IsOwner) StartCoroutine(BindLocalView());
     }
@@ -148,6 +193,9 @@ public sealed class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
 
     private void Update()
     {
+        if (NetworkObject != null && IsServerInitialized && (emote.Value & 7u) != 0 &&
+            (Time.time >= emoteUntil || MotionSpeed > .3f || !PigMotion.CanEmote(GetComponent<PlayerAvatar>()) || NetworkLobby.Instance?.CanEditOutfit(this) != true))
+            emote.Value &= ~7u;
         if (IsOwner && view != null && Keyboard.current != null)
         {
             bool allowed = (knockdown == null || !knockdown.IsDown) && !PlayerChat.BlocksInput && (NetworkLobby.Instance == null || NetworkLobby.Instance.InputAllowed);
@@ -161,7 +209,7 @@ public sealed class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
                 nextPoseSend = Time.unscaledTime + .05f;
                 var cart = ShoppingCart.For(GetComponent<PlayerAvatar>());
                 if (cart != null && cart.Driver == GetComponent<PlayerAvatar>()) CartControlServerRpc(cart.GetComponent<NetworkObject>(), move, sprint);
-                bool lightOn = view.GetComponentInChildren<FlashlightController>()?.IsOn ?? false;
+                bool lightOn = !IsDead && (view.GetComponentInChildren<FlashlightController>()?.IsOn ?? false);
                 SubmitPoseServerRpc(new PlayerPose { Yaw = yaw, Pitch = pitch, Crouch = motor.CrouchAmount, Flashlight = lightOn,
                     Speed = motor.MotionSpeed, VerticalSpeed = motor.VerticalVelocity, Grounded = motor.Grounded });
             }
@@ -179,7 +227,7 @@ public sealed class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
         }
         if (remoteFlashlight != null)
         {
-            remoteFlashlight.enabled = !IsOwner && pose.Value.Flashlight;
+            remoteFlashlight.enabled = !IsOwner && !IsDead && pose.Value.Flashlight;
             remoteFlashlight.transform.position = EyePosition;
             remoteFlashlight.transform.rotation = EyeRotation;
         }
@@ -207,9 +255,32 @@ public sealed class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
         return true;
     }
 
+    public bool TryMannequinHit(Vector3 direction)
+    {
+        if (!IsServerInitialized || knockdown == null || !knockdown.CanFall ||
+            NetworkLobby.Instance?.CanEditOutfit(this) != true) return false;
+        hitsTaken.Value = Mathf.Min(2, hitsTaken.Value + 1);
+        knockdown.ApplyHit(hitsTaken.Value);
+        if (IsDead) knockdown.DropOutfit(NetworkObject.NetworkManager);
+        GetComponent<PlayerMannequinCarry>()?.Release(false);
+        ShoppingCart.For(GetComponent<PlayerAvatar>())?.Release(GetComponent<PlayerAvatar>(), false);
+        knockdown.SetDown(true, direction);
+        knockdownPose.Value = new KnockdownPose { Down = true, Direction = direction, FallId = knockdown.FallId };
+        if (IsDead) NetworkLobby.Instance.PlayerEliminated(this);
+        return true;
+    }
+
+    public void RestoreEliminated()
+    {
+        if (!IsServerInitialized || knockdown == null) return;
+        hitsTaken.Value = 2; knockdown.ApplyHit(2); outfit.SetItems(System.Array.Empty<ClothingDefinition>());
+        knockdown.SetDown(true, Vector3.forward);
+        knockdownPose.Value = new KnockdownPose { Down = true, Direction = Vector3.forward, FallId = knockdown.FallId };
+    }
+
     public void RecoverFromKnockdown()
     {
-        if (NetworkObject == null || !IsServerInitialized) return;
+        if (NetworkObject == null || !IsServerInitialized || IsDead) return;
         knockdown?.SetDown(false, Vector3.zero);
         knockdownPose.Value = new KnockdownPose { FallId = knockdown != null ? knockdown.FallId : 0 };
     }
@@ -284,11 +355,38 @@ public sealed class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
         target.GetComponent<ShoppingCart>()?.SubmitInput(GetComponent<PlayerAvatar>(), movement, fast);
     }
 
+    private float nextCargoAllowed;
+    public void RequestCargo(CartCargo cargo, CargoAction action, int index, ClothingPickup pickup = null)
+    {
+        if (IsOwner && cargo != null) CargoServerRpc(cargo.GetComponent<NetworkObject>(), action, index, cargo.Revision,
+            pickup != null ? pickup.GetComponent<NetworkObject>() : null);
+    }
+    [ServerRpc(RequireOwnership = true)]
+    private void CargoServerRpc(NetworkObject target, CargoAction action, int index, int revision, NetworkObject pickup)
+    {
+        if (target == null || target.gameObject.scene != gameObject.scene || Time.unscaledTime < nextCargoAllowed ||
+            NetworkLobby.Instance?.CanEditOutfit(this) != true) return;
+        nextCargoAllowed = Time.unscaledTime + .12f;
+        target.GetComponent<CartCargo>()?.Transfer(GetComponent<PlayerAvatar>(), action, index, revision,
+            pickup != null ? pickup.GetComponent<ClothingPickup>() : null);
+    }
+
     public void RequestPickup(NetworkPickup pickup, Vector3 hitPoint)
     {
         if (!IsOwner || pickup == null) return;
         RequestPickupServerRpc(pickup.NetworkObject, hitPoint);
     }
+
+    public void RequestMonkeyGrab(NetworkMonkeyToy toy)
+    { if(IsOwner && toy != null) GrabMonkeyServerRpc(toy.NetworkObject); }
+    [ServerRpc(RequireOwnership = true)]
+    private void GrabMonkeyServerRpc(NetworkObject target)
+    { if(target != null && target.gameObject.scene == gameObject.scene) target.GetComponent<MonkeyToy>()?.TryGrab(GetComponent<PlayerAvatar>()); }
+    public void RequestMonkeyAction(bool strike)
+    { if(IsOwner) MonkeyActionServerRpc(strike); }
+    [ServerRpc(RequireOwnership = true)]
+    private void MonkeyActionServerRpc(bool strike)
+    { var toy=GetComponent<PlayerMonkeyCarry>()?.Held; if(toy == null)return; if(strike)toy.Swing();else toy.Release(); }
 
     public void RequestMannequinGrab(NetworkThrowableMannequin mannequin, Vector3 hitPoint)
     {
@@ -348,7 +446,7 @@ public sealed class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
     /// <summary>Сервер: выдать вещь игроку. Она попадает в его PlayerOutfit, а владельцу приходит список.</summary>
     public bool AwardClothing(ClothingDefinition clothing)
     {
-        return IsServerStarted && outfit != null && outfit.TryAdd(clothing);
+        return IsServerStarted && !IsDead && NetworkLobby.Instance?.CanEditOutfit(this) == true && outfit != null && outfit.TryAdd(clothing);
     }
     public void RequestDropClothing(ClothingSlot slot)
     {
