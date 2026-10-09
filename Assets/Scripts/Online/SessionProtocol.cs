@@ -33,4 +33,5 @@ public struct SessionMessage : IBroadcast
     public bool ready, connected, spectator, finishReady, eliminated;
     public float reservation;
     public int appearance;
+    public int colorSlot;
 }

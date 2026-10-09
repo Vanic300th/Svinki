@@ -55,7 +55,7 @@ public sealed class OutfitInventoryView : MonoBehaviour
         bool playing = lobby.Results == null && !lobby.IsSpectator && Player != null && (lobby.Offline || lobby.Snapshot.phase == SessionPhase.Round);
         var keys = Keyboard.current;
         if (lobby.InventoryOpen && (!playing || lobby.MenuVisible)) SetOpen(false);
-        if (playing && !lobby.MenuVisible && !lobby.CargoOpen && !PlayerChat.BlocksInput && !EmoteWheel.BlocksInput && (keys?.tabKey.wasPressedThisFrame == true || keys?.iKey.wasPressedThisFrame == true)) SetOpen(!lobby.InventoryOpen);
+        if (playing && !lobby.MenuVisible && !lobby.CargoOpen && !HowToPlay.BlocksInput && !PhotoAlbum.BlocksInput && !PlayerChat.BlocksInput && !EmoteWheel.BlocksInput && (keys?.tabKey.wasPressedThisFrame == true || keys?.iKey.wasPressedThisFrame == true)) SetOpen(!lobby.InventoryOpen);
         if (lobby.InventoryOpen && keys?.escapeKey.wasPressedThisFrame == true) { escapeFrame = Time.frameCount; SetOpen(false); }
         panel.SetActive(lobby.InventoryOpen && playing);
         if (panel.activeSelf)

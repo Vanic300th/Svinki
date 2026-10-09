@@ -55,7 +55,7 @@ public sealed class PlayerChat : MonoBehaviour
         }
     }
 
-    private bool CanChat => !EmoteWheel.BlocksInput && (NetworkLobby.Instance == null ||
+    private bool CanChat => !HowToPlay.BlocksInput && !PhotoAlbum.BlocksInput && !EmoteWheel.BlocksInput && (NetworkLobby.Instance == null ||
         !NetworkLobby.Instance.MenuVisible && !NetworkLobby.Instance.InventoryOpen && (NetworkLobby.Instance.Offline ||
         NetworkLobby.Instance.Snapshot.phase == SessionPhase.Round && !NetworkLobby.Instance.IsSpectator));
 

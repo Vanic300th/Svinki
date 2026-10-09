@@ -21,7 +21,7 @@ public sealed class SpectatorCamera : MonoBehaviour
         }
         players.Sort((a, b) => string.CompareOrdinal(a.ParticipantId, b.ParticipantId));
         var keyboard = Keyboard.current;
-        if (!lobby.MenuVisible && keyboard != null)
+        if (!HowToPlay.BlocksInput && !PhotoAlbum.BlocksInput && !lobby.MenuVisible && keyboard != null)
         {
             if (keyboard.rightArrowKey.wasPressedThisFrame) index++;
             if (keyboard.leftArrowKey.wasPressedThisFrame) index--;

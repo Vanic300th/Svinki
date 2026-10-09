@@ -1,0 +1,3 @@
+PASS: two native network clients; E camera pickup; K equips, stows and re-equips; old C has no effect; LMB captures local 300 x 200 photographs.
+PASS: all five How to Play pages fit their text bounds; camera K binding, pixel/grain/compression style, album, minimap zoom and matching player colours appear in the guide.
+PASS: guide blocks K while open and restores camera input after Escape.

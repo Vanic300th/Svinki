@@ -41,6 +41,8 @@ public sealed class ThrowableMannequin : MonoBehaviour
         foreach (Animator animator in GetComponentsInChildren<Animator>()) animator.enabled = false;
     }
 
+    public void SetSpawnHome(Vector3 position, Quaternion rotation) { displayPosition = position; displayRotation = rotation; }
+
     public void SetClientPhysics()
     {
         body.isKinematic = true;
@@ -53,7 +55,7 @@ public sealed class ThrowableMannequin : MonoBehaviour
         if (!HasAuthority || IsHeld || player == null || player.gameObject.scene != gameObject.scene ||
             Vector3.Distance(player.EyePosition, Center) > 3.8f) return false;
         var hands = player.GetComponent<PlayerMannequinCarry>();
-        if (hands == null || hands.Held != null || player.GetComponent<PlayerMonkeyCarry>()?.Held != null) return false;
+        if (hands == null || hands.Held != null || player.GetComponent<PlayerPhotoCamera>()?.Equipped == true || player.GetComponent<PlayerMonkeyCarry>()?.Held != null) return false;
         RestoreCollisions();
         dangerousUntil = 0;
         ApplyHolder(player);

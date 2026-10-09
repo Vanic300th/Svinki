@@ -1,0 +1,4 @@
+PASS: two native network clients, host and guest; unchanged minimap drawing area 315 x 315 (panel 340 x 400).
+PASS: player remains centred at entrance, middle and north departments.
+PASS: nearby friends appear cyan; distant markers stay outside the local view; friends reappear when nearby.
+PASS: full-map viewing range reduced by 70%; visible square spans 53.59833372752189 metres.

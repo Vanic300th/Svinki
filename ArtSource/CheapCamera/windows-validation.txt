@@ -1,0 +1,3 @@
+PASS: ZIP CRC, Windows x64 PE, required executable/data/config files, player colours, low-quality photo processing and guide; development test driver is absent.
+ZIP bytes: 84114747
+SHA256: 6d5ec113d29ddf576abf0592b95cf8d7f030ee3faabcf9c7f6d335957cbd9f88

@@ -40,7 +40,7 @@ public sealed class EmoteWheel : MonoBehaviour
     private bool CanOpen(PlayerAvatar player)
     {
         var lobby = NetworkLobby.Instance;
-        return PigMotion.CanEmote(player) && !PlayerChat.BlocksInput && (lobby == null ||
+        return !HowToPlay.BlocksInput && !PhotoAlbum.BlocksInput && PigMotion.CanEmote(player) && !PlayerChat.BlocksInput && (lobby == null ||
             lobby.Results == null && !lobby.MenuVisible && !lobby.InventoryOpen && !lobby.CargoOpen && !lobby.IsSpectator &&
             (lobby.Offline || lobby.Snapshot.phase == SessionPhase.Round));
     }

@@ -1,0 +1,5 @@
+PASS: Windows x64 release, ZIP CRC, EXE and runtime/configuration files.
+PASS: photo camera and round layout types included; development test driver excluded; source assets match tested Unity checkout.
+Build time: 36s.
+Size: 84114547 bytes.
+SHA256: 1d9be80ae38d9c1e9723878d3093e0e11b142d9f35de9db7e0c6e25dc3a4f79b

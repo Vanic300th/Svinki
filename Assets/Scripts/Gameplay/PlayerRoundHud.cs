@@ -17,12 +17,14 @@ public sealed class PlayerRoundHud : MonoBehaviour
     public void Build(Transform canvas, TMP_FontAsset textFont, NetworkLobby session)
     {
         lobby = session; font = textFont;
-        minimap = Rect("Minimap", canvas, new Vector2(1, 1), new Vector2(1, 1), new Vector2(-22, -22), new Vector2(290, 350)).gameObject;
+        minimap = Rect("Minimap", canvas, new Vector2(1, 1), new Vector2(1, 1), new Vector2(-22, -22), new Vector2(340, 400)).gameObject;
         minimap.AddComponent<UnityEngine.UI.Image>().color = new Color(.025f, .045f, .06f, .94f);
-        Text(Rect("Title", minimap.transform, new Vector2(.5f, 1), new Vector2(.5f, 1), new Vector2(0, -9), new Vector2(270, 30)), "STORE MAP · NORTH", 20);
-        graphic = Rect("Floorplan", minimap.transform, new Vector2(.5f, .5f), new Vector2(.5f, .5f), new Vector2(0, 0), new Vector2(265, 265)).gameObject.AddComponent<StoreMinimapGraphic>();
+        Text(Rect("Title", minimap.transform, new Vector2(.5f, 1), new Vector2(.5f, 1), new Vector2(0, -9), new Vector2(320, 30)), "STORE MAP · NORTH", 20);
+        var viewport = Rect("Map viewport", minimap.transform, new Vector2(.5f, .5f), new Vector2(.5f, .5f), Vector2.zero, new Vector2(315, 315));
+        viewport.gameObject.AddComponent<UnityEngine.UI.RectMask2D>();
+        graphic = Rect("Floorplan", viewport, new Vector2(.5f, .5f), new Vector2(.5f, .5f), Vector2.zero, new Vector2(315, 315)).gameObject.AddComponent<StoreMinimapGraphic>();
         graphic.raycastTarget = false;
-        Text(Rect("Legend", minimap.transform, new Vector2(.5f, 0), new Vector2(.5f, 0), new Vector2(0, 10), new Vector2(280, 30)), "You / player · Cart ■ · Ready R", 16);
+        Text(Rect("Legend", minimap.transform, new Vector2(.5f, 0), new Vector2(.5f, 0), new Vector2(0, 8), new Vector2(320, 42)), "Players ▲ · Carts ■ · Entrance R\nNames match player colours", 16);
         statusRoot = Rect("Round health", canvas, new Vector2(0, 1), new Vector2(0, 1), new Vector2(22, -82), new Vector2(285, 49)).gameObject;
         statusRoot.AddComponent<UnityEngine.UI.Image>().color = new Color(.025f, .045f, .06f, .94f);
         status = Text(Rect("Hits remaining", statusRoot.transform, new Vector2(.5f, .5f), new Vector2(.5f, .5f), Vector2.zero, new Vector2(260, 40)), "HITS LEFT  2 / 2", 23);
@@ -57,11 +59,12 @@ public sealed class PlayerRoundHud : MonoBehaviour
             currentMap = reference.GetRootGameObjects().SelectMany(g => g.GetComponentsInChildren<StoreMap>()).FirstOrDefault();
             graphic.Bind(currentMap);
         }
+        if (target != null) graphic.Follow(target.transform.position);
+        else if (local != null) graphic.Follow(local.Position);
         foreach (var marker in markers.Values) if (marker != null) marker.gameObject.SetActive(false);
         foreach (var player in PlayerRegistry.Players.Where(p => p != null && p.IsAlive && p.gameObject.scene == reference))
         {
-            bool focus = target != null ? player.gameObject == target.gameObject : player.IsLocal;
-            Mark(player, player.Position, "▲", focus ? new Color(1, .45f, .32f) : new Color(.3f, .95f, 1), -player.transform.eulerAngles.y, 16);
+            Mark(player, player.Position, "▲", PlayerIdentityColor.For(player.GetComponent<NetworkPlayer>()), -player.transform.eulerAngles.y, 21);
         }
         foreach (var cart in ShoppingCart.All.Where(c => c != null && c.gameObject.scene == reference)) Mark(cart, cart.transform.position, "■", new Color(1, .82f, .22f), 0, 15);
         var ready = RoundFinishStation.ForScene(reference); if (ready != null) Mark(ready, ready.transform.position, "R", new Color(.4f, 1, .58f), 0, 18);
@@ -74,7 +77,9 @@ public sealed class PlayerRoundHud : MonoBehaviour
             label = Text(Rect("Map marker", graphic.transform, new Vector2(.5f, .5f), new Vector2(.5f, .5f), Vector2.zero, new Vector2(22, 22)), symbol, size);
             markers.Add(key, label);
         }
-        label.gameObject.SetActive(true); label.color = color; label.rectTransform.anchoredPosition = graphic.Project(position);
+        var projected = graphic.Project(position);
+        label.gameObject.SetActive(currentMap != null && graphic.rectTransform.rect.Contains(projected));
+        label.color = color; label.rectTransform.anchoredPosition = projected;
         label.rectTransform.localRotation = Quaternion.Euler(0, 0, angle);
     }
     private static RectTransform Rect(string name, Transform parent, Vector2 anchor, Vector2 pivot, Vector2 position, Vector2 size)

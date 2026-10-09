@@ -1,0 +1,1 @@
+PASS: protocol 11; real Editor host and Mac client; 2 living player arrows visible on both maps; local orange and friend cyan; positions update more than 100 m apart through multiple walls; arrows stay in 315-pixel map; all 96 shuffled pickup poses match across peers.

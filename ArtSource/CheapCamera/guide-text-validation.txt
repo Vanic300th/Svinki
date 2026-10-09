@@ -1,0 +1,145 @@
+PASS 0 HOW TO PLAY SVINKI
+PASS 0 Find an outfit. Keep an eye on the mannequins. Meet your friends at the entrance.
+PASS 0 Movement & HUD
+PASS 0 Clothes & round
+PASS 0 Carts & toys
+PASS 0 Friends & danger
+PASS 0 Camera & photos
+PASS 0 W A S D / arrows
+PASS 0 Move around the store
+PASS 0 Mouse
+PASS 0 Look around and aim at items
+PASS 0 Shift
+PASS 0 Hold to sprint
+PASS 0 Space
+PASS 0 Jump
+PASS 0 Ctrl
+PASS 0 Hold to crouch; look under displays
+PASS 0 F
+PASS 0 Toggle your flashlight
+PASS 0 Esc
+PASS 0 Open the menu or close the current panel
+PASS 0 F1
+PASS 0 Open this guide again
+PASS 0 FIND YOUR WAY The store has offset departments, side routes and concealed shelves. Search behind displays and inside stock cabinets.
+PASS 0 NEARBY MAP The map follows you and shows your room and nearby departments. It follows the selected player while spectating.
+PASS 0 PLAYER COLOURS Each arrow and through-wall nickname share a unique colour, kept across rounds and reconnects. Carts: yellow squares. READY: green R.
+PASS 0 LIVE PIG & ITEMS The side pig mirrors your appearance and outfit. Aim at items for an E prompt; crouch to inspect low shelves.
+PASS 0 Page 1 / 5  ·  Use the tabs  ·  F1 — guide  ·  Esc — back
+PASS 0 Back to game / menu
+PASS 1 HOW TO PLAY SVINKI
+PASS 1 Find an outfit. Keep an eye on the mannequins. Meet your friends at the entrance.
+PASS 1 Movement & HUD
+PASS 1 Clothes & round
+PASS 1 Carts & toys
+PASS 1 Friends & danger
+PASS 1 Camera & photos
+PASS 1 E
+PASS 1 Collect the clothing under your crosshair
+PASS 1 Tab / I
+PASS 1 Open your outfit inventory
+PASS 1 Inventory buttons
+PASS 1 Drop one piece or your whole outfit
+PASS 1 E at READY
+PASS 1 Finish at the entrance when everyone is ready
+PASS 1 Ready / Start
+PASS 1 In the lobby, everyone readies; the host starts
+PASS 1 Next Round
+PASS 1 The host returns everyone to the lobby
+PASS 1 Pig customisation
+PASS 1 Choose your pig’s face, skin and accessories
+PASS 1 Settings
+PASS 1 Adjust mouse sensitivity in the menu
+PASS 1 BUILD A LOOK Collect headwear, a top, trousers and footwear. Your inventory shows the four slots; drop a piece to make room for another.
+PASS 1 NEW ROUND, NEW SEARCH Clothing changes hiding spots each round. Mannequins, carts, toys and cameras also get new reachable spawn positions.
+PASS 1 RETURN TO THE ENTRANCE Living players must be at READY together. Leaving the zone or changing your outfit cancels your finish-ready state.
+PASS 1 FASHION SHOW Everyone sees the runway and outfit scores. Colours, patterns and combinations affect the rating. Eliminated pigs appear as ghosts.
+PASS 1 Page 2 / 5  ·  Use the tabs  ·  F1 — guide  ·  Esc — back
+PASS 1 Back to game / menu
+PASS 2 HOW TO PLAY SVINKI
+PASS 2 Find an outfit. Keep an eye on the mannequins. Meet your friends at the entrance.
+PASS 2 Movement & HUD
+PASS 2 Clothes & round
+PASS 2 Carts & toys
+PASS 2 Friends & danger
+PASS 2 Camera & photos
+PASS 2 E at cart
+PASS 2 Push a cart; E again releases it
+PASS 2 R at cart
+PASS 2 Ride in the basket
+PASS 2 W/S · A/D
+PASS 2 Push forward/backward and steer
+PASS 2 Shift · LMB
+PASS 2 Sprint with a cart; left click launches it
+PASS 2 E / Space
+PASS 2 Leave the cart basket
+PASS 2 G
+PASS 2 Open cart cargo to store, wear or unload clothes
+PASS 2 E at toy / figure
+PASS 2 Grab with free hands
+PASS 2 LMB · RMB / E
+PASS 2 LMB: attack / throw. RMB or E: release
+PASS 2 THREE SHARED CARTS A cart has one driver and one passenger. Wall collisions stop it; a launched cart can knock down other pigs.
+PASS 2 EIGHT STORAGE SLOTS Cargo carries spare garments, including several pieces for the same clothing slot. Transfer items while the cart is stopped or moving slowly.
+PASS 2 ONE MONKEY PER PLAYER Toys spawn at random reachable spots. One successful hit consumes a toy, even against an ordinary mannequin; a miss keeps it.
+PASS 2 THIRTY-SECOND STUN A toy hit knocks an aggressive mannequin down for 30 seconds. You need free hands and cannot carry a toy while using a cart.
+PASS 2 Page 3 / 5  ·  Use the tabs  ·  F1 — guide  ·  Esc — back
+PASS 2 Back to game / menu
+PASS 3 HOW TO PLAY SVINKI
+PASS 3 Find an outfit. Keep an eye on the mannequins. Meet your friends at the entrance.
+PASS 3 Movement & HUD
+PASS 3 Clothes & round
+PASS 3 Carts & toys
+PASS 3 Friends & danger
+PASS 3 Camera & photos
+PASS 3 Hold B
+PASS 3 Talk nearby; release to mute
+PASS 3 Enter
+PASS 3 Open text chat; Enter again sends
+PASS 3 Esc in chat
+PASS 3 Cancel the message
+PASS 3 Mouse wheel
+PASS 3 Scroll chat history while chat is open
+PASS 3 Hold V
+PASS 3 Open the emote wheel; aim and release V to choose
+PASS 3 Esc / RMB
+PASS 3 Cancel the emote wheel
+PASS 3 Left / Right
+PASS 3 Switch living players while spectating
+PASS 3 Lobby code
+PASS 3 Copy the code and share it with friends
+PASS 3 PROXIMITY VOICE Full volume nearby, fading to silence at 25 metres. Your microphone is active only while B is held; allow microphone access when prompted.
+PASS 3 WATCH THE MANNEQUINS Aggressive mannequins freeze while a living player sees them. Coordinate who keeps watch while friends search.
+PASS 3 TWO HITS The first aggressive hit knocks you down. The second eliminates you until the next round; you drop your clothes and spectate friends.
+PASS 3 THIEVES & CHAT Small thieves steal clothing and take it to their nest. Messages appear above pigs and stay in the side history. Emotes need free hands; voice is muted after death.
+PASS 3 Page 4 / 5  ·  Use the tabs  ·  F1 — guide  ·  Esc — back
+PASS 3 Back to game / menu
+PASS 4 HOW TO PLAY SVINKI
+PASS 4 Find an outfit. Keep an eye on the mannequins. Meet your friends at the entrance.
+PASS 4 Movement & HUD
+PASS 4 Clothes & round
+PASS 4 Carts & toys
+PASS 4 Friends & danger
+PASS 4 Camera & photos
+PASS 4 E at camera
+PASS 4 Pick up a camera with free hands
+PASS 4 K
+PASS 4 Equip or stow your camera
+PASS 4 LMB with camera
+PASS 4 Take a photo for your album
+PASS 4 RMB / E
+PASS 4 Stow your camera
+PASS 4 P
+PASS 4 Open or close your round photo album
+PASS 4 Left / Right
+PASS 4 Browse photos while the album is open
+PASS 4 Album buttons
+PASS 4 Previous photo, next photo or close
+PASS 4 Esc in album
+PASS 4 Close the album and return to the game
+PASS 4 ONE CAMERA PER PLAYER Cameras spawn at random spots in the store. Pick one up with E, then use K to equip or stow it. Stowing frees your hands for toys and carts.
+PASS 4 CHEAP CAMERA PHOTOS Pictures have chunky pixels, grain and compression artefacts. The viewfinder marks the photo area; the shutter needs 1 second.
+PASS 4 ROUND PHOTO ALBUM LMB takes a photo; P opens your latest 12 pictures. Photos exclude the HUD and stay in your local album until the round ends, even after death.
+PASS 4 FLASH & RANDOM SPAWNS The flash is cosmetic; it never stuns mannequins. Everyone sees the same random clothing, mannequins, carts, toys and cameras. The entrance stays clear.
+PASS 4 Page 5 / 5  ·  Use the tabs  ·  F1 — guide  ·  Esc — back
+PASS 4 Back to game / menu

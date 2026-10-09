@@ -1,0 +1,1 @@
+PASS: first start deferred; 4 readable pages; continue action; F1 reopen; Escape consumed; one EventSystem

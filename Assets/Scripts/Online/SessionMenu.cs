@@ -18,6 +18,7 @@ public sealed class SessionMenu : MonoBehaviour
     private EventSystem sessionEvents;
     private PigAppearanceMenu appearanceMenu;
     private OutfitResultsView resultsView;
+    private HowToPlay guide;
     private void Start()
     {
         lobby = GetComponent<NetworkLobby>();
@@ -49,7 +50,8 @@ public sealed class SessionMenu : MonoBehaviour
         rect.sizeDelta = new Vector2(900, 970);
         rect.anchoredPosition = new Vector2(-252, 0);
         panel.GetComponent<UnityEngine.UI.Image>().color = new Color(.04f, .055f, .085f, .98f);
-        title = Label("SVINKI", 52, 44, 605, 64, 30);
+        title = Label("SVINKI", 52, 44, 440, 64, 28);
+        Button("How to Play", 510, 50, 155, () => guide.Show());
         Button("Settings", 680, 50, 165, () => settingsPanel.SetActive(!settingsPanel.activeSelf));
         status = Label("", 52, 114, 800, 110, 24);
         nickname = Input("Nickname", 52, 230, 385, lobby.Nickname, 24);
@@ -65,6 +67,7 @@ public sealed class SessionMenu : MonoBehaviour
         gameObject.AddComponent<OutfitInventoryView>().Build(canvasObject.transform, font, lobby);
         gameObject.AddComponent<CartCargoView>().Build(canvasObject.transform, font, lobby);
         gameObject.AddComponent<PlayerRoundHud>().Build(canvasObject.transform, font, lobby);
+        guide=gameObject.AddComponent<HowToPlay>();guide.Build(canvasObject.transform,font,lobby);
         lobby.Changed += Refresh;
         Refresh();
     }
@@ -118,11 +121,11 @@ public sealed class SessionMenu : MonoBehaviour
         if (!lobby.InSession)
         {
 #if !UNITY_WEBGL
-            Add("Create Lobby", () => { lobby.Nickname = nickname.text; lobby.CreateOnline(); });
-            Add("Continue from Checkpoint", () => { lobby.Nickname = nickname.text; lobby.CreateOnline(true); });
-            Add("Join by Code", () => { lobby.Nickname = nickname.text; lobby.JoinOnline(code.text); });
+            Add("Create Lobby", () => guide.BeforeStart(() => { lobby.Nickname = nickname.text; lobby.CreateOnline(); }));
+            Add("Continue from Checkpoint", () => guide.BeforeStart(() => { lobby.Nickname = nickname.text; lobby.CreateOnline(true); }));
+            Add("Join by Code", () => guide.BeforeStart(() => { lobby.Nickname = nickname.text; lobby.JoinOnline(code.text); }));
 #endif
-            Add("Play Solo", lobby.StartOffline);
+            Add("Play Solo", () => guide.BeforeStart(lobby.StartOffline));
 #if UNITY_EDITOR || DEBUG
             Add("Local test: host / client — F8 / F9", () => lobby.Report("Editor: F8 — host, F9 — localhost client; a second game instance is required."));
 #endif

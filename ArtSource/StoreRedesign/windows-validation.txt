@@ -1,0 +1,5 @@
+PASS: Windows x64 release; final modal sorting, guide, map and scene sources match build; ZIP CRC and required files checked; development driver excluded.
+Готово: Builds/Windows/Svinki.exe и Builds/Svinki-Windows.zip
+Время сборки: 70 сек.
+bytes=84106243
+sha256=f701c2183348494edf61d392d710ed58d9882cb8c80f883e1c79be1c775594e8

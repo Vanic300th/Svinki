@@ -16,6 +16,7 @@ public class PlayerPickupInteractor : MonoBehaviour
     private ShoppingCart cartTarget;
     private MonkeyToy monkeyTarget;
     private PlayerMonkeyCarry MonkeyHands => LocalAvatar != null ? LocalAvatar.GetComponent<PlayerMonkeyCarry>() : null;
+    private PlayerPhotoCamera PhotoCamera => LocalAvatar?.GetComponent<PlayerPhotoCamera>();
     private PlayerAvatar LocalAvatar => localPlayer != null ? localPlayer.GetComponent<PlayerAvatar>() : Hands?.GetComponent<PlayerAvatar>();
 
     private PlayerMannequinCarry Hands
@@ -56,6 +57,13 @@ public class PlayerPickupInteractor : MonoBehaviour
                 UseCart(cart, false, true);
             if (localPlayer == null && cart.Driver == LocalAvatar)
                 cart.SubmitInput(LocalAvatar, GrayboxPlayerController.ReadMoveInput(), Keyboard.current?.leftShiftKey.isPressed == true);
+            return;
+        }
+        if(PhotoCamera?.Equipped==true)
+        {
+            if(target!=null)target.SetTargeted(false);target=null;mannequinTarget=null;finishTarget=null;cartTarget=null;
+            if(Mouse.current?.leftButton.wasPressedThisFrame==true)PhotoCamera.Shoot();
+            else if(Mouse.current?.rightButton.wasPressedThisFrame==true||Keyboard.current?.eKey.wasPressedThisFrame==true)PhotoCamera.Stow();
             return;
         }
         if (MonkeyHands?.Held != null)
@@ -126,6 +134,7 @@ public class PlayerPickupInteractor : MonoBehaviour
 
         if (target != null && Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
         {
+            if(target.GetComponent<PhotoCameraPickup>()!=null&&PhotoCamera?.Owned==true)return;
             ClothingPickup clothing = target.GetComponent<ClothingPickup>();
             if (clothing != null && !clothing.CanCollect(gameObject)) return;
             PickupItem collected = target;
@@ -173,6 +182,7 @@ public class PlayerPickupInteractor : MonoBehaviour
                 : "You're riding! E / Space — hop out • G — storage");
             return;
         }
+        if(PhotoCamera?.Equipped==true){hud.HidePrompt();return;}
         string text = null;
         if (MonkeyHands?.Held != null)
             text = "LMB — hit with monkey • RMB / E — release\nOne hit only · Stuns aggressive mannequins for 30 seconds";
@@ -190,7 +200,7 @@ public class PlayerPickupInteractor : MonoBehaviour
         {
             ClothingPickup clothing = target.GetComponent<ClothingPickup>();
             bool canCollect = clothing == null || clothing.CanCollect(gameObject);
-            text = canCollect ? "E — pick up: " + target.ItemName : "This clothing slot is already occupied";
+            text = target.GetComponent<PhotoCameraPickup>()!=null ? PhotoCamera?.Owned==true?"You already have a camera":"E — pick up camera · K — equip · P — album" : canCollect ? "E — pick up: " + target.ItemName : "This clothing slot is already occupied";
         }
         hud.ShowPrompt(text);
     }

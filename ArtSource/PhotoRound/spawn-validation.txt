@@ -1,0 +1,2 @@
+PASS: 64 distinct round seeds, 3840 clear, reachable placements; deterministic seed replay.
+Carts=3; aggressive=12; ordinary=28; thieves=5; max 6 monkeys + 6 cameras.

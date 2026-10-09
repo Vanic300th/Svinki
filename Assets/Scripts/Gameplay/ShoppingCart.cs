@@ -40,11 +40,12 @@ public sealed class ShoppingCart : MonoBehaviour
         body.interpolation = authority ? RigidbodyInterpolation.Interpolate : RigidbodyInterpolation.None;
         previousPosition = transform.position; remoteSpeed = 0;
     }
+    public void SetSpawnHome(Vector3 position, Quaternion rotation) { home = previousPosition = position; homeRotation = rotation; }
     public bool TryUse(PlayerAvatar player, bool sit)
     {
         if (!HasAuthority || player == null || player.gameObject.scene != gameObject.scene ||
             !player.IsAlive || player.GetComponent<PlayerKnockdown>()?.IsDown == true ||
-            player.GetComponent<PlayerMannequinCarry>()?.Held != null || player.GetComponent<PlayerMonkeyCarry>()?.Held != null ||
+            player.GetComponent<PlayerMannequinCarry>()?.Held != null || player.GetComponent<PlayerPhotoCamera>()?.Equipped == true || player.GetComponent<PlayerMonkeyCarry>()?.Held != null ||
             NetworkLobby.Instance?.Results != null) return false;
         var current = For(player);
         if (current == this) { Release(player, false); return true; }

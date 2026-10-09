@@ -61,7 +61,9 @@ public sealed class PlayerNameplate : MonoBehaviour
         }
         box.y = Mathf.Min(box.y, Screen.height - 54); occupied.Add(box);
         label.rectTransform.anchoredPosition = new Vector2(screen.x, box.y + 26);
-        label.color = new Color(.83f, .96f, 1, Mathf.Lerp(1, .65f, Mathf.Clamp01(distance / 180)));
+        var tint = PlayerIdentityColor.For(player);
+        tint.a = Mathf.Lerp(1, .65f, Mathf.Clamp01(distance / 180));
+        label.color = tint;
         label.text = (string.IsNullOrWhiteSpace(player.ParticipantName) ? "Pig" : player.ParticipantName) + "\n" + Mathf.RoundToInt(distance) + " m";
     }
     private void OnDisable() { if (canvas != null) canvas.enabled = false; }

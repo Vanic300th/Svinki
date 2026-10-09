@@ -107,7 +107,7 @@ public class PickupItem : MonoBehaviour
     public bool IsTargeted => targeted;
     public void SetTargeted(bool value)
     {
-        value = value && available && isActiveAndEnabled && GetComponent<ClothingPickup>() != null;
+        value = value && available && isActiveAndEnabled && (GetComponent<ClothingPickup>() != null || GetComponent<PhotoCameraPickup>() != null);
         if (targeted == value) return;
         targeted = value;
         foreach (RendererMaterials state in materialStates)

@@ -48,6 +48,7 @@ public sealed class PlayerAvatar : MonoBehaviour
         controller = GetComponent<GrayboxPlayerController>();
         outfit = GetComponent<PlayerOutfit>();
         viewSource = GetComponent<IPlayerViewSource>();
+        if(GetComponent<PlayerPhotoCamera>()==null)gameObject.AddComponent<PlayerPhotoCamera>();
     }
 
     private void OnEnable() => PlayerRegistry.Register(this);

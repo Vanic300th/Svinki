@@ -1,0 +1,2 @@
+Готово: Builds/Windows/Svinki.exe и Builds/Svinki-Windows.zip
+Время сборки: 134 сек.

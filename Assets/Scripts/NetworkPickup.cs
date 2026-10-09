@@ -45,6 +45,12 @@ public sealed class NetworkPickup : NetworkBehaviour
     public void TryCollect(NetworkPlayer player)
     {
         if (!IsServerStarted || player == null || !item.IsAvailable) return;
+        if(GetComponent<PhotoCameraPickup>()!=null)
+        {
+            var camera=player.GetComponent<PlayerPhotoCamera>();
+            if(camera==null || camera.Owned || player.IsDead || NetworkLobby.Instance?.CanEditOutfit(player)!=true)return;
+            player.AwardCamera();item.SetAvailable(false);return;
+        }
         ClothingPickup clothing = GetComponent<ClothingPickup>();
         if (clothing != null && !player.AwardClothing(clothing.Clothing)) return;
         item.SetAvailable(false); // спрятать у всех: Update ниже разошлёт

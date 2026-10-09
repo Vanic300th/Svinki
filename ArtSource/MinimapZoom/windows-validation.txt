@@ -1,0 +1,4 @@
+PASS: ZIP CRC, Windows x64 PE, required executable/data/config files, minimap HUD classes and absence of development test driver.
+PASS: all game script bytes match the tested and built checkout.
+ZIP bytes: 84114615
+SHA256: 340ed48ffba4621942a0a5c6c84f4d54f9a835215239177ba4701dccea1126f8

@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(GrayboxPlayerController))]
-public sealed class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
+public sealed partial class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
 {
     [SerializeField] private ClothingDefinition[] clothingCatalog;
 
@@ -101,7 +101,7 @@ public sealed class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
         foreach (string id in ids) { var item = FindInCatalog(id); if (item != null) items.Add(item); }
         GetComponent<PlayerOutfit>().SetItems(items);
     }
-    public void FreezeDisconnected() { GetComponent<PlayerMonkeyCarry>()?.Release(); move = Vector2.zero; sprint = false; GetComponent<PlayerMannequinCarry>()?.Release(false); ShoppingCart.For(GetComponent<PlayerAvatar>())?.Release(GetComponent<PlayerAvatar>(), false); }
+    public void FreezeDisconnected() { StowCamera(); GetComponent<PlayerMonkeyCarry>()?.Release(); move = Vector2.zero; sprint = false; GetComponent<PlayerMannequinCarry>()?.Release(false); ShoppingCart.For(GetComponent<PlayerAvatar>())?.Release(GetComponent<PlayerAvatar>(), false); }
     public override void OnOwnershipClient(NetworkConnection previousOwner)
     {
         base.OnOwnershipClient(previousOwner);
@@ -140,6 +140,7 @@ public sealed class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
         emote.OnChange += OnEmoteChanged;
         pigFace.OnChange += OnPigFaceChanged;
         wornClothing.OnChange += OnWornClothingChanged;
+        SetupPhotoCamera();
     }
 
     public override void OnStartServer()
@@ -162,6 +163,7 @@ public sealed class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
         base.OnStartClient();
         if (worldOutfit != null) worldOutfit.SetFirstPersonHidden(IsOwner);
         ApplyWornClothing();
+        ApplyPhotoCamera();
         pigAppearance?.Apply(pigFace.Value);
         pigMotion?.PlayEmote((PigEmote)(emote.Value & 7u));
         knockdown?.ApplyHit(hitsTaken.Value);

@@ -1,0 +1,5 @@
+PASS: six native network clients fill the lobby; six distinct colour slots replicated identically.
+PASS: six different map colours match across all six clients; visible nickname RGB equals the corresponding map marker RGB.
+PASS: map drawing area stays 315 x 315; existing zoom remains.
+PASS: disconnect reservation and reconnect preserve colours.
+PASS: colours survive the next round; a leaving player does not change remaining colours.

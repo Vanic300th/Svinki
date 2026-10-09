@@ -28,7 +28,7 @@ public sealed class PigMotion : MonoBehaviour
     private float emoteStarted;
     public static bool CanEmote(PlayerAvatar player) => player != null && player.isActiveAndEnabled && player.IsAlive &&
         player.GetComponent<PlayerKnockdown>()?.IsDown != true && ShoppingCart.For(player) == null &&
-        player.GetComponent<PlayerMonkeyCarry>()?.Held == null && player.GetComponent<PlayerMannequinCarry>()?.Held == null;
+        player.GetComponent<PlayerMonkeyCarry>()?.Held == null && player.GetComponent<PlayerPhotoCamera>()?.Equipped != true && player.GetComponent<PlayerMannequinCarry>()?.Held == null;
     public void PlayEmote(PigEmote kind)
     {
         if (kind < PigEmote.None || kind > PigEmote.Shrug) return;

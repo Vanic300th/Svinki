@@ -1,0 +1,1 @@
+PASS: final native Mac build; actual F1 opens guide in a living round; movement/interaction blocked; full-screen backdrop and canvas order 200 cover voice HUD and populated chat history; actual Escape closes guide without opening pause and restores input.

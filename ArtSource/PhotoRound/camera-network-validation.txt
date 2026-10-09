@@ -1,0 +1,5 @@
+PASS: two native clients; camera pickup with E, equip with C, host and guest photographs with LMB; owner-only albums; no mannequin stun.
+PASS: same random poses for all 96 garments, 40 mannequins, three carts and two cameras; two monkeys for two players. Maximum pose difference 1.52587890625e-05m.
+PASS: album blocks movement; Escape closes album without opening menu; latest 12-image cap; camera stow; album cleared on round unload.
+PASS: second round changes cart and clothing positions; camera ownership and album reset; two new monkeys and cameras.
+PASS: single-player round, one monkey and camera, E pickup, C equip, LMB photo and album reset.

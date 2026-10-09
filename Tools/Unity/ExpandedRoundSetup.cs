@@ -129,7 +129,7 @@ public static class ExpandedRoundSetup
     }
     private static void SetupReady(Transform level)
     {
-        var station=Items<RoundFinishStation>().Single();station.transform.position=new Vector3(-6.03f,1.35f,-4.5f);station.transform.rotation=Quaternion.Euler(0,270,0);
+        var station=Items<RoundFinishStation>().Single();station.transform.position=new Vector3(-6.03f,1.35f,-7.5f);station.transform.rotation=Quaternion.Euler(0,270,0);
         var stand=station.transform.Find("Stand");if(stand!=null)UnityEngine.Object.DestroyImmediate(stand.gameObject);
         var plate=station.transform.Find("Plate");plate.localScale=new Vector3(.65f,.75f,.16f);plate.localPosition=Vector3.zero;
         var button=station.transform.Find("Ready Button");button.localScale=new Vector3(.45f,.45f,.12f);button.localPosition=new Vector3(0,0,-.13f);

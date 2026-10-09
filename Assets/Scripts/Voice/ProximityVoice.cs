@@ -25,7 +25,7 @@ public sealed class ProximityVoice : MonoBehaviour
     {
         var lobby=NetworkLobby.Instance;
         return player!=null&&player.IsOwner&&player.IsClientStarted&&!player.IsDead&&lobby!=null&&!lobby.Offline&&
-            lobby.Snapshot.phase==SessionPhase.Round&&lobby.Results==null&&!lobby.IsSpectator&&!lobby.MenuVisible&&!PlayerChat.BlocksInput&&!EmoteWheel.BlocksInput;
+            lobby.Snapshot.phase==SessionPhase.Round&&lobby.Results==null&&!HowToPlay.BlocksInput && !PhotoAlbum.BlocksInput&&!lobby.IsSpectator&&!lobby.MenuVisible&&!PlayerChat.BlocksInput&&!EmoteWheel.BlocksInput;
     }
     private void Start()
     {

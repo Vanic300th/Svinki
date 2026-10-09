@@ -12,6 +12,7 @@ public sealed class SessionDevelopmentDriver : MonoBehaviour
     [Serializable] private sealed class Command { public string action; public string target; public int index; }
     [Serializable] private sealed class State
     {
+        public PhotoState photo;public PickupState[] cameraPickups;public PickupState[] npcs;
         public SessionSnapshot snapshot; public string status; public string identity;
         public int avatars; public bool offline, inputAllowed, menuVisible, cargoOpen, forwardPressed;
         public string carriedMannequin;public string[] chat;public int relayedVoice,receivedVoice;public float voiceOutput;
@@ -21,12 +22,27 @@ public sealed class SessionDevelopmentDriver : MonoBehaviour
         public PickupState[] pickups;
         public Vector3 localPosition; public Vector3 eyePosition; public Vector3 eyeForward;
         public MonkeyState[] monkeys; public StunState[] stuns;
+        public MapMarkerState[] mapMarkers; public float mapSize;
     }
+    [Serializable] private sealed class PhotoState { public bool owned,equipped,album;public int shots,count;public float cooldown; }
     [Serializable] private sealed class CartState { public string name, driver, rider; public Vector3 position; public float speed; public int cargoRevision; public string[] cargo; }
     [Serializable] private sealed class AvatarState { public string name, emote; public int hits; public bool down, dead, owner, server; public float headHeight; public string[] outfit; }
     [Serializable] private sealed class PickupState { public string name; public Vector3 position; public Quaternion rotation; }
     [Serializable] private sealed class MonkeyState { public int id; public string holder; public bool consumed; public int bodies; public Vector3 center,leftHand,rightHand; }
     [Serializable] private sealed class StunState { public string name; public bool down,brain; public float remaining; public Vector3 head; }
+    [Serializable] private sealed class MapMarkerState { public string name; public bool local, visible, nameVisible; public Vector2 mapPosition; public Vector3 worldPosition; public Color colour, nameColour; }
+    private static MapMarkerState[] ReadMapMarkers()
+    {
+        var hud=UnityEngine.Object.FindFirstObjectByType<PlayerRoundHud>();if(hud==null)return Array.Empty<MapMarkerState>();
+        var labels=(System.Collections.Generic.Dictionary<UnityEngine.Object,TMPro.TMP_Text>)typeof(PlayerRoundHud).GetField("markers",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(hud);
+        return labels.Where(p=>p.Key is PlayerAvatar avatar&&avatar!=null&&p.Value!=null).Select(p=> {
+            var avatar=(PlayerAvatar)p.Key;var plate=avatar.GetComponent<PlayerNameplate>();
+            var nameLabel=plate!=null?(TMPro.TextMeshProUGUI)typeof(PlayerNameplate).GetField("label",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(plate):null;
+            return new MapMarkerState {name=avatar.GetComponent<NetworkPlayer>()?.ParticipantName,local=avatar.IsLocal,visible=p.Value.gameObject.activeInHierarchy,mapPosition=p.Value.rectTransform.anchoredPosition,worldPosition=avatar.Position,colour=p.Value.color,
+                nameColour=nameLabel!=null?nameLabel.color:Color.clear,nameVisible=nameLabel!=null&&nameLabel.canvas!=null&&nameLabel.canvas.enabled};
+        }).ToArray();
+    }
+    private PhotoState ReadPhoto(){var camera=PlayerRegistry.Players.FirstOrDefault(p=>p.IsLocal)?.GetComponent<PlayerPhotoCamera>();return new PhotoState{owned=camera?.Owned==true,equipped=camera?.Equipped==true,shots=camera?.Shots??0,cooldown=camera?.CooldownRemaining??0,count=PhotoAlbum.Instance?.Count??0,album=PhotoAlbum.IsOpen};}
     private Keyboard testKeyboard;
     private InputSettings originalInputSettings, testInputSettings;
     private HideFlags originalInputFlags;
@@ -80,6 +96,48 @@ public sealed class SessionDevelopmentDriver : MonoBehaviour
             File.Delete(commandPath);
             switch (command.action)
             {
+                case "photo-warp":
+                    var cameraPickup=FindObjectsByType<PhotoCameraPickup>().Where(p=>p.GetComponent<PickupItem>().IsAvailable).OrderBy(p=>p.GetComponent<FishNet.Object.NetworkObject>().ObjectId).ElementAtOrDefault(command.index);
+                    var photoPlayer=PlayerRegistry.Players.FirstOrDefault(p=>p.IsLocal);
+                    if(cameraPickup!=null&&photoPlayer!=null)
+                    {
+                        var position=cameraPickup.transform.position;position.y=0;
+                        for(int angle=0;angle<24;angle++)
+                        {
+                            var candidate=position+Quaternion.Euler(0,angle*15,0)*Vector3.back*1.7f;
+                            if(!UnityEngine.AI.NavMesh.SamplePosition(candidate,out var nav,.5f,UnityEngine.AI.NavMesh.AllAreas))continue;
+                            var photoEye=nav.position+Vector3.up*1.65f;var aim=cameraPickup.transform.position-photoEye;
+                            if(photoPlayer.gameObject.scene.GetPhysicsScene().Raycast(photoEye,aim.normalized,out var ray,aim.magnitude+.1f,Physics.DefaultRaycastLayers,QueryTriggerInteraction.Collide)&&!ray.collider.transform.IsChildOf(cameraPickup.transform))continue;
+                            var controller=photoPlayer.GetComponent<CharacterController>();controller.enabled=false;photoPlayer.transform.position=nav.position;controller.enabled=true;
+                            var rotation=Quaternion.LookRotation(aim);photoEye+=Quaternion.Euler(0,rotation.eulerAngles.y,0)*Vector3.forward*GrayboxFirstPersonCamera.EyeForwardOffset;rotation=Quaternion.LookRotation(cameraPickup.transform.position-photoEye);var firstPerson=photoPlayer.EyeCamera.GetComponent<GrayboxFirstPersonCamera>();
+                            typeof(GrayboxFirstPersonCamera).GetField("yaw",BindingFlags.Instance|BindingFlags.NonPublic).SetValue(firstPerson,rotation.eulerAngles.y);
+                            typeof(GrayboxFirstPersonCamera).GetField("pitch",BindingFlags.Instance|BindingFlags.NonPublic).SetValue(firstPerson,Mathf.DeltaAngle(0,rotation.eulerAngles.x));break;
+                        }
+                    }break;
+                case "photo-export":
+                    if(PhotoAlbum.Instance!=null){var images=(System.Collections.Generic.List<Texture2D>)typeof(PhotoAlbum).GetField("photos",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(PhotoAlbum.Instance);if(images.Count>0)File.WriteAllBytes(path+"-photo.png",images[images.Count-1].EncodeToPNG());}break;
+                case "photo-guide":HowToPlay.Instance.Show();HowToPlay.Instance.SelectPage(4);break;
+                case "guide-validate":
+                    var guide=HowToPlay.Instance;guide.Show();var guideReport=new System.Text.StringBuilder();bool overflow=false;
+                    var guideRoot=(GameObject)typeof(HowToPlay).GetField("root",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(guide);
+                    for(int page=0;page<5;page++)
+                    {
+                        guide.SelectPage(page);Canvas.ForceUpdateCanvases();
+                        foreach(var text in guideRoot.GetComponentsInChildren<TMPro.TMP_Text>())
+                        {
+                            if(!text.gameObject.activeInHierarchy)continue;text.ForceMeshUpdate();
+                            bool fits=!text.isTextOverflowing&&text.textBounds.size.y<=text.rectTransform.rect.height+1&&text.textBounds.size.x<=text.rectTransform.rect.width+1;
+                            overflow|=!fits;guideReport.AppendLine((fits?"PASS ":"OVERFLOW ")+page+" "+text.text.Replace('\n',' '));
+                        }
+                    }
+                    File.WriteAllText(path+"-guide.txt",guideReport.ToString());guide.SelectPage(4);
+                    if(overflow)throw new InvalidOperationException("How to Play text overflows its bounds");break;
+                case "photo-capture-buffer":PlayerRegistry.Players.FirstOrDefault(p=>p.IsLocal)?.GetComponent<PlayerPhotoCamera>()?.CapturePhoto();break;
+                case "design-position":
+                    var designPlayer=PlayerRegistry.Players.FirstOrDefault(p=>p.IsLocal);
+                    if(designPlayer!=null){var cc=designPlayer.GetComponent<CharacterController>();cc.enabled=false;designPlayer.transform.position=command.index==0?new Vector3(0,.05f,5):command.index==1?new Vector3(-29,.05f,78):new Vector3(20,.05f,125.5f);cc.enabled=true;}break;
+                case "calm-npcs":
+                    foreach(var brain in UnityEngine.Object.FindObjectsByType<MannequinBrain>())brain.enabled=false;foreach(var thief in UnityEngine.Object.FindObjectsByType<ThiefBrain>())thief.enabled=false;break;
                 case "chat": PlayerRegistry.Players.FirstOrDefault(p=>p.IsLocal)?.GetComponent<NetworkPlayer>()?.SendChat(command.target);break;
                 case "voice-position":
                     var voicePlayer=PlayerRegistry.Players.FirstOrDefault(p=>p.IsLocal);
@@ -148,6 +206,8 @@ public sealed class SessionDevelopmentDriver : MonoBehaviour
                 case "reaction": lobby.RunwayReact(command.target); break;
                 case "pose": if (int.TryParse(command.target, out int pose)) lobby.RunwayPose(pose); break;
                 case "capture": ScreenCapture.CaptureScreenshot(path + "-capture.png"); break;
+                case "solo":lobby.StartOffline();break;
+                case "continue":lobby.ContinueAfterResults();break;
                 case "ready": lobby.Ready(true); break;
                 case "start": lobby.StartRound(); break;
                 case "end": lobby.EndRound(); break;
@@ -175,7 +235,7 @@ public sealed class SessionDevelopmentDriver : MonoBehaviour
         PlayerAvatar local = null;
         foreach (PlayerAvatar player in PlayerRegistry.Players) if (player != null && player.IsLocal) { local = player; break; }
         Camera eye = local != null ? local.EyeCamera : null;
-        string json = JsonUtility.ToJson(new State { snapshot = lobby.Snapshot, status = lobby.Status, identity = lobby.Identity,
+        string json = JsonUtility.ToJson(new State { mapMarkers=ReadMapMarkers(),mapSize=UnityEngine.Object.FindFirstObjectByType<StoreMinimapGraphic>()?.rectTransform.rect.width??0,snapshot = lobby.Snapshot, status = lobby.Status, identity = lobby.Identity,
             monkeys=MonkeyToy.All.Select(t=>new MonkeyState{id=t.GetComponent<NetworkMonkeyToy>().ObjectId,holder=t.Holder?.GetComponent<NetworkPlayer>()?.ParticipantName,consumed=t.Consumed,bodies=t.GetComponent<ArticulatedRagdoll>().BodyCount,center=t.GetComponent<ArticulatedRagdoll>().Center,leftHand=t.GetComponent<ArticulatedRagdoll>().BonePosition("Hand_L"),rightHand=t.GetComponent<ArticulatedRagdoll>().BonePosition("Hand_R")}).ToArray(),
             stuns=FindObjectsByType<MannequinStun>().Select(s=>new StunState{name=s.name,down=s.IsStunned,brain=s.GetComponent<MannequinBrain>().enabled,remaining=s.Remaining,head=s.GetComponent<ArticulatedRagdoll>().BonePosition("Head")}).ToArray(),
             chat=PlayerChat.Instance?.GetComponent<PlayerChatHistory>()?.Messages,
@@ -190,6 +250,8 @@ public sealed class SessionDevelopmentDriver : MonoBehaviour
             cameraHeight = eye != null && local != null ? eye.transform.position.y - local.Position.y : 0,
             cart = ShoppingCart.For(local)?.name, cartRole = ShoppingCart.For(local) is ShoppingCart occupied ? occupied.Driver == local ? "driver" : "rider" : null,
             carts = ShoppingCart.All.Select(c => new CartState { name=c.name, position=c.transform.position, speed=c.Speed, driver=c.Driver?.GetComponent<NetworkPlayer>()?.ParticipantName, rider=c.Rider?.GetComponent<NetworkPlayer>()?.ParticipantName,cargoRevision=c.GetComponent<CartCargo>()?.Revision??0,cargo=c.GetComponent<CartCargo>()?.Items.Select(i=>i.name).ToArray()??Array.Empty<string>() }).ToArray(),
+            photo=ReadPhoto(),cameraPickups=FindObjectsByType<PhotoCameraPickup>().Select(p=>new PickupState{name=p.GetComponent<FishNet.Object.NetworkObject>().ObjectId+":"+p.GetComponent<PickupItem>().IsAvailable,position=p.transform.position,rotation=p.transform.rotation}).ToArray(),
+            npcs=FindObjectsByType<MannequinBrain>().Select(p=>new PickupState{name=p.name,position=p.transform.position,rotation=p.transform.rotation}).Concat(FindObjectsByType<ThrowableMannequin>().Select(p=>new PickupState{name=p.name,position=p.transform.position,rotation=p.transform.rotation})).ToArray(),
             pickups = ClothingPickup.All.Select(p => new PickupState { name=p.name, position=p.transform.position, rotation=p.transform.rotation }).ToArray(),
             localPosition = local != null ? local.Position : Vector3.zero,
             eyePosition = eye != null ? eye.transform.position : Vector3.zero,

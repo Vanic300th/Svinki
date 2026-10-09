@@ -1,0 +1,4 @@
+PASS: ZIP CRC, Windows x64 executable and required files; development driver absent.
+PASS: source scripts and Editor-saved scene match the built checkout.
+ZIP bytes: 84114829
+SHA256: 5f85bbd7d08092ff25f56bfbb0144f3007f3cdccec2ff3d8796aa697dff0124f

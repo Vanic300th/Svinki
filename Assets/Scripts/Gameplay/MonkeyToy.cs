@@ -36,7 +36,7 @@ public sealed class MonkeyToy : MonoBehaviour
     {
         if(!HasAuthority||consumed||IsHeld||player==null||!player.IsAlive||player.gameObject.scene!=gameObject.scene||
             player.GetComponent<PlayerKnockdown>()?.IsDown==true||NetworkLobby.Instance?.Results!=null||ShoppingCart.For(player)!=null||
-            player.GetComponent<PlayerMannequinCarry>()?.Held!=null||player.GetComponent<PlayerMonkeyCarry>()?.Held!=null)return false;
+            player.GetComponent<PlayerMannequinCarry>()?.Held!=null|| player.GetComponent<PlayerPhotoCamera>()?.Equipped == true ||player.GetComponent<PlayerMonkeyCarry>()?.Held!=null)return false;
         var netPlayer=player.GetComponent<NetworkPlayer>();if(netPlayer!=null&&NetworkLobby.Instance?.CanEditOutfit(netPlayer)!=true)return false;
         var direction=pickup.ClosestPoint(player.EyePosition)-player.EyePosition;
         if(direction.magnitude>3.8f)return false;
