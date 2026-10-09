@@ -1,0 +1,7 @@
+PASS: Windows x64 ZIP CRC, executable PE AMD64, Unity runtime, scenes, EOS config, voice/history and previous emote/monkey components; development test driver absent.
+Bytes: 83921323
+SHA256: 39c3a9fee68c1cc92141a3dbb7279b0bd9e62277cb0a585ff6033b7b1653a831
+Unity BuildReport: Succeeded, 21.14s; errors=1, warnings=3
+Warning: Value 0 is out of range for TEnum, setting to 0.
+Warning: Pipeline: No RuntimePipelineConfig asset found (Project Settings > Pipeline > Runtime). Pipeline will be disabled in Player builds.
+Warning: Shader warning in 'TextMeshPro/Mobile/Distance Field': #pragma enable_d3d11_debug_symbols has been deprecated, instead please use #pragma enable_debug_symbols at line 84

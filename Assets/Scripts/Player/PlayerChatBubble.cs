@@ -14,6 +14,9 @@ public sealed class PlayerChatBubble : MonoBehaviour
     public static void Show(GameObject player, string message)
     {
         if (player == null || PlayerChat.Instance == null) return;
+        var avatar=player.GetComponent<PlayerAvatar>();
+        string nickname=player.GetComponent<NetworkPlayer>()?.ParticipantName ?? NetworkLobby.Instance?.Nickname ?? "Player";
+        PlayerChat.Instance.GetComponent<PlayerChatHistory>()?.Append(nickname,message,avatar!=null&&avatar.IsLocal);
         var chat = player.GetComponent<PlayerChatBubble>() ?? player.AddComponent<PlayerChatBubble>();
         chat.ShowMessage(message);
     }

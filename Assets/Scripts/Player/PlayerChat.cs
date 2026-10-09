@@ -37,6 +37,7 @@ public sealed class PlayerChat : MonoBehaviour
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+        gameObject.AddComponent<PlayerChatHistory>();
     }
 
     public TMP_FontAsset Font
@@ -169,7 +170,7 @@ public sealed class PlayerChat : MonoBehaviour
         panel.GetComponent<UnityEngine.UI.Image>().color = new Color(.04f, .055f, .085f, .94f);
         var hint = CreateText("Chat Help", panel.transform);
         Stretch(hint.rectTransform, new Vector2(18, 62), new Vector2(-18, -12));
-        hint.text = "Chat  ·  Enter — send  ·  Esc — cancel";
+        hint.text = "Chat  ·  Enter — send  ·  Esc — cancel  ·  Scroll — history";
         hint.fontSize = 20; hint.color = new Color(.7f, .78f, .87f);
         var field = new GameObject("Message", typeof(RectTransform), typeof(UnityEngine.UI.Image));
         field.transform.SetParent(panel.transform, false);

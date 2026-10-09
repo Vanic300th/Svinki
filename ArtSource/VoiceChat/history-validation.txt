@@ -1,0 +1,2 @@
+PASS: 50 persistent messages; oldest evicted; literal markup; history survives bubble timeout; microphone inactive offline
+PASS: Enter opens input and expanded history; old messages scroll into view; Escape closes without pause

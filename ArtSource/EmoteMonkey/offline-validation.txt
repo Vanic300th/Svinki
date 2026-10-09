@@ -8,3 +8,4 @@ PASS: Laugh changes pig bones
 PASS: Shrug changes pig bones
 PASS: 13 bodies, single pinned wrist, free arm/body hanging, visible pig paw; smooth attack and cooldown; miss retains toy
 PASS: actual hit consumed toy and applied 30-second mannequin stun
+PASS: open wheel while walking, stop motion, release to perform

@@ -25,7 +25,13 @@ public sealed class MonkeyToy : MonoBehaviour
     private void OnEnable(){if(!All.Contains(this))All.Add(this);}
     private void OnDisable(){if(holder!=null)holder.GetComponent<PlayerMonkeyCarry>()?.Clear(this);All.Remove(this);if(gripVisual!=null)gripVisual.gameObject.SetActive(false);}
     private void Start(){if(HasAuthority&&!physicsStarted)BeginPhysics();}
-    public void BeginPhysics(){if(physicsStarted)return;physicsStarted=true;ragdoll.Begin(HasAuthority,HasAuthority,Vector3.zero);ragdoll.SetDamping(.8f,2);}
+    public void BeginPhysics(){if(physicsStarted)return;physicsStarted=true;ragdoll.Begin(HasAuthority,HasAuthority,Vector3.zero);CalmPhysics();}
+    private void CalmPhysics()
+    {
+        // Plush joints have a small, damped range rather than loose mannequin limbs.
+        ragdoll.SetDamping(IsHeld?3:1.5f,IsHeld?8:4);
+        ragdoll.SetJointMotion(35,50,35,4);
+    }
     public bool TryGrab(PlayerAvatar player)
     {
         if(!HasAuthority||consumed||IsHeld||player==null||!player.IsAlive||player.gameObject.scene!=gameObject.scene||
@@ -58,7 +64,7 @@ public sealed class MonkeyToy : MonoBehaviour
                 }
             }
         }
-        ragdoll.Begin(LocalSimulation,HasAuthority,Vector3.zero);physicsStarted=true;ragdoll.SetDamping(.8f,2);PinHands(true);
+        ragdoll.Begin(LocalSimulation,HasAuthority,Vector3.zero);physicsStarted=true;CalmPhysics();PinHands(true);
     }
     public bool Release()
     {
@@ -84,7 +90,7 @@ public sealed class MonkeyToy : MonoBehaviour
         float t=SwingProgress;bool swinging=swingUntil>Time.time;
         Vector3 target=view.Eye+view.Rotation*(swinging?SwingOffset(t):new Vector3(.24f,.28f,1.32f));
         Quaternion rotation=view.Rotation*leftGripRotation*Quaternion.Euler(0,0,swinging?-Mathf.Sin(t*Mathf.PI)*35:0);
-        float blend=1-Mathf.Exp(-Time.fixedDeltaTime*16);
+        float blend=1-Mathf.Exp(-Time.fixedDeltaTime*10);
         if(immediate||(target-gripPosition).sqrMagnitude>4){gripPosition=target;gripRotation=rotation;}
         else{gripPosition=Vector3.Lerp(gripPosition,target,blend);gripRotation=Quaternion.Slerp(gripRotation,rotation,blend);}
         // Only this wrist is fixed: the free arm and the rest of the plush swing under gravity.
@@ -137,7 +143,7 @@ public sealed class MonkeyToy : MonoBehaviour
         if(!IsHeld&&HasAuthority)
         {
             var center=ragdoll.Center;transform.position=center;
-            if(center.y < -8){ragdoll.End();transform.position=spawn;ragdoll.Begin(true,true,Vector3.zero);}
+            if(center.y < -8){ragdoll.End();transform.position=spawn;ragdoll.Begin(true,true,Vector3.zero);CalmPhysics();}
         }
     }
     private bool Owns(Collider collider)=>collider!=null&&(collider.transform.IsChildOf(transform)||collider.GetComponentInParent<RagdollColliderOwner>()?.Owner==gameObject);

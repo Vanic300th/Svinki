@@ -1,0 +1,4 @@
+PASS: Windows archive CRC, updated monkey motion and previous voice/chat components.
+Bytes=83921439
+SHA256=983528ff499fac3d15891312a8dd7d3d8da0ad2308037c90b627180b54466f53
+Succeeded; errors=1; warnings=2; seconds=19.905345

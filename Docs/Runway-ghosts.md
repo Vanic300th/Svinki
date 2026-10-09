@@ -6,6 +6,6 @@ The host includes the elimination flag in each captured result entry, together w
 
 In single player, death opens the ghost presentation automatically. Next Round then starts a fresh run; a living player's Keep Searching behavior remains unchanged. Multiplayer participants who die continue spectating until the round ends, then appear in its final show.
 
-Network protocol version: **9**. All players need the updated build. Runtime checks and screenshots are in `ArtSource/RunwayGhost/`; the packaged Windows version is `Builds/Svinki-Windows.zip`.
+Network protocol version: **10**. All players need the updated build. Runtime checks and screenshots are in `ArtSource/RunwayGhost/`; the packaged Windows version is `Builds/Svinki-Windows.zip`.
 
 Validation covers actual two-hit death, automatic single-player presentation and reset, unchanged living models, preserved markings/accessories, unchanged shared materials, ghost score portraits, and matching host/standalone-guest result snapshots and visuals. Runtime checks were performed on macOS; the Windows executable has not been run on Windows here.

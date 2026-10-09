@@ -8,11 +8,11 @@ Each round spawns exactly one toy per participating player, near the entrance. S
 - **Left mouse** swings it.
 - **Right mouse / E** drops it without consuming it.
 
-The toy hangs from two pinned wrists, preserving the bones' grip orientation. The torso, head and legs remain physical and sway when the player moves or swings. A miss preserves the toy. The first successful mannequin hit consumes it, including a hit against an ordinary display mannequin. Only aggressive mannequins get the thirty-second stun: their actual skinned skeleton falls under physics, while navigation, attacks and animation are suspended. Their previous component states are restored after thirty seconds. A repeat hit on an already stunned mannequin still consumes the additional toy and does not extend the timer.
+The toy hangs from one pinned wrist, preserving the bone's grip orientation. The free arm, torso, head and legs remain physical. Stronger damping, reduced joint angles and a slower, smoothed grip keep their sway small during movement and swings. These settings apply only to the toy; mannequin falls keep their existing physics. A miss preserves the toy. The first successful mannequin hit consumes it, including a hit against an ordinary display mannequin. Only aggressive mannequins get the thirty-second stun: their actual skinned skeleton falls under physics, while navigation, attacks and animation are suspended. Their previous component states are restored after thirty seconds. A repeat hit on an already stunned mannequin still consumes the additional toy and does not extend the timer.
 
 The host validates grabs and swings, owns hit detection and the stun timer, and replicates carriers, swings, ragdoll poses, and despawns. Owning guests simulate a local visual toy for immediate camera response; those visuals cannot apply hits. Walls obstruct strikes. Players cannot combine carrying a monkey with carrying a mannequin or riding/pushing a cart. Knockdown, elimination or disconnect drops the held toy.
 
-Network protocol version: **9**. Everyone must use the new build. Recreate the prefab, registry and scene configuration through Unity Pipeline with `Tools/Unity/MonkeyToySetup.cs`, entry `MonkeyToySetup.Build`. Gameplay checks and captures are in `ArtSource/MonkeyToy/`.
+Network protocol version: **10**. Everyone must use the new build. Recreate the prefab, registry and scene configuration through Unity Pipeline with `Tools/Unity/MonkeyToySetup.cs`, entry `MonkeyToySetup.Build`. Gameplay checks and captures are in `ArtSource/MonkeyToy/`.
 
 ## Validation
 

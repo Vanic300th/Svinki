@@ -29,7 +29,7 @@ public sealed class NetworkLobby : MonoBehaviour
     }
     public const int Capacity = 6;
     public const float ReconnectGrace = 60f;
-    public const int ProtocolVersion = 9;
+    public const int ProtocolVersion = 10;
     public static NetworkLobby Instance { get; private set; }
     [SerializeField] private NetworkObject playerPrefab;
     [SerializeField] private GameObject offlinePlayerPrefab;

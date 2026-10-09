@@ -74,6 +74,16 @@ public sealed class ArticulatedRagdoll : MonoBehaviour
     }
     public void SetDamping(float linear,float angular)
     {foreach(var body in bodies){body.linearDamping=linear;body.angularDamping=angular;}}
+    public void SetJointMotion(float twist,float swing1,float swing2,float angularSpeed)
+    {
+        foreach(var body in bodies)
+        {
+            body.maxAngularVelocity=angularSpeed;
+            var joint=body.GetComponent<CharacterJoint>();if(joint==null)continue;
+            joint.lowTwistLimit=new SoftJointLimit{limit=-twist};joint.highTwistLimit=new SoftJointLimit{limit=twist};
+            joint.swing1Limit=new SoftJointLimit{limit=swing1};joint.swing2Limit=new SoftJointLimit{limit=swing2};
+        }
+    }
     public void Pin(string name,Vector3 point,Quaternion rotation,bool immediate)
     {
         if(!simulate)return;

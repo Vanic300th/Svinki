@@ -9,21 +9,21 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
 public static class EmoteMonkeyCheck
 {
- private static Keyboard keys;private static Mouse mouse;private static InputSettings original,test;
+ private static Keyboard keys;private static Mouse mouse;private static InputSettings original,test;private static HideFlags originalFlags;
  private static readonly BindingFlags Flags=BindingFlags.Instance|BindingFlags.NonPublic;
  private static void Assert(bool value,string reason){if(!value)throw new Exception(reason);}
  private static void Press(params Key[] pressed){InputSystem.QueueStateEvent(keys,new KeyboardState(pressed));}
  private static void Point(Vector2 point){InputSystem.QueueStateEvent(mouse,new MouseState{position=point});}
  private static void Move(PlayerAvatar p,Vector3 point){var cc=p.GetComponent<CharacterController>();cc.enabled=false;p.transform.position=point;cc.enabled=true;}
  private static void Look(PlayerAvatar p,float yaw,float pitch){var view=p.EyeCamera.GetComponent<GrayboxFirstPersonCamera>();typeof(GrayboxFirstPersonCamera).GetField("yaw",Flags).SetValue(view,yaw);typeof(GrayboxFirstPersonCamera).GetField("pitch",Flags).SetValue(view,pitch);}
- private static void Cleanup(){if(keys!=null)InputSystem.RemoveDevice(keys);if(mouse!=null)InputSystem.RemoveDevice(mouse);if(original!=null)InputSystem.settings=original;if(test!=null)UnityEngine.Object.Destroy(test);}
+ private static void Cleanup(){if(keys!=null)InputSystem.RemoveDevice(keys);if(mouse!=null)InputSystem.RemoveDevice(mouse);if(original!=null){InputSystem.settings=original;original.hideFlags=originalFlags;}if(test!=null)UnityEngine.Object.Destroy(test);}
  private static bool Check(Action action){try{action();return true;}catch(Exception e){Cleanup();SessionState.SetString("Svinki.EmoteMonkey.Check","FAIL "+e.Message);File.AppendAllText("ArtSource/EmoteMonkey/offline-validation.txt","FAIL "+e+"\n");Debug.LogException(e);return false;}}
  public static string Start(){SessionState.SetString("Svinki.EmoteMonkey.Check","RUNNING");PlayerRegistry.Players.First(p=>p.IsLocal).StartCoroutine(Run());return "Wheel, six gestures and one-hand physics check running";}
  private static IEnumerator Run()
  {
   var player=PlayerRegistry.Players.First(p=>p.IsLocal);var motion=player.GetComponentInChildren<PigMotion>();
   if(!Check(()=>{foreach(var npc in UnityEngine.Object.FindObjectsByType<MannequinBrain>())npc.enabled=false;foreach(var npc in UnityEngine.Object.FindObjectsByType<ThiefBrain>())npc.enabled=false;
-   original=InputSystem.settings;test=UnityEngine.Object.Instantiate(original);test.backgroundBehavior=InputSettings.BackgroundBehavior.IgnoreFocus;InputSystem.settings=test;
+   original=InputSystem.settings;originalFlags=original.hideFlags;original.hideFlags=HideFlags.DontUnloadUnusedAsset;test=UnityEngine.Object.Instantiate(original);test.hideFlags=HideFlags.HideAndDontSave;test.backgroundBehavior=InputSettings.BackgroundBehavior.IgnoreFocus;InputSystem.settings=test;
    keys=InputSystem.AddDevice<Keyboard>("Emote check keyboard");mouse=InputSystem.AddDevice<Mouse>("Emote check mouse");keys.MakeCurrent();mouse.MakeCurrent();Move(player,new Vector3(0,.05f,5));Look(player,0,0);
    File.WriteAllText("ArtSource/EmoteMonkey/offline-validation.txt","Protocol 9 / main\n");}))yield break;
   yield return new WaitForSecondsRealtime(.4f);Press(Key.V);yield return null;yield return null;

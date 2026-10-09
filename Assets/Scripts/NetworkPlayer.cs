@@ -33,6 +33,29 @@ public sealed class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
     private bool crouch;
     private float nextPoseSend;
     private float nextChatAllowed;
+    private VoicePlayback voicePlayback;
+    private float voiceBudget=8,voiceBudgetAt,lastVoiceAt=-10;
+    private ushort lastVoiceSequence;
+    public int RelayedVoiceFrames { get; private set; }
+    public void SendVoice(ushort sequence,byte[] packet)
+    { if(IsOwner&&IsClientStarted)VoiceServerRpc(sequence,packet); }
+    [ServerRpc(RequireOwnership = true)]
+    private void VoiceServerRpc(ushort sequence,byte[] packet,Channel channel=Channel.Unreliable)
+    {
+        if(!VoiceCodec.IsValid(packet)||IsDead||NetworkLobby.Instance?.CanEditOutfit(this)!=true)return;
+        float now=Time.unscaledTime;
+        voiceBudget=Mathf.Min(8,voiceBudget+Mathf.Max(0,now-voiceBudgetAt)*60);voiceBudgetAt=now;
+        if(voiceBudget<1||now-lastVoiceAt<.5f&&!VoiceCodec.IsNewer(sequence,lastVoiceSequence))return;
+        voiceBudget-=1;lastVoiceAt=now;lastVoiceSequence=sequence;RelayedVoiceFrames++;
+        VoiceObserversRpc(sequence,packet);
+    }
+    [ObserversRpc]
+    private void VoiceObserversRpc(ushort sequence,byte[] packet,Channel channel=Channel.Unreliable)
+    {
+        if(IsOwner||!IsClientStarted)return;
+        if(voicePlayback==null)voicePlayback=GetComponent<VoicePlayback>()??gameObject.AddComponent<VoicePlayback>();
+        voicePlayback.Receive(sequence,packet);
+    }
     private readonly SyncVar<uint> emote = new SyncVar<uint>();
     private float emoteUntil, nextEmoteAllowed;
     private PigMotion pigMotion;
