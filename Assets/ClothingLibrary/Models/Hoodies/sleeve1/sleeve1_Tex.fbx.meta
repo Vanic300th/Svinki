@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: hoodie1_Hood
-    second: {fileID: 2100000, guid: 968145dfa2f391343a77ff4f43bbe68a, type: 2}
+    second: {fileID: 2100000, guid: cfa33a53c6d8a0845ba84fcf11355c3c, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

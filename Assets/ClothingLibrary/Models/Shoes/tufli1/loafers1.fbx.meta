@@ -8,17 +8,17 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Material.001
-    second: {fileID: 2100000, guid: 03702cf11e1a8924a931245a388c5db3, type: 2}
+    second: {fileID: 2100000, guid: f138a50e2fcc4ee185968ac02a9332e0, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: loafer
-    second: {fileID: 2100000, guid: 1e85c5889c3fc0f4fa7dba1ed1fb9786, type: 2}
+    second: {fileID: 2100000, guid: 88545049b4c84bebbacb7cd92425479b, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: obvodka
-    second: {fileID: 2100000, guid: 718a92dbb016525459e30bec831cc840, type: 2}
+    second: {fileID: 2100000, guid: 417fb67ab7a4463387ee9fdbe32ca716, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
