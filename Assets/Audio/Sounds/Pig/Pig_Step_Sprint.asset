@@ -13,15 +13,36 @@ MonoBehaviour:
   m_Name: Pig_Step_Sprint
   m_EditorClassIdentifier: Assembly-CSharp::SoundEffect
   clips:
-  - {fileID: 8300000, guid: 49d254758331a7949ab052579e961664, type: 3}
-  - {fileID: 8300000, guid: 287ec36ba351b894cad85e53472b9b98, type: 3}
-  - {fileID: 8300000, guid: d5217efcdf911644ebf84937499efb07, type: 3}
-  - {fileID: 8300000, guid: d29e8724905c6dc4d8fc902184a23d57, type: 3}
-  - {fileID: 8300000, guid: 64712f81675ffb541b3e02187cec48c3, type: 3}
-  - {fileID: 8300000, guid: da314372bef84504cb6bca461febb556, type: 3}
-  - {fileID: 8300000, guid: 7566f5bd9d3ae1c46a36a5b3f4f62f52, type: 3}
-  - {fileID: 8300000, guid: f858c893390800e4f8c586644c6aafa7, type: 3}
-  - {fileID: 8300000, guid: bfc2cd0f765c7914e8a7a9ae695a1a51, type: 3}
+  - {fileID: 8300000, guid: cc4144e9f55eeb848b3c233775326827, type: 3}
+  - {fileID: 8300000, guid: 6987250549b990d4bad1edaa51d4f23a, type: 3}
+  - {fileID: 8300000, guid: e295557a2e3b4fa499c7be1ee852ae7b, type: 3}
+  - {fileID: 8300000, guid: f1f0a3edba2a1454aba650b3b099948d, type: 3}
+  - {fileID: 8300000, guid: 475c852b8a0b04d47baeba06cb3c24a0, type: 3}
+  - {fileID: 8300000, guid: 9965c340f4f0ad64a8867ea36437b527, type: 3}
+  - {fileID: 8300000, guid: b5d7cfcac603c3e45ad10496a0ab028f, type: 3}
+  - {fileID: 8300000, guid: 20f06d82aea467b40b3e9c11d0e13648, type: 3}
+  - {fileID: 8300000, guid: dddf4a9fa4a98854f8cd71c3a15bbcc7, type: 3}
+  - {fileID: 8300000, guid: 1286388d2c978ee46816f84db2b4de8f, type: 3}
+  - {fileID: 8300000, guid: 79a0d056ba3ac2443804a38125b8a0d8, type: 3}
+  - {fileID: 8300000, guid: 301f6e315fea1f5408fdd90fda527331, type: 3}
+  - {fileID: 8300000, guid: bdc611b40b689c54b82b7c4581f0e939, type: 3}
+  - {fileID: 8300000, guid: bcaaf1104b59f5a44a0cb2bc41b4f3be, type: 3}
+  - {fileID: 8300000, guid: 480cdfd7a2b9ab24cba9563437679dce, type: 3}
+  - {fileID: 8300000, guid: 1adc4c97acff6b7469c2f85db31059a3, type: 3}
+  - {fileID: 8300000, guid: ce3fa04d570aba841aff53a3ad49c745, type: 3}
+  - {fileID: 8300000, guid: 05e03119251315c49bc1fe996a35fdfc, type: 3}
+  - {fileID: 8300000, guid: cc5000767c50b5f4fa2d2b8e54440bd0, type: 3}
+  - {fileID: 8300000, guid: f607d67461cb8dd4e8e8226c43c48cae, type: 3}
+  - {fileID: 8300000, guid: 36b799e8724c69741b483cd199706680, type: 3}
+  - {fileID: 8300000, guid: a4db33aca49f1494e8c2444f32cd5b6e, type: 3}
+  - {fileID: 8300000, guid: 44c5ee7a148174647b8d3a4dfd46e662, type: 3}
+  - {fileID: 8300000, guid: af52c1ecff1177a42a52eeee8893393a, type: 3}
+  - {fileID: 8300000, guid: 08ec113ecf732af4ca822a687155995c, type: 3}
+  - {fileID: 8300000, guid: 93cfb839ea6817444926dcb8cbe188b9, type: 3}
+  - {fileID: 8300000, guid: 81015f2cc8b347d4d800afa742236c81, type: 3}
+  - {fileID: 8300000, guid: 4f9c76f76f058c84b9512585e7993078, type: 3}
+  - {fileID: 8300000, guid: fa5acb6e2f600dd4a9ac378588b68c5b, type: 3}
+  - {fileID: 8300000, guid: 9067b6123ec569f46a9422353575f83c, type: 3}
   volume: {x: 0.262, y: 0.326}
-  pitch: {x: 0.95, y: 1.08}
+  pitch: {x: 0.98, y: 1.1}
   avoidRepeat: 1

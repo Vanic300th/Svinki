@@ -18,7 +18,9 @@ namespace FishNet.Transporting.FishyEOSPlugin
         [Tooltip("Maximum number of players which may be connected at once.")]
         [Range(1, 9999)]
         [SerializeField]
+#pragma warning disable 0414 // настраивается в инспекторе, транспорт EOS пока не ограничивает число игроков
         private int _maximumClients = 4095;
+#pragma warning restore 0414
 
         /// <summary>
         /// Socket ID [Must be the same on all clients and server].

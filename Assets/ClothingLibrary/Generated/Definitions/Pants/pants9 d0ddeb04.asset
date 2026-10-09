@@ -22,5 +22,5 @@ MonoBehaviour:
   displayRotation: {x: 90, y: 0, z: 0}
   pigRigged: 0
   pigWornModel: {fileID: 0}
-  pickupPrefab: {fileID: 0}
+  pickupPrefab: {fileID: 7173277618945441956, guid: a1654041473402b4cbef562e932cc8dc, type: 3}
   flutterStrength: 0.04

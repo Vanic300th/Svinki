@@ -13,15 +13,36 @@ MonoBehaviour:
   m_Name: Pig_Land
   m_EditorClassIdentifier: Assembly-CSharp::SoundEffect
   clips:
-  - {fileID: 8300000, guid: 9f6cade77a6f9f141bf9e193ae74958a, type: 3}
-  - {fileID: 8300000, guid: 893697d6f75c4994fbfc5f4c70386c2b, type: 3}
-  - {fileID: 8300000, guid: beb51db2118c3e744a9cd73558fc8d34, type: 3}
-  - {fileID: 8300000, guid: ee99bb254f8ef374f8d4d7d04dcaa42d, type: 3}
-  - {fileID: 8300000, guid: 835145ef4933f1b48ac06d8a475b1820, type: 3}
-  - {fileID: 8300000, guid: 0bb9107735ac2b441a0a6c25b8a03095, type: 3}
-  - {fileID: 8300000, guid: ade931702816946429176c7582d60dae, type: 3}
-  - {fileID: 8300000, guid: f5241c24c12fc8f4c9355c22bae1abc7, type: 3}
-  - {fileID: 8300000, guid: 71c7d87972b57714daeec5a6221a3848, type: 3}
+  - {fileID: 8300000, guid: cc4144e9f55eeb848b3c233775326827, type: 3}
+  - {fileID: 8300000, guid: 6987250549b990d4bad1edaa51d4f23a, type: 3}
+  - {fileID: 8300000, guid: e295557a2e3b4fa499c7be1ee852ae7b, type: 3}
+  - {fileID: 8300000, guid: f1f0a3edba2a1454aba650b3b099948d, type: 3}
+  - {fileID: 8300000, guid: 475c852b8a0b04d47baeba06cb3c24a0, type: 3}
+  - {fileID: 8300000, guid: 9965c340f4f0ad64a8867ea36437b527, type: 3}
+  - {fileID: 8300000, guid: b5d7cfcac603c3e45ad10496a0ab028f, type: 3}
+  - {fileID: 8300000, guid: 20f06d82aea467b40b3e9c11d0e13648, type: 3}
+  - {fileID: 8300000, guid: dddf4a9fa4a98854f8cd71c3a15bbcc7, type: 3}
+  - {fileID: 8300000, guid: 1286388d2c978ee46816f84db2b4de8f, type: 3}
+  - {fileID: 8300000, guid: 79a0d056ba3ac2443804a38125b8a0d8, type: 3}
+  - {fileID: 8300000, guid: 301f6e315fea1f5408fdd90fda527331, type: 3}
+  - {fileID: 8300000, guid: bdc611b40b689c54b82b7c4581f0e939, type: 3}
+  - {fileID: 8300000, guid: bcaaf1104b59f5a44a0cb2bc41b4f3be, type: 3}
+  - {fileID: 8300000, guid: 480cdfd7a2b9ab24cba9563437679dce, type: 3}
+  - {fileID: 8300000, guid: 1adc4c97acff6b7469c2f85db31059a3, type: 3}
+  - {fileID: 8300000, guid: ce3fa04d570aba841aff53a3ad49c745, type: 3}
+  - {fileID: 8300000, guid: 05e03119251315c49bc1fe996a35fdfc, type: 3}
+  - {fileID: 8300000, guid: cc5000767c50b5f4fa2d2b8e54440bd0, type: 3}
+  - {fileID: 8300000, guid: f607d67461cb8dd4e8e8226c43c48cae, type: 3}
+  - {fileID: 8300000, guid: 36b799e8724c69741b483cd199706680, type: 3}
+  - {fileID: 8300000, guid: a4db33aca49f1494e8c2444f32cd5b6e, type: 3}
+  - {fileID: 8300000, guid: 44c5ee7a148174647b8d3a4dfd46e662, type: 3}
+  - {fileID: 8300000, guid: af52c1ecff1177a42a52eeee8893393a, type: 3}
+  - {fileID: 8300000, guid: 08ec113ecf732af4ca822a687155995c, type: 3}
+  - {fileID: 8300000, guid: 93cfb839ea6817444926dcb8cbe188b9, type: 3}
+  - {fileID: 8300000, guid: 81015f2cc8b347d4d800afa742236c81, type: 3}
+  - {fileID: 8300000, guid: 4f9c76f76f058c84b9512585e7993078, type: 3}
+  - {fileID: 8300000, guid: fa5acb6e2f600dd4a9ac378588b68c5b, type: 3}
+  - {fileID: 8300000, guid: 9067b6123ec569f46a9422353575f83c, type: 3}
   volume: {x: 0.468, y: 0.527}
   pitch: {x: 0.85, y: 0.95}
   avoidRepeat: 1

@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// Звуки свинки: шаги, прыжок, приземление, падение, подъём, подбор и сброс одежды.
+/// Звуки свинки: шаги, прыжок, приземление, падение, подъём, подбор и сброс одежды, фонарик, фотокамера.
 /// Стоит на объекте "Audio" внутри префаба игрока (OfflinePlayer / NetworkPlayer), источники звука — его дочерние объекты.
 /// Работает и для своей свинки, и для чужих: скорость, «на земле» и падения берутся из состояния,
 /// которое уже синхронизируется по сети, поэтому каждый игрок слышит шаги и падения остальных.
@@ -70,6 +70,14 @@ public sealed class PigAudio : MonoBehaviour
     [SerializeField] private SoundEffect flashlightOn;
     [SerializeField] private SoundEffect flashlightOff;
 
+    [Header("Фотокамера")]
+    [Tooltip("Щелчок затвора при снимке. Слышат все рядом.")]
+    [SerializeField] private SoundEffect cameraShutter;
+    [Tooltip("Камеру достали (K). Можно оставить пустым.")]
+    [SerializeField] private SoundEffect cameraEquip;
+    [Tooltip("Камеру убрали. Можно оставить пустым.")]
+    [SerializeField] private SoundEffect cameraStow;
+
     [Header("Своя свинка")]
     [Tooltip("Громкость своих шагов и приземлений относительно чужих (свои слышно всегда, не надо громко).")]
     [SerializeField, Range(0f, 1f)] private float ownVolume = 0.7f;
@@ -96,6 +104,9 @@ public sealed class PigAudio : MonoBehaviour
     private float clothingQuietUntil;
     private FlashlightController localFlashlight;
     private bool flashlightWasOn, flashlightKnown;
+    private PlayerPhotoCamera photoCamera;
+    private float cameraCooldown, nextCameraSearch;
+    private bool cameraEquipped;
 
     private bool IsLocal => network == null || network.IsOwner;
     private float Speed => IsLocal ? (motor != null ? motor.MotionSpeed : 0f) : network.MotionSpeed;
@@ -121,6 +132,7 @@ public sealed class PigAudio : MonoBehaviour
         clothingQuietUntil = Time.time + 2f; // стартовый комплект и синхронизация при подключении — без звука
         outfit = null;
         flashlightKnown = false;
+        photoCamera = null; nextCameraSearch = 0f;
     }
 
     private void LateUpdate()
@@ -134,6 +146,7 @@ public sealed class PigAudio : MonoBehaviour
         UpdateFalls();
         UpdateClothing();
         UpdateFlashlight();
+        UpdateCamera();
         if (thudAt >= 0f && Time.time >= thudAt) { thudAt = -1f; Play(fallThud, body, 1f, "fall thud"); }
 
         // Телепорт (возрождение, смена раунда): не считаем это шагами.
@@ -238,6 +251,28 @@ public sealed class PigAudio : MonoBehaviour
         if (on == flashlightWasOn) return;
         flashlightWasOn = on;
         Play(on ? flashlightOn : flashlightOff, body, 1f, on ? "flashlight on" : "flashlight off");
+    }
+
+    // Снимок виден по перезарядке: ShowFlash приходит всем игрокам по сети и заново заводит её на секунду.
+    private void UpdateCamera()
+    {
+        if (photoCamera == null)
+        {
+            if (Time.time < nextCameraSearch) return;
+            nextCameraSearch = Time.time + 1f;
+            photoCamera = GetComponentInParent<PlayerPhotoCamera>();
+            if (photoCamera == null) return;
+            cameraCooldown = photoCamera.CooldownRemaining;
+            cameraEquipped = photoCamera.Equipped;
+            return;
+        }
+        float cooldown = photoCamera.CooldownRemaining;
+        if (cooldown > cameraCooldown + 0.5f) Play(cameraShutter, body, 1f, "camera shutter");
+        cameraCooldown = cooldown;
+        bool equipped = photoCamera.Equipped;
+        if (equipped == cameraEquipped) return;
+        cameraEquipped = equipped;
+        Play(equipped ? cameraEquip : cameraStow, body, 1f, equipped ? "camera equip" : "camera stow");
     }
 
     private bool CanMakeFootsteps()

@@ -98,7 +98,6 @@ public static class ClothingDemoSetup
 
         SerializedObject pickupData = new SerializedObject(pickup);
         pickupData.FindProperty("itemName").stringValue = itemName;
-        pickupData.FindProperty("highlightColor").colorValue = clothing.HighlightColor;
         pickupData.FindProperty("glowStrength").floatValue = 0f;
         pickupData.FindProperty("sparkleRate").floatValue = 0f;
         pickupData.FindProperty("preserveBaseColor").boolValue = true;

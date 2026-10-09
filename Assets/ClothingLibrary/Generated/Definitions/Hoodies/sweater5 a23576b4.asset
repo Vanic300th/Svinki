@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c13890c0392454b8d38142cb51477de, type: 3}
+  m_Name: sweater5 a23576b4
+  m_EditorClassIdentifier: Assembly-CSharp::HoodieClothing
+  displayName: sweater5
+  model: {fileID: 919132149155446097, guid: a23576b40953d9f4dbfba52f1a41c3e4, type: 3}
+  fabricMaterial: {fileID: 0}
+  outlineMaterial: {fileID: 2100000, guid: f91a175a5a6cd489a8cc46d963ef138d, type: 2}
+  highlightColor: {r: 1, g: 0.79, b: 0.13, a: 1}
+  displayCenter: {x: 0, y: 1.19, z: -0.29}
+  displaySize: {x: 0.85, y: 0.67}
+  displayRotation: {x: 90, y: 0, z: 0}
+  pigRigged: 0
+  pigWornModel: {fileID: 0}
+  pickupPrefab: {fileID: 1898212883948592107, guid: d46e5bd38bec4864d9c1ce0e04d4a350, type: 3}
+  flutterStrength: 0.04

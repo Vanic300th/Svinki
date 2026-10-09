@@ -718,6 +718,42 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 824141d35caba44b0abd8c487f8c20cf, type: 2}
   - {fileID: 11400000, guid: 343ccc8b17d33470fbb53150fbb9bff1, type: 2}
   - {fileID: 11400000, guid: fd83dbc442bf84864b2a7b387299d711, type: 2}
+  - {fileID: 11400000, guid: 0c71aeaaf671ad846b33dcb978ad85f0, type: 2}
+  - {fileID: 11400000, guid: a938cc6407f026346a04b972009c04ed, type: 2}
+  - {fileID: 11400000, guid: 7659e4ec8baa166438a1cbe823af4243, type: 2}
+  - {fileID: 11400000, guid: be4a377e0313a0045a06baf6587ce19d, type: 2}
+  - {fileID: 11400000, guid: ccdeb097e72cd114f822d16adc462d7f, type: 2}
+  - {fileID: 11400000, guid: b46f0b6480693674b959f8b9c95c811e, type: 2}
+  - {fileID: 11400000, guid: bf30008ded43d9e4e9fe193efe542ed7, type: 2}
+  - {fileID: 11400000, guid: 08fd14727526e6c42b8093a46afd24a3, type: 2}
+  - {fileID: 11400000, guid: 20c9ef327a9a85448bb55c0499456c69, type: 2}
+  - {fileID: 11400000, guid: 5094e6ab53207b54581749a4e67e6aa4, type: 2}
+  - {fileID: 11400000, guid: af430081cbe21e346bebed39a0b7d4d8, type: 2}
+  - {fileID: 11400000, guid: 70bb475b46ffd1c4a9269a6a3079735b, type: 2}
+  - {fileID: 11400000, guid: f674d31c1257b4c46a8873635d0e2214, type: 2}
+  - {fileID: 11400000, guid: d1c5aed6cabc2054da438b3f5718a2ff, type: 2}
+  - {fileID: 11400000, guid: 3cdd90f90e2a0ee4a91cc47b027113b3, type: 2}
+  - {fileID: 11400000, guid: d5b149047ae8ac5428ca2c410e970d34, type: 2}
+  - {fileID: 11400000, guid: 127bb08f628d7e14f96c7c47de8a6b06, type: 2}
+  - {fileID: 11400000, guid: 2de29defb3d7bd54283740b60836fe97, type: 2}
+  - {fileID: 11400000, guid: 9545a107b376fec4bae58acc0c5142cd, type: 2}
+  - {fileID: 11400000, guid: 8ff1081cee48b03438fb1be3f69820e1, type: 2}
+  - {fileID: 11400000, guid: 31c14813a22d89d479962aa3a32bbdc7, type: 2}
+  - {fileID: 11400000, guid: 0b57f7244091f1d4cb88275a249a66ee, type: 2}
+  - {fileID: 11400000, guid: 14ea568926c911f498f8bf75870302d1, type: 2}
+  - {fileID: 11400000, guid: ed0ff6a17411ca248acd1bf388107d90, type: 2}
+  - {fileID: 11400000, guid: 46fd1c9b43162e14289a79a47718ece9, type: 2}
+  - {fileID: 11400000, guid: 46a5cda5683cfa34180a2faa03ec0475, type: 2}
+  - {fileID: 11400000, guid: 088c34c0051563d44aa0b12708dfa2ef, type: 2}
+  - {fileID: 11400000, guid: 03c8c2a65d934924ba91a6e43350d461, type: 2}
+  - {fileID: 11400000, guid: c174f4450e9cfdd46bd847000af310b5, type: 2}
+  - {fileID: 11400000, guid: f926d58ffbdb51c479b0b44034dd5692, type: 2}
+  - {fileID: 11400000, guid: f280df3020afc4c4f82351d37afee424, type: 2}
+  - {fileID: 11400000, guid: 1437aef5bf2791149b5b07ab80a02e04, type: 2}
+  - {fileID: 11400000, guid: 165fc0788934ea34ba148d7b6d0c2386, type: 2}
+  - {fileID: 11400000, guid: f8caf3a4e2951a14cbd592bfdf617c6f, type: 2}
+  - {fileID: 11400000, guid: 2ce2fb4cc6ee1e744932e8e6e165b05a, type: 2}
+  - {fileID: 11400000, guid: ba0f8856d6f344541a82737a621ca046, type: 2}
 --- !u!114 &7473211890081286612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -911,6 +947,9 @@ MonoBehaviour:
   maxClothingChangesForSound: 2
   flashlightOn: {fileID: 11400000, guid: c0b0cd7818496c6499bcc12b8a56d107, type: 2}
   flashlightOff: {fileID: 11400000, guid: 55d612bd57f81414bb59b09311b933df, type: 2}
+  cameraShutter: {fileID: 11400000, guid: d60618f5d30d3324b9b7647dd095593f, type: 2}
+  cameraEquip: {fileID: 0}
+  cameraStow: {fileID: 0}
   ownVolume: 0.7
   logEvents: 0
 --- !u!1 &1448374944125701201

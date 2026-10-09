@@ -2880,6 +2880,9 @@ MonoBehaviour:
   maxClothingChangesForSound: 2
   flashlightOn: {fileID: 11400000, guid: c0b0cd7818496c6499bcc12b8a56d107, type: 2}
   flashlightOff: {fileID: 11400000, guid: 55d612bd57f81414bb59b09311b933df, type: 2}
+  cameraShutter: {fileID: 11400000, guid: d60618f5d30d3324b9b7647dd095593f, type: 2}
+  cameraEquip: {fileID: 0}
+  cameraStow: {fileID: 0}
   ownVolume: 0.7
   logEvents: 0
 --- !u!1001 &981657489728638484

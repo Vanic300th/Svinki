@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: hoodie1 7c5f534e
   m_EditorClassIdentifier: Assembly-CSharp::HoodieClothing
   displayName: hoodie1
-  model: {fileID: 919132149155446097, guid: 7c5f534ed257b4eaf99b19575c37029b, type: 3}
+  model: {fileID: 919132149155446097, guid: cacb21f9e8a0e1743915478320d16342, type: 3}
   fabricMaterial: {fileID: 0}
   outlineMaterial: {fileID: 2100000, guid: f91a175a5a6cd489a8cc46d963ef138d, type: 2}
   highlightColor: {r: 1, g: 0.79, b: 0.13, a: 1}

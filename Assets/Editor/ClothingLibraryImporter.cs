@@ -285,7 +285,6 @@ public sealed class ClothingLibraryImporter : AssetPostprocessor
             PickupItem pickup = root.AddComponent<PickupItem>();
             SerializedObject pickupData = new SerializedObject(pickup);
             pickupData.FindProperty("itemName").stringValue = clothing.DisplayName;
-            pickupData.FindProperty("highlightColor").colorValue = clothing.HighlightColor;
             pickupData.FindProperty("glowStrength").floatValue = 0f;
             pickupData.FindProperty("sparkleRate").floatValue = 0f;
             pickupData.FindProperty("preserveBaseColor").boolValue = true;

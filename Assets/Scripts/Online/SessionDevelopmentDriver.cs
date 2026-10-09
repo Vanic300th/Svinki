@@ -33,7 +33,7 @@ public sealed class SessionDevelopmentDriver : MonoBehaviour
     [Serializable] private sealed class MapMarkerState { public string name; public bool local, visible, nameVisible; public Vector2 mapPosition; public Vector3 worldPosition; public Color colour, nameColour; }
     private static MapMarkerState[] ReadMapMarkers()
     {
-        var hud=UnityEngine.Object.FindFirstObjectByType<PlayerRoundHud>();if(hud==null)return Array.Empty<MapMarkerState>();
+        var hud=UnityEngine.Object.FindAnyObjectByType<PlayerRoundHud>();if(hud==null)return Array.Empty<MapMarkerState>();
         var labels=(System.Collections.Generic.Dictionary<UnityEngine.Object,TMPro.TMP_Text>)typeof(PlayerRoundHud).GetField("markers",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(hud);
         return labels.Where(p=>p.Key is PlayerAvatar avatar&&avatar!=null&&p.Value!=null).Select(p=> {
             var avatar=(PlayerAvatar)p.Key;var plate=avatar.GetComponent<PlayerNameplate>();
@@ -235,7 +235,7 @@ public sealed class SessionDevelopmentDriver : MonoBehaviour
         PlayerAvatar local = null;
         foreach (PlayerAvatar player in PlayerRegistry.Players) if (player != null && player.IsLocal) { local = player; break; }
         Camera eye = local != null ? local.EyeCamera : null;
-        string json = JsonUtility.ToJson(new State { mapMarkers=ReadMapMarkers(),mapSize=UnityEngine.Object.FindFirstObjectByType<StoreMinimapGraphic>()?.rectTransform.rect.width??0,snapshot = lobby.Snapshot, status = lobby.Status, identity = lobby.Identity,
+        string json = JsonUtility.ToJson(new State { mapMarkers=ReadMapMarkers(),mapSize=UnityEngine.Object.FindAnyObjectByType<StoreMinimapGraphic>()?.rectTransform.rect.width??0,snapshot = lobby.Snapshot, status = lobby.Status, identity = lobby.Identity,
             monkeys=MonkeyToy.All.Select(t=>new MonkeyState{id=t.GetComponent<NetworkMonkeyToy>().ObjectId,holder=t.Holder?.GetComponent<NetworkPlayer>()?.ParticipantName,consumed=t.Consumed,bodies=t.GetComponent<ArticulatedRagdoll>().BodyCount,center=t.GetComponent<ArticulatedRagdoll>().Center,leftHand=t.GetComponent<ArticulatedRagdoll>().BonePosition("Hand_L"),rightHand=t.GetComponent<ArticulatedRagdoll>().BonePosition("Hand_R")}).ToArray(),
             stuns=FindObjectsByType<MannequinStun>().Select(s=>new StunState{name=s.name,down=s.IsStunned,brain=s.GetComponent<MannequinBrain>().enabled,remaining=s.Remaining,head=s.GetComponent<ArticulatedRagdoll>().BonePosition("Head")}).ToArray(),
             chat=PlayerChat.Instance?.GetComponent<PlayerChatHistory>()?.Messages,
