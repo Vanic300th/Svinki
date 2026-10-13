@@ -1,7 +1,7 @@
 using FishNet.Broadcast;
 using System;
 public enum SessionPhase : byte { Menu, Lobby, Loading, Round, Returning, Results }
-public enum SessionAction : byte { Hello, Ready, Start, EndRound, ToggleAdmission, Kick, Leave, Appearance, Continue, FinishReady, RunwayReact, RunwayPose }
+public enum SessionAction : byte { Hello, Ready, Start, EndRound, ToggleAdmission, Kick, Leave, Appearance, Continue, FinishReady, RunwayReact, RunwayPose, RunwayControl }
 public struct SessionRequest : IBroadcast
 {
     public int Version;
@@ -26,6 +26,7 @@ public struct SessionMessage : IBroadcast
     public OutfitRoundResults results;
     public string runwayReaction;
     public int runwayReactionSequence;
+    public float runwayElapsed;
 }
 [Serializable] public sealed class ParticipantSnapshot
 {

@@ -1,0 +1,89 @@
+{
+  "id": "industrial_coffee_table",
+  "source": "https://polyhaven.com/a/industrial_coffee_table",
+  "license": "CC0-1.0",
+  "resolution": "1k",
+  "info": {
+    "type": 2,
+    "name": "Industrial Coffee Table",
+    "categories": [
+      "furniture",
+      "table"
+    ],
+    "tags": [
+      "metal",
+      "industrial",
+      "steel",
+      "rustic",
+      "workshop",
+      "metal frame",
+      "garage",
+      "urban loft"
+    ],
+    "authors": {
+      "Ulan Cabanilla": "All"
+    },
+    "donated": true,
+    "polycount": 41300,
+    "dimensions": [
+      778.2644629478455,
+      757.9282224178314,
+      638.4220765778537
+    ],
+    "staging": null,
+    "date_published": 1753660800,
+    "description": "Free 4K model - industrial coffee table with perforated steel frame, bolted rustic wood top; rugged workshop/garage character perfect for urban loft scenes.",
+    "max_resolution": [
+      8192,
+      8192
+    ],
+    "files_hash": "25e02bba0258cd7e7da15885c573e686e7513ed1",
+    "texel_density": 3355.413560279448,
+    "category_id": "14a9e15a-6ae7-5665-8142-d5fbda6b6a75",
+    "category": "Furniture/Tables/Coffee Tables",
+    "attributes": {
+      "condition": [
+        "worn"
+      ],
+      "material": [
+        "steel",
+        "wood"
+      ]
+    },
+    "img_version": "9eacdd38",
+    "download_count": 5587,
+    "thumbnail_url": "https://cdn.polyhaven.com/asset_img/thumbs/industrial_coffee_table.png?width=256&height=256&format=webp&v=9eacdd38"
+  },
+  "files": [
+    {
+      "path": "industrial_coffee_table.fbx",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/fbx/1k/industrial_coffee_table/industrial_coffee_table_1k.fbx",
+      "md5": "04a95ae58c74d653818ca709fcea55c6",
+      "size": 972748
+    },
+    {
+      "path": "textures/industrial_coffee_table_diff_1k.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/industrial_coffee_table/industrial_coffee_table_diff_1k.jpg",
+      "md5": "166f1baae88b779ea5b4bc2be1a54d60",
+      "size": 574858
+    },
+    {
+      "path": "textures/industrial_coffee_table_metal_1k.exr",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/industrial_coffee_table/industrial_coffee_table_metal_1k.exr",
+      "md5": "f58ff8898c2540e826b6fa3839622fa2",
+      "size": 426389
+    },
+    {
+      "path": "textures/industrial_coffee_table_nor_gl_1k.exr",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/industrial_coffee_table/industrial_coffee_table_nor_gl_1k.exr",
+      "md5": "52a3d25412c5b3ccb37b9d10eb594716",
+      "size": 1146191
+    },
+    {
+      "path": "textures/industrial_coffee_table_rough_1k.exr",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/industrial_coffee_table/industrial_coffee_table_rough_1k.exr",
+      "md5": "f276db6e3514d9c7f1c97b69b567ef29",
+      "size": 713633
+    }
+  ]
+}

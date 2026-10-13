@@ -1,0 +1,95 @@
+{
+  "id": "can_rusted",
+  "source": "https://polyhaven.com/a/can_rusted",
+  "license": "CC0-1.0",
+  "resolution": "1k",
+  "info": {
+    "donated": true,
+    "name": "Can Rusted",
+    "type": 2,
+    "authors": {
+      "Rahul Chaudhary": "All"
+    },
+    "info": null,
+    "date_published": 1676851200,
+    "staging": null,
+    "sponsors": [
+      "26820710"
+    ],
+    "categories": [
+      "containers",
+      "collection: the_shed"
+    ],
+    "tags": [
+      "shed",
+      "rubbish",
+      "dirty",
+      "outdoor",
+      "clutter",
+      "garage",
+      "used",
+      "old"
+    ],
+    "max_resolution": [
+      8192,
+      8192
+    ],
+    "polycount": 3520,
+    "texel_density": 22814.032689000644,
+    "dimensions": [
+      124.53292682766914,
+      124.67572093009949,
+      151.37778513599187
+    ],
+    "files_hash": "df29f732f300aa0bbd6da5081ef7a6902397f551",
+    "description": "Free 8K model of a rusted metal can with flaking paint, corroded patina, stained peeling label, and grimy water pooled inside.",
+    "category_id": "172481e8-dd09-5272-836c-77c7b688eb4c",
+    "category": "Containers & Storage/Cans, Tins & Bottles/Tins",
+    "collections": [
+      "the_shed"
+    ],
+    "attributes": {
+      "condition": [
+        "rusted"
+      ],
+      "material": [
+        "metal"
+      ]
+    },
+    "img_version": "27a2bc73",
+    "download_count": 7163,
+    "thumbnail_url": "https://cdn.polyhaven.com/asset_img/thumbs/can_rusted.png?width=256&height=256&format=webp&v=27a2bc73"
+  },
+  "files": [
+    {
+      "path": "can_rusted.fbx",
+      "size": 148428,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/fbx/1k/can_rusted/can_rusted_1k.fbx",
+      "md5": "d6c6d0b165355514dd7129d14518a647"
+    },
+    {
+      "path": "textures/can_rusted_nor_gl_1k.exr",
+      "size": 1372692,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/can_rusted/can_rusted_nor_gl_1k.exr",
+      "md5": "6eb53652f9d98746c6919ce35d6a29d3"
+    },
+    {
+      "path": "textures/can_rusted_diff_1k.jpg",
+      "size": 739913,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/can_rusted/can_rusted_diff_1k.jpg",
+      "md5": "24b33db877edaec5188dce65173c0b21"
+    },
+    {
+      "path": "textures/can_rusted_rough_1k.exr",
+      "size": 849249,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/can_rusted/can_rusted_rough_1k.exr",
+      "md5": "6797e9d9f963b97dca0c93325660eda3"
+    },
+    {
+      "path": "textures/can_rusted_metal_1k.exr",
+      "size": 859866,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/can_rusted/can_rusted_metal_1k.exr",
+      "md5": "82fa85b297ec43178b73279d192a22b2"
+    }
+  ]
+}

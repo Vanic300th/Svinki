@@ -1,37 +1,46 @@
-# Оценка собранного образа
+# Outfit rating: original and expanded wardrobe
 
-Система работает без нейросети и без назначенной темы. Шесть комплектов с предоставленной картинки — примеры удачных сочетаний, а не единственные правильные ответы. Правила применяются ко всем 15 моделям одежды из этого набора.
+All 33 pig-rigged garments share the same rating system. The original 15 items and six reference outfits are retained. The sixteen supplied examples add thirteen unique outfits: Street, Desert and Classic repeat earlier combinations. The combined catalogue therefore contains **19 reference outfits**, without counting duplicates twice.
 
-В сетевом раунде все участники возвращаются в стартовую комнату, смотрят на кнопку **«Готово»** и нажимают **E**. Когда каждый участник готов и остаётся у старта, сервер сохраняет их одежду и вычисляет оценки. Можно также нажать «Готово — у старта» в меню Esc; кнопка доступна только в зоне старта. Уход из этой зоны, падение или изменение одежды отменяет готовность. Все участники получают один и тот же снимок результатов, с таблицей игроков, просмотром свиньи в одежде и объяснением балла. Зрители не участвуют в оценке. **«Следующий раунд»** у хоста возвращает всех в лобби, где они снова отмечают готовность. В одиночной игре кнопка «Готово» у старта открывает тот же экран; **«Продолжить поиск»** возвращает в текущую локацию с той же одеждой.
+The reference image identifies models by filename. These keys are used directly, including `hoodie4`, `hoodie5`, `pants6`–`pants9`, and `sweater2`, `sweater4`–`sweater6`; folder numbers are not model numbers.
 
-## Как считается балл
+| Supplied example | Top | Trousers | Headwear | Footwear |
+| --- | --- | --- | --- | --- |
+| Street | hoodie1 | pants2 | hat1 | sneakers2 |
+| Desert | shirt3 | pants3 | cap1 | sneakers3 |
+| Commando | sleeve1 | pants7 | cap1 | sneakers3 |
+| Classic | shirt1 | pants1 | hat2 | loafers1 |
+| Sportswear | shirt2 | pants6 | cap2 | sneakers4 |
+| French | sweater1 | pants8 | hat2 | loafers1 |
+| Army | hoodie4 | pants7 | cap2 | sneakers4 |
+| Baron | hoodie5 | pants8 | hat3 | loafers2 |
+| Gardener | shirt6 | pants9 | hat3 | loafers2 |
+| Forester | shirt4 | pants6 | hat1 | loafers1 |
+| Tiger | shirt5 | pants1 | cap1 | sneakers3 |
+| Sakura | shirt7 | pants9 | hat2 | sneakers2 |
+| Sky | sweater2 | pants2 | hat2 | sneakers4 |
+| Autumn | sweater4 | pants8 | cap2 | loafers1 |
+| Chess | sweater5 | pants1 | hat1 | sneakers3 |
+| Grandma's Garden | sweater6 | pants9 | hat3 | loafers2 |
 
-Оцениваются четыре слота: головной убор, верх, брюки, обувь. Повторение одного слота не добавляет баллов. Для каждой пары вещей:
+The previous Camouflage casual, Cozy and Sport combinations remain alongside these. All earlier generated clothing definitions and the four original starter definitions are linked to their matching rating profiles. Existing inventories and saved item IDs remain recognised.
 
-- Если пара встречается хотя бы в одном из шести примеров, совместимость пары равна 100.
-- Новые пары оцениваются по близости формальности, теплоте одежды и цветам. Несколько спокойных цветов сочетаются легко; близкие оттенки и контрастные оттенки тоже поддерживают друг друга.
-- Для узоров проверяются головной убор, верх и брюки. Однотонные вещи помогают активному узору; конфликтующие полосы и камуфляж снижают этот показатель. Сочетания узоров из примеров считаются удачными.
+## Calculation
 
-Влияние пар: верх/брюки — 30%, верх/обувь — 22%, брюки/обувь — 16%, головной убор/верх — 14%, головной убор/брюки — 10%, головной убор/обувь — 8%. Если вещей меньше, учитываются только существующие пары.
+The four slots are headwear, top, trousers and footwear. Repeating a slot cannot inflate the score. Pairs present in any reference outfit receive full compatibility and pattern scores. Other pairs use differences in dressiness, warmth and colour. Floral, checked and speckled fabrics now count as patterns alongside stripes and camouflage. Plain garments help balance a bold print; unrelated bold prints reduce pattern harmony.
 
-Качество = 65% совместимости + 20% цветов + 15% узоров.
+Pair weights are unchanged: top/trousers 30%, top/footwear 22%, trousers/footwear 16%, headwear/top 14%, headwear/trousers 10%, headwear/footwear 8%.
 
-Итог = качество × число оценённых слотов / 4, округлённое до целого (0–100). Поэтому одна вещь даёт максимум 25, две — 50, три — 75. Пустой образ — 0. Вещи без метаданных не получают выдуманную оценку: экран объясняет, что правила для них ещё не заданы. Полнота отдельно показывает занятые слоты.
+Quality = 65% compatibility + 20% colours + 15% patterns. Final score = quality × rated slots / 4, rounded to 0–100. One, two or three pieces remain capped at 25, 50 or 75. Unknown garments receive no invented rating. The examples guide successful combinations; players can mix the original and expanded wardrobe freely.
 
-Это вручную настроенные игровые правила вкуса. Система не распознаёт изображение, текстуры или реальные модные тенденции. Очки, татуировки и окрас свиньи пока отображаются на модели, но в балл одежды не входят.
+The host captures the final outfit and calculates the scores. All participants receive the same result snapshot and dressed pig on the runway. Eliminated pigs appear as ghosts. Session protocol **17** requires matching game versions.
 
-## Настройка и добавление вещей
+## Store and setup
 
-Открыть в Inspector `Assets/Resources/OutfitRating.asset`. В `Items` у каждой вещи указаны ссылка на ClothingDefinition, ключ модели, основной цвет, тип узора, формальность (`Dressiness`) и теплота (`Warmth`, оба 0–1). В `References` заданы шесть комплектов. Для новой вещи добавить профиль; для нового удачного сочетания можно добавить пример. Формула находится в `OutfitRatingCatalog.cs`.
+The existing 96 concealed search anchors now contain every one of the 33 garments, with two or three copies of each. Their positions are shuffled each round. The new garments are registered for network pickup, dropping, inventory replication and runway display. The in-game F1 guide explains the combined rating.
 
-Команда меню **Svinki → Одежда → Создать правила оценки по шести образам** восстанавливает исходные 15 профилей и шесть примеров; она перезаписывает ручные изменения этого каталога.
+`Assets/Resources/OutfitRating.asset` contains profiles, aliases and reference outfits. **Svinki → Clothing → Combine original and expanded rating examples** merges the default collection with existing profiles and examples, retaining tuned metadata and avoiding duplicate combinations.
 
-## Проверки
+`Tools/Unity/CombinedWardrobeSetup.cs` is the isolated Editor setup runner: imports the full wardrobe, updates the existing search anchors and verifies asset/network integration. It changes the saved level; run it outside Play Mode. `Tools/Unity/OutfitRatingCheck.cs` checks all **2,800** full outfits, the 19 references, original definitions, mixed wardrobes, input-order independence, incomplete outfits, duplicate slots, unknown items, captured inventories and network JSON round-tripping. Reports and the front/back reference sheet are in `ArtSource/OutfitRating`.
 
-`Tools/Unity/OutfitRatingCheck.cs` проверяет 162 полных комбинации, шесть примеров, независимость результата от порядка вещей, неполные образы, повторы слотов, неизвестные вещи, новые сочетания, сохранность снимка и сетевую JSON-сериализацию. Результат: `ArtSource/OutfitRating/validation.json`.
-
-На исходных настройках: Милитари 99, Стрит 99, Классика 99, Камо лонгслив 98, Затишний 99, Спорт 99. Новый комплект `sweater1 + pants2 + hat1 + sneakers2` получает 94. Все полные сочетания текущего набора дают 77–99: вещи в основном имеют нейтральную палитру, поэтому даже смешанные образы не получают искусственно низких баллов.
-
-`Tools/Unity/OutfitFlowCheck.cs` предназначен только для изолированной сессии хоста с одним игроком: проверяет завершение раунда, шесть 3D-примеров, границы текста, поворот модели, следующий раунд и одиночную оценку. Он завершает тестовую сессию; не запускать во время игры с другими людьми.
-
-Протокол сессии обновлён до версии 4: участникам сетевой игры нужны сборки с одинаковой версией.
+The score screen includes Photo albums. Everyone can select a photographer and browse their latest 12 round images, including photos taken by eliminated players. The album view returns to the scores without starting another round.

@@ -1,10 +1,10 @@
 {
-  "combinations": 162,
-  "min": 77,
+  "combinations": 2800,
+  "min": 70,
   "max": 99,
   "references": [
     {
-      "name": "Милитари",
+      "name": "Military",
       "rating": {
         "score": 99,
         "matching": 100,
@@ -12,13 +12,13 @@
         "patterns": 100,
         "completeness": 100,
         "ratedItems": 4,
-        "verdict": "Цельный образ",
-        "strength": "Кепка с козырьком и Цветная футболка отлично сочетаются.",
-        "improvement": "Все четыре вещи поддерживают образ. Можно экспериментировать с деталями."
+        "verdict": "Complete look",
+        "strength": "Cap and Colourful T-shirt go really well together.",
+        "improvement": "All four pieces work together. Try experimenting with the details."
       }
     },
     {
-      "name": "Стрит",
+      "name": "Streetwear",
       "rating": {
         "score": 99,
         "matching": 100,
@@ -26,13 +26,13 @@
         "patterns": 100,
         "completeness": 100,
         "ratedItems": 4,
-        "verdict": "Цельный образ",
-        "strength": "Вязаная шапка и Худи с капюшоном отлично сочетаются.",
-        "improvement": "Все четыре вещи поддерживают образ. Можно экспериментировать с деталями."
+        "verdict": "Complete look",
+        "strength": "Knitted hat and Hoodie go really well together.",
+        "improvement": "All four pieces work together. Try experimenting with the details."
       }
     },
     {
-      "name": "Классика",
+      "name": "Classic",
       "rating": {
         "score": 99,
         "matching": 100,
@@ -40,13 +40,13 @@
         "patterns": 100,
         "completeness": 100,
         "ratedItems": 4,
-        "verdict": "Цельный образ",
-        "strength": "Светлая шапка и Футболка с воротником отлично сочетаются.",
-        "improvement": "Все четыре вещи поддерживают образ. Можно экспериментировать с деталями."
+        "verdict": "Complete look",
+        "strength": "Light hat and Collared shirt go really well together.",
+        "improvement": "All four pieces work together. Try experimenting with the details."
       }
     },
     {
-      "name": "Камо лонгслив",
+      "name": "Camouflage casual",
       "rating": {
         "score": 98,
         "matching": 100,
@@ -54,13 +54,13 @@
         "patterns": 100,
         "completeness": 100,
         "ratedItems": 4,
-        "verdict": "Цельный образ",
-        "strength": "Кепка с козырьком и Камуфляжный лонгслив отлично сочетаются.",
-        "improvement": "Все четыре вещи поддерживают образ. Можно экспериментировать с деталями."
+        "verdict": "Complete look",
+        "strength": "Cap and Camouflage long sleeve go really well together.",
+        "improvement": "All four pieces work together. Try experimenting with the details."
       }
     },
     {
-      "name": "Затишний",
+      "name": "Cozy",
       "rating": {
         "score": 99,
         "matching": 100,
@@ -68,13 +68,13 @@
         "patterns": 100,
         "completeness": 100,
         "ratedItems": 4,
-        "verdict": "Цельный образ",
-        "strength": "Светлая шапка и Тёплый свитер отлично сочетаются.",
-        "improvement": "Все четыре вещи поддерживают образ. Можно экспериментировать с деталями."
+        "verdict": "Complete look",
+        "strength": "Light hat and Warm sweater go really well together.",
+        "improvement": "All four pieces work together. Try experimenting with the details."
       }
     },
     {
-      "name": "Спорт",
+      "name": "Sport",
       "rating": {
         "score": 99,
         "matching": 100,
@@ -82,9 +82,191 @@
         "patterns": 100,
         "completeness": 100,
         "ratedItems": 4,
-        "verdict": "Цельный образ",
-        "strength": "Вязаная шапка и Тёмная футболка отлично сочетаются.",
-        "improvement": "Все четыре вещи поддерживают образ. Можно экспериментировать с деталями."
+        "verdict": "Complete look",
+        "strength": "Knitted hat and Dark T-shirt go really well together.",
+        "improvement": "All four pieces work together. Try experimenting with the details."
+      }
+    },
+    {
+      "name": "Commando",
+      "rating": {
+        "score": 99,
+        "matching": 100,
+        "palette": 96,
+        "patterns": 100,
+        "completeness": 100,
+        "ratedItems": 4,
+        "verdict": "Complete look",
+        "strength": "Cap and Camouflage long sleeve go really well together.",
+        "improvement": "All four pieces work together. Try experimenting with the details."
+      }
+    },
+    {
+      "name": "Sportswear",
+      "rating": {
+        "score": 99,
+        "matching": 100,
+        "palette": 96,
+        "patterns": 100,
+        "completeness": 100,
+        "ratedItems": 4,
+        "verdict": "Complete look",
+        "strength": "Woven cap and Dark T-shirt go really well together.",
+        "improvement": "All four pieces work together. Try experimenting with the details."
+      }
+    },
+    {
+      "name": "French",
+      "rating": {
+        "score": 99,
+        "matching": 100,
+        "palette": 95,
+        "patterns": 100,
+        "completeness": 100,
+        "ratedItems": 4,
+        "verdict": "Complete look",
+        "strength": "Light hat and Warm sweater go really well together.",
+        "improvement": "All four pieces work together. Try experimenting with the details."
+      }
+    },
+    {
+      "name": "Army",
+      "rating": {
+        "score": 99,
+        "matching": 100,
+        "palette": 96,
+        "patterns": 100,
+        "completeness": 100,
+        "ratedItems": 4,
+        "verdict": "Complete look",
+        "strength": "Woven cap and Army hoodie go really well together.",
+        "improvement": "All four pieces work together. Try experimenting with the details."
+      }
+    },
+    {
+      "name": "Baron",
+      "rating": {
+        "score": 99,
+        "matching": 100,
+        "palette": 94,
+        "patterns": 100,
+        "completeness": 100,
+        "ratedItems": 4,
+        "verdict": "Complete look",
+        "strength": "Speckled hat and Baron hoodie go really well together.",
+        "improvement": "All four pieces work together. Try experimenting with the details."
+      }
+    },
+    {
+      "name": "Gardener",
+      "rating": {
+        "score": 97,
+        "matching": 100,
+        "palette": 85,
+        "patterns": 100,
+        "completeness": 100,
+        "ratedItems": 4,
+        "verdict": "Complete look",
+        "strength": "Speckled hat and Yellow floral T-shirt go really well together.",
+        "improvement": "All four pieces work together. Try experimenting with the details."
+      }
+    },
+    {
+      "name": "Forester",
+      "rating": {
+        "score": 99,
+        "matching": 100,
+        "palette": 96,
+        "patterns": 100,
+        "completeness": 100,
+        "ratedItems": 4,
+        "verdict": "Complete look",
+        "strength": "Knitted hat and Cream floral T-shirt go really well together.",
+        "improvement": "All four pieces work together. Try experimenting with the details."
+      }
+    },
+    {
+      "name": "Tiger",
+      "rating": {
+        "score": 99,
+        "matching": 100,
+        "palette": 96,
+        "patterns": 100,
+        "completeness": 100,
+        "ratedItems": 4,
+        "verdict": "Complete look",
+        "strength": "Cap and Tiger T-shirt go really well together.",
+        "improvement": "All four pieces work together. Try experimenting with the details."
+      }
+    },
+    {
+      "name": "Sakura",
+      "rating": {
+        "score": 99,
+        "matching": 100,
+        "palette": 94,
+        "patterns": 100,
+        "completeness": 100,
+        "ratedItems": 4,
+        "verdict": "Complete look",
+        "strength": "Light hat and Sakura T-shirt go really well together.",
+        "improvement": "All four pieces work together. Try experimenting with the details."
+      }
+    },
+    {
+      "name": "Sky",
+      "rating": {
+        "score": 99,
+        "matching": 100,
+        "palette": 95,
+        "patterns": 100,
+        "completeness": 100,
+        "ratedItems": 4,
+        "verdict": "Complete look",
+        "strength": "Light hat and Sky sweater go really well together.",
+        "improvement": "All four pieces work together. Try experimenting with the details."
+      }
+    },
+    {
+      "name": "Autumn",
+      "rating": {
+        "score": 99,
+        "matching": 100,
+        "palette": 94,
+        "patterns": 100,
+        "completeness": 100,
+        "ratedItems": 4,
+        "verdict": "Complete look",
+        "strength": "Woven cap and Autumn sweater go really well together.",
+        "improvement": "All four pieces work together. Try experimenting with the details."
+      }
+    },
+    {
+      "name": "Chess",
+      "rating": {
+        "score": 99,
+        "matching": 100,
+        "palette": 96,
+        "patterns": 100,
+        "completeness": 100,
+        "ratedItems": 4,
+        "verdict": "Complete look",
+        "strength": "Knitted hat and Checked sweater go really well together.",
+        "improvement": "All four pieces work together. Try experimenting with the details."
+      }
+    },
+    {
+      "name": "Grandma's Garden",
+      "rating": {
+        "score": 99,
+        "matching": 100,
+        "palette": 93,
+        "patterns": 100,
+        "completeness": 100,
+        "ratedItems": 4,
+        "verdict": "Complete look",
+        "strength": "Speckled hat and Garden sweater go really well together.",
+        "improvement": "All four pieces work together. Try experimenting with the details."
       }
     }
   ],
@@ -97,9 +279,9 @@
       "patterns": 98,
       "completeness": 100,
       "ratedItems": 4,
-      "verdict": "Цельный образ",
-      "strength": "Вязаная шапка и Джинсы отлично сочетаются.",
-      "improvement": "Попробуй другую пару: Тёплый свитер + Кеды со шнурками."
+      "verdict": "Complete look",
+      "strength": "Knitted hat and Jeans go really well together.",
+      "improvement": "Try a different pair: Warm sweater + Lace-up sneakers."
     }
   },
   "clash": {
@@ -111,19 +293,21 @@
       "patterns": 93,
       "completeness": 100,
       "ratedItems": 4,
-      "verdict": "Хорошее сочетание",
-      "strength": "Светлая шапка и Джинсы отлично сочетаются.",
-      "improvement": "Попробуй другую пару: Цветная футболка + Кожаные лоферы."
+      "verdict": "Great combination",
+      "strength": "Light hat and Jeans go really well together.",
+      "improvement": "Try a different pair: Colourful T-shirt + Leather loafers."
     }
   },
   "checks": [
     "reference outfits",
-    "162 combinations",
+    "2800 combinations",
     "determinism",
     "partial outfits",
     "duplicate slots",
     "unknown garments",
-    "mixed outfit",
+    "mixed original and expanded wardrobe",
+    "legacy definitions",
+    "unique references",
     "immutable inventory snapshot",
     "network JSON roundtrip"
   ]

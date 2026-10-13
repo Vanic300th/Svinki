@@ -75,6 +75,7 @@ public class GrayboxPlayerController : MonoBehaviour
 
     public void Simulate(Vector2 input, float yaw, bool jump, bool sprint, bool wantsCrouch, float deltaTime)
     {
+        if (!characterController.enabled || GetComponent<PlayerBallForm>()?.IsBall == true) return;
         if (ShoppingCart.For(GetComponent<PlayerAvatar>()) != null) { verticalSpeed = 0; return; }
         if (knockdown != null && knockdown.IsDown)
         {

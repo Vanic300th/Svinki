@@ -13,8 +13,12 @@ public class PlayerPickupInteractor : MonoBehaviour
     private Vector3 targetPoint;
     private ThrowableMannequin mannequinTarget;
     private RoundFinishStation finishTarget;
+    private LobbyInteractable lobbyTarget;
     private ShoppingCart cartTarget;
     private MonkeyToy monkeyTarget;
+    private PlayerBodyCarry bodyTarget;
+    private PlayerBallForm ballTarget;
+    private LockerPhotoSlot lockerPhotoTarget;
     private PlayerMonkeyCarry MonkeyHands => LocalAvatar != null ? LocalAvatar.GetComponent<PlayerMonkeyCarry>() : null;
     private PlayerPhotoCamera PhotoCamera => LocalAvatar?.GetComponent<PlayerPhotoCamera>();
     private PlayerAvatar LocalAvatar => localPlayer != null ? localPlayer.GetComponent<PlayerAvatar>() : Hands?.GetComponent<PlayerAvatar>();
@@ -37,14 +41,48 @@ public class PlayerPickupInteractor : MonoBehaviour
     private void Update()
     {
         monkeyTarget = null;
+        lobbyTarget = null;
+        bodyTarget = null; ballTarget = null; lockerPhotoTarget = null;
         if (EmoteWheel.BlocksInput || PlayerChat.BlocksInput || NetworkLobby.Instance != null && !NetworkLobby.Instance.InputAllowed) { if (target != null) target.SetTargeted(false); target = null; mannequinTarget = null; finishTarget = null; cartTarget = null; return; }
         var hands = Hands;
+        if (LocalAvatar?.GetComponent<PlayerBallForm>()?.IsBall == true) { ClearPickup(); return; }
         if (hands != null && hands.GetComponent<PlayerKnockdown>()?.IsDown == true)
         {
             if (target != null) target.SetTargeted(false);
             target = null; mannequinTarget = null; finishTarget = null; cartTarget = null; return;
         }
         var cart = ShoppingCart.For(LocalAvatar);
+        var carriedBall = PlayerBallForm.ForHolder(LocalAvatar);
+        if (carriedBall != null)
+        {
+            ClearPickup();
+            bool thrown = Mouse.current?.leftButton.wasPressedThisFrame == true;
+            if (thrown || Mouse.current?.rightButton.wasPressedThisFrame == true || Keyboard.current?.eKey.wasPressedThisFrame == true)
+            { if (localPlayer != null) localPlayer.RequestBallRelease(carriedBall, thrown); else carriedBall.Release(LocalAvatar, thrown); }
+            return;
+        }
+        var carriedBody = PlayerBodyCarry.ForHolder(LocalAvatar);
+        if (carriedBody != null)
+        {
+            ClearPickup();
+            Ray carryRay = playerCamera.ViewportPointToRay(new Vector3(.5f, .5f, 0));
+            var physics = LocalAvatar.gameObject.scene.GetPhysicsScene();
+            if (physics.Raycast(carryRay.origin, carryRay.direction, out var carryHit, pickupDistance, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
+                cartTarget = carryHit.collider.GetComponentInParent<ShoppingCart>();
+            else cartTarget = null;
+            if (Keyboard.current?.eKey.wasPressedThisFrame == true || Mouse.current?.rightButton.wasPressedThisFrame == true)
+            { if (localPlayer != null) localPlayer.RequestBody(carriedBody, cartTarget); else carriedBody.Use(LocalAvatar, cartTarget); }
+            return;
+        }
+        var lobbyHands = LocalAvatar?.GetComponent<PlayerLobbyHands>();
+        if (lobbyHands?.Held != null)
+        {
+            if (target != null) target.SetTargeted(false);
+            target = null; mannequinTarget = null; finishTarget = null; cartTarget = null;
+            if (Mouse.current?.leftButton.wasPressedThisFrame == true) lobbyHands.Release(true);
+            else if (Mouse.current?.rightButton.wasPressedThisFrame == true || Keyboard.current?.eKey.wasPressedThisFrame == true) lobbyHands.Release(false);
+            return;
+        }
         if (cart != null && Keyboard.current?.gKey.wasPressedThisFrame == true)
         { CartCargoView.Instance?.Open(cart.GetComponent<CartCargo>()); return; }
         if (cart != null)
@@ -95,11 +133,22 @@ public class PlayerPickupInteractor : MonoBehaviour
             finishTarget = hit.collider.GetComponentInParent<RoundFinishStation>();
             cartTarget = hit.collider.GetComponentInParent<ShoppingCart>();
             monkeyTarget = hit.collider.GetComponentInParent<MonkeyToy>();
+            lobbyTarget = hit.collider.GetComponentInParent<LobbyInteractable>();
             var proxyOwner = hit.collider.GetComponentInParent<RagdollColliderOwner>();
+            bodyTarget = hit.collider.GetComponentInParent<PlayerBodyCarry>();
+            if (bodyTarget != null && !bodyTarget.IsDead) bodyTarget = null;
+            ballTarget = hit.collider.GetComponent<PlayerBallCollision>()?.Owner;
+            lockerPhotoTarget = hit.collider.GetComponentInParent<LockerPhotoSlot>();
             if (monkeyTarget == null && proxyOwner?.Owner != null) monkeyTarget = proxyOwner.Owner.GetComponent<MonkeyToy>();
             targetPoint = hit.point;
         }
 
+        if (lockerPhotoTarget?.Image != null && Keyboard.current?.eKey.wasPressedThisFrame == true)
+        { LockerPhotoViewer.Open(lockerPhotoTarget.Image); return; }
+        if (bodyTarget != null && Keyboard.current?.eKey.wasPressedThisFrame == true)
+        { if (localPlayer != null) localPlayer.RequestBody(bodyTarget); else bodyTarget.Use(LocalAvatar); return; }
+        if (ballTarget != null && Keyboard.current?.eKey.wasPressedThisFrame == true)
+        { if (localPlayer != null) localPlayer.RequestBallGrab(ballTarget); else ballTarget.Grab(LocalAvatar); return; }
         if (cartTarget != null && Keyboard.current?.gKey.wasPressedThisFrame == true)
         { CartCargoView.Instance?.Open(cartTarget.GetComponent<CartCargo>()); return; }
         if (cartTarget != null && (Keyboard.current?.eKey.wasPressedThisFrame == true || Keyboard.current?.rKey.wasPressedThisFrame == true))
@@ -109,6 +158,8 @@ public class PlayerPickupInteractor : MonoBehaviour
         }
         if (finishTarget != null && Keyboard.current?.eKey.wasPressedThisFrame == true)
         { finishTarget.Press(); return; }
+        if (lobbyTarget != null && Keyboard.current?.eKey.wasPressedThisFrame == true)
+        { lobbyTarget.Interact(LocalAvatar); return; }
 
         if (monkeyTarget != null && !monkeyTarget.IsHeld && Keyboard.current?.eKey.wasPressedThisFrame == true)
         {
@@ -149,6 +200,7 @@ public class PlayerPickupInteractor : MonoBehaviour
         }
     }
 
+    private void ClearPickup() { if (target != null) target.SetTargeted(false); target = null; mannequinTarget = null; finishTarget = null; cartTarget = null; }
     private void UseCart(ShoppingCart cart, bool sit, bool launch)
     {
         if (localPlayer != null) localPlayer.RequestCart(cart, sit, launch);
@@ -184,7 +236,17 @@ public class PlayerPickupInteractor : MonoBehaviour
         }
         if(PhotoCamera?.Equipped==true){hud.HidePrompt();return;}
         string text = null;
-        if (MonkeyHands?.Held != null)
+        if (LocalAvatar?.GetComponent<PlayerBallForm>()?.IsBall == true) text = "Space / Ctrl — leave ball form";
+        else if (PlayerBodyCarry.ForHolder(LocalAvatar) != null) text = cartTarget != null ? "E — place body in cart" : "E / RMB — put down body";
+        else if (PlayerBallForm.ForHolder(LocalAvatar) != null) text = "LMB — throw player ball · E / RMB — put down";
+        else if (lockerPhotoTarget?.Image != null) text = "E — enlarge photo";
+        else if (bodyTarget != null) text = "E — carry body · put it in a loaded cart and bring it to the lift";
+        else if (ballTarget != null) text = "E — pick up player ball";
+        else if (LocalAvatar?.GetComponent<PlayerLobbyHands>()?.Held != null)
+            text = "LMB — throw • RMB / E — put down";
+        else if (lobbyTarget != null)
+            text = lobbyTarget.Prompt(LocalAvatar);
+        else if (MonkeyHands?.Held != null)
             text = "LMB — hit with monkey • RMB / E — release\nOne hit only · Stuns aggressive mannequins for 30 seconds";
         else if (monkeyTarget != null && !monkeyTarget.IsHeld)
             text = "E — grab monkey toy";
@@ -195,7 +257,7 @@ public class PlayerPickupInteractor : MonoBehaviour
         else if (mannequinTarget != null && !mannequinTarget.IsHeld)
             text = "E — grab mannequin";
         else if (finishTarget != null)
-            text = NetworkLobby.Instance?.IsFinishReady == true ? "E — cancel ready" : "E — press Ready";
+            text = "Enter the freight lift together to finish the run";
         if (target != null)
         {
             ClothingPickup clothing = target.GetComponent<ClothingPickup>();

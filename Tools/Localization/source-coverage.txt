@@ -1,0 +1,65 @@
+Online/SessionMenu.cs :: title :: lobby.Offline ? "SVINKI — Single Player" : lobby.InSession ? "LOBBY  " + snapshot.code : "SVINKI — Play with Friends"
+Online/SessionMenu.cs :: status :: lobby.Status
+Online/SessionMenu.cs :: value :: Mathf.RoundToInt(v * 100) + "%"
+Online/SessionMenu.cs :: label :: text
+Online/HowToPlay.cs :: continueLabel :: pending==null?"Back to game / menu":"Got it — Continue"
+Online/HowToPlay.cs :: footer :: "Page "+(Page+1)+" / "+Titles.Length+"  ·  Use the tabs  ·  F1 — guide  ·  Esc — back"
+Online/HowToPlay.cs :: t :: text
+Online/PigAppearanceMenu.cs :: text :: label())
+Online/PigAppearanceMenu.cs :: label :: text
+Online/RoundFinishStation.cs :: label :: "READY"
+Gameplay/PlayerRoundHud.cs :: status :: lobby.IsEliminated ? "ELIMINATED" : life != null ? "HITS LEFT  " + life.HitsRemaining + " / 2" : "SPECTATOR"
+Gameplay/PlayerRoundHud.cs :: spectating :: lobby.Offline ? "ELIMINATED\nStart the next round to play again" : target != null ?             (lobby.IsEliminated ? "ELIMINATED · " : "") + "SPECTATING " + target.ParticipantName + "\n← / → — switch player · Next round: respawn" : "SPECTATING · Waiting for a living player"
+Gameplay/PlayerRoundHud.cs :: label :: text
+Gameplay/CartCargoView.cs :: heading :: "CART STORAGE  " + cargo.Items.Count + " / " + CartCargo.Capacity
+Gameplay/CartCargoView.cs :: names[i] :: (i + 1) + ". " + (clothing != null ? clothing.DisplayName : "Empty")
+Gameplay/CartCargoView.cs :: message :: "No floor clothes nearby. Move the cart closer."
+Gameplay/CartCargoView.cs :: message :: "Request sent"
+Gameplay/CartCargoView.cs :: message :: cargo.Transfer(Player, action, index, cargo.Revision, pickup) ? "Done" : "Could not transfer. Check space, clothing slot and distance."
+Gameplay/CartCargoView.cs :: label :: text
+Gameplay/CartCargoView.cs :: label :: text
+Clothing/OutfitInventoryView.cs :: names[i] :: clothing != null ? clothing.DisplayName : "Empty"
+Clothing/OutfitInventoryView.cs :: state :: outfit.IsEmpty ? "No clothes equipped" : "Equipped: " + outfit.Count + " / 4"
+Clothing/OutfitInventoryView.cs :: finishHint :: lobby.Offline ? "Press E at the Ready button to rate your outfit" :                 "Ready at the entrance: " + players.Count(p => p.finishReady) + " / " + players.Length + "\n" +                 (lobby.IsFinishReady ? "You're ready. Waiting for others • Stay near the entrance" : "Look at the Ready 
+Clothing/OutfitInventoryView.cs :: label :: text
+Clothing/Rating/OutfitResultsView.cs :: heading :: "OUTFIT RESULTS · ROUND " + results.round
+Clothing/Rating/OutfitResultsView.cs :: players[i].GetComponentInChildren<TMP_Text>() :: (i + 1) + ". " + results.entries[i].nickname + "\n" + (results.entries[i].eliminated ? "Ghost · eliminated" : results.entries[i].rating.score + " / 100")
+Clothing/Rating/OutfitResultsView.cs :: continueLabel :: lobby.Offline ? lobby.IsEliminated ? "Next Round" : "Keep Searching" : lobby.IsHost ? "Next Round" : "Waiting for host"
+Clothing/Rating/OutfitResultsView.cs :: playerName :: "No players with clothes yet"
+Clothing/Rating/OutfitResultsView.cs :: score :: "— / 100"
+Clothing/Rating/OutfitResultsView.cs :: verdict :: ""
+Clothing/Rating/OutfitResultsView.cs :: strength :: ""
+Clothing/Rating/OutfitResultsView.cs :: improvement :: ""
+Clothing/Rating/OutfitResultsView.cs :: clothes :: ""
+Clothing/Rating/OutfitResultsView.cs :: playerName :: entry.nickname + (entry.eliminated ? " · ghost" : "")
+Clothing/Rating/OutfitResultsView.cs :: score :: rating.score + " / 100"
+Clothing/Rating/OutfitResultsView.cs :: verdict :: rating.verdict
+Clothing/Rating/OutfitResultsView.cs :: strength :: rating.strength
+Clothing/Rating/OutfitResultsView.cs :: improvement :: rating.improvement
+Clothing/Rating/OutfitResultsView.cs :: clothes :: entry.eliminated ? "Eliminated · original pig appearance" : entry.names.Length == 0 ? "No clothes found yet" : string.Join("\n", entry.names)
+Clothing/Rating/OutfitResultsView.cs :: values[i] :: measures[i] + "%"
+Clothing/Rating/OutfitResultsView.cs :: label :: text
+Clothing/Rating/ResultsPhotoAlbumsView.cs :: players[i].GetComponentInChildren<TMP_Text>() :: entry.nickname+"\n"+(lobby.RoundAlbumReceived(entry.id)?count+" photos":"Receiving album…")
+Clothing/Rating/ResultsPhotoAlbumsView.cs :: heading :: selected.nickname+(selected.eliminated?" · ghost photographer":"")+" — photo album"
+Clothing/Rating/ResultsPhotoAlbumsView.cs :: empty :: !lobby.RoundAlbumReceived(selected.id)||expected>0?"Receiving this player's photos…":"This player did not take any photos this round."
+Clothing/Rating/ResultsPhotoAlbumsView.cs :: caption :: photos.Count==0?"":("PHOTO "+(photoIndex+1)+" / "+photos.Count+(photos.Count<expected?" · receiving "+expected+" photos":" · latest "+PhotoAlbum.Capacity+" pictures from this round"))
+Clothing/Rating/ResultsPhotoAlbumsView.cs :: label :: text
+Clothing/Rating/FinalRunwayView.cs :: reaction :: ""
+Clothing/Rating/FinalRunwayView.cs :: poseLabel :: own ? "Pose: " + (entry.presentationPose == 1 ? "Wave" : entry.presentationPose == 2 ? "Star" : "Spin") : "Player's pose"
+Clothing/Rating/FinalRunwayView.cs :: progress :: "Walk " + (index + 1) + " of " + results.entries.Length + " · " + Mathf.CeilToInt(SecondsPerPlayer - elapsed % SecondsPerPlayer) + (index + 1 == results.entries.Length ? "s until scores" : "s until next")
+Clothing/Rating/FinalRunwayView.cs :: reaction :: lobby.Snapshot.runwayReaction
+Clothing/Rating/FinalRunwayView.cs :: reaction :: ""
+Clothing/Rating/FinalRunwayView.cs :: reaction :: lobby.Nickname + ": " + NetworkLobby.ReactionText(kind)
+Clothing/Rating/FinalRunwayView.cs :: nameLabel :: entry.nickname + (entry.eliminated ? " · ghost — eliminated" : " · outfit on show")
+Clothing/Rating/FinalRunwayView.cs :: label :: text
+Clothing/Rating/FinalRunwayView.cs :: label :: text
+Player/PhotoAlbum.cs :: hint :: photo.CooldownRemaining>0?"SHUTTER READY IN  "+Mathf.CeilToInt(photo.CooldownRemaining)+"s":"LMB — take photo   ·   K / RMB — stow   ·   P — album ("+Count+")"
+Player/PhotoAlbum.cs :: caption :: photos.Count==0?"No photos yet. Press K to equip your camera, then LMB.":"PHOTO "+(selected+1)+" / "+photos.Count+"  ·  Latest "+Capacity+" pictures are kept this round"
+Player/PhotoAlbum.cs :: t :: text
+Player/EmoteWheel.cs :: center :: selection < 0 ? "EMOTES\n<size=19>Move to choose</size>" : Names[selection].ToUpperInvariant() + "\n<size=19>Release V</size>"
+Player/EmoteWheel.cs :: text :: value
+Voice/ProximityVoice.cs :: label :: local!=null&&local.IsDead?"VOICE MUTED · SPECTATING":Status
+UI/GameHud.cs :: label :: text
+Unchanged: chat input, chat history messages, bubbles, player nameplates, network payloads and gameplay/internal object names.
+Roster: fixed labels translate explicitly; names remain literal.
+Authored store signs and HUD: runtime scene bindings; source scenes are not batch-rewritten.

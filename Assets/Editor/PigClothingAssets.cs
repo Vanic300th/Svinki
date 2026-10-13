@@ -37,6 +37,24 @@ public static class PigClothingAssets
             case "loafers1_worn": return "Leather loafers";
             case "sneakers2_worn": return "Lace-up sneakers";
             case "sneakers3_worn": return "Sport sneakers";
+            case "cap2_worn": return "Woven cap";
+            case "hat3_worn": return "Speckled hat";
+            case "shirt4_worn": return "Cream floral T-shirt";
+            case "shirt5_worn": return "Tiger T-shirt";
+            case "shirt6_worn": return "Yellow floral T-shirt";
+            case "shirt7_worn": return "Sakura T-shirt";
+            case "hoodie4_worn": return "Army hoodie";
+            case "hoodie5_worn": return "Baron hoodie";
+            case "sweater2_worn": return "Sky sweater";
+            case "sweater4_worn": return "Autumn sweater";
+            case "sweater5_worn": return "Checked sweater";
+            case "sweater6_worn": return "Garden sweater";
+            case "pants6_worn": return "Golden trousers";
+            case "pants7_worn": return "Grey camouflage trousers";
+            case "pants8_worn": return "Autumn camouflage trousers";
+            case "pants9_worn": return "Pink dotted trousers";
+            case "loafers2_worn": return "Patterned loafers";
+            case "sneakers4_worn": return "Speckled sneakers";
             default: return model.Replace("_worn", "");
         }
     }

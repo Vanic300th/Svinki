@@ -60,11 +60,11 @@ public sealed class CartCargoView : MonoBehaviour
         if (cargo == null || !lobby.CargoOpen || lobby.Results != null) { Close(); return; }
         if (!cargo.CanAccess(Player) || lobby.MenuVisible || lobby.IsSpectator || Keyboard.current?.gKey.wasPressedThisFrame == true || Keyboard.current?.escapeKey.wasPressedThisFrame == true)
         { if (Keyboard.current?.escapeKey.wasPressedThisFrame == true) escapeFrame = Time.frameCount; Close(); return; }
-        heading.text = "CART STORAGE  " + cargo.Items.Count + " / " + CartCargo.Capacity;
+        GameLanguage.Set(heading, "CART STORAGE  " + cargo.Items.Count + " / " + CartCargo.Capacity);
         for (int i = 0; i < 8; i++)
         {
             var clothing = i < cargo.Items.Count ? cargo.Items[i] : null;
-            names[i].text = (i + 1) + ". " + (clothing != null ? clothing.DisplayName : "Empty");
+            GameLanguage.Set(names[i], (i + 1) + ". " + (clothing != null ? clothing.DisplayName : "Empty"));
             equip[i].interactable = clothing != null && Player.Outfit.CanEquip(clothing);
             unload[i].interactable = clothing != null;
         }
@@ -76,15 +76,15 @@ public sealed class CartCargoView : MonoBehaviour
         var pickup = ClothingPickup.All.Where(p => p != null && p.IsOnFloor && p.gameObject.scene == cargo.gameObject.scene &&
             Vector3.Distance(p.transform.position, cargo.transform.position) < 4 && Vector3.Distance(p.transform.position, Player.Position) < 4)
             .OrderBy(p => (p.transform.position - Player.Position).sqrMagnitude).FirstOrDefault();
-        if (pickup == null) { message.text = "No floor clothes nearby. Move the cart closer."; return; }
+        if (pickup == null) { GameLanguage.Set(message, "No floor clothes nearby. Move the cart closer."); return; }
         Transfer(CargoAction.LoadPickup, 0, pickup);
     }
     private void Transfer(CargoAction action, int index, ClothingPickup pickup = null)
     {
         if (cargo == null || Player == null) return;
         var network = Player.GetComponent<NetworkPlayer>();
-        if (network != null) { network.RequestCargo(cargo, action, index, pickup); message.text = "Request sent"; }
-        else message.text = cargo.Transfer(Player, action, index, cargo.Revision, pickup) ? "Done" : "Could not transfer. Check space, clothing slot and distance.";
+        if (network != null) { network.RequestCargo(cargo, action, index, pickup); GameLanguage.Set(message, "Request sent"); }
+        else GameLanguage.Set(message, cargo.Transfer(Player, action, index, cargo.Revision, pickup) ? "Done" : "Could not transfer. Check space, clothing slot and distance.");
     }
     private RectTransform Rect(string name, Transform parent, float x, float y, float w, float h)
     {
@@ -95,14 +95,14 @@ public sealed class CartCargoView : MonoBehaviour
     private TMP_Text Label(string text, float x, float y, float w, float h, float size)
     {
         var label = Rect(text, panel.transform, x, y, w, h).gameObject.AddComponent<TextMeshProUGUI>();
-        label.font = font; label.fontSize = size; label.text = text; label.richText = false; label.color = Color.white; label.raycastTarget = false; return label;
+        label.font = font; label.fontSize = size; GameLanguage.Set(label, text); label.richText = false; label.color = Color.white; label.raycastTarget = false; return label;
     }
     private UnityEngine.UI.Button Button(string text, float x, float y, float w, float h, Action action)
     {
         var rect = Rect(text, panel.transform, x, y, w, h); var image = rect.gameObject.AddComponent<UnityEngine.UI.Image>(); image.color = new Color(.18f, .28f, .35f);
         var button = rect.gameObject.AddComponent<UnityEngine.UI.Button>(); button.targetGraphic = image;
         var label = Rect("Label", rect, 0, 0, w, h).gameObject.AddComponent<TextMeshProUGUI>(); label.font = font; label.fontSize = 21;
-        label.text = text; label.color = Color.white; label.raycastTarget = false; label.alignment = TextAlignmentOptions.Center;
+        GameLanguage.Set(label, text); label.color = Color.white; label.raycastTarget = false; label.alignment = TextAlignmentOptions.Center;
         button.onClick.AddListener(() => action()); return button;
     }
     private void OnDestroy() { if (Instance == this) Instance = null; }

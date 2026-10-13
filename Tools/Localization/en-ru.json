@@ -1,0 +1,3149 @@
+{
+  "entries": [
+    {
+      "source": "You got knocked down! Getting up…",
+      "translation": "Вас сбили с ног! Поднимаемся…",
+      "translateArguments": false
+    },
+    {
+      "source": "W/S — push • A/D — steer • Shift — sprint\nLMB — launch • E — release",
+      "translation": "W/S — толкать • A/D — поворачивать • Shift — бежать\nЛКМ — запустить • E — отпустить",
+      "translateArguments": false
+    },
+    {
+      "source": "You're riding! E / Space — hop out",
+      "translation": "Вы в тележке! E / Space — выйти",
+      "translateArguments": false
+    },
+    {
+      "source": "The cart is moving too fast",
+      "translation": "Тележка движется слишком быстро",
+      "translateArguments": false
+    },
+    {
+      "source": "E — push cart • R — ride in basket",
+      "translation": "E — толкать • R — сесть в корзину",
+      "translateArguments": false
+    },
+    {
+      "source": "LMB — throw • RMB / E — release",
+      "translation": "ЛКМ — бросить • ПКМ / E — отпустить",
+      "translateArguments": false
+    },
+    {
+      "source": "E — grab mannequin",
+      "translation": "E — взять манекен",
+      "translateArguments": false
+    },
+    {
+      "source": "E — cancel ready",
+      "translation": "E — отменить готовность",
+      "translateArguments": false
+    },
+    {
+      "source": "E — press Ready",
+      "translation": "E — нажать «Готов»",
+      "translateArguments": false
+    },
+    {
+      "source": "E — pick up: ",
+      "translation": "E — подобрать: ",
+      "translateArguments": false
+    },
+    {
+      "source": "This clothing slot is already occupied",
+      "translation": "Этот слот одежды уже занят",
+      "translateArguments": false
+    },
+    {
+      "source": "Item",
+      "translation": "Предмет",
+      "translateArguments": false
+    },
+    {
+      "source": "Create a lobby or join with a friend's code.",
+      "translation": "Создайте лобби или войдите по коду друга.",
+      "translateArguments": false
+    },
+    {
+      "source": "Pig",
+      "translation": "Свинка",
+      "translateArguments": false
+    },
+    {
+      "source": "The host ended the game. The host keeps the checkpoint.",
+      "translation": "Хост завершил игру. Сохранение осталось у хоста.",
+      "translateArguments": false
+    },
+    {
+      "source": "Leave the current session first.",
+      "translation": "Сначала выйдите из текущей игры.",
+      "translateArguments": false
+    },
+    {
+      "source": "Connecting to EOS…",
+      "translation": "Подключение к EOS…",
+      "translateArguments": false
+    },
+    {
+      "source": "Could not start the host.",
+      "translation": "Не удалось создать игру.",
+      "translateArguments": false
+    },
+    {
+      "source": "Could not start the connection.",
+      "translation": "Не удалось подключиться.",
+      "translateArguments": false
+    },
+    {
+      "source": "Connecting to the host…",
+      "translation": "Подключение к хосту…",
+      "translateArguments": false
+    },
+    {
+      "source": "The local test port is in use.",
+      "translation": "Порт локальной игры уже занят.",
+      "translateArguments": false
+    },
+    {
+      "source": "The local test could not connect.",
+      "translation": "Не удалось подключиться к локальной игре.",
+      "translateArguments": false
+    },
+    {
+      "source": "Local test: connecting…",
+      "translation": "Локальная игра: подключение…",
+      "translateArguments": false
+    },
+    {
+      "source": "Return to the Ready button in the starting room.",
+      "translation": "Вернитесь к кнопке «Готов» в стартовой комнате.",
+      "translateArguments": false
+    },
+    {
+      "source": "Outfit rating rules could not be found.",
+      "translation": "Не найдены правила оценки одежды.",
+      "translateArguments": false
+    },
+    {
+      "source": "Applause!",
+      "translation": "Аплодисменты!",
+      "translateArguments": false
+    },
+    {
+      "source": "Love this outfit!",
+      "translation": "Отличный наряд!",
+      "translateArguments": false
+    },
+    {
+      "source": "Oink-oink!",
+      "translation": "Хрю-хрю!",
+      "translateArguments": false
+    },
+    {
+      "source": "Connection closed. The host keeps the checkpoint.",
+      "translation": "Соединение закрыто. Сохранение осталось у хоста.",
+      "translateArguments": false
+    },
+    {
+      "source": "Connection lost. Reconnecting (up to 60 seconds)…",
+      "translation": "Связь потеряна. Переподключение (до 60 секунд)…",
+      "translateArguments": false
+    },
+    {
+      "source": "Reconnection failed. You can rejoin by code as a spectator.",
+      "translation": "Не удалось переподключиться. Можно войти по коду зрителем.",
+      "translateArguments": false
+    },
+    {
+      "source": "Outfit results for round ",
+      "translation": "Оценки за раунд ",
+      "translateArguments": false
+    },
+    {
+      "source": "Spectating until the next round. ← / → — switch player; Esc — menu.",
+      "translation": "До следующего раунда вы зритель. ← / → — сменить игрока; Esc — меню.",
+      "translateArguments": false
+    },
+    {
+      "source": "Round ",
+      "translation": "Раунд ",
+      "translateArguments": false
+    },
+    {
+      "source": ". Esc — menu.",
+      "translation": ". Esc — меню.",
+      "translateArguments": false
+    },
+    {
+      "source": "Lobby ",
+      "translation": "Лобби ",
+      "translateArguments": false
+    },
+    {
+      "source": ". Mark yourself ready.",
+      "translation": ". Нажмите «Готов».",
+      "translateArguments": false
+    },
+    {
+      "source": "Incompatible game version.",
+      "translation": "Несовместимая версия игры.",
+      "translateArguments": false
+    },
+    {
+      "source": "Could not verify the guest profile.",
+      "translation": "Не удалось проверить профиль гостя.",
+      "translateArguments": false
+    },
+    {
+      "source": "The host removed you from this session.",
+      "translation": "Хост исключил вас из этой игры.",
+      "translateArguments": false
+    },
+    {
+      "source": "This profile is already connected.",
+      "translation": "Этот профиль уже подключён.",
+      "translateArguments": false
+    },
+    {
+      "source": "The host closed the lobby to new players.",
+      "translation": "Хост закрыл вход для новых игроков.",
+      "translateArguments": false
+    },
+    {
+      "source": "The lobby is full or changing rounds. Try again later.",
+      "translation": "Лобби заполнено или меняет раунд. Попробуйте позже.",
+      "translateArguments": false
+    },
+    {
+      "source": "Go to the Ready button in the starting room.",
+      "translation": "Подойдите к кнопке «Готов» в стартовой комнате.",
+      "translateArguments": false
+    },
+    {
+      "source": "The host removed you from the session.",
+      "translation": "Хост исключил вас из игры.",
+      "translateArguments": false
+    },
+    {
+      "source": "Could not start the round: checkpoint could not be saved. ",
+      "translation": "Не удалось начать раунд: ошибка сохранения. ",
+      "translateArguments": false
+    },
+    {
+      "source": "The host ended the session.",
+      "translation": "Хост завершил игру.",
+      "translateArguments": false
+    },
+    {
+      "source": "The host did not respond. Check the code and connection, then try again.",
+      "translation": "Хост не отвечает. Проверьте код и соединение.",
+      "translateArguments": false
+    },
+    {
+      "source": "The host ended the session. The host keeps the checkpoint.",
+      "translation": "Хост завершил игру. Сохранение осталось у хоста.",
+      "translateArguments": false
+    },
+    {
+      "source": "Session ended. The host saved the checkpoint.",
+      "translation": "Игра завершена. Хост сохранил прогресс.",
+      "translateArguments": false
+    },
+    {
+      "source": "Cancelling connection…",
+      "translation": "Отмена подключения…",
+      "translateArguments": false
+    },
+    {
+      "source": "Connection cancelled.",
+      "translation": "Подключение отменено.",
+      "translateArguments": false
+    },
+    {
+      "source": "Loading single player…",
+      "translation": "Загрузка одиночной игры…",
+      "translateArguments": false
+    },
+    {
+      "source": "Single player. Esc — menu.",
+      "translation": "Одиночная игра. Esc — меню.",
+      "translateArguments": false
+    },
+    {
+      "source": "Flashlight [F]: ",
+      "translation": "Фонарик [F]: ",
+      "translateArguments": false
+    },
+    {
+      "source": "on",
+      "translation": "вкл.",
+      "translateArguments": false
+    },
+    {
+      "source": "off",
+      "translation": "выкл.",
+      "translateArguments": false
+    },
+    {
+      "source": "Stolen by a thief",
+      "translation": "Украдено воришкой",
+      "translateArguments": false
+    },
+    {
+      "source": "Stolen: ",
+      "translation": "Украдено: ",
+      "translateArguments": false
+    },
+    {
+      "source": "\ncarrying: ",
+      "translation": "\nнесёт: ",
+      "translateArguments": false
+    },
+    {
+      "source": "YOUR OUTFIT",
+      "translation": "ВАШ НАРЯД",
+      "translateArguments": false
+    },
+    {
+      "source": "Close",
+      "translation": "Закрыть",
+      "translateArguments": false
+    },
+    {
+      "source": "Dropped clothes can be picked up again",
+      "translation": "Выброшенную одежду можно подобрать снова",
+      "translateArguments": false
+    },
+    {
+      "source": "Drop",
+      "translation": "Выбросить",
+      "translateArguments": false
+    },
+    {
+      "source": "Drop All",
+      "translation": "Выбросить всё",
+      "translateArguments": false
+    },
+    {
+      "source": "Tab / I — inventory · Esc — close",
+      "translation": "Tab / I — инвентарь · Esc — закрыть",
+      "translateArguments": false
+    },
+    {
+      "source": "Empty",
+      "translation": "Пусто",
+      "translateArguments": false
+    },
+    {
+      "source": "No clothes equipped",
+      "translation": "Одежда не надета",
+      "translateArguments": false
+    },
+    {
+      "source": "Equipped: ",
+      "translation": "Надето: ",
+      "translateArguments": false
+    },
+    {
+      "source": "Press E at the Ready button to rate your outfit",
+      "translation": "Нажмите E у кнопки «Готов», чтобы оценить наряд",
+      "translateArguments": false
+    },
+    {
+      "source": "Ready at the entrance: ",
+      "translation": "Готовы у входа: ",
+      "translateArguments": false
+    },
+    {
+      "source": "You're ready. Waiting for others • Stay near the entrance",
+      "translation": "Вы готовы. Ждём остальных • Оставайтесь у входа",
+      "translateArguments": false
+    },
+    {
+      "source": "Look at the Ready button and press E",
+      "translation": "Посмотрите на кнопку «Готов» и нажмите E",
+      "translateArguments": false
+    },
+    {
+      "source": "Could not drop the item here. Try moving away from the wall.",
+      "translation": "Здесь нельзя выбросить вещь. Отойдите от стены.",
+      "translateArguments": false
+    },
+    {
+      "source": "Dropped",
+      "translation": "Выброшено",
+      "translateArguments": false
+    },
+    {
+      "source": "New clothing",
+      "translation": "Новая одежда",
+      "translateArguments": false
+    },
+    {
+      "source": "PIGS ON THE RUNWAY",
+      "translation": "СВИНКИ НА ПОДИУМЕ",
+      "translateArguments": false
+    },
+    {
+      "source": "Pose",
+      "translation": "Поза",
+      "translateArguments": false
+    },
+    {
+      "source": "Applaud",
+      "translation": "Аплодисменты",
+      "translateArguments": false
+    },
+    {
+      "source": "Heart",
+      "translation": "Сердце",
+      "translateArguments": false
+    },
+    {
+      "source": "Oink!",
+      "translation": "Хрю!",
+      "translateArguments": false
+    },
+    {
+      "source": "View Scores →",
+      "translation": "К оценкам →",
+      "translateArguments": false
+    },
+    {
+      "source": "Pose: ",
+      "translation": "Поза: ",
+      "translateArguments": false
+    },
+    {
+      "source": "Wave",
+      "translation": "Помахать",
+      "translateArguments": false
+    },
+    {
+      "source": "Star",
+      "translation": "Звезда",
+      "translateArguments": false
+    },
+    {
+      "source": "Spin",
+      "translation": "Вращение",
+      "translateArguments": false
+    },
+    {
+      "source": "Player's pose",
+      "translation": "Поза игрока",
+      "translateArguments": false
+    },
+    {
+      "source": "Walk ",
+      "translation": "Выход ",
+      "translateArguments": false
+    },
+    {
+      "source": " of ",
+      "translation": " из ",
+      "translateArguments": false
+    },
+    {
+      "source": "s until scores",
+      "translation": "с до оценок",
+      "translateArguments": false
+    },
+    {
+      "source": "s until next",
+      "translation": "с до следующего",
+      "translateArguments": false
+    },
+    {
+      "source": " · outfit on show",
+      "translation": " · наряд на подиуме",
+      "translateArguments": false
+    },
+    {
+      "source": "OUTFIT RESULTS",
+      "translation": "ОЦЕНКИ НАРЯДОВ",
+      "translateArguments": false
+    },
+    {
+      "source": "See how well your clothes work together",
+      "translation": "Посмотрите, как сочетается ваша одежда",
+      "translateArguments": false
+    },
+    {
+      "source": "PLAYERS",
+      "translation": "ИГРОКИ",
+      "translateArguments": false
+    },
+    {
+      "source": "Left",
+      "translation": "Влево",
+      "translateArguments": false
+    },
+    {
+      "source": "Right",
+      "translation": "Вправо",
+      "translateArguments": false
+    },
+    {
+      "source": "Compatibility",
+      "translation": "Сочетаемость",
+      "translateArguments": false
+    },
+    {
+      "source": "Colours",
+      "translation": "Цвета",
+      "translateArguments": false
+    },
+    {
+      "source": "Patterns",
+      "translation": "Узоры",
+      "translateArguments": false
+    },
+    {
+      "source": "Outfit completeness",
+      "translation": "Полнота наряда",
+      "translateArguments": false
+    },
+    {
+      "source": "WHAT WORKS",
+      "translation": "ЧТО УДАЛОСЬ",
+      "translateArguments": false
+    },
+    {
+      "source": "WHAT TO TRY",
+      "translation": "ЧТО ПОПРОБОВАТЬ",
+      "translateArguments": false
+    },
+    {
+      "source": "Next Round",
+      "translation": "Следующий раунд",
+      "translateArguments": false
+    },
+    {
+      "source": "Main Menu",
+      "translation": "Главное меню",
+      "translateArguments": false
+    },
+    {
+      "source": "OUTFIT RESULTS · ROUND ",
+      "translation": "ОЦЕНКИ НАРЯДОВ · РАУНД ",
+      "translateArguments": false
+    },
+    {
+      "source": "Keep Searching",
+      "translation": "Продолжить поиск",
+      "translateArguments": false
+    },
+    {
+      "source": "Waiting for host",
+      "translation": "Ждём хоста",
+      "translateArguments": false
+    },
+    {
+      "source": "No players with clothes yet",
+      "translation": "Пока никто не нашёл одежду",
+      "translateArguments": false
+    },
+    {
+      "source": "No clothes found yet",
+      "translation": "Одежда пока не найдена",
+      "translateArguments": false
+    },
+    {
+      "source": "No outfit yet",
+      "translation": "Наряда пока нет",
+      "translateArguments": false
+    },
+    {
+      "source": "Not rated",
+      "translation": "Без оценки",
+      "translateArguments": false
+    },
+    {
+      "source": "Collect clothes that look good together.",
+      "translation": "Собирайте одежду, которая хорошо сочетается.",
+      "translateArguments": false
+    },
+    {
+      "source": "No clothing found yet.",
+      "translation": "Одежда пока не найдена.",
+      "translateArguments": false
+    },
+    {
+      "source": "These clothes do not have rating rules yet.",
+      "translation": "Для этой одежды пока нет правил оценки.",
+      "translateArguments": false
+    },
+    {
+      "source": "Complete look",
+      "translation": "Законченный образ",
+      "translateArguments": false
+    },
+    {
+      "source": "Great combination",
+      "translation": "Отличное сочетание",
+      "translateArguments": false
+    },
+    {
+      "source": "Promising look",
+      "translation": "Хорошее начало",
+      "translateArguments": false
+    },
+    {
+      "source": "Outfit in progress",
+      "translation": "Образ в процессе",
+      "translateArguments": false
+    },
+    {
+      "source": "Mixed look",
+      "translation": "Спорное сочетание",
+      "translateArguments": false
+    },
+    {
+      "source": " and ",
+      "translation": " и ",
+      "translateArguments": false
+    },
+    {
+      "source": " go really well together.",
+      "translation": " отлично сочетаются.",
+      "translateArguments": false
+    },
+    {
+      "source": " are the best pair in your outfit.",
+      "translation": " — лучшая пара в вашем наряде.",
+      "translateArguments": false
+    },
+    {
+      "source": "First item found — start building your outfit.",
+      "translation": "Первая вещь найдена — начните собирать образ.",
+      "translateArguments": false
+    },
+    {
+      "source": "Some clothes are not rated yet: rules cover ",
+      "translation": "Часть вещей пока без оценки: правила есть для ",
+      "translateArguments": false
+    },
+    {
+      "source": "Missing: ",
+      "translation": "Не хватает: ",
+      "translateArguments": false
+    },
+    {
+      "source": "Try a different pair: ",
+      "translation": "Попробуйте другую пару: ",
+      "translateArguments": false
+    },
+    {
+      "source": "Several bold patterns clash. Try adding one solid-colour item.",
+      "translation": "Яркие узоры спорят друг с другом. Добавьте однотонную вещь.",
+      "translateArguments": false
+    },
+    {
+      "source": "All four pieces work together. Try experimenting with the details.",
+      "translation": "Все четыре вещи сочетаются. Поэкспериментируйте с деталями.",
+      "translateArguments": false
+    },
+    {
+      "source": "headwear",
+      "translation": "головной убор",
+      "translateArguments": false
+    },
+    {
+      "source": "top",
+      "translation": "верх",
+      "translateArguments": false
+    },
+    {
+      "source": "trousers",
+      "translation": "брюки",
+      "translateArguments": false
+    },
+    {
+      "source": "footwear",
+      "translation": "обувь",
+      "translateArguments": false
+    },
+    {
+      "source": "Incompatible or damaged checkpoint.",
+      "translation": "Несовместимое или повреждённое сохранение.",
+      "translateArguments": false
+    },
+    {
+      "source": "The checkpoint is damaged.",
+      "translation": "Сохранение повреждено.",
+      "translateArguments": false
+    },
+    {
+      "source": "READY",
+      "translation": "ГОТОВ",
+      "translateArguments": false
+    },
+    {
+      "source": "Online play is not configured: svinki-eos.json is missing. See MULTIPLAYER.md.",
+      "translation": "Сетевая игра не настроена: отсутствует svinki-eos.json. См. MULTIPLAYER.md.",
+      "translateArguments": false
+    },
+    {
+      "source": "Fill in your EOS project settings in svinki-eos.json.",
+      "translation": "Заполните настройки проекта EOS в svinki-eos.json.",
+      "translateArguments": false
+    },
+    {
+      "source": "To test EOS in the Editor on Mac, select macOS in File > Build Profiles. Test Windows builds on Windows.",
+      "translation": "Для теста EOS на Mac выберите macOS в File > Build Profiles. Версию Windows проверяйте на Windows.",
+      "translateArguments": false
+    },
+    {
+      "source": "Initializing EOS",
+      "translation": "Запуск EOS",
+      "translateArguments": false
+    },
+    {
+      "source": "Could not create the EOS platform. Check your project settings.",
+      "translation": "Не удалось создать платформу EOS. Проверьте настройки проекта.",
+      "translateArguments": false
+    },
+    {
+      "source": "Enabling relay",
+      "translation": "Включение ретранслятора",
+      "translateArguments": false
+    },
+    {
+      "source": "Creating guest profile",
+      "translation": "Создание профиля гостя",
+      "translateArguments": false
+    },
+    {
+      "source": "Creating profile",
+      "translation": "Создание профиля",
+      "translateArguments": false
+    },
+    {
+      "source": "Guest sign-in",
+      "translation": "Вход гостя",
+      "translateArguments": false
+    },
+    {
+      "source": "The guest profile lost its EOS connection.",
+      "translation": "Профиль гостя потерял связь с EOS.",
+      "translateArguments": false
+    },
+    {
+      "source": "Creating lobby",
+      "translation": "Создание лобби",
+      "translateArguments": false
+    },
+    {
+      "source": "Could not find an available code. Try again.",
+      "translation": "Не удалось найти свободный код. Попробуйте ещё раз.",
+      "translateArguments": false
+    },
+    {
+      "source": "Enter the six-digit lobby code.",
+      "translation": "Введите код лобби из шести символов.",
+      "translateArguments": false
+    },
+    {
+      "source": "Finding lobby",
+      "translation": "Поиск лобби",
+      "translateArguments": false
+    },
+    {
+      "source": "Searching by code",
+      "translation": "Поиск по коду",
+      "translateArguments": false
+    },
+    {
+      "source": "The lobby was not found or is already closed.",
+      "translation": "Лобби не найдено или уже закрыто.",
+      "translateArguments": false
+    },
+    {
+      "source": "Reading lobby",
+      "translation": "Чтение лобби",
+      "translateArguments": false
+    },
+    {
+      "source": "Joining lobby",
+      "translation": "Вход в лобби",
+      "translateArguments": false
+    },
+    {
+      "source": "The host ended the session or removed you. The host keeps the checkpoint.",
+      "translation": "Хост завершил игру или исключил вас. Сохранение осталось у хоста.",
+      "translateArguments": false
+    },
+    {
+      "source": ". Check your connection and EOS settings.",
+      "translation": ". Проверьте соединение и настройки EOS.",
+      "translateArguments": false
+    },
+    {
+      "source": "EOS did not respond within 25 seconds. Check your connection and try again.",
+      "translation": "EOS не ответил за 25 секунд. Проверьте связь и попробуйте снова.",
+      "translateArguments": false
+    },
+    {
+      "source": "Online play is only available in the desktop version.",
+      "translation": "Сетевая игра доступна только в версии для компьютера.",
+      "translateArguments": false
+    },
+    {
+      "source": "Settings",
+      "translation": "Настройки",
+      "translateArguments": false
+    },
+    {
+      "source": "Nickname",
+      "translation": "Ник",
+      "translateArguments": false
+    },
+    {
+      "source": "Friend's Code",
+      "translation": "Код друга",
+      "translateArguments": false
+    },
+    {
+      "source": "SVINKI — Single Player",
+      "translation": "SVINKI — Одиночная игра",
+      "translateArguments": false
+    },
+    {
+      "source": "LOBBY  ",
+      "translation": "ЛОББИ  ",
+      "translateArguments": false
+    },
+    {
+      "source": "SVINKI — Play with Friends",
+      "translation": "SVINKI — Игра с друзьями",
+      "translateArguments": false
+    },
+    {
+      "source": "Host: ",
+      "translation": "Хост: ",
+      "translateArguments": false
+    },
+    {
+      "source": " (you)",
+      "translation": " (вы)",
+      "translateArguments": false
+    },
+    {
+      "source": "reconnecting",
+      "translation": "переподключение",
+      "translateArguments": false
+    },
+    {
+      "source": "spectator",
+      "translation": "зритель",
+      "translateArguments": false
+    },
+    {
+      "source": "ready",
+      "translation": "готов",
+      "translateArguments": false
+    },
+    {
+      "source": "not ready",
+      "translation": "не готов",
+      "translateArguments": false
+    },
+    {
+      "source": "\n\nPlayers: ",
+      "translation": "\n\nИгроки: ",
+      "translateArguments": false
+    },
+    {
+      "source": "/6  ·  Round ",
+      "translation": "/6  ·  Раунд ",
+      "translateArguments": false
+    },
+    {
+      "source": "  ·  Admission closed",
+      "translation": "  ·  Вход закрыт",
+      "translateArguments": false
+    },
+    {
+      "source": "  ·  Admission open",
+      "translation": "  ·  Вход открыт",
+      "translateArguments": false
+    },
+    {
+      "source": "Cancel Connection",
+      "translation": "Отменить подключение",
+      "translateArguments": false
+    },
+    {
+      "source": "Resume",
+      "translation": "Продолжить",
+      "translateArguments": false
+    },
+    {
+      "source": "Ready — Rate Outfit at Entrance",
+      "translation": "Готов — оценить наряд у входа",
+      "translateArguments": false
+    },
+    {
+      "source": "Create Lobby",
+      "translation": "Создать лобби",
+      "translateArguments": false
+    },
+    {
+      "source": "Continue from Checkpoint",
+      "translation": "Продолжить сохранённую игру",
+      "translateArguments": false
+    },
+    {
+      "source": "Join by Code",
+      "translation": "Войти по коду",
+      "translateArguments": false
+    },
+    {
+      "source": "Play Solo",
+      "translation": "Играть одному",
+      "translateArguments": false
+    },
+    {
+      "source": "Local test: host / client — F8 / F9",
+      "translation": "Локальный тест: хост / клиент — F8 / F9",
+      "translateArguments": false
+    },
+    {
+      "source": "Editor: F8 — host, F9 — localhost client; a second game instance is required.",
+      "translation": "Редактор: F8 — хост, F9 — клиент localhost; нужен второй экземпляр игры.",
+      "translateArguments": false
+    },
+    {
+      "source": "Cancel Ready",
+      "translation": "Отменить готовность",
+      "translateArguments": false
+    },
+    {
+      "source": "Ready",
+      "translation": "Готов",
+      "translateArguments": false
+    },
+    {
+      "source": "Start Round",
+      "translation": "Начать раунд",
+      "translateArguments": false
+    },
+    {
+      "source": "Resume Spectating",
+      "translation": "Продолжить наблюдение",
+      "translateArguments": false
+    },
+    {
+      "source": "Ready — At Entrance",
+      "translation": "Готов — у входа",
+      "translateArguments": false
+    },
+    {
+      "source": "Copy Code: ",
+      "translation": "Скопировать код: ",
+      "translateArguments": false
+    },
+    {
+      "source": "Code copied: ",
+      "translation": "Код скопирован: ",
+      "translateArguments": false
+    },
+    {
+      "source": "Open Admission",
+      "translation": "Открыть вход",
+      "translateArguments": false
+    },
+    {
+      "source": "Close Admission",
+      "translation": "Закрыть вход",
+      "translateArguments": false
+    },
+    {
+      "source": "End Session",
+      "translation": "Завершить игру",
+      "translateArguments": false
+    },
+    {
+      "source": "Leave Session",
+      "translation": "Выйти из игры",
+      "translateArguments": false
+    },
+    {
+      "source": "Mouse Sensitivity",
+      "translation": "Чувствительность мыши",
+      "translateArguments": false
+    },
+    {
+      "source": "25% — slow                         300% — fast",
+      "translation": "25% — медленно                    300% — быстро",
+      "translateArguments": false
+    },
+    {
+      "source": "Reset to Default",
+      "translation": "По умолчанию",
+      "translateArguments": false
+    },
+    {
+      "source": "YOUR PIG",
+      "translation": "ВАША СВИНКА",
+      "translateArguments": false
+    },
+    {
+      "source": "Mix accessories, colours and patterns",
+      "translation": "Сочетайте аксессуары, цвета и узоры",
+      "translateArguments": false
+    },
+    {
+      "source": "Glasses & Moustache",
+      "translation": "Очки и усы",
+      "translateArguments": false
+    },
+    {
+      "source": "Beard",
+      "translation": "Борода",
+      "translateArguments": false
+    },
+    {
+      "source": "Piercings",
+      "translation": "Пирсинг",
+      "translateArguments": false
+    },
+    {
+      "source": "Eyes: ",
+      "translation": "Глаза: ",
+      "translateArguments": false
+    },
+    {
+      "source": "open",
+      "translation": "открыты",
+      "translateArguments": false
+    },
+    {
+      "source": "squinting",
+      "translation": "прищур",
+      "translateArguments": false
+    },
+    {
+      "source": "Brows: ",
+      "translation": "Брови: ",
+      "translateArguments": false
+    },
+    {
+      "source": "relaxed",
+      "translation": "спокойные",
+      "translateArguments": false
+    },
+    {
+      "source": "raised",
+      "translation": "поднятые",
+      "translateArguments": false
+    },
+    {
+      "source": "cheeky",
+      "translation": "дерзкие",
+      "translateArguments": false
+    },
+    {
+      "source": "Glasses: ",
+      "translation": "Очки: ",
+      "translateArguments": false
+    },
+    {
+      "source": "none",
+      "translation": "нет",
+      "translateArguments": false
+    },
+    {
+      "source": "round",
+      "translation": "круглые",
+      "translateArguments": false
+    },
+    {
+      "source": "square",
+      "translation": "квадратные",
+      "translateArguments": false
+    },
+    {
+      "source": "cat-eye",
+      "translation": "кошачьи",
+      "translateArguments": false
+    },
+    {
+      "source": "aviator",
+      "translation": "авиаторы",
+      "translateArguments": false
+    },
+    {
+      "source": "round sunglasses",
+      "translation": "круглые тёмные",
+      "translateArguments": false
+    },
+    {
+      "source": "square sunglasses",
+      "translation": "квадратные тёмные",
+      "translateArguments": false
+    },
+    {
+      "source": "Mohawk: ",
+      "translation": "Ирокез: ",
+      "translateArguments": false
+    },
+    {
+      "source": "Skin colour: ",
+      "translation": "Цвет кожи: ",
+      "translateArguments": false
+    },
+    {
+      "source": "Pattern: ",
+      "translation": "Узор: ",
+      "translateArguments": false
+    },
+    {
+      "source": "Pattern colour: ",
+      "translation": "Цвет узора: ",
+      "translateArguments": false
+    },
+    {
+      "source": "Hair colour: ",
+      "translation": "Цвет волос: ",
+      "translateArguments": false
+    },
+    {
+      "source": "Moustache: ",
+      "translation": "Усы: ",
+      "translateArguments": false
+    },
+    {
+      "source": "curled",
+      "translation": "закрученные",
+      "translateArguments": false
+    },
+    {
+      "source": "straight",
+      "translation": "прямые",
+      "translateArguments": false
+    },
+    {
+      "source": "Beard: ",
+      "translation": "Борода: ",
+      "translateArguments": false
+    },
+    {
+      "source": "Ear piercing: ",
+      "translation": "Пирсинг уха: ",
+      "translateArguments": false
+    },
+    {
+      "source": "Brow piercing: ",
+      "translation": "Пирсинг брови: ",
+      "translateArguments": false
+    },
+    {
+      "source": "Tattoo: ",
+      "translation": "Татуировка: ",
+      "translateArguments": false
+    },
+    {
+      "source": "Nose ring: ",
+      "translation": "Кольцо в носу: ",
+      "translateArguments": false
+    },
+    {
+      "source": "Scroll for more. Changes are saved.",
+      "translation": "Прокрутите ниже. Изменения сохраняются.",
+      "translateArguments": false
+    },
+    {
+      "source": "yes",
+      "translation": "да",
+      "translateArguments": false
+    },
+    {
+      "source": "Chat  ·  Enter — send  ·  Esc — cancel",
+      "translation": "Чат · Enter — отправить · Esc — отменить",
+      "translateArguments": false
+    },
+    {
+      "source": "Type a message…",
+      "translation": "Введите сообщение…",
+      "translateArguments": false
+    },
+    {
+      "source": "pink",
+      "translation": "розовый",
+      "translateArguments": false
+    },
+    {
+      "source": "cream",
+      "translation": "кремовый",
+      "translateArguments": false
+    },
+    {
+      "source": "chocolate",
+      "translation": "шоколадный",
+      "translateArguments": false
+    },
+    {
+      "source": "grey",
+      "translation": "серый",
+      "translateArguments": false
+    },
+    {
+      "source": "mint",
+      "translation": "мятный",
+      "translateArguments": false
+    },
+    {
+      "source": "blue",
+      "translation": "синий",
+      "translateArguments": false
+    },
+    {
+      "source": "lavender",
+      "translation": "лавандовый",
+      "translateArguments": false
+    },
+    {
+      "source": "coral",
+      "translation": "коралловый",
+      "translateArguments": false
+    },
+    {
+      "source": "brown",
+      "translation": "коричневый",
+      "translateArguments": false
+    },
+    {
+      "source": "black",
+      "translation": "чёрный",
+      "translateArguments": false
+    },
+    {
+      "source": "blond",
+      "translation": "светлый",
+      "translateArguments": false
+    },
+    {
+      "source": "white",
+      "translation": "белый",
+      "translateArguments": false
+    },
+    {
+      "source": "purple",
+      "translation": "фиолетовый",
+      "translateArguments": false
+    },
+    {
+      "source": "magenta",
+      "translation": "пурпурный",
+      "translateArguments": false
+    },
+    {
+      "source": "solid",
+      "translation": "однотонный",
+      "translateArguments": false
+    },
+    {
+      "source": "spots",
+      "translation": "пятна",
+      "translateArguments": false
+    },
+    {
+      "source": "stripes",
+      "translation": "полосы",
+      "translateArguments": false
+    },
+    {
+      "source": "saddle",
+      "translation": "седло",
+      "translateArguments": false
+    },
+    {
+      "source": "socks",
+      "translation": "носочки",
+      "translateArguments": false
+    },
+    {
+      "source": "heart",
+      "translation": "сердце",
+      "translateArguments": false
+    },
+    {
+      "source": "star",
+      "translation": "звезда",
+      "translateArguments": false
+    },
+    {
+      "source": "lightning",
+      "translation": "молния",
+      "translateArguments": false
+    },
+    {
+      "source": "arm stripes",
+      "translation": "полосы на руках",
+      "translateArguments": false
+    },
+    {
+      "source": "Hat",
+      "translation": "Шляпа",
+      "translateArguments": false
+    },
+    {
+      "source": "T-shirt",
+      "translation": "Футболка",
+      "translateArguments": false
+    },
+    {
+      "source": "Jeans",
+      "translation": "Джинсы",
+      "translateArguments": false
+    },
+    {
+      "source": "Sneakers",
+      "translation": "Кеды",
+      "translateArguments": false
+    },
+    {
+      "source": "Patterned trousers",
+      "translation": "Брюки с узором",
+      "translateArguments": false
+    },
+    {
+      "source": "Knitted hat",
+      "translation": "Вязаная шапка",
+      "translateArguments": false
+    },
+    {
+      "source": "Camouflage long sleeve",
+      "translation": "Камуфляжный лонгслив",
+      "translateArguments": false
+    },
+    {
+      "source": "Lace-up sneakers",
+      "translation": "Кеды со шнуровкой",
+      "translateArguments": false
+    },
+    {
+      "source": "Cap",
+      "translation": "Кепка",
+      "translateArguments": false
+    },
+    {
+      "source": "Leather loafers",
+      "translation": "Кожаные лоферы",
+      "translateArguments": false
+    },
+    {
+      "source": "Light hat",
+      "translation": "Светлая шляпа",
+      "translateArguments": false
+    },
+    {
+      "source": "Light trousers",
+      "translation": "Светлые брюки",
+      "translateArguments": false
+    },
+    {
+      "source": "Sport sneakers",
+      "translation": "Спортивные кеды",
+      "translateArguments": false
+    },
+    {
+      "source": "Dark T-shirt",
+      "translation": "Тёмная футболка",
+      "translateArguments": false
+    },
+    {
+      "source": "Warm sweater",
+      "translation": "Тёплый свитер",
+      "translateArguments": false
+    },
+    {
+      "source": "Collared shirt",
+      "translation": "Рубашка с воротником",
+      "translateArguments": false
+    },
+    {
+      "source": "Hoodie",
+      "translation": "Худи",
+      "translateArguments": false
+    },
+    {
+      "source": "Colourful T-shirt",
+      "translation": "Цветная футболка",
+      "translateArguments": false
+    },
+    {
+      "source": "Military",
+      "translation": "Военный",
+      "translateArguments": false
+    },
+    {
+      "source": "Streetwear",
+      "translation": "Уличный",
+      "translateArguments": false
+    },
+    {
+      "source": "Classic",
+      "translation": "Классический",
+      "translateArguments": false
+    },
+    {
+      "source": "Camouflage casual",
+      "translation": "Камуфляжный повседневный",
+      "translateArguments": false
+    },
+    {
+      "source": "Cozy",
+      "translation": "Уютный",
+      "translateArguments": false
+    },
+    {
+      "source": "Sport",
+      "translation": "Спортивный",
+      "translateArguments": false
+    },
+    {
+      "source": "How to Play",
+      "translation": "Как играть",
+      "translateArguments": false
+    },
+    {
+      "source": "Language",
+      "translation": "Язык",
+      "translateArguments": false
+    },
+    {
+      "source": "English",
+      "translation": "English",
+      "translateArguments": false
+    },
+    {
+      "source": "Русский",
+      "translation": "Русский",
+      "translateArguments": false
+    },
+    {
+      "source": "Glasses + Moustache",
+      "translation": "Очки и усы",
+      "translateArguments": false
+    },
+    {
+      "source": "Flashlight [F]: ON",
+      "translation": "Фонарик [F]: ВКЛ.",
+      "translateArguments": false
+    },
+    {
+      "source": "Flashlight [F]: OFF",
+      "translation": "Фонарик [F]: ВЫКЛ.",
+      "translateArguments": false
+    },
+    {
+      "source": "Flashlight [F]: on",
+      "translation": "Фонарик [F]: вкл.",
+      "translateArguments": false
+    },
+    {
+      "source": "Flashlight [F]: off",
+      "translation": "Фонарик [F]: выкл.",
+      "translateArguments": false
+    },
+    {
+      "source": "CHAT · ENTER TO TYPE",
+      "translation": "ЧАТ · ENTER — НАПИСАТЬ",
+      "translateArguments": false
+    },
+    {
+      "source": "Chat  ·  Enter — send  ·  Esc — cancel  ·  Scroll — history",
+      "translation": "Чат · Enter — отправить · Esc — отменить · Колесо — история",
+      "translateArguments": false
+    },
+    {
+      "source": "CART",
+      "translation": "ТЕЛЕЖКА",
+      "translateArguments": false
+    },
+    {
+      "source": "Store worn clothes",
+      "translation": "Сложить надетую одежду",
+      "translateArguments": false
+    },
+    {
+      "source": "G / Esc — close · Items stay in this cart",
+      "translation": "G / Esc — закрыть · Вещи остаются в тележке",
+      "translateArguments": false
+    },
+    {
+      "source": "Load nearby item",
+      "translation": "Загрузить вещь рядом",
+      "translateArguments": false
+    },
+    {
+      "source": "Wear",
+      "translation": "Надеть",
+      "translateArguments": false
+    },
+    {
+      "source": "Unload",
+      "translation": "Выгрузить",
+      "translateArguments": false
+    },
+    {
+      "source": "No floor clothes nearby. Move the cart closer.",
+      "translation": "Рядом нет одежды на полу. Подвиньте тележку.",
+      "translateArguments": false
+    },
+    {
+      "source": "Request sent",
+      "translation": "Запрос отправлен",
+      "translateArguments": false
+    },
+    {
+      "source": "Done",
+      "translation": "Готово",
+      "translateArguments": false
+    },
+    {
+      "source": "Could not transfer. Check space, clothing slot and distance.",
+      "translation": "Не удалось переложить. Проверьте место, слот и расстояние.",
+      "translateArguments": false
+    },
+    {
+      "source": "ELIMINATED",
+      "translation": "ВЫБЫЛ",
+      "translateArguments": false
+    },
+    {
+      "source": "SPECTATOR",
+      "translation": "ЗРИТЕЛЬ",
+      "translateArguments": false
+    },
+    {
+      "source": "ELIMINATED\nStart the next round to play again",
+      "translation": "ВЫБЫЛ\nНачните следующий раунд, чтобы играть снова",
+      "translateArguments": false
+    },
+    {
+      "source": "SPECTATING · Waiting for a living player",
+      "translation": "НАБЛЮДЕНИЕ · Ждём живого игрока",
+      "translateArguments": false
+    },
+    {
+      "source": "VOICE MUTED · SPECTATING",
+      "translation": "МИКРОФОН ВЫКЛЮЧЕН · НАБЛЮДЕНИЕ",
+      "translateArguments": false
+    },
+    {
+      "source": "HOLD B · VOICE · 25 m",
+      "translation": "УДЕРЖИВАЙТЕ B · ГОЛОС · 25 м",
+      "translateArguments": false
+    },
+    {
+      "source": "ALLOW MICROPHONE ACCESS TO USE VOICE",
+      "translation": "РАЗРЕШИТЕ ДОСТУП К МИКРОФОНУ",
+      "translateArguments": false
+    },
+    {
+      "source": "MICROPHONE PERMISSION REQUIRED",
+      "translation": "НУЖЕН ДОСТУП К МИКРОФОНУ",
+      "translateArguments": false
+    },
+    {
+      "source": "NO MICROPHONE FOUND",
+      "translation": "МИКРОФОН НЕ НАЙДЕН",
+      "translateArguments": false
+    },
+    {
+      "source": "MICROPHONE UNAVAILABLE",
+      "translation": "МИКРОФОН НЕДОСТУПЕН",
+      "translateArguments": false
+    },
+    {
+      "source": "MICROPHONE FORMAT UNAVAILABLE",
+      "translation": "ФОРМАТ МИКРОФОНА НЕ ПОДДЕРЖИВАЕТСЯ",
+      "translateArguments": false
+    },
+    {
+      "source": "STARTING MICROPHONE…",
+      "translation": "ЗАПУСК МИКРОФОНА…",
+      "translateArguments": false
+    },
+    {
+      "source": "MICROPHONE DISCONNECTED",
+      "translation": "МИКРОФОН ОТКЛЮЧЁН",
+      "translateArguments": false
+    },
+    {
+      "source": "NO MICROPHONE INPUT",
+      "translation": "НЕТ СИГНАЛА МИКРОФОНА",
+      "translateArguments": false
+    },
+    {
+      "source": "MICROPHONE READ FAILED",
+      "translation": "ОШИБКА ЧТЕНИЯ МИКРОФОНА",
+      "translateArguments": false
+    },
+    {
+      "source": "MIC LIVE · B TO TALK · 25 m",
+      "translation": "МИКРОФОН ВКЛ. · B — ГОВОРИТЬ · 25 м",
+      "translateArguments": false
+    },
+    {
+      "source": "W/S — push • A/D — steer • Shift — sprint\nLMB — launch • E — release • G — storage",
+      "translation": "W/S — толкать • A/D — поворачивать • Shift — бежать\nЛКМ — запустить • E — отпустить • G — вещи",
+      "translateArguments": false
+    },
+    {
+      "source": "You're riding! E / Space — hop out • G — storage",
+      "translation": "Вы в тележке! E / Space — выйти • G — вещи",
+      "translateArguments": false
+    },
+    {
+      "source": "LMB — hit with monkey • RMB / E — release\nOne hit only · Stuns aggressive mannequins for 30 seconds",
+      "translation": "ЛКМ — ударить обезьяной • ПКМ / E — отпустить\nОдин удар · Манекен оглушается на 30 секунд",
+      "translateArguments": false
+    },
+    {
+      "source": "E — grab monkey toy",
+      "translation": "E — взять игрушечную обезьяну",
+      "translateArguments": false
+    },
+    {
+      "source": "E — push cart • R — ride • G — storage",
+      "translation": "E — толкать • R — сесть • G — вещи",
+      "translateArguments": false
+    },
+    {
+      "source": "You already have a camera",
+      "translation": "Камера уже с вами",
+      "translateArguments": false
+    },
+    {
+      "source": "E — pick up camera · K — equip · P — album",
+      "translation": "E — взять камеру · K — достать · P — альбом",
+      "translateArguments": false
+    },
+    {
+      "source": "ROUND PHOTO ALBUM",
+      "translation": "ФОТОАЛЬБОМ РАУНДА",
+      "translateArguments": false
+    },
+    {
+      "source": "No photos yet. Press K to equip your camera, then LMB.",
+      "translation": "Фотографий пока нет. Нажмите K, затем ЛКМ.",
+      "translateArguments": false
+    },
+    {
+      "source": "← Previous",
+      "translation": "← Назад",
+      "translateArguments": false
+    },
+    {
+      "source": "Next →",
+      "translation": "Далее →",
+      "translateArguments": false
+    },
+    {
+      "source": "Close · P / Esc",
+      "translation": "Закрыть · P / Esc",
+      "translateArguments": false
+    },
+    {
+      "source": "Photo albums →",
+      "translation": "Фотоальбомы →",
+      "translateArguments": false
+    },
+    {
+      "source": "ROUND PHOTO ALBUMS",
+      "translation": "ФОТОАЛЬБОМЫ РАУНДА",
+      "translateArguments": false
+    },
+    {
+      "source": "Choose a player and browse their round photos",
+      "translation": "Выберите игрока и посмотрите его фотографии",
+      "translateArguments": false
+    },
+    {
+      "source": "← Outfit scores",
+      "translation": "← К оценкам нарядов",
+      "translateArguments": false
+    },
+    {
+      "source": "Receiving album…",
+      "translation": "Загрузка альбома…",
+      "translateArguments": false
+    },
+    {
+      "source": "Receiving this player's photos…",
+      "translation": "Загрузка фотографий игрока…",
+      "translateArguments": false
+    },
+    {
+      "source": "This player did not take any photos this round.",
+      "translation": "Этот игрок не сделал фотографий в этом раунде.",
+      "translateArguments": false
+    },
+    {
+      "source": "Ghost · eliminated",
+      "translation": "Призрак · выбыл",
+      "translateArguments": false
+    },
+    {
+      "source": "Eliminated · original pig appearance",
+      "translation": "Выбыл · облик свинки в начале раунда",
+      "translateArguments": false
+    },
+    {
+      "source": "EMOTES\n<size=19>Move to choose</size>",
+      "translation": "ЭМОЦИИ\n<size=19>Наведите для выбора</size>",
+      "translateArguments": false
+    },
+    {
+      "source": "Cheer",
+      "translation": "Радоваться",
+      "translateArguments": false
+    },
+    {
+      "source": "Clap",
+      "translation": "Хлопать",
+      "translateArguments": false
+    },
+    {
+      "source": "Dance",
+      "translation": "Танцевать",
+      "translateArguments": false
+    },
+    {
+      "source": "Laugh",
+      "translation": "Смеяться",
+      "translateArguments": false
+    },
+    {
+      "source": "Shrug",
+      "translation": "Пожать плечами",
+      "translateArguments": false
+    },
+    {
+      "source": "WAVE",
+      "translation": "ПОМАХАТЬ",
+      "translateArguments": false
+    },
+    {
+      "source": "CHEER",
+      "translation": "РАДОВАТЬСЯ",
+      "translateArguments": false
+    },
+    {
+      "source": "CLAP",
+      "translation": "ХЛОПАТЬ",
+      "translateArguments": false
+    },
+    {
+      "source": "DANCE",
+      "translation": "ТАНЦЕВАТЬ",
+      "translateArguments": false
+    },
+    {
+      "source": "LAUGH",
+      "translation": "СМЕЯТЬСЯ",
+      "translateArguments": false
+    },
+    {
+      "source": "SHRUG",
+      "translation": "ПОЖАТЬ ПЛЕЧАМИ",
+      "translateArguments": false
+    },
+    {
+      "source": "HOLD V — EMOTES",
+      "translation": "УДЕРЖИВАЙТЕ V — ЭМОЦИИ",
+      "translateArguments": false
+    },
+    {
+      "source": "Release V to play · RMB / Esc to cancel",
+      "translation": "Отпустите V — выбрать · ПКМ / Esc — отменить",
+      "translateArguments": false
+    },
+    {
+      "source": "Headwear",
+      "translation": "Головной убор",
+      "translateArguments": false
+    },
+    {
+      "source": "Top",
+      "translation": "Верх",
+      "translateArguments": false
+    },
+    {
+      "source": "Trousers",
+      "translation": "Брюки",
+      "translateArguments": false
+    },
+    {
+      "source": "Footwear",
+      "translation": "Обувь",
+      "translateArguments": false
+    },
+    {
+      "source": "HOW TO PLAY SVINKI",
+      "translation": "КАК ИГРАТЬ В SVINKI",
+      "translateArguments": false
+    },
+    {
+      "source": "Find an outfit. Keep an eye on the mannequins. Meet your friends at the entrance.",
+      "translation": "Соберите наряд. Следите за манекенами. Встречайтесь с друзьями у входа.",
+      "translateArguments": false
+    },
+    {
+      "source": "Continue",
+      "translation": "Продолжить",
+      "translateArguments": false
+    },
+    {
+      "source": "Back to game / menu",
+      "translation": "Вернуться в игру / меню",
+      "translateArguments": false
+    },
+    {
+      "source": "Got it — Continue",
+      "translation": "Понятно — продолжить",
+      "translateArguments": false
+    },
+    {
+      "source": "Movement & HUD",
+      "translation": "Движение и экран",
+      "translateArguments": false
+    },
+    {
+      "source": "Clothes & round",
+      "translation": "Одежда и раунд",
+      "translateArguments": false
+    },
+    {
+      "source": "Carts & toys",
+      "translation": "Тележки и игрушки",
+      "translateArguments": false
+    },
+    {
+      "source": "Friends & danger",
+      "translation": "Друзья и опасности",
+      "translateArguments": false
+    },
+    {
+      "source": "Camera & photos",
+      "translation": "Камера и фото",
+      "translateArguments": false
+    },
+    {
+      "source": "LOBBY  {0}",
+      "translation": "ЛОББИ  {0}",
+      "translateArguments": false
+    },
+    {
+      "source": "Copy Code: {0}",
+      "translation": "Скопировать код: {0}",
+      "translateArguments": false
+    },
+    {
+      "source": "Code copied: {0}",
+      "translation": "Код скопирован: {0}",
+      "translateArguments": false
+    },
+    {
+      "source": "Outfit results for round {0}.",
+      "translation": "Оценки за раунд {0}.",
+      "translateArguments": false
+    },
+    {
+      "source": "Round {0}. Esc — menu.",
+      "translation": "Раунд {0}. Esc — меню.",
+      "translateArguments": false
+    },
+    {
+      "source": "Lobby {0}. Mark yourself ready.",
+      "translation": "Лобби {0}. Нажмите «Готов».",
+      "translateArguments": false
+    },
+    {
+      "source": "Could not start the round: checkpoint could not be saved. {0}",
+      "translation": "Не удалось начать раунд: ошибка сохранения. {0}",
+      "translateArguments": false
+    },
+    {
+      "source": "{0}. Check your connection and EOS settings.",
+      "translation": "{0}. Проверьте связь и настройки EOS.",
+      "translateArguments": false
+    },
+    {
+      "source": "HITS LEFT  {0} / 2",
+      "translation": "УДАРОВ ОСТАЛОСЬ  {0} / 2",
+      "translateArguments": false
+    },
+    {
+      "source": "SPECTATING {0}\n← / → — switch player · Next round: respawn",
+      "translation": "НАБЛЮДЕНИЕ: {0}\n← / → — сменить игрока · Возвращение в следующем раунде",
+      "translateArguments": false
+    },
+    {
+      "source": "ELIMINATED · SPECTATING {0}\n← / → — switch player · Next round: respawn",
+      "translation": "ВЫБЫЛ · НАБЛЮДЕНИЕ: {0}\n← / → — сменить игрока · Возвращение в следующем раунде",
+      "translateArguments": false
+    },
+    {
+      "source": "Equipped: {0} / 4",
+      "translation": "Надето: {0} / 4",
+      "translateArguments": false
+    },
+    {
+      "source": "Ready at the entrance: {0}/{1}",
+      "translation": "Готовы у входа: {0}/{1}",
+      "translateArguments": false
+    },
+    {
+      "source": "Ready at the entrance: {0} / {1}",
+      "translation": "Готовы у входа: {0} / {1}",
+      "translateArguments": false
+    },
+    {
+      "source": "CART STORAGE  {0} / {1}",
+      "translation": "ВЕЩИ В ТЕЛЕЖКЕ  {0} / {1}",
+      "translateArguments": false
+    },
+    {
+      "source": "SHUTTER READY IN  {0}s",
+      "translation": "КАМЕРА ГОТОВА ЧЕРЕЗ  {0}с",
+      "translateArguments": false
+    },
+    {
+      "source": "LMB — take photo   ·   K / RMB — stow   ·   P — album ({0})",
+      "translation": "ЛКМ — фото · K / ПКМ — убрать · P — альбом ({0})",
+      "translateArguments": false
+    },
+    {
+      "source": "PHOTO {0} / {1}  ·  Latest {2} pictures are kept this round",
+      "translation": "ФОТО {0} / {1} · В альбоме последние {2} снимков раунда",
+      "translateArguments": false
+    },
+    {
+      "source": "PHOTO {0} / {1} · latest {2} pictures from this round",
+      "translation": "ФОТО {0} / {1} · Последние {2} снимков раунда",
+      "translateArguments": false
+    },
+    {
+      "source": "PHOTO {0} / {1} · receiving {2} photos",
+      "translation": "ФОТО {0} / {1} · Загрузка {2} снимков",
+      "translateArguments": false
+    },
+    {
+      "source": "{0}\n{1} photos",
+      "translation": "{0}\nФото: {1}",
+      "translateArguments": false
+    },
+    {
+      "source": "{0}\nReceiving album…",
+      "translation": "{0}\nЗагрузка альбома…",
+      "translateArguments": false
+    },
+    {
+      "source": "{0} — photo album",
+      "translation": "{0} — фотоальбом",
+      "translateArguments": false
+    },
+    {
+      "source": "{0} · ghost photographer — photo album",
+      "translation": "{0} · фотограф-призрак — фотоальбом",
+      "translateArguments": false
+    },
+    {
+      "source": "{0} · ghost",
+      "translation": "{0} · призрак",
+      "translateArguments": false
+    },
+    {
+      "source": "{0} · ghost — eliminated",
+      "translation": "{0} · призрак — выбыл",
+      "translateArguments": false
+    },
+    {
+      "source": "{0} · outfit on show",
+      "translation": "{0} · наряд на подиуме",
+      "translateArguments": false
+    },
+    {
+      "source": "{0}. {1}\nGhost · eliminated",
+      "translation": "{0}. {1}\nПризрак · выбыл",
+      "translateArguments": false
+    },
+    {
+      "source": "{0}. {1}\n{2} / 100",
+      "translation": "{0}. {1}\n{2} / 100",
+      "translateArguments": false
+    },
+    {
+      "source": "OUTFIT RESULTS · ROUND {0}",
+      "translation": "ОЦЕНКИ НАРЯДОВ · РАУНД {0}",
+      "translateArguments": false
+    },
+    {
+      "source": "Walk {0} of {1} · {2}s until scores",
+      "translation": "Выход {0} из {1} · {2}с до оценок",
+      "translateArguments": false
+    },
+    {
+      "source": "Walk {0} of {1} · {2}s until next",
+      "translation": "Выход {0} из {1} · {2}с до следующего",
+      "translateArguments": false
+    },
+    {
+      "source": "Page {0} / {1}  ·  Use the tabs  ·  F1 — guide  ·  Esc — back",
+      "translation": "Страница {0} / {1} · Выберите вкладку · F1 — справка · Esc — назад",
+      "translateArguments": false
+    },
+    {
+      "source": "Eyes: {0}",
+      "translation": "Глаза: {0}",
+      "translateArguments": true
+    },
+    {
+      "source": "Brows: {0}",
+      "translation": "Брови: {0}",
+      "translateArguments": true
+    },
+    {
+      "source": "Glasses: {0}",
+      "translation": "Очки: {0}",
+      "translateArguments": true
+    },
+    {
+      "source": "Mohawk: {0}",
+      "translation": "Ирокез: {0}",
+      "translateArguments": true
+    },
+    {
+      "source": "Skin colour: {0}",
+      "translation": "Цвет кожи: {0}",
+      "translateArguments": true
+    },
+    {
+      "source": "Pattern: {0}",
+      "translation": "Узор: {0}",
+      "translateArguments": true
+    },
+    {
+      "source": "Pattern colour: {0}",
+      "translation": "Цвет узора: {0}",
+      "translateArguments": true
+    },
+    {
+      "source": "Hair colour: {0}",
+      "translation": "Цвет волос: {0}",
+      "translateArguments": true
+    },
+    {
+      "source": "Moustache: {0}",
+      "translation": "Усы: {0}",
+      "translateArguments": true
+    },
+    {
+      "source": "Beard: {0}",
+      "translation": "Борода: {0}",
+      "translateArguments": true
+    },
+    {
+      "source": "Ear piercing: {0}",
+      "translation": "Пирсинг уха: {0}",
+      "translateArguments": true
+    },
+    {
+      "source": "Brow piercing: {0}",
+      "translation": "Пирсинг брови: {0}",
+      "translateArguments": true
+    },
+    {
+      "source": "Tattoo: {0}",
+      "translation": "Татуировка: {0}",
+      "translateArguments": true
+    },
+    {
+      "source": "Nose ring: {0}",
+      "translation": "Кольцо в носу: {0}",
+      "translateArguments": true
+    },
+    {
+      "source": "Pose: {0}",
+      "translation": "Поза: {0}",
+      "translateArguments": true
+    },
+    {
+      "source": "E — pick up: {0}",
+      "translation": "E — подобрать: {0}",
+      "translateArguments": true
+    },
+    {
+      "source": "Stolen: {0}",
+      "translation": "Украдено: {0}",
+      "translateArguments": true
+    },
+    {
+      "source": "Stolen by a thief: {0}",
+      "translation": "Украдено воришкой: {0}",
+      "translateArguments": true
+    },
+    {
+      "source": "Dropped: {0}",
+      "translation": "Выброшено: {0}",
+      "translateArguments": true
+    },
+    {
+      "source": "New clothing: {0}",
+      "translation": "Новая одежда: {0}",
+      "translateArguments": true
+    },
+    {
+      "source": "Missing: {0}.",
+      "translation": "Не хватает: {0}.",
+      "translateArguments": true
+    },
+    {
+      "source": "{0} and {1} go really well together.",
+      "translation": "{0} и {1} отлично сочетаются.",
+      "translateArguments": true
+    },
+    {
+      "source": "{0} and {1} are the best pair in your outfit.",
+      "translation": "{0} и {1} — лучшая пара в наряде.",
+      "translateArguments": true
+    },
+    {
+      "source": "Try a different pair: {0} + {1}.",
+      "translation": "Попробуйте другую пару: {0} + {1}.",
+      "translateArguments": true
+    },
+    {
+      "source": "{0}. {1}",
+      "translation": "{0}. {1}",
+      "translateArguments": true
+    },
+    {
+      "source": "{0}\n<size=19>Release V</size>",
+      "translation": "{0}\n<size=19>Отпустите V</size>",
+      "translateArguments": true
+    },
+    {
+      "source": "Some clothes are not rated yet: rules cover {0} of {1}.",
+      "translation": "Часть вещей без оценки: правила есть для {0} из {1}.",
+      "translateArguments": false
+    },
+    {
+      "source": "W A S D / arrows",
+      "translation": "W A S D / стрелки",
+      "translateArguments": false
+    },
+    {
+      "source": "Move around the store",
+      "translation": "Ходить по магазину",
+      "translateArguments": false
+    },
+    {
+      "source": "Mouse",
+      "translation": "Мышь",
+      "translateArguments": false
+    },
+    {
+      "source": "Look around and aim at items",
+      "translation": "Осматриваться и наводить прицел",
+      "translateArguments": false
+    },
+    {
+      "source": "Shift",
+      "translation": "Shift",
+      "translateArguments": false
+    },
+    {
+      "source": "Hold to sprint",
+      "translation": "Удерживать для бега",
+      "translateArguments": false
+    },
+    {
+      "source": "Space",
+      "translation": "Space",
+      "translateArguments": false
+    },
+    {
+      "source": "Jump",
+      "translation": "Прыгать",
+      "translateArguments": false
+    },
+    {
+      "source": "Ctrl",
+      "translation": "Ctrl",
+      "translateArguments": false
+    },
+    {
+      "source": "Hold to crouch; look under displays",
+      "translation": "Присесть, чтобы искать под витринами",
+      "translateArguments": false
+    },
+    {
+      "source": "F",
+      "translation": "F",
+      "translateArguments": false
+    },
+    {
+      "source": "Toggle your flashlight",
+      "translation": "Включить или выключить фонарик",
+      "translateArguments": false
+    },
+    {
+      "source": "Esc",
+      "translation": "Esc",
+      "translateArguments": false
+    },
+    {
+      "source": "Open the menu or close the current panel",
+      "translation": "Открыть меню или закрыть окно",
+      "translateArguments": false
+    },
+    {
+      "source": "F1",
+      "translation": "F1",
+      "translateArguments": false
+    },
+    {
+      "source": "Open this guide again",
+      "translation": "Открыть эту справку",
+      "translateArguments": false
+    },
+    {
+      "source": "E",
+      "translation": "E",
+      "translateArguments": false
+    },
+    {
+      "source": "Collect the clothing under your crosshair",
+      "translation": "Подобрать одежду под прицелом",
+      "translateArguments": false
+    },
+    {
+      "source": "Tab / I",
+      "translation": "Tab / I",
+      "translateArguments": false
+    },
+    {
+      "source": "Open your outfit inventory",
+      "translation": "Открыть инвентарь наряда",
+      "translateArguments": false
+    },
+    {
+      "source": "Inventory buttons",
+      "translation": "Кнопки инвентаря",
+      "translateArguments": false
+    },
+    {
+      "source": "Drop one piece or your whole outfit",
+      "translation": "Выбросить одну вещь или весь наряд",
+      "translateArguments": false
+    },
+    {
+      "source": "E at READY",
+      "translation": "E у «Готов»",
+      "translateArguments": false
+    },
+    {
+      "source": "Finish at the entrance when everyone is ready",
+      "translation": "Завершить раунд, когда все готовы",
+      "translateArguments": false
+    },
+    {
+      "source": "Ready / Start",
+      "translation": "Готов / Старт",
+      "translateArguments": false
+    },
+    {
+      "source": "In the lobby, everyone readies; the host starts",
+      "translation": "Все готовятся в лобби; хост начинает",
+      "translateArguments": false
+    },
+    {
+      "source": "The host returns everyone to the lobby",
+      "translation": "Хост возвращает всех в лобби",
+      "translateArguments": false
+    },
+    {
+      "source": "Pig customisation",
+      "translation": "Облик свинки",
+      "translateArguments": false
+    },
+    {
+      "source": "Choose your pig’s face, skin and accessories",
+      "translation": "Выбрать лицо, кожу и аксессуары",
+      "translateArguments": false
+    },
+    {
+      "source": "Change language or mouse sensitivity",
+      "translation": "Выбрать язык или чувствительность мыши",
+      "translateArguments": false
+    },
+    {
+      "source": "E at cart",
+      "translation": "E у тележки",
+      "translateArguments": false
+    },
+    {
+      "source": "Push a cart; E again releases it",
+      "translation": "Толкать тележку; E ещё раз — отпустить",
+      "translateArguments": false
+    },
+    {
+      "source": "R at cart",
+      "translation": "R у тележки",
+      "translateArguments": false
+    },
+    {
+      "source": "Ride in the basket",
+      "translation": "Сесть в корзину",
+      "translateArguments": false
+    },
+    {
+      "source": "W/S · A/D",
+      "translation": "W/S · A/D",
+      "translateArguments": false
+    },
+    {
+      "source": "Push forward/backward and steer",
+      "translation": "Толкать вперёд/назад и поворачивать",
+      "translateArguments": false
+    },
+    {
+      "source": "Shift · LMB",
+      "translation": "Shift · ЛКМ",
+      "translateArguments": false
+    },
+    {
+      "source": "Sprint with a cart; left click launches it",
+      "translation": "Бежать с тележкой; ЛКМ — запустить её",
+      "translateArguments": false
+    },
+    {
+      "source": "E / Space",
+      "translation": "E / Space",
+      "translateArguments": false
+    },
+    {
+      "source": "Leave the cart basket",
+      "translation": "Выйти из корзины",
+      "translateArguments": false
+    },
+    {
+      "source": "G",
+      "translation": "G",
+      "translateArguments": false
+    },
+    {
+      "source": "Open cart cargo to store, wear or unload clothes",
+      "translation": "Сложить, надеть или выгрузить вещи",
+      "translateArguments": false
+    },
+    {
+      "source": "E at toy / figure",
+      "translation": "E у игрушки",
+      "translateArguments": false
+    },
+    {
+      "source": "Grab with free hands",
+      "translation": "Взять игрушку или манекен свободными руками",
+      "translateArguments": false
+    },
+    {
+      "source": "LMB · RMB / E",
+      "translation": "ЛКМ · ПКМ / E",
+      "translateArguments": false
+    },
+    {
+      "source": "LMB: attack / throw. RMB or E: release",
+      "translation": "ЛКМ: удар / бросок. ПКМ или E: отпустить",
+      "translateArguments": false
+    },
+    {
+      "source": "Hold B",
+      "translation": "Удерживать B",
+      "translateArguments": false
+    },
+    {
+      "source": "Talk nearby; release to mute",
+      "translation": "Говорить рядом; отпустить — выключить микрофон",
+      "translateArguments": false
+    },
+    {
+      "source": "Enter",
+      "translation": "Enter",
+      "translateArguments": false
+    },
+    {
+      "source": "Open text chat; Enter again sends",
+      "translation": "Открыть чат; Enter ещё раз — отправить",
+      "translateArguments": false
+    },
+    {
+      "source": "Esc in chat",
+      "translation": "Esc в чате",
+      "translateArguments": false
+    },
+    {
+      "source": "Cancel the message",
+      "translation": "Отменить сообщение",
+      "translateArguments": false
+    },
+    {
+      "source": "Mouse wheel",
+      "translation": "Колесо мыши",
+      "translateArguments": false
+    },
+    {
+      "source": "Scroll chat history while chat is open",
+      "translation": "Прокручивать историю в открытом чате",
+      "translateArguments": false
+    },
+    {
+      "source": "Hold V",
+      "translation": "Удерживать V",
+      "translateArguments": false
+    },
+    {
+      "source": "Open the emote wheel; aim and release V to choose",
+      "translation": "Открыть эмоции; навести и отпустить V",
+      "translateArguments": false
+    },
+    {
+      "source": "Esc / RMB",
+      "translation": "Esc / ПКМ",
+      "translateArguments": false
+    },
+    {
+      "source": "Cancel the emote wheel",
+      "translation": "Закрыть колесо эмоций",
+      "translateArguments": false
+    },
+    {
+      "source": "Left / Right",
+      "translation": "Влево / Вправо",
+      "translateArguments": false
+    },
+    {
+      "source": "Switch living players while spectating",
+      "translation": "Сменить живого игрока при наблюдении",
+      "translateArguments": false
+    },
+    {
+      "source": "Lobby code",
+      "translation": "Код лобби",
+      "translateArguments": false
+    },
+    {
+      "source": "Copy the code and share it with friends",
+      "translation": "Скопировать код и передать друзьям",
+      "translateArguments": false
+    },
+    {
+      "source": "Your camera",
+      "translation": "Ваша камера",
+      "translateArguments": false
+    },
+    {
+      "source": "Always with you from the start of each round",
+      "translation": "Всегда с вами с начала раунда",
+      "translateArguments": false
+    },
+    {
+      "source": "K",
+      "translation": "K",
+      "translateArguments": false
+    },
+    {
+      "source": "Equip or stow your camera with free hands",
+      "translation": "Достать или убрать камеру свободными руками",
+      "translateArguments": false
+    },
+    {
+      "source": "LMB with camera",
+      "translation": "ЛКМ с камерой",
+      "translateArguments": false
+    },
+    {
+      "source": "Take a photo for your album",
+      "translation": "Сделать снимок для альбома",
+      "translateArguments": false
+    },
+    {
+      "source": "RMB / E",
+      "translation": "ПКМ / E",
+      "translateArguments": false
+    },
+    {
+      "source": "Stow your camera",
+      "translation": "Убрать камеру",
+      "translateArguments": false
+    },
+    {
+      "source": "P",
+      "translation": "P",
+      "translateArguments": false
+    },
+    {
+      "source": "Open or close your round photo album",
+      "translation": "Открыть или закрыть альбом раунда",
+      "translateArguments": false
+    },
+    {
+      "source": "Browse photos while the album is open",
+      "translation": "Листать фотографии в альбоме",
+      "translateArguments": false
+    },
+    {
+      "source": "Photo albums in results",
+      "translation": "Альбомы в оценках",
+      "translateArguments": false
+    },
+    {
+      "source": "View everyone’s photos after the runway",
+      "translation": "Смотреть фото всех игроков после подиума",
+      "translateArguments": false
+    },
+    {
+      "source": "Esc in album",
+      "translation": "Esc в альбоме",
+      "translateArguments": false
+    },
+    {
+      "source": "Close the album and return to the game",
+      "translation": "Закрыть альбом и вернуться в игру",
+      "translateArguments": false
+    },
+    {
+      "source": "FIND YOUR WAY\nThe store has offset departments, side routes and concealed shelves. Search behind displays and inside stock cabinets.",
+      "translation": "ИЩИТЕ ОБХОДЫ\nВ магазине есть отдельные отделы, боковые проходы и скрытые полки. Ищите за витринами и внутри шкафов.",
+      "translateArguments": false
+    },
+    {
+      "source": "NEARBY MAP\nThe map follows you and shows your room and nearby departments. It follows the selected player while spectating.",
+      "translation": "КАРТА РЯДОМ\nМиникарта показывает вашу комнату и соседние отделы. При наблюдении она следует за выбранным игроком.",
+      "translateArguments": false
+    },
+    {
+      "source": "PLAYER COLOURS\nEach arrow and through-wall nickname share a unique colour, kept across rounds and reconnects. Carts: yellow squares. READY: green R.",
+      "translation": "ЦВЕТА ИГРОКОВ\nСтрелка и ник сквозь стены одного цвета. Цвет сохраняется между раундами. Тележки — жёлтые квадраты. «Готов» — зелёная R.",
+      "translateArguments": false
+    },
+    {
+      "source": "LIVE PIG & ITEMS\nThe side pig mirrors your appearance and outfit. Aim at items for an E prompt; crouch to inspect low shelves.",
+      "translation": "ВАША СВИНКА И ВЕЩИ\nСвинка сбоку повторяет ваш облик и наряд. Наведитесь на вещь для подсказки E; присядьте для поиска на нижних полках.",
+      "translateArguments": false
+    },
+    {
+      "source": "BUILD A LOOK\nCollect headwear, a top, trousers and footwear. Your inventory shows the four slots; drop a piece to make room for another.",
+      "translation": "СОБЕРИТЕ ОБРАЗ\nНайдите головной убор, верх, брюки и обувь. В инвентаре четыре слота. Выбросите вещь, чтобы освободить её слот.",
+      "translateArguments": false
+    },
+    {
+      "source": "NEW ROUND, NEW SEARCH\nClothing changes hiding spots each round. Mannequins, carts and toys also get new reachable spawn positions.",
+      "translation": "НОВЫЙ РАУНД — НОВЫЙ ПОИСК\nОдежда меняет тайники каждый раунд. Манекены, тележки и игрушки тоже появляются в новых доступных местах.",
+      "translateArguments": false
+    },
+    {
+      "source": "RETURN TO THE ENTRANCE\nREADY is on the left wall towards the back of the entrance. Gather together; leaving the zone or changing your outfit cancels readiness.",
+      "translation": "ВЕРНИТЕСЬ КО ВХОДУ\nКнопка «Готов» на левой стене в глубине входной комнаты. Соберитесь вместе. Уход из зоны или смена наряда отменяет готовность.",
+      "translateArguments": false
+    },
+    {
+      "source": "FASHION SHOW\nEveryone sees the runway and outfit scores. Old and new clothes share one rating system. The 16 example sets guide colours, patterns and combinations. Mix your own look. Eliminated pigs appear as ghosts.",
+      "translation": "ПОКАЗ МОД\nВсе видят подиум и оценки нарядов. Старая и новая одежда оцениваются вместе. 16 примеров помогают сочетать цвета и узоры. Выбывшие свинки — призраки.",
+      "translateArguments": false
+    },
+    {
+      "source": "THREE SHARED CARTS\nA cart has one driver and one passenger. Wall collisions stop it; a launched cart can knock down other pigs.",
+      "translation": "ТРИ ОБЩИЕ ТЕЛЕЖКИ\nВ тележке один водитель и один пассажир. Стена останавливает её. Запущенная тележка может сбить другую свинку.",
+      "translateArguments": false
+    },
+    {
+      "source": "EIGHT STORAGE SLOTS\nCargo carries spare garments, including several pieces for the same clothing slot. Transfer items while the cart is stopped or moving slowly.",
+      "translation": "ВОСЕМЬ МЕСТ ДЛЯ ВЕЩЕЙ\nВ корзине можно хранить запасную одежду, включая вещи одного слота. Перекладывайте вещи, пока тележка стоит или едет медленно.",
+      "translateArguments": false
+    },
+    {
+      "source": "ONE MONKEY PER PLAYER\nToys spawn at random reachable spots. One successful hit consumes a toy, even against an ordinary mannequin; a miss keeps it.",
+      "translation": "ОБЕЗЬЯНА ДЛЯ КАЖДОГО\nИгрушки появляются в случайных доступных местах. После одного попадания игрушка исчезает, даже при ударе обычного манекена. Промах её не тратит.",
+      "translateArguments": false
+    },
+    {
+      "source": "THIRTY-SECOND STUN\nA toy hit knocks an aggressive mannequin down for 30 seconds. You need free hands and cannot carry a toy while using a cart.",
+      "translation": "ОГЛУШЕНИЕ НА 30 СЕКУНД\nУдар игрушкой роняет агрессивного манекена на 30 секунд. Нужны свободные руки. Нельзя держать игрушку, пока используете тележку.",
+      "translateArguments": false
+    },
+    {
+      "source": "PROXIMITY VOICE\nFull volume nearby, fading to silence at 25 metres. Your microphone is active only while B is held; allow microphone access when prompted.",
+      "translation": "ГОЛОС ПО РАССТОЯНИЮ\nРядом голос громкий, а к 25 метрам затихает. Микрофон работает, только пока удерживается B. Разрешите доступ к микрофону.",
+      "translateArguments": false
+    },
+    {
+      "source": "WATCH THE MANNEQUINS\nAggressive mannequins freeze while a living player sees them. Coordinate who keeps watch while friends search.",
+      "translation": "СЛЕДИТЕ ЗА МАНЕКЕНАМИ\nАгрессивный манекен замирает, пока его видит живой игрок. Договоритесь, кто следит, пока друзья ищут вещи.",
+      "translateArguments": false
+    },
+    {
+      "source": "TWO HITS\nThe first aggressive hit knocks you down. The second eliminates you until the next round; you drop your clothes and spectate friends.",
+      "translation": "ДВА УДАРА\nПервый удар сбивает с ног. Второй — выводит из игры до следующего раунда: одежда падает, а вы наблюдаете за друзьями.",
+      "translateArguments": false
+    },
+    {
+      "source": "THIEVES & CHAT\nSmall thieves steal clothing and take it to their nest. Messages appear above pigs and stay in the side history. Emotes need free hands; voice is muted after death.",
+      "translation": "ВОРИШКИ И ЧАТ\nМаленькие воришки уносят одежду в гнездо. Сообщения видны над свинками и в истории сбоку. Эмоциям нужны свободные руки. После смерти голос выключен.",
+      "translateArguments": false
+    },
+    {
+      "source": "ALWAYS WITH YOU\nEvery pig starts with a camera. Press K to equip or stow it; no pickup is needed. Stowing frees your hands for toys and carts.",
+      "translation": "КАМЕРА ВСЕГДА С ВАМИ\nКаждая свинка начинает с камерой. K — достать или убрать, искать её не нужно. Уберите камеру, чтобы взять игрушку или тележку.",
+      "translateArguments": false
+    },
+    {
+      "source": "CHEAP CAMERA PHOTOS\nPictures have chunky pixels, grain and compression artefacts. The viewfinder marks the photo area; the shutter needs 1 second.",
+      "translation": "СНИМКИ ДЕШЁВОЙ КАМЕРЫ\nНа фото крупные пиксели, шум и сжатие. Рамка отмечает область снимка. Между снимками нужна 1 секунда.",
+      "translateArguments": false
+    },
+    {
+      "source": "ROUND PHOTO ALBUM\nLMB takes a photo; P opens your latest 12 pictures. Photos exclude the HUD. Your latest 12 are shared in Photo albums beside the outfit scores, including after death.",
+      "translation": "АЛЬБОМ РАУНДА\nЛКМ — снять; P — открыть последние 12 фото. Интерфейс в кадр не попадает. Альбомы всех игроков доступны в оценках, даже после смерти.",
+      "translateArguments": false
+    },
+    {
+      "source": "STORE MANNEQUINS\n40 neutral displays and 8 attackers spawn in new spots each round. Neutral figures can be carried and thrown. The camera flash is cosmetic and never stuns mannequins. The entrance stays clear.",
+      "translation": "МАНЕКЕНЫ МАГАЗИНА\n40 нейтральных фигур и 8 нападающих меняют места каждый раунд. Нейтральных можно носить и бросать. Вспышка никого не оглушает. Вход остаётся свободным.",
+      "translateArguments": false
+    },
+    {
+      "source": "Load nearest floor item",
+      "translation": "Загрузить ближайшую вещь",
+      "translateArguments": false
+    },
+    {
+      "source": "HOLD V · EMOTES",
+      "translation": "УДЕРЖИВАЙТЕ V · ЭМОЦИИ",
+      "translateArguments": false
+    },
+    {
+      "source": "Release V to perform  ·  Esc to cancel",
+      "translation": "Отпустите V — выбрать · Esc — отменить",
+      "translateArguments": true
+    },
+    {
+      "source": "Golden trousers",
+      "translation": "Золотистые брюки",
+      "translateArguments": false
+    },
+    {
+      "source": "Autumn camouflage trousers",
+      "translation": "Осенние камуфляжные брюки",
+      "translateArguments": false
+    },
+    {
+      "source": "Grey camouflage trousers",
+      "translation": "Серые камуфляжные брюки",
+      "translateArguments": false
+    },
+    {
+      "source": "Pink dotted trousers",
+      "translation": "Розовые брюки в горошек",
+      "translateArguments": false
+    },
+    {
+      "source": "Patterned loafers",
+      "translation": "Лоферы с узором",
+      "translateArguments": false
+    },
+    {
+      "source": "Speckled sneakers",
+      "translation": "Кеды в крапинку",
+      "translateArguments": false
+    },
+    {
+      "source": "Speckled hat",
+      "translation": "Шляпа в крапинку",
+      "translateArguments": false
+    },
+    {
+      "source": "Tiger T-shirt",
+      "translation": "Тигровая футболка",
+      "translateArguments": false
+    },
+    {
+      "source": "Sakura T-shirt",
+      "translation": "Футболка «Сакура»",
+      "translateArguments": false
+    },
+    {
+      "source": "Cream floral T-shirt",
+      "translation": "Кремовая футболка с цветами",
+      "translateArguments": false
+    },
+    {
+      "source": "Yellow floral T-shirt",
+      "translation": "Жёлтая футболка с цветами",
+      "translateArguments": false
+    },
+    {
+      "source": "Striped sweater",
+      "translation": "Полосатый свитер",
+      "translateArguments": false
+    },
+    {
+      "source": "Blue sweater",
+      "translation": "Синий свитер",
+      "translateArguments": false
+    },
+    {
+      "source": "Autumn sweater",
+      "translation": "Осенний свитер",
+      "translateArguments": false
+    },
+    {
+      "source": "Checked sweater",
+      "translation": "Свитер в клетку",
+      "translateArguments": false
+    },
+    {
+      "source": "Floral sweater",
+      "translation": "Свитер с цветами",
+      "translateArguments": false
+    },
+    {
+      "source": "Green camouflage long sleeve",
+      "translation": "Зелёный камуфляжный лонгслив",
+      "translateArguments": false
+    },
+    {
+      "source": "Grey camouflage hoodie",
+      "translation": "Серое камуфляжное худи",
+      "translateArguments": false
+    },
+    {
+      "source": "Brown patterned hoodie",
+      "translation": "Коричневое худи с узором",
+      "translateArguments": false
+    },
+    {
+      "source": "Desert camouflage T-shirt",
+      "translation": "Футболка с пустынным камуфляжем",
+      "translateArguments": false
+    },
+    {
+      "source": "Camouflage cap",
+      "translation": "Камуфляжная кепка",
+      "translateArguments": false
+    },
+    {
+      "source": "Woven cap",
+      "translation": "Плетёная кепка",
+      "translateArguments": false
+    },
+    {
+      "source": "HEADWEAR",
+      "translation": "ГОЛОВНОЙ УБОР",
+      "translateArguments": false
+    },
+    {
+      "source": "TOP",
+      "translation": "ВЕРХ",
+      "translateArguments": false
+    },
+    {
+      "source": "TROUSERS",
+      "translation": "БРЮКИ",
+      "translateArguments": false
+    },
+    {
+      "source": "FOOTWEAR",
+      "translation": "ОБУВЬ",
+      "translateArguments": false
+    },
+    {
+      "source": "<size=18>0{0}</size>\n{1}",
+      "translation": "<size=18>0{0}</size>\n{1}",
+      "translateArguments": true
+    },
+    {
+      "source": "Players: {0}/6  ·  Round {1}{2}",
+      "translation": "Игроки: {0}/6  ·  Раунд {1}{2}",
+      "translateArguments": false
+    },
+    {
+      "source": "AFTER HOURS",
+      "translation": "ПОСЛЕ ЗАКРЫТИЯ",
+      "translateArguments": false
+    },
+    {
+      "source": "03 / BOUTIQUE",
+      "translation": "03 / БУТИК",
+      "translateArguments": false
+    },
+    {
+      "source": "04 / ATELIER",
+      "translation": "04 / АТЕЛЬЕ",
+      "translateArguments": false
+    },
+    {
+      "source": "FITTING ROOMS",
+      "translation": "ПРИМЕРОЧНЫЕ",
+      "translateArguments": false
+    },
+    {
+      "source": "COLLECTION ARCHIVE",
+      "translation": "АРХИВ КОЛЛЕКЦИЙ",
+      "translateArguments": false
+    },
+    {
+      "source": "STAFF ONLY",
+      "translation": "ТОЛЬКО ДЛЯ ПЕРСОНАЛА",
+      "translateArguments": false
+    },
+    {
+      "source": "GALLERY",
+      "translation": "ГАЛЕРЕЯ",
+      "translateArguments": false
+    },
+    {
+      "source": "LOOK",
+      "translation": "СМОТРИ",
+      "translateArguments": false
+    },
+    {
+      "source": "AGAIN",
+      "translation": "СНОВА",
+      "translateArguments": false
+    },
+    {
+      "source": "PEACH / NEW COLLECTION",
+      "translation": "PEACH / НОВАЯ КОЛЛЕКЦИЯ",
+      "translateArguments": false
+    },
+    {
+      "source": "11 / VINTAGE",
+      "translation": "11 / ВИНТАЖ",
+      "translateArguments": false
+    },
+    {
+      "source": "12 / SPORTS",
+      "translation": "12 / СПОРТ",
+      "translateArguments": false
+    },
+    {
+      "source": "13 / LOUNGE",
+      "translation": "13 / ОТДЫХ",
+      "translateArguments": false
+    },
+    {
+      "source": "14 / SHOWROOM",
+      "translation": "14 / ШОУРУМ",
+      "translateArguments": false
+    },
+    {
+      "source": "COLOUR LAB",
+      "translation": "ЛАБОРАТОРИЯ ЦВЕТА",
+      "translateArguments": false
+    },
+    {
+      "source": "DENIM ARCADE",
+      "translation": "ДЖИНСОВЫЙ ПАССАЖ",
+      "translateArguments": false
+    },
+    {
+      "source": "STREET MARKET",
+      "translation": "УЛИЧНЫЙ РЫНОК",
+      "translateArguments": false
+    },
+    {
+      "source": "THE TAILOR",
+      "translation": "ПОРТНОЙ",
+      "translateArguments": false
+    },
+    {
+      "source": "NEON LOUNGE",
+      "translation": "НЕОНОВАЯ ГОСТИНАЯ",
+      "translateArguments": false
+    },
+    {
+      "source": "SPORTS CLUB",
+      "translation": "СПОРТИВНЫЙ КЛУБ",
+      "translateArguments": false
+    },
+    {
+      "source": "SUMMER COURT",
+      "translation": "ЛЕТНИЙ ДВОР",
+      "translateArguments": false
+    },
+    {
+      "source": "WINTER CABIN",
+      "translation": "ЗИМНИЙ ДОМИК",
+      "translateArguments": false
+    },
+    {
+      "source": "PRINT GALLERY",
+      "translation": "ГАЛЕРЕЯ УЗОРОВ",
+      "translateArguments": false
+    },
+    {
+      "source": "SHOE VAULT",
+      "translation": "ОБУВНОЙ ЗАЛ",
+      "translateArguments": false
+    },
+    {
+      "source": "ACCESSORY BAR",
+      "translation": "АКСЕССУАРЫ",
+      "translateArguments": false
+    },
+    {
+      "source": "COLLECTIONS",
+      "translation": "КОЛЛЕКЦИИ",
+      "translateArguments": false
+    },
+    {
+      "source": "COUTURE SALON",
+      "translation": "САЛОН МОДЫ",
+      "translateArguments": false
+    },
+    {
+      "source": "CARGO DEPOT",
+      "translation": "СКЛАД",
+      "translateArguments": false
+    },
+    {
+      "source": "LIFESTYLE",
+      "translation": "ОБРАЗ ЖИЗНИ",
+      "translateArguments": false
+    },
+    {
+      "source": "THE OUTLET",
+      "translation": "АУТЛЕТ",
+      "translateArguments": false
+    },
+    {
+      "source": "[E] Pick up: {0}",
+      "translation": "[E] Подобрать: {0}",
+      "translateArguments": true
+    },
+    {
+      "source": "Thief stole: {0}",
+      "translation": "Воришка украл: {0}",
+      "translateArguments": true
+    },
+    {
+      "source": "Torso",
+      "translation": "Верх",
+      "translateArguments": false
+    },
+    {
+      "source": "Legs",
+      "translation": "Брюки",
+      "translateArguments": false
+    },
+    {
+      "source": "Feet",
+      "translation": "Обувь",
+      "translateArguments": false
+    },
+    {
+      "source": "{0}: Applause!",
+      "translation": "{0}: Аплодисменты!",
+      "translateArguments": false
+    },
+    {
+      "source": "{0}: Love this outfit!",
+      "translation": "{0}: Отличный наряд!",
+      "translateArguments": false
+    },
+    {
+      "source": "{0}: Oink-oink!",
+      "translation": "{0}: Хрю-хрю!",
+      "translateArguments": false
+    },
+    {
+      "source": "STORE MAP · NORTH",
+      "translation": "КАРТА МАГАЗИНА · СЕВЕР",
+      "translateArguments": false
+    },
+    {
+      "source": "Players ▲ · Carts ■ · Entrance R\nNames match player colours",
+      "translation": "Игроки ▲ · Тележки ■ · Вход R\nЦвета ников и игроков совпадают",
+      "translateArguments": false
+    },
+    {
+      "source": "NEXT ROUND",
+      "translation": "СЛЕДУЮЩИЙ РАУНД",
+      "translateArguments": false
+    },
+    {
+      "source": "Music volume: {0}%",
+      "translation": "Громкость музыки: {0}%",
+      "translateArguments": false
+    },
+    {
+      "source": "Ball",
+      "translation": "Шарик",
+      "translateArguments": false
+    },
+    {
+      "source": "BALL",
+      "translation": "ШАРИК",
+      "translateArguments": false
+    },
+    {
+      "source": "BALL\n<size=19>Release V</size>",
+      "translation": "ШАРИК\n<size=19>Отпусти V</size>",
+      "translateArguments": false
+    },
+    {
+      "source": "Space / Ctrl — leave ball form",
+      "translation": "Пробел / Ctrl — выйти из шарика",
+      "translateArguments": false
+    },
+    {
+      "source": "E — place body in cart",
+      "translation": "E — положить тело в тележку",
+      "translateArguments": false
+    },
+    {
+      "source": "E / RMB — put down body",
+      "translation": "E / ПКМ — положить тело",
+      "translateArguments": false
+    },
+    {
+      "source": "LMB — throw player ball · E / RMB — put down",
+      "translation": "ЛКМ — бросить игрока-шарик · E / ПКМ — положить",
+      "translateArguments": false
+    },
+    {
+      "source": "E — enlarge photo",
+      "translation": "E — увеличить фото",
+      "translateArguments": false
+    },
+    {
+      "source": "E — carry body · put it in a loaded cart and bring it to the lift",
+      "translation": "E — подобрать тело · положи его в тележку с вещами и довези до лифта",
+      "translateArguments": false
+    },
+    {
+      "source": "E — pick up player ball",
+      "translation": "E — подобрать игрока-шарик",
+      "translateArguments": false
+    },
+    {
+      "source": "FULL SCREEN / WINDOW",
+      "translation": "НА ВЕСЬ ЭКРАН / ОКНО",
+      "translateArguments": false
+    },
+    {
+      "source": "Click a photo to enlarge it",
+      "translation": "Нажми на фото, чтобы увеличить",
+      "translateArguments": false
+    },
+    {
+      "source": "EMPTY",
+      "translation": "СВОБОДНО",
+      "translateArguments": false
+    },
+    {
+      "source": "Choose a slot on the locker",
+      "translation": "Выбери место на схеме шкафчика",
+      "translateArguments": false
+    },
+    {
+      "source": "PLACE SELECTED PHOTO",
+      "translation": "ВЫСТАВИТЬ ВЫБРАННОЕ ФОТО",
+      "translateArguments": false
+    },
+    {
+      "source": "VIEW PINNED PHOTO",
+      "translation": "ОТКРЫТЬ ФОТО СО ШКАФЧИКА",
+      "translateArguments": false
+    },
+    {
+      "source": "OUTFIT MEMORIES",
+      "translation": "ВОСПОМИНАНИЯ ОБ ОБРАЗАХ",
+      "translateArguments": false
+    },
+    {
+      "source": "WEAR OUTFIT",
+      "translation": "НАДЕТЬ ОБРАЗ",
+      "translateArguments": false
+    },
+    {
+      "source": "Save your chosen outfits during the runway show",
+      "translation": "Сохраняй выбранные образы во время показа на подиуме",
+      "translateArguments": false
+    },
+    {
+      "source": "No saved outfits yet",
+      "translation": "Сохранённых образов пока нет",
+      "translateArguments": false
+    },
+    {
+      "source": "OUTFIT MEMORY {0} / {1} · ROUND {2}\n{3}",
+      "translation": "ОБРАЗ {0} / {1} · РАУНД {2}\n{3}",
+      "translateArguments": false
+    },
+    {
+      "source": "SAVE OUTFIT",
+      "translation": "СОХРАНИТЬ ОБРАЗ",
+      "translateArguments": false
+    },
+    {
+      "source": "Player's turn",
+      "translation": "Ход другого игрока",
+      "translateArguments": false
+    },
+    {
+      "source": "WASD — walk · Space — jump · Ctrl — crouch · V — emotes",
+      "translation": "WASD — ходить · Пробел — прыгать · Ctrl — присесть · V — эмоции",
+      "translateArguments": false
+    },
+    {
+      "source": "Ghost flight · WASD — move · Space / Ctrl — up / down · Shift — faster",
+      "translation": "Полёт призрака · WASD — движение · Пробел / Ctrl — вверх / вниз · Shift — быстрее",
+      "translateArguments": false
+    },
+    {
+      "source": "Outfit saved to your locker",
+      "translation": "Образ сохранён в твоём шкафчике",
+      "translateArguments": false
+    },
+    {
+      "source": "CLOSE · ESC",
+      "translation": "ЗАКРЫТЬ · ESC",
+      "translateArguments": false
+    },
+    {
+      "source": "OPEN / CLOSE DOOR",
+      "translation": "ОТКРЫТЬ / ЗАКРЫТЬ ДВЕРЦУ",
+      "translateArguments": false
+    },
+    {
+      "source": "PREVIOUS PHOTO",
+      "translation": "ПРЕДЫДУЩЕЕ ФОТО",
+      "translateArguments": false
+    },
+    {
+      "source": "NEXT PHOTO",
+      "translation": "СЛЕДУЮЩЕЕ ФОТО",
+      "translateArguments": false
+    },
+    {
+      "source": "SAVED PHOTO {0} / {1}",
+      "translation": "СОХРАНЁННОЕ ФОТО {0} / {1}",
+      "translateArguments": false
+    },
+    {
+      "source": "PLAYER LOCKER {0}",
+      "translation": "ШКАФЧИК ИГРОКА {0}",
+      "translateArguments": false
+    }
+  ]
+}

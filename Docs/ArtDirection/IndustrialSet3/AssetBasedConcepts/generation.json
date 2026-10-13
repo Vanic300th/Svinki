@@ -1,0 +1,28 @@
+{
+  "generator": "Built-in image_gen",
+  "intent": "Asset-preview-based concept compositing",
+  "created": "2026-10-10",
+  "modelsImported": false,
+  "lobbyCorrection": "Use case: precise-object-edit. Edit ONLY the small game table against the right-hand wall in this Friendslop lobby image. It is currently a foosball table, which is incorrect. Replace it with a compact AIR HOCKEY table in exactly the same position and approximate footprint: simple black metal cabinet, broad FLAT WHITE playing surface, subtle red centre circle and red centre line, rounded black edge rails, one red disc-shaped handheld paddle and one blue disc-shaped handheld paddle, and a single small red puck. Absolutely NO soccer figurines, NO raised rows of players, NO rods crossing the table, NO football field, NO soccer goal. This is a simple custom placeholder game table rather than a purchased model. Preserve the rest of the image as closely as possible: identical camera, composition, lighting, tufted black leather sofas with reddish wood frames, CRT with two right-side knobs, specific chrome/wood jukebox, both blue six-door locker banks, mannequin, elevator, central clear floor, basketball hoop, dartboard, drawing board and pipes. Do not change room architecture or atmosphere. Output the entire original wide image with this one local correction, opaque background.",
+  "referenceImages": {
+    "lobby": [
+      "industrial-set-3.jpg",
+      "sofa-02.png",
+      "crt-tv.png",
+      "locker-bank.png",
+      "jukebox.jpg"
+    ],
+    "factory": [
+      "industrial-set-3.jpg",
+      "catwalk-kit.jpg",
+      "industrial-pipes.png",
+      "metal-tool-chest.png"
+    ],
+    "service": [
+      "industrial-set-3.jpg",
+      "industrial-pipes.png",
+      "metal-tool-chest.png",
+      "catwalk-kit.jpg"
+    ]
+  }
+}

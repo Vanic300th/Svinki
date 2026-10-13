@@ -1,0 +1,8 @@
+{
+  "version": "3.54.0",
+  "source": "https://www.sqlite.org/2026/sqlite-dll-win-x64-3540000.zip",
+  "sha3_256_archive": "f5fb500c73a3afd89976386bb8e4fdc8b5b65c052e187fb1ada1f5de034cd45b",
+  "sha256_dll": "5ca6a16bdd2c5a5037b1e3a942d9ac1c66efe2def902b202d44774680a8a4656",
+  "license": "Public domain",
+  "license_url": "https://www.sqlite.org/copyright.html"
+}

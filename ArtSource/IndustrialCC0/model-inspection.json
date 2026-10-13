@@ -1,0 +1,2144 @@
+{
+  "wall_basketball_hoop": [
+    {
+      "name": "Wall basketball hoop - Sports equipment",
+      "type": "EMPTY",
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": []
+    },
+    {
+      "name": "Backboard",
+      "type": "MESH",
+      "dimensions": [
+        1.7999999523162842,
+        0.02800000086426735,
+        1.0499999523162842
+      ],
+      "location": [
+        0.0,
+        0.0,
+        3.424999952316284
+      ],
+      "materials": [
+        "Clear sports backboard"
+      ]
+    },
+    {
+      "name": "Backboard border",
+      "type": "MESH",
+      "dimensions": [
+        1.7999999523162842,
+        0.0040000006556510925,
+        1.0499999523162842
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": [
+        "white"
+      ]
+    },
+    {
+      "name": "Backboard rear mounting pad",
+      "type": "MESH",
+      "dimensions": [
+        0.11999999731779099,
+        0.024000000208616257,
+        0.11999999731779099
+      ],
+      "location": [
+        -0.44999998807907104,
+        0.023000000044703484,
+        3.0999999046325684
+      ],
+      "materials": [
+        "steel"
+      ]
+    },
+    {
+      "name": "Backboard rear mounting pad.001",
+      "type": "MESH",
+      "dimensions": [
+        0.11999999731779099,
+        0.024000000208616257,
+        0.11999999731779099
+      ],
+      "location": [
+        -0.44999998807907104,
+        0.023000000044703484,
+        3.700000047683716
+      ],
+      "materials": [
+        "steel"
+      ]
+    },
+    {
+      "name": "Backboard rear mounting pad.002",
+      "type": "MESH",
+      "dimensions": [
+        0.11999999731779099,
+        0.024000000208616257,
+        0.11999999731779099
+      ],
+      "location": [
+        0.44999998807907104,
+        0.023000000044703484,
+        3.0999999046325684
+      ],
+      "materials": [
+        "steel"
+      ]
+    },
+    {
+      "name": "Backboard rear mounting pad.003",
+      "type": "MESH",
+      "dimensions": [
+        0.11999999731779099,
+        0.024000000208616257,
+        0.11999999731779099
+      ],
+      "location": [
+        0.44999998807907104,
+        0.023000000044703484,
+        3.700000047683716
+      ],
+      "materials": [
+        "steel"
+      ]
+    },
+    {
+      "name": "Backboard target",
+      "type": "MESH",
+      "dimensions": [
+        0.5899999737739563,
+        0.0040000006556510925,
+        0.4500000476837158
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": [
+        "white"
+      ]
+    },
+    {
+      "name": "Basketball ring",
+      "type": "MESH",
+      "dimensions": [
+        0.4860000014305115,
+        0.4860000014305115,
+        0.017119169235229492
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": [
+        "Safety orange hoop"
+      ]
+    },
+    {
+      "name": "Basketball ring bracket",
+      "type": "MESH",
+      "dimensions": [
+        0.12999999523162842,
+        0.18000000715255737,
+        0.07000000029802322
+      ],
+      "location": [
+        0.0,
+        -0.09000000357627869,
+        3.0199999809265137
+      ],
+      "materials": [
+        "Safety orange hoop"
+      ]
+    },
+    {
+      "name": "Net circumferential weave",
+      "type": "MESH",
+      "dimensions": [
+        0.4238818287849426,
+        0.42388179898262024,
+        0.004000186920166016
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": [
+        "white"
+      ]
+    },
+    {
+      "name": "Net circumferential weave.001",
+      "type": "MESH",
+      "dimensions": [
+        0.3700725734233856,
+        0.370072603225708,
+        0.004000186920166016
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": [
+        "white"
+      ]
+    },
+    {
+      "name": "Net circumferential weave.002",
+      "type": "MESH",
+      "dimensions": [
+        0.3202679455280304,
+        0.320267915725708,
+        0.004000186920166016
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": [
+        "white"
+      ]
+    },
+    {
+      "name": "Net circumferential weave.003",
+      "type": "MESH",
+      "dimensions": [
+        0.2840000092983246,
+        0.284000039100647,
+        0.004000186920166016
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": [
+        "white"
+      ]
+    },
+    {
+      "name": "Net cord",
+      "type": "MESH",
+      "dimensions": [
+        0.10989055037498474,
+        0.058812230825424194,
+        0.4052581787109375
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": [
+        "white"
+      ]
+    },
+    {
+      "name": "Net cord.001",
+      "type": "MESH",
+      "dimensions": [
+        0.1230352371931076,
+        0.009641051292419434,
+        0.40540409088134766
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": [
+        "white"
+      ]
+    },
+    {
+      "name": "Net cord.002",
+      "type": "MESH",
+      "dimensions": [
+        0.10459444671869278,
+        0.06799820065498352,
+        0.40523529052734375
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": [
+        "white"
+      ]
+    },
+    {
+      "name": "Net cord.003",
+      "type": "MESH",
+      "dimensions": [
+        0.05947365239262581,
+        0.10924457013607025,
+        0.40540504455566406
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": [
+        "white"
+      ]
+    },
+    {
+      "name": "Net cord.004",
+      "type": "MESH",
+      "dimensions": [
+        0.010310828685760498,
+        0.12239235639572144,
+        0.40524864196777344
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": [
+        "white"
+      ]
+    },
+    {
+      "name": "Net cord.005",
+      "type": "MESH",
+      "dimensions": [
+        0.06865692138671875,
+        0.10394704341888428,
+        0.40540266036987305
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": [
+        "white"
+      ]
+    },
+    {
+      "name": "Net cord.006",
+      "type": "MESH",
+      "dimensions": [
+        0.10989055037498474,
+        0.05881226062774658,
+        0.4052581787109375
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": [
+        "white"
+      ]
+    },
+    {
+      "name": "Net cord.007",
+      "type": "MESH",
+      "dimensions": [
+        0.1230352371931076,
+        0.009641110897064209,
+        0.40540409088134766
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": [
+        "white"
+      ]
+    },
+    {
+      "name": "Net cord.008",
+      "type": "MESH",
+      "dimensions": [
+        0.10459444671869278,
+        0.06799817085266113,
+        0.40523529052734375
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": [
+        "white"
+      ]
+    },
+    {
+      "name": "Net cord.009",
+      "type": "MESH",
+      "dimensions": [
+        0.05947365239262581,
+        0.10924464464187622,
+        0.40540504455566406
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": [
+        "white"
+      ]
+    },
+    {
+      "name": "Net cord.010",
+      "type": "MESH",
+      "dimensions": [
+        0.010310828685760498,
+        0.12239235639572144,
+        0.40524864196777344
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": [
+        "white"
+      ]
+    },
+    {
+      "name": "Net cord.011",
+      "type": "MESH",
+      "dimensions": [
+        0.06865692138671875,
+        0.10394710302352905,
+        0.40540266036987305
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": [
+        "white"
+      ]
+    },
+    {
+      "name": "Wall fixing plate",
+      "type": "MESH",
+      "dimensions": [
+        0.18000000715255737,
+        0.03999999910593033,
+        0.550000011920929
+      ],
+      "location": [
+        -0.44999998807907104,
+        1.149999976158142,
+        3.359999895095825
+      ],
+      "materials": [
+        "steel"
+      ]
+    },
+    {
+      "name": "Wall fixing plate.001",
+      "type": "MESH",
+      "dimensions": [
+        0.18000000715255737,
+        0.03999999910593033,
+        0.550000011920929
+      ],
+      "location": [
+        0.44999998807907104,
+        1.149999976158142,
+        3.359999895095825
+      ],
+      "materials": [
+        "steel"
+      ]
+    },
+    {
+      "name": "Wall hoop bracing arm",
+      "type": "MESH",
+      "dimensions": [
+        0.05000000819563866,
+        0.05000000074505806,
+        1.1497825384140015
+      ],
+      "location": [
+        -0.44999998807907104,
+        0.5899999737739563,
+        3.2300000190734863
+      ],
+      "materials": [
+        "steel"
+      ]
+    },
+    {
+      "name": "Wall hoop bracing arm.001",
+      "type": "MESH",
+      "dimensions": [
+        0.04999999701976776,
+        0.04999999701976776,
+        1.170469880104065
+      ],
+      "location": [
+        -0.44999998807907104,
+        0.5899999737739563,
+        3.5299999713897705
+      ],
+      "materials": [
+        "steel"
+      ]
+    },
+    {
+      "name": "Wall hoop bracing arm.002",
+      "type": "MESH",
+      "dimensions": [
+        0.05000000819563866,
+        0.05000000074505806,
+        1.1497825384140015
+      ],
+      "location": [
+        0.44999998807907104,
+        0.5899999737739563,
+        3.2300000190734863
+      ],
+      "materials": [
+        "steel"
+      ]
+    },
+    {
+      "name": "Wall hoop bracing arm.003",
+      "type": "MESH",
+      "dimensions": [
+        0.04999999701976776,
+        0.04999999701976776,
+        1.170469880104065
+      ],
+      "location": [
+        0.44999998807907104,
+        0.5899999737739563,
+        3.5299999713897705
+      ],
+      "materials": [
+        "steel"
+      ]
+    }
+  ],
+  "locker_bank": [
+    {
+      "name": "LOCK 3",
+      "type": "EMPTY",
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": []
+    },
+    {
+      "name": "Case | horizontal panel",
+      "type": "MESH",
+      "dimensions": [
+        0.972000002861023,
+        0.4410000145435333,
+        0.020999999716877937
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.12150000035762787
+      ],
+      "materials": [
+        "Storm | tactile finish"
+      ]
+    },
+    {
+      "name": "Case | horizontal panel.001",
+      "type": "MESH",
+      "dimensions": [
+        0.972000002861023,
+        0.4410000145435333,
+        0.020999999716877937
+      ],
+      "location": [
+        0.0,
+        0.0,
+        1.871500015258789
+      ],
+      "materials": [
+        "Storm | tactile finish"
+      ]
+    },
+    {
+      "name": "Case | inset back",
+      "type": "MESH",
+      "dimensions": [
+        0.972000002861023,
+        0.012000000104308128,
+        1.7289999723434448
+      ],
+      "location": [
+        0.0,
+        0.2084999978542328,
+        0.9965000152587891
+      ],
+      "materials": [
+        "Storm | tactile finish"
+      ]
+    },
+    {
+      "name": "Case | side",
+      "type": "MESH",
+      "dimensions": [
+        0.020999999716877937,
+        0.4410000145435333,
+        1.7710000276565552
+      ],
+      "location": [
+        -0.4964999854564667,
+        -0.0,
+        0.9965000152587891
+      ],
+      "materials": [
+        "Storm | tactile finish"
+      ]
+    },
+    {
+      "name": "Case | side.001",
+      "type": "MESH",
+      "dimensions": [
+        0.020999999716877937,
+        0.4410000145435333,
+        1.7710000276565552
+      ],
+      "location": [
+        0.4964999854564667,
+        0.0,
+        0.9965000152587891
+      ],
+      "materials": [
+        "Storm | tactile finish"
+      ]
+    },
+    {
+      "name": "Locker 0-0 | folded door",
+      "type": "MESH",
+      "dimensions": [
+        0.3070000112056732,
+        0.02199999988079071,
+        0.8500000238418579
+      ],
+      "location": [
+        -0.328000009059906,
+        -0.23800000548362732,
+        0.5519999861717224
+      ],
+      "materials": [
+        "Storm | tactile finish"
+      ]
+    },
+    {
+      "name": "Locker 0-1 | folded door",
+      "type": "MESH",
+      "dimensions": [
+        0.3070000112056732,
+        0.02199999988079071,
+        0.8500000238418579
+      ],
+      "location": [
+        -0.328000009059906,
+        -0.23800000548362732,
+        1.4279999732971191
+      ],
+      "materials": [
+        "Storm | tactile finish"
+      ]
+    },
+    {
+      "name": "Locker 1-0 | folded door",
+      "type": "MESH",
+      "dimensions": [
+        0.3070000112056732,
+        0.02199999988079071,
+        0.8500000238418579
+      ],
+      "location": [
+        0.0,
+        -0.23800000548362732,
+        0.5519999861717224
+      ],
+      "materials": [
+        "Storm | tactile finish"
+      ]
+    },
+    {
+      "name": "Locker 1-1 | folded door",
+      "type": "MESH",
+      "dimensions": [
+        0.3070000112056732,
+        0.02199999988079071,
+        0.8500000238418579
+      ],
+      "location": [
+        0.0,
+        -0.23800000548362732,
+        1.4279999732971191
+      ],
+      "materials": [
+        "Storm | tactile finish"
+      ]
+    },
+    {
+      "name": "Locker 2-0 | folded door",
+      "type": "MESH",
+      "dimensions": [
+        0.3070000112056732,
+        0.02199999988079071,
+        0.8500000238418579
+      ],
+      "location": [
+        0.328000009059906,
+        -0.23800000548362732,
+        0.5519999861717224
+      ],
+      "materials": [
+        "Storm | tactile finish"
+      ]
+    },
+    {
+      "name": "Locker 2-1 | folded door",
+      "type": "MESH",
+      "dimensions": [
+        0.3070000112056732,
+        0.02199999988079071,
+        0.8500000238418579
+      ],
+      "location": [
+        0.328000009059906,
+        -0.23800000548362732,
+        1.4279999732971191
+      ],
+      "materials": [
+        "Storm | tactile finish"
+      ]
+    },
+    {
+      "name": "Locker | cylinder lock",
+      "type": "MESH",
+      "dimensions": [
+        0.018000002950429916,
+        0.018000001087784767,
+        0.008000001311302185
+      ],
+      "location": [
+        -0.22100000083446503,
+        -0.25200000405311584,
+        0.6690000295639038
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | cylinder lock.001",
+      "type": "MESH",
+      "dimensions": [
+        0.018000002950429916,
+        0.018000001087784767,
+        0.008000001311302185
+      ],
+      "location": [
+        -0.22100000083446503,
+        -0.25200000405311584,
+        1.5449999570846558
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | cylinder lock.002",
+      "type": "MESH",
+      "dimensions": [
+        0.018000002950429916,
+        0.018000001087784767,
+        0.008000001311302185
+      ],
+      "location": [
+        0.10700000077486038,
+        -0.25200000405311584,
+        0.6690000295639038
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | cylinder lock.003",
+      "type": "MESH",
+      "dimensions": [
+        0.018000002950429916,
+        0.018000001087784767,
+        0.008000001311302185
+      ],
+      "location": [
+        0.10700000077486038,
+        -0.25200000405311584,
+        1.5449999570846558
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | cylinder lock.004",
+      "type": "MESH",
+      "dimensions": [
+        0.018000002950429916,
+        0.018000001087784767,
+        0.008000001311302185
+      ],
+      "location": [
+        0.4350000023841858,
+        -0.25200000405311584,
+        0.6690000295639038
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | cylinder lock.005",
+      "type": "MESH",
+      "dimensions": [
+        0.018000002950429916,
+        0.018000001087784767,
+        0.008000001311302185
+      ],
+      "location": [
+        0.4350000023841858,
+        -0.25200000405311584,
+        1.5449999570846558
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | hinge | hinge barrel",
+      "type": "MESH",
+      "dimensions": [
+        0.012000000104308128,
+        0.012000000104308128,
+        0.04600000008940697
+      ],
+      "location": [
+        -0.4699999988079071,
+        -0.2160000056028366,
+        0.25200000405311584
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | hinge | hinge barrel.001",
+      "type": "MESH",
+      "dimensions": [
+        0.012000000104308128,
+        0.012000000104308128,
+        0.04600000008940697
+      ],
+      "location": [
+        -0.4699999988079071,
+        -0.2160000056028366,
+        0.8519999980926514
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | hinge | hinge barrel.002",
+      "type": "MESH",
+      "dimensions": [
+        0.012000000104308128,
+        0.012000000104308128,
+        0.04600000008940697
+      ],
+      "location": [
+        -0.4699999988079071,
+        -0.2160000056028366,
+        1.128000020980835
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | hinge | hinge barrel.003",
+      "type": "MESH",
+      "dimensions": [
+        0.012000000104308128,
+        0.012000000104308128,
+        0.04600000008940697
+      ],
+      "location": [
+        -0.4699999988079071,
+        -0.2160000056028366,
+        1.7280000448226929
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | hinge | hinge barrel.004",
+      "type": "MESH",
+      "dimensions": [
+        0.012000000104308128,
+        0.012000000104308128,
+        0.04600000008940697
+      ],
+      "location": [
+        -0.1420000046491623,
+        -0.2160000056028366,
+        0.25200000405311584
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | hinge | hinge barrel.005",
+      "type": "MESH",
+      "dimensions": [
+        0.012000000104308128,
+        0.012000000104308128,
+        0.04600000008940697
+      ],
+      "location": [
+        -0.1420000046491623,
+        -0.2160000056028366,
+        0.8519999980926514
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | hinge | hinge barrel.006",
+      "type": "MESH",
+      "dimensions": [
+        0.012000000104308128,
+        0.012000000104308128,
+        0.04600000008940697
+      ],
+      "location": [
+        -0.1420000046491623,
+        -0.2160000056028366,
+        1.128000020980835
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | hinge | hinge barrel.007",
+      "type": "MESH",
+      "dimensions": [
+        0.012000000104308128,
+        0.012000000104308128,
+        0.04600000008940697
+      ],
+      "location": [
+        -0.1420000046491623,
+        -0.2160000056028366,
+        1.7280000448226929
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | hinge | hinge barrel.008",
+      "type": "MESH",
+      "dimensions": [
+        0.012000000104308128,
+        0.012000000104308128,
+        0.04600000008940697
+      ],
+      "location": [
+        0.1860000044107437,
+        -0.2160000056028366,
+        0.25200000405311584
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | hinge | hinge barrel.009",
+      "type": "MESH",
+      "dimensions": [
+        0.012000000104308128,
+        0.012000000104308128,
+        0.04600000008940697
+      ],
+      "location": [
+        0.1860000044107437,
+        -0.2160000056028366,
+        0.8519999980926514
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | hinge | hinge barrel.010",
+      "type": "MESH",
+      "dimensions": [
+        0.012000000104308128,
+        0.012000000104308128,
+        0.04600000008940697
+      ],
+      "location": [
+        0.1860000044107437,
+        -0.2160000056028366,
+        1.128000020980835
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | hinge | hinge barrel.011",
+      "type": "MESH",
+      "dimensions": [
+        0.012000000104308128,
+        0.012000000104308128,
+        0.04600000008940697
+      ],
+      "location": [
+        0.1860000044107437,
+        -0.2160000056028366,
+        1.7280000448226929
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | hinge | hinge leaf",
+      "type": "MESH",
+      "dimensions": [
+        0.02199999988079071,
+        0.03999999910593033,
+        0.02199999988079071
+      ],
+      "location": [
+        -0.4699999988079071,
+        -0.20100000500679016,
+        0.25200000405311584
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | hinge | hinge leaf.001",
+      "type": "MESH",
+      "dimensions": [
+        0.02199999988079071,
+        0.03999999910593033,
+        0.02199999988079071
+      ],
+      "location": [
+        -0.4699999988079071,
+        -0.20100000500679016,
+        0.8519999980926514
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | hinge | hinge leaf.002",
+      "type": "MESH",
+      "dimensions": [
+        0.02199999988079071,
+        0.03999999910593033,
+        0.02199999988079071
+      ],
+      "location": [
+        -0.4699999988079071,
+        -0.20100000500679016,
+        1.128000020980835
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | hinge | hinge leaf.003",
+      "type": "MESH",
+      "dimensions": [
+        0.02199999988079071,
+        0.03999999910593033,
+        0.02199999988079071
+      ],
+      "location": [
+        -0.4699999988079071,
+        -0.20100000500679016,
+        1.7280000448226929
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | hinge | hinge leaf.004",
+      "type": "MESH",
+      "dimensions": [
+        0.02199999988079071,
+        0.03999999910593033,
+        0.02199999988079071
+      ],
+      "location": [
+        -0.1420000046491623,
+        -0.20100000500679016,
+        0.25200000405311584
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | hinge | hinge leaf.005",
+      "type": "MESH",
+      "dimensions": [
+        0.02199999988079071,
+        0.03999999910593033,
+        0.02199999988079071
+      ],
+      "location": [
+        -0.1420000046491623,
+        -0.20100000500679016,
+        0.8519999980926514
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | hinge | hinge leaf.006",
+      "type": "MESH",
+      "dimensions": [
+        0.02199999988079071,
+        0.03999999910593033,
+        0.02199999988079071
+      ],
+      "location": [
+        -0.1420000046491623,
+        -0.20100000500679016,
+        1.128000020980835
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | hinge | hinge leaf.007",
+      "type": "MESH",
+      "dimensions": [
+        0.02199999988079071,
+        0.03999999910593033,
+        0.02199999988079071
+      ],
+      "location": [
+        -0.1420000046491623,
+        -0.20100000500679016,
+        1.7280000448226929
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | hinge | hinge leaf.008",
+      "type": "MESH",
+      "dimensions": [
+        0.02199999988079071,
+        0.03999999910593033,
+        0.02199999988079071
+      ],
+      "location": [
+        0.1860000044107437,
+        -0.20100000500679016,
+        0.25200000405311584
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | hinge | hinge leaf.009",
+      "type": "MESH",
+      "dimensions": [
+        0.02199999988079071,
+        0.03999999910593033,
+        0.02199999988079071
+      ],
+      "location": [
+        0.1860000044107437,
+        -0.20100000500679016,
+        0.8519999980926514
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | hinge | hinge leaf.010",
+      "type": "MESH",
+      "dimensions": [
+        0.02199999988079071,
+        0.03999999910593033,
+        0.02199999988079071
+      ],
+      "location": [
+        0.1860000044107437,
+        -0.20100000500679016,
+        1.128000020980835
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | hinge | hinge leaf.011",
+      "type": "MESH",
+      "dimensions": [
+        0.02199999988079071,
+        0.03999999910593033,
+        0.02199999988079071
+      ],
+      "location": [
+        0.1860000044107437,
+        -0.20100000500679016,
+        1.7280000448226929
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | identity holder | ivory insert",
+      "type": "MESH",
+      "dimensions": [
+        0.09300000220537186,
+        0.0010000000474974513,
+        0.027000000700354576
+      ],
+      "location": [
+        -0.3479999899864197,
+        -0.2565000057220459,
+        0.7689999938011169
+      ],
+      "materials": [
+        "Ivory | satin lacquer"
+      ]
+    },
+    {
+      "name": "Locker | identity holder | ivory insert.001",
+      "type": "MESH",
+      "dimensions": [
+        0.09300000220537186,
+        0.0010000000474974513,
+        0.027000000700354576
+      ],
+      "location": [
+        -0.3479999899864197,
+        -0.2565000057220459,
+        1.6449999809265137
+      ],
+      "materials": [
+        "Ivory | satin lacquer"
+      ]
+    },
+    {
+      "name": "Locker | identity holder | ivory insert.002",
+      "type": "MESH",
+      "dimensions": [
+        0.09300000220537186,
+        0.0010000000474974513,
+        0.027000000700354576
+      ],
+      "location": [
+        -0.019999999552965164,
+        -0.2565000057220459,
+        0.7689999938011169
+      ],
+      "materials": [
+        "Ivory | satin lacquer"
+      ]
+    },
+    {
+      "name": "Locker | identity holder | ivory insert.003",
+      "type": "MESH",
+      "dimensions": [
+        0.09300000220537186,
+        0.0010000000474974513,
+        0.027000000700354576
+      ],
+      "location": [
+        -0.019999999552965164,
+        -0.2565000057220459,
+        1.6449999809265137
+      ],
+      "materials": [
+        "Ivory | satin lacquer"
+      ]
+    },
+    {
+      "name": "Locker | identity holder | ivory insert.004",
+      "type": "MESH",
+      "dimensions": [
+        0.09300000220537186,
+        0.0010000000474974513,
+        0.027000000700354576
+      ],
+      "location": [
+        0.30799999833106995,
+        -0.2565000057220459,
+        0.7689999938011169
+      ],
+      "materials": [
+        "Ivory | satin lacquer"
+      ]
+    },
+    {
+      "name": "Locker | identity holder | ivory insert.005",
+      "type": "MESH",
+      "dimensions": [
+        0.09300000220537186,
+        0.0010000000474974513,
+        0.027000000700354576
+      ],
+      "location": [
+        0.30799999833106995,
+        -0.2565000057220459,
+        1.6449999809265137
+      ],
+      "materials": [
+        "Ivory | satin lacquer"
+      ]
+    },
+    {
+      "name": "Locker | identity holder | metal label holder",
+      "type": "MESH",
+      "dimensions": [
+        0.10100000351667404,
+        0.004000000189989805,
+        0.03400000184774399
+      ],
+      "location": [
+        -0.3479999899864197,
+        -0.2540000081062317,
+        0.7689999938011169
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | identity holder | metal label holder.001",
+      "type": "MESH",
+      "dimensions": [
+        0.10100000351667404,
+        0.004000000189989805,
+        0.03400000184774399
+      ],
+      "location": [
+        -0.3479999899864197,
+        -0.2540000081062317,
+        1.6449999809265137
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | identity holder | metal label holder.002",
+      "type": "MESH",
+      "dimensions": [
+        0.10100000351667404,
+        0.004000000189989805,
+        0.03400000184774399
+      ],
+      "location": [
+        -0.019999999552965164,
+        -0.2540000081062317,
+        0.7689999938011169
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | identity holder | metal label holder.003",
+      "type": "MESH",
+      "dimensions": [
+        0.10100000351667404,
+        0.004000000189989805,
+        0.03400000184774399
+      ],
+      "location": [
+        -0.019999999552965164,
+        -0.2540000081062317,
+        1.6449999809265137
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | identity holder | metal label holder.004",
+      "type": "MESH",
+      "dimensions": [
+        0.10100000351667404,
+        0.004000000189989805,
+        0.03400000184774399
+      ],
+      "location": [
+        0.30799999833106995,
+        -0.2540000081062317,
+        0.7689999938011169
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | identity holder | metal label holder.005",
+      "type": "MESH",
+      "dimensions": [
+        0.10100000351667404,
+        0.004000000189989805,
+        0.03400000184774399
+      ],
+      "location": [
+        0.30799999833106995,
+        -0.2540000081062317,
+        1.6449999809265137
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | key slot",
+      "type": "MESH",
+      "dimensions": [
+        0.0015999999595806003,
+        0.0010000000474974513,
+        0.008999999612569809
+      ],
+      "location": [
+        -0.22100000083446503,
+        -0.25699999928474426,
+        0.6690000295639038
+      ],
+      "materials": [
+        "Graphite | powder-coated steel"
+      ]
+    },
+    {
+      "name": "Locker | key slot.001",
+      "type": "MESH",
+      "dimensions": [
+        0.0015999999595806003,
+        0.0010000000474974513,
+        0.008999999612569809
+      ],
+      "location": [
+        -0.22100000083446503,
+        -0.25699999928474426,
+        1.5449999570846558
+      ],
+      "materials": [
+        "Graphite | powder-coated steel"
+      ]
+    },
+    {
+      "name": "Locker | key slot.002",
+      "type": "MESH",
+      "dimensions": [
+        0.0015999999595806003,
+        0.0010000000474974513,
+        0.008999999612569809
+      ],
+      "location": [
+        0.10700000077486038,
+        -0.25699999928474426,
+        0.6690000295639038
+      ],
+      "materials": [
+        "Graphite | powder-coated steel"
+      ]
+    },
+    {
+      "name": "Locker | key slot.003",
+      "type": "MESH",
+      "dimensions": [
+        0.0015999999595806003,
+        0.0010000000474974513,
+        0.008999999612569809
+      ],
+      "location": [
+        0.10700000077486038,
+        -0.25699999928474426,
+        1.5449999570846558
+      ],
+      "materials": [
+        "Graphite | powder-coated steel"
+      ]
+    },
+    {
+      "name": "Locker | key slot.004",
+      "type": "MESH",
+      "dimensions": [
+        0.0015999999595806003,
+        0.0010000000474974513,
+        0.008999999612569809
+      ],
+      "location": [
+        0.4350000023841858,
+        -0.25699999928474426,
+        0.6690000295639038
+      ],
+      "materials": [
+        "Graphite | powder-coated steel"
+      ]
+    },
+    {
+      "name": "Locker | key slot.005",
+      "type": "MESH",
+      "dimensions": [
+        0.0015999999595806003,
+        0.0010000000474974513,
+        0.008999999612569809
+      ],
+      "location": [
+        0.4350000023841858,
+        -0.25699999928474426,
+        1.5449999570846558
+      ],
+      "materials": [
+        "Graphite | powder-coated steel"
+      ]
+    },
+    {
+      "name": "Locker | middle shelf",
+      "type": "MESH",
+      "dimensions": [
+        0.9700000286102295,
+        0.40299999713897705,
+        0.019999999552965164
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.9900000095367432
+      ],
+      "materials": [
+        "Storm | tactile finish"
+      ]
+    },
+    {
+      "name": "Locker | vertical pull | grip",
+      "type": "MESH",
+      "dimensions": [
+        0.012000000104308128,
+        0.012000000104308128,
+        0.15399999916553497
+      ],
+      "location": [
+        -0.22100000083446503,
+        -0.27799999713897705,
+        0.5339999794960022
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | vertical pull | grip.001",
+      "type": "MESH",
+      "dimensions": [
+        0.012000000104308128,
+        0.012000000104308128,
+        0.15399999916553497
+      ],
+      "location": [
+        -0.22100000083446503,
+        -0.27799999713897705,
+        1.409999966621399
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | vertical pull | grip.002",
+      "type": "MESH",
+      "dimensions": [
+        0.012000000104308128,
+        0.012000000104308128,
+        0.15399999916553497
+      ],
+      "location": [
+        0.10700000077486038,
+        -0.27799999713897705,
+        0.5339999794960022
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | vertical pull | grip.003",
+      "type": "MESH",
+      "dimensions": [
+        0.012000000104308128,
+        0.012000000104308128,
+        0.15399999916553497
+      ],
+      "location": [
+        0.10700000077486038,
+        -0.27799999713897705,
+        1.409999966621399
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | vertical pull | grip.004",
+      "type": "MESH",
+      "dimensions": [
+        0.012000000104308128,
+        0.012000000104308128,
+        0.15399999916553497
+      ],
+      "location": [
+        0.4350000023841858,
+        -0.27799999713897705,
+        0.5339999794960022
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | vertical pull | grip.005",
+      "type": "MESH",
+      "dimensions": [
+        0.012000000104308128,
+        0.012000000104308128,
+        0.15399999916553497
+      ],
+      "location": [
+        0.4350000023841858,
+        -0.27799999713897705,
+        1.409999966621399
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | vertical pull | mount",
+      "type": "MESH",
+      "dimensions": [
+        0.009000001475214958,
+        0.009000000543892384,
+        0.024000003933906555
+      ],
+      "location": [
+        -0.22100000083446503,
+        -0.2639999985694885,
+        0.47200000286102295
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | vertical pull | mount.001",
+      "type": "MESH",
+      "dimensions": [
+        0.009000001475214958,
+        0.009000000543892384,
+        0.024000003933906555
+      ],
+      "location": [
+        -0.22100000083446503,
+        -0.2639999985694885,
+        0.5960000157356262
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | vertical pull | mount.002",
+      "type": "MESH",
+      "dimensions": [
+        0.009000001475214958,
+        0.009000000543892384,
+        0.024000003933906555
+      ],
+      "location": [
+        -0.22100000083446503,
+        -0.2639999985694885,
+        1.3480000495910645
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | vertical pull | mount.003",
+      "type": "MESH",
+      "dimensions": [
+        0.009000001475214958,
+        0.009000000543892384,
+        0.024000003933906555
+      ],
+      "location": [
+        -0.22100000083446503,
+        -0.2639999985694885,
+        1.472000002861023
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | vertical pull | mount.004",
+      "type": "MESH",
+      "dimensions": [
+        0.009000001475214958,
+        0.009000000543892384,
+        0.024000003933906555
+      ],
+      "location": [
+        0.10700000077486038,
+        -0.2639999985694885,
+        0.47200000286102295
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | vertical pull | mount.005",
+      "type": "MESH",
+      "dimensions": [
+        0.009000001475214958,
+        0.009000000543892384,
+        0.024000003933906555
+      ],
+      "location": [
+        0.10700000077486038,
+        -0.2639999985694885,
+        0.5960000157356262
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | vertical pull | mount.006",
+      "type": "MESH",
+      "dimensions": [
+        0.009000001475214958,
+        0.009000000543892384,
+        0.024000003933906555
+      ],
+      "location": [
+        0.10700000077486038,
+        -0.2639999985694885,
+        1.3480000495910645
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | vertical pull | mount.007",
+      "type": "MESH",
+      "dimensions": [
+        0.009000001475214958,
+        0.009000000543892384,
+        0.024000003933906555
+      ],
+      "location": [
+        0.10700000077486038,
+        -0.2639999985694885,
+        1.472000002861023
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | vertical pull | mount.008",
+      "type": "MESH",
+      "dimensions": [
+        0.009000001475214958,
+        0.009000000543892384,
+        0.024000003933906555
+      ],
+      "location": [
+        0.4350000023841858,
+        -0.2639999985694885,
+        0.47200000286102295
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | vertical pull | mount.009",
+      "type": "MESH",
+      "dimensions": [
+        0.009000001475214958,
+        0.009000000543892384,
+        0.024000003933906555
+      ],
+      "location": [
+        0.4350000023841858,
+        -0.2639999985694885,
+        0.5960000157356262
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | vertical pull | mount.010",
+      "type": "MESH",
+      "dimensions": [
+        0.009000001475214958,
+        0.009000000543892384,
+        0.024000003933906555
+      ],
+      "location": [
+        0.4350000023841858,
+        -0.2639999985694885,
+        1.3480000495910645
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | vertical pull | mount.011",
+      "type": "MESH",
+      "dimensions": [
+        0.009000001475214958,
+        0.009000000543892384,
+        0.024000003933906555
+      ],
+      "location": [
+        0.4350000023841858,
+        -0.2639999985694885,
+        1.472000002861023
+      ],
+      "materials": [
+        "Nickel | brushed hardware"
+      ]
+    },
+    {
+      "name": "Locker | vertical steel partition",
+      "type": "MESH",
+      "dimensions": [
+        0.01600000075995922,
+        0.40299999713897705,
+        1.7050000429153442
+      ],
+      "location": [
+        -0.164000004529953,
+        -0.0,
+        0.9929999709129333
+      ],
+      "materials": [
+        "Storm | tactile finish"
+      ]
+    },
+    {
+      "name": "Locker | vertical steel partition.001",
+      "type": "MESH",
+      "dimensions": [
+        0.01600000075995922,
+        0.40299999713897705,
+        1.7050000429153442
+      ],
+      "location": [
+        0.164000004529953,
+        0.0,
+        0.9929999709129333
+      ],
+      "materials": [
+        "Storm | tactile finish"
+      ]
+    },
+    {
+      "name": "Protective leveler",
+      "type": "MESH",
+      "dimensions": [
+        0.041999999433755875,
+        0.041999999433755875,
+        0.00800000037997961
+      ],
+      "location": [
+        -0.3628000020980835,
+        -0.1027199998497963,
+        0.004000000189989805
+      ],
+      "materials": [
+        "Elastomer | pads and recesses"
+      ]
+    },
+    {
+      "name": "Protective leveler.001",
+      "type": "MESH",
+      "dimensions": [
+        0.041999999433755875,
+        0.041999999433755875,
+        0.00800000037997961
+      ],
+      "location": [
+        -0.3628000020980835,
+        0.1027199998497963,
+        0.004000000189989805
+      ],
+      "materials": [
+        "Elastomer | pads and recesses"
+      ]
+    },
+    {
+      "name": "Protective leveler.002",
+      "type": "MESH",
+      "dimensions": [
+        0.041999999433755875,
+        0.041999999433755875,
+        0.00800000037997961
+      ],
+      "location": [
+        0.3628000020980835,
+        -0.1027199998497963,
+        0.004000000189989805
+      ],
+      "materials": [
+        "Elastomer | pads and recesses"
+      ]
+    },
+    {
+      "name": "Protective leveler.003",
+      "type": "MESH",
+      "dimensions": [
+        0.041999999433755875,
+        0.041999999433755875,
+        0.00800000037997961
+      ],
+      "location": [
+        0.3628000020980835,
+        0.1027199998497963,
+        0.004000000189989805
+      ],
+      "materials": [
+        "Elastomer | pads and recesses"
+      ]
+    },
+    {
+      "name": "Recessed structural plinth",
+      "type": "MESH",
+      "dimensions": [
+        0.9070000052452087,
+        0.32100000977516174,
+        0.09099999815225601
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0494999997317791
+      ],
+      "materials": [
+        "Graphite | powder-coated steel"
+      ]
+    }
+  ],
+  "dart_set": [
+    {
+      "name": "Cylinder",
+      "type": "MESH",
+      "dimensions": [
+        0.07623627781867981,
+        1.999999761581421,
+        2.0
+      ],
+      "location": [
+        0.7337186932563782,
+        0.5177746415138245,
+        0.41430404782295227
+      ],
+      "materials": [
+        "Material.001"
+      ]
+    },
+    {
+      "name": "Cone.005",
+      "type": "MESH",
+      "dimensions": [
+        0.8124356865882874,
+        0.11858290433883667,
+        0.11858291923999786
+      ],
+      "location": [
+        0.6443378925323486,
+        -0.8851878046989441,
+        -0.33176562190055847
+      ],
+      "materials": [
+        "Material.001"
+      ]
+    },
+    {
+      "name": "Cone.004",
+      "type": "MESH",
+      "dimensions": [
+        0.8124356865882874,
+        0.11858290433883667,
+        0.11858291923999786
+      ],
+      "location": [
+        0.6451575756072998,
+        -0.8891143798828125,
+        -0.13618488609790802
+      ],
+      "materials": [
+        "Material.001"
+      ]
+    },
+    {
+      "name": "Cone.003",
+      "type": "MESH",
+      "dimensions": [
+        0.8124356865882874,
+        0.11858290433883667,
+        0.11858291923999786
+      ],
+      "location": [
+        0.6482303738594055,
+        -0.8950597047805786,
+        0.10664114356040955
+      ],
+      "materials": [
+        "Material.001"
+      ]
+    },
+    {
+      "name": "Cone.002",
+      "type": "MESH",
+      "dimensions": [
+        0.8124356865882874,
+        0.11858290433883667,
+        0.11858291923999786
+      ],
+      "location": [
+        0.6475430727005005,
+        -0.8857108354568481,
+        0.7049919366836548
+      ],
+      "materials": [
+        "Material.001"
+      ]
+    },
+    {
+      "name": "Cone.001",
+      "type": "MESH",
+      "dimensions": [
+        0.8124356865882874,
+        0.11858290433883667,
+        0.11858291923999786
+      ],
+      "location": [
+        0.6500145196914673,
+        -0.8857108354568481,
+        0.9079306125640869
+      ],
+      "materials": [
+        "Material.001"
+      ]
+    },
+    {
+      "name": "Cone",
+      "type": "MESH",
+      "dimensions": [
+        0.8124356865882874,
+        0.11858290433883667,
+        0.11858291923999786
+      ],
+      "location": [
+        0.6544986963272095,
+        -0.8857108354568481,
+        1.127227544784546
+      ],
+      "materials": [
+        "Material.001"
+      ]
+    },
+    {
+      "name": "Camera",
+      "type": "CAMERA",
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "location": [
+        4.184350967407227,
+        0.06313048303127289,
+        0.40857112407684326
+      ],
+      "materials": []
+    }
+  ]
+}

@@ -113,10 +113,21 @@ InitTestScene*.unity*
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
 
-# Local EOS client configuration (copy the template in Docs)
-/Assets/StreamingAssets/svinki-eos.json
-/Assets/StreamingAssets/svinki-eos.json.meta
-/Assets/StreamingAssets/EOS/
+# EOS runtime client configuration is part of the game and must survive a clone.
+# Keep machine-specific/plugin tool settings out; share only runtime configs.
+/Assets/StreamingAssets/EOS/*
+!/Assets/StreamingAssets/EOS/eos_product_config.json
+!/Assets/StreamingAssets/EOS/eos_product_config.json.meta
+!/Assets/StreamingAssets/EOS/eos_windows_config.json
+!/Assets/StreamingAssets/EOS/eos_windows_config.json.meta
+!/Assets/StreamingAssets/EOS/eos_macos_config.json
+!/Assets/StreamingAssets/EOS/eos_macos_config.json.meta
+!/Assets/StreamingAssets/EOS/eos_linux_config.json
+!/Assets/StreamingAssets/EOS/eos_linux_config.json.meta
+!/Assets/StreamingAssets/EOS/eos_android_config.json
+!/Assets/StreamingAssets/EOS/eos_android_config.json.meta
+!/Assets/StreamingAssets/EOS/eos_ios_config.json
+!/Assets/StreamingAssets/EOS/eos_ios_config.json.meta
 
 # macOS Finder metadata
 .DS_Store

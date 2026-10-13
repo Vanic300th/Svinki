@@ -1,0 +1,11 @@
+PASS: 57 -> 114 factory mannequins: 80 neutral, 16 stalkers, 10 thieves, 8 stationary watchers.
+PASS: all 157 original factory scene IDs preserved; 245 unique nonzero IDs across factory/social scenes.
+PASS: original 96 clothing pickups and 3 carts; both lift approaches clear; lobby retains no attacking AI.
+PASS: 64 seeds, 7360 reachable and clear placements including six equipment spawns; deterministic replay.
+PASS: quiet .22 ambient loop through existing Ambient mixer; TV/jukebox replicated state wiring.
+PASS: Play Mode ambient start, TV suppression, jukebox suppression, pause/stop resume and two-device arbitration.
+PASS: dedicated legacy and TMP depth shaders; rendered text visible without a wall and zero text pixels through an opaque wall.
+PASS: RU/EN font changes retain depth-tested shader and correct atlas.
+PASS: script compilation and shader compilation; no scene edits left unsaved; original Lobby Editor scene restored.
+Session protocol version 21. EOS integration unchanged.
+No player build performed. Audio fixture injected received media states locally without downloading media; new Host/Client transport or EOS internet session tests were not run.

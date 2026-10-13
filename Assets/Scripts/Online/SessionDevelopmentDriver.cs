@@ -12,7 +12,10 @@ public sealed class SessionDevelopmentDriver : MonoBehaviour
     [Serializable] private sealed class Command { public string action; public string target; public int index; }
     [Serializable] private sealed class State
     {
-        public PhotoState photo;public PickupState[] cameraPickups;public PickupState[] npcs;
+        public LobbyProbeState social;
+        public MechanicsProbeState mechanics;
+        public PhotoState photo;public MusicState music;public PickupState[] cameraPickups;public PickupState[] npcs;
+        public SharedAlbumState[] sharedAlbums;public bool resultsAlbums;public string albumPlayer;public int albumPhoto,aggressors;
         public SessionSnapshot snapshot; public string status; public string identity;
         public int avatars; public bool offline, inputAllowed, menuVisible, cargoOpen, forwardPressed;
         public string carriedMannequin;public string[] chat;public int relayedVoice,receivedVoice;public float voiceOutput;
@@ -24,7 +27,29 @@ public sealed class SessionDevelopmentDriver : MonoBehaviour
         public MonkeyState[] monkeys; public StunState[] stuns;
         public MapMarkerState[] mapMarkers; public float mapSize;
     }
-    [Serializable] private sealed class PhotoState { public bool owned,equipped,album;public int shots,count;public float cooldown; }
+    [Serializable] private sealed class PhotoState { public bool owned,equipped,album;public int shots,count;public float cooldown;public string notification; }
+    [Serializable] private sealed class MusicState { public bool present,playing,paused;public float time,output;public string load; }
+    [Serializable] private sealed class SharedAlbumState { public string id,name;public int expected,loaded,uploaded;public string[] hashes; }
+    private SharedAlbumState[] ReadSharedAlbums()
+    {
+        var entries=lobby.Results?.entries;
+        if(entries==null)return Array.Empty<SharedAlbumState>();
+        var stored=(System.Collections.Generic.Dictionary<string,System.Collections.Generic.List<byte[]>>)typeof(NetworkLobby).GetField("serverPhotos",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(lobby);
+        return entries.Select(e=>{
+            var photos=lobby.RoundPhotos(e.id);
+            return new SharedAlbumState{id=e.id,name=e.nickname,expected=lobby.RoundPhotoCount(e.id),loaded=photos.Count,
+                uploaded=stored.TryGetValue(e.id,out var server)?server.Count:0,
+                hashes=photos.Select(p=>{using(var hash=System.Security.Cryptography.SHA256.Create())return BitConverter.ToString(hash.ComputeHash(p.EncodeToPNG()));}).ToArray()};
+        }).ToArray();
+    }
+    private MusicState ReadMusic()
+    {
+        var source=FindObjectsByType<RoundBackgroundMusic>().FirstOrDefault()?.GetComponent<AudioSource>();
+        if(source==null)return new MusicState();
+        source.GetOutputData(audioProbe,0);float sum=0;foreach(float f in audioProbe)sum+=f*f;
+        return new MusicState{present=true,playing=source.isPlaying,paused=AudioListener.pause,time=source.time,
+            output=Mathf.Sqrt(sum/audioProbe.Length),load=source.clip!=null?source.clip.loadState.ToString():"Missing"};
+    }
     [Serializable] private sealed class CartState { public string name, driver, rider; public Vector3 position; public float speed; public int cargoRevision; public string[] cargo; }
     [Serializable] private sealed class AvatarState { public string name, emote; public int hits; public bool down, dead, owner, server; public float headHeight; public string[] outfit; }
     [Serializable] private sealed class PickupState { public string name; public Vector3 position; public Quaternion rotation; }
@@ -42,8 +67,9 @@ public sealed class SessionDevelopmentDriver : MonoBehaviour
                 nameColour=nameLabel!=null?nameLabel.color:Color.clear,nameVisible=nameLabel!=null&&nameLabel.canvas!=null&&nameLabel.canvas.enabled};
         }).ToArray();
     }
-    private PhotoState ReadPhoto(){var camera=PlayerRegistry.Players.FirstOrDefault(p=>p.IsLocal)?.GetComponent<PlayerPhotoCamera>();return new PhotoState{owned=camera?.Owned==true,equipped=camera?.Equipped==true,shots=camera?.Shots??0,cooldown=camera?.CooldownRemaining??0,count=PhotoAlbum.Instance?.Count??0,album=PhotoAlbum.IsOpen};}
+    private PhotoState ReadPhoto(){var camera=PlayerRegistry.Players.FirstOrDefault(p=>p.IsLocal)?.GetComponent<PlayerPhotoCamera>();var hud=camera!=null?GameHud.Find(camera):null;var label=hud!=null?typeof(GameHud).GetField("notificationText",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(hud) as TMPro.TMP_Text:null;return new PhotoState{owned=camera?.Owned==true,equipped=camera?.Equipped==true,shots=camera?.Shots??0,cooldown=camera?.CooldownRemaining??0,count=PhotoAlbum.Instance?.Count??0,album=PhotoAlbum.IsOpen,notification=label!=null&&label.gameObject.activeInHierarchy?label.text:null};}
     private Keyboard testKeyboard;
+    private Mouse testMouse;
     private InputSettings originalInputSettings, testInputSettings;
     private HideFlags originalInputFlags;
     private string path;
@@ -84,6 +110,8 @@ public sealed class SessionDevelopmentDriver : MonoBehaviour
             InputSystem.settings = testInputSettings;
             testKeyboard = InputSystem.AddDevice<Keyboard>("Session test keyboard");
             testKeyboard.MakeCurrent();
+            testMouse = InputSystem.AddDevice<Mouse>("Session test mouse");
+            testMouse.MakeCurrent();
         }
         string commandPath = path + ".command";
         if (File.Exists(commandPath))
@@ -96,6 +124,41 @@ public sealed class SessionDevelopmentDriver : MonoBehaviour
             File.Delete(commandPath);
             switch (command.action)
             {
+                case var mechanicsAction when mechanicsAction.StartsWith("mechanics-"):
+                    MechanicsDevelopmentProbe.Command(command.action, command.target, command.index); break;
+                case var socialAction when socialAction.StartsWith("social-"):
+                    LobbyDevelopmentProbe.Command(command.action,command.target,command.index); break;
+                case "results-albums":
+                    var albumButton=FindObjectsByType<UnityEngine.UI.Button>().FirstOrDefault(b=>b.gameObject.activeInHierarchy&&b.GetComponentInChildren<TMPro.TMP_Text>()?.text=="Photo albums →");
+                    albumButton?.onClick.Invoke();break;
+                case "album-player":FindFirstObjectByType<ResultsPhotoAlbumsView>()?.SelectPlayer(command.index);break;
+                case "album-next":FindFirstObjectByType<ResultsPhotoAlbumsView>()?.SelectPhoto(1);break;
+                case "album-previous":FindFirstObjectByType<ResultsPhotoAlbumsView>()?.SelectPhoto(-1);break;
+                case "album-scores":
+                    var scoreButton=FindObjectsByType<UnityEngine.UI.Button>().FirstOrDefault(b=>b.gameObject.activeInHierarchy&&b.GetComponentInChildren<TMPro.TMP_Text>()?.text=="← Outfit scores");
+                    scoreButton?.onClick.Invoke();break;
+                case "runway-skip":FindFirstObjectByType<FinalRunwayView>()?.Skip();break;
+                case "album-layout":
+                    var albumView=FindFirstObjectByType<ResultsPhotoAlbumsView>();
+                    var albumPanel=(GameObject)typeof(ResultsPhotoAlbumsView).GetField("panel",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(albumView);
+                    var layoutReport=new System.Text.StringBuilder();
+                    foreach(var label in albumPanel.GetComponentsInChildren<TMPro.TMP_Text>())
+                    {
+                        label.ForceMeshUpdate();var box=label.rectTransform.rect;
+                        bool fits=label.renderedWidth<=box.width+2 && label.renderedHeight<=box.height+2;
+                        layoutReport.AppendLine((fits?"PASS ":"OVERFLOW ")+label.text.Replace('\n',' '));
+                    }
+                    layoutReport.AppendLine("EventSystems="+FindObjectsByType<UnityEngine.EventSystems.EventSystem>().Count(e=>e.isActiveAndEnabled));
+                    layoutReport.AppendLine("GraphicRaycaster="+(albumPanel.GetComponentInParent<Canvas>().GetComponent<UnityEngine.UI.GraphicRaycaster>()!=null));
+                    File.WriteAllText(path+"-album-layout.txt",layoutReport.ToString());break;
+                case "mannequin-hit-player":PlayerRegistry.Players.FirstOrDefault(p=>p.GetComponent<NetworkPlayer>()?.ParticipantName==command.target)?.GetComponent<NetworkPlayer>()?.TryMannequinHit(Vector3.forward);break;
+                case "recover-player":PlayerRegistry.Players.FirstOrDefault(p=>p.GetComponent<NetworkPlayer>()?.ParticipantName==command.target)?.GetComponent<NetworkPlayer>()?.RecoverFromKnockdown();break;
+                case "music-stop":FindObjectsByType<RoundBackgroundMusic>().FirstOrDefault()?.GetComponent<AudioSource>().Stop();break;
+                case "music-rebind":
+                    var music=FindObjectsByType<RoundBackgroundMusic>().FirstOrDefault();
+                    if(music!=null){music.enabled=false;music.GetComponent<AudioSource>().Stop();music.enabled=true;}break;
+                case "music-pause":AudioListener.pause=true;break;
+                case "music-resume":AudioListener.pause=false;break;
                 case "photo-warp":
                     var cameraPickup=FindObjectsByType<PhotoCameraPickup>().Where(p=>p.GetComponent<PickupItem>().IsAvailable).OrderBy(p=>p.GetComponent<FishNet.Object.NetworkObject>().ObjectId).ElementAtOrDefault(command.index);
                     var photoPlayer=PlayerRegistry.Players.FirstOrDefault(p=>p.IsLocal);
@@ -116,6 +179,14 @@ public sealed class SessionDevelopmentDriver : MonoBehaviour
                     }break;
                 case "photo-export":
                     if(PhotoAlbum.Instance!=null){var images=(System.Collections.Generic.List<Texture2D>)typeof(PhotoAlbum).GetField("photos",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(PhotoAlbum.Instance);if(images.Count>0)File.WriteAllBytes(path+"-photo.png",images[images.Count-1].EncodeToPNG());}break;
+                case "photo-rebind":
+                    var albumToRebind=FindFirstObjectByType<PhotoAlbum>();
+                    if(albumToRebind!=null){albumToRebind.enabled=false;typeof(PhotoAlbum).GetProperty("Instance").SetValue(null,null);albumToRebind.enabled=true;}
+                    var cameraToRebind=PlayerRegistry.Players.FirstOrDefault(p=>p.IsLocal)?.GetComponent<PlayerPhotoCamera>();
+                    if(cameraToRebind!=null){cameraToRebind.enabled=false;cameraToRebind.enabled=true;}
+                    foreach(var pickupToRebind in FindObjectsByType<PhotoCameraPickup>())
+                    {pickupToRebind.enabled=false;typeof(PickupItem).GetField("PickedUp",BindingFlags.Instance|BindingFlags.NonPublic).SetValue(pickupToRebind.GetComponent<PickupItem>(),null);pickupToRebind.enabled=true;}
+                    break;
                 case "photo-guide":HowToPlay.Instance.Show();HowToPlay.Instance.SelectPage(4);break;
                 case "guide-validate":
                     var guide=HowToPlay.Instance;guide.Show();var guideReport=new System.Text.StringBuilder();bool overflow=false;
@@ -164,7 +235,7 @@ public sealed class SessionDevelopmentDriver : MonoBehaviour
                 case "monkey-drop":PlayerRegistry.Players.FirstOrDefault(p=>p.IsLocal)?.GetComponent<PlayerMonkeyCarry>()?.Release();break;
                 case "look-forward":
                     var forwardView=PlayerRegistry.Players.FirstOrDefault(p=>p.IsLocal)?.EyeCamera?.GetComponent<GrayboxFirstPersonCamera>();
-                    if(forwardView!=null){typeof(GrayboxFirstPersonCamera).GetField("yaw",BindingFlags.Instance|BindingFlags.NonPublic).SetValue(forwardView,0f);typeof(GrayboxFirstPersonCamera).GetField("pitch",BindingFlags.Instance|BindingFlags.NonPublic).SetValue(forwardView,0f);}break;
+                    if(forwardView!=null){typeof(GrayboxFirstPersonCamera).GetField("yaw",BindingFlags.Instance|BindingFlags.NonPublic).SetValue(forwardView,(float)command.index);typeof(GrayboxFirstPersonCamera).GetField("pitch",BindingFlags.Instance|BindingFlags.NonPublic).SetValue(forwardView,0f);}break;
                 case "warp-cart":
                     var cart = ShoppingCart.All.FirstOrDefault(c => c.name == command.target);
                     var avatar = PlayerRegistry.Players.FirstOrDefault(p => p.IsLocal);
@@ -226,16 +297,28 @@ public sealed class SessionDevelopmentDriver : MonoBehaviour
                 case "mouse-left":
                 case "mouse-right":
                 case "mouse-up":
-                    if (Mouse.current != null)
-                        InputSystem.QueueStateEvent(Mouse.current, new MouseState { position = Mouse.current.position.ReadValue(),
+                    if (testMouse != null)
+                    {
+                        testMouse.MakeCurrent();
+                        InputSystem.QueueStateEvent(testMouse, new MouseState { position = testMouse.position.ReadValue(),
                             buttons = (ushort)(command.action == "mouse-left" ? 1 : command.action == "mouse-right" ? 2 : 0) });
+                    }
+                    break;
+                case "mouse-position":
+                    if (testMouse != null)
+                    {
+                        var point = JsonUtility.FromJson<Vector2>(command.target);
+                        testMouse.MakeCurrent();
+                        InputSystem.QueueStateEvent(testMouse, new MouseState { position = point });
+                    }
                     break;
             }
         }
         PlayerAvatar local = null;
         foreach (PlayerAvatar player in PlayerRegistry.Players) if (player != null && player.IsLocal) { local = player; break; }
         Camera eye = local != null ? local.EyeCamera : null;
-        string json = JsonUtility.ToJson(new State { mapMarkers=ReadMapMarkers(),mapSize=UnityEngine.Object.FindAnyObjectByType<StoreMinimapGraphic>()?.rectTransform.rect.width??0,snapshot = lobby.Snapshot, status = lobby.Status, identity = lobby.Identity,
+        var albumsView=FindFirstObjectByType<ResultsPhotoAlbumsView>();
+        string json = JsonUtility.ToJson(new State { mechanics=MechanicsDevelopmentProbe.Read(),social=LobbyDevelopmentProbe.Read(),sharedAlbums=ReadSharedAlbums(),resultsAlbums=albumsView?.Showing==true,albumPlayer=albumsView?.SelectedPlayer,albumPhoto=albumsView?.SelectedPhoto??0,aggressors=FindObjectsByType<MannequinBrain>(FindObjectsInactive.Include).Length,mapMarkers=ReadMapMarkers(),mapSize=UnityEngine.Object.FindAnyObjectByType<StoreMinimapGraphic>()?.rectTransform.rect.width??0,snapshot = lobby.Snapshot, status = lobby.Status, identity = lobby.Identity,
             monkeys=MonkeyToy.All.Select(t=>new MonkeyState{id=t.GetComponent<NetworkMonkeyToy>().ObjectId,holder=t.Holder?.GetComponent<NetworkPlayer>()?.ParticipantName,consumed=t.Consumed,bodies=t.GetComponent<ArticulatedRagdoll>().BodyCount,center=t.GetComponent<ArticulatedRagdoll>().Center,leftHand=t.GetComponent<ArticulatedRagdoll>().BonePosition("Hand_L"),rightHand=t.GetComponent<ArticulatedRagdoll>().BonePosition("Hand_R")}).ToArray(),
             stuns=FindObjectsByType<MannequinStun>().Select(s=>new StunState{name=s.name,down=s.IsStunned,brain=s.GetComponent<MannequinBrain>().enabled,remaining=s.Remaining,head=s.GetComponent<ArticulatedRagdoll>().BonePosition("Head")}).ToArray(),
             chat=PlayerChat.Instance?.GetComponent<PlayerChatHistory>()?.Messages,
@@ -250,7 +333,7 @@ public sealed class SessionDevelopmentDriver : MonoBehaviour
             cameraHeight = eye != null && local != null ? eye.transform.position.y - local.Position.y : 0,
             cart = ShoppingCart.For(local)?.name, cartRole = ShoppingCart.For(local) is ShoppingCart occupied ? occupied.Driver == local ? "driver" : "rider" : null,
             carts = ShoppingCart.All.Select(c => new CartState { name=c.name, position=c.transform.position, speed=c.Speed, driver=c.Driver?.GetComponent<NetworkPlayer>()?.ParticipantName, rider=c.Rider?.GetComponent<NetworkPlayer>()?.ParticipantName,cargoRevision=c.GetComponent<CartCargo>()?.Revision??0,cargo=c.GetComponent<CartCargo>()?.Items.Select(i=>i.name).ToArray()??Array.Empty<string>() }).ToArray(),
-            photo=ReadPhoto(),cameraPickups=FindObjectsByType<PhotoCameraPickup>().Select(p=>new PickupState{name=p.GetComponent<FishNet.Object.NetworkObject>().ObjectId+":"+p.GetComponent<PickupItem>().IsAvailable,position=p.transform.position,rotation=p.transform.rotation}).ToArray(),
+            photo=ReadPhoto(),music=ReadMusic(),cameraPickups=FindObjectsByType<PhotoCameraPickup>().Select(p=>new PickupState{name=p.GetComponent<FishNet.Object.NetworkObject>().ObjectId+":"+p.GetComponent<PickupItem>().IsAvailable,position=p.transform.position,rotation=p.transform.rotation}).ToArray(),
             npcs=FindObjectsByType<MannequinBrain>().Select(p=>new PickupState{name=p.name,position=p.transform.position,rotation=p.transform.rotation}).Concat(FindObjectsByType<ThrowableMannequin>().Select(p=>new PickupState{name=p.name,position=p.transform.position,rotation=p.transform.rotation})).ToArray(),
             pickups = ClothingPickup.All.Select(p => new PickupState { name=p.name, position=p.transform.position, rotation=p.transform.rotation }).ToArray(),
             localPosition = local != null ? local.Position : Vector3.zero,
@@ -263,6 +346,7 @@ public sealed class SessionDevelopmentDriver : MonoBehaviour
     private void OnDestroy()
     {
         if (testKeyboard != null) InputSystem.RemoveDevice(testKeyboard);
+        if (testMouse != null) InputSystem.RemoveDevice(testMouse);
         if (originalInputSettings != null){InputSystem.settings = originalInputSettings;originalInputSettings.hideFlags=originalInputFlags;}
         if (testInputSettings != null) Destroy(testInputSettings);
     }

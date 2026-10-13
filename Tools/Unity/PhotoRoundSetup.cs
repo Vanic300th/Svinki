@@ -36,13 +36,7 @@ public static class PhotoRoundSetup
         typeof(DefaultPrefabObjects).GetMethod("SetAssetPathHashes",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic).Invoke(registry,new object[]{0});
         if(prefab.AssetPathHash==0)throw new Exception("Photo camera network asset hash was not initialized");
         EditorUtility.SetDirty(registry);
-        var scene=EditorSceneManager.OpenScene("Assets/Scenes/SampleScene.unity",OpenSceneMode.Additive);
-        try
-        {
-            var spawner=scene.GetRootGameObjects().SelectMany(r=>r.GetComponentsInChildren<RoundMonkeySpawner>(true)).Single();
-            var data=new SerializedObject(spawner);data.FindProperty("cameraPrefab").objectReferenceValue=prefab;data.ApplyModifiedPropertiesWithoutUndo();
-            EditorSceneManager.MarkSceneDirty(scene);EditorSceneManager.SaveScene(scene);AssetDatabase.SaveAssets();
-        }
-        finally{EditorSceneManager.CloseScene(scene,true);}
+        // Keep the old pickup prefab registered for existing assets; cameras are now personal equipment.
+        AssetDatabase.SaveAssets();
     }
 }

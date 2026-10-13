@@ -1,0 +1,6 @@
+PASS factory has no missing prefab sources; 67 clothing definitions have models; 67 clothing pickup prefabs have no missing nested sources
+PASS FishNet host spawns lobby and validates distance/NaN drawing through real owned RPC; host clear works
+PASS hockey releases paddle when player walks beyond the panel range
+PASS server start lift requires both avatars, rejects legacy Ready/Start and cancels when one exits
+PASS host loads factory and server return-lift consensus includes both participants in final show (synthetic peer respawned by fixture)
+PASS host return restores lobby, unloads factory and results, one EventSystem, no missing scripts

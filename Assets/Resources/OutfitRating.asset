@@ -14,93 +14,271 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::OutfitRatingCatalog
   items:
   - clothing: {fileID: 11400000, guid: e23ad20c9db944863bbb33b5072806e4, type: 2}
+    aliases:
+    - {fileID: 11400000, guid: 070906be49e893e45be34234db9a2186, type: 2}
     key: cap1
     color: {r: 0.4, g: 0.39215687, b: 0.2784314, a: 1}
     pattern: 4
     dressiness: 0.1
     warmth: 0.35
   - clothing: {fileID: 11400000, guid: 68f5989caf41148d2aad447877414e5c, type: 2}
+    aliases:
+    - {fileID: 11400000, guid: 1afe75d01caaf9a4d8abd1535e95cf33, type: 2}
+    - {fileID: 11400000, guid: 137d768a40c51449ab5b69c113df38f9, type: 2}
     key: hat1
     color: {r: 0.2784314, g: 0.28627452, b: 0.2901961, a: 1}
     pattern: 1
     dressiness: 0.2
     warmth: 0.8
   - clothing: {fileID: 11400000, guid: b0e3378c494e1406d8798fb0d6c3782e, type: 2}
+    aliases:
+    - {fileID: 11400000, guid: ae3559964ef87aa42838e3eca52232d9, type: 2}
     key: hat2
     color: {r: 0.23137255, g: 0.38039216, b: 0.4745098, a: 1}
     pattern: 1
     dressiness: 0.55
     warmth: 0.8
   - clothing: {fileID: 11400000, guid: 2369e03dfafbb4e5e9f83e0e9300970e, type: 2}
+    aliases:
+    - {fileID: 11400000, guid: 8747b48414e703b498884d1eb2a34125, type: 2}
+    - {fileID: 11400000, guid: 6036e796e5dc04a79b5a6c326ea8966d, type: 2}
     key: shirt1
     color: {r: 0.16078432, g: 0.14901961, b: 0.14901961, a: 1}
     pattern: 0
     dressiness: 0.85
     warmth: 0.2
   - clothing: {fileID: 11400000, guid: 1e5b4ffcc39df4913aa638663e30a44a, type: 2}
+    aliases:
+    - {fileID: 11400000, guid: 0710cad53216e7c47968a26a4d900d48, type: 2}
     key: shirt2
     color: {r: 0.39215687, g: 0.41568628, b: 0.42352942, a: 1}
     pattern: 1
     dressiness: 0.15
     warmth: 0.2
   - clothing: {fileID: 11400000, guid: b385f84f2195e4f4585c7597dab73fd1, type: 2}
+    aliases:
+    - {fileID: 11400000, guid: c4594ed84f09dd44fb8503a9f6c1f487, type: 2}
     key: shirt3
     color: {r: 0.6666667, g: 0.63529414, b: 0.5019608, a: 1}
     pattern: 4
     dressiness: 0.1
     warmth: 0.2
   - clothing: {fileID: 11400000, guid: 4f054a38124a84b209f6f2654b14dd60, type: 2}
+    aliases:
+    - {fileID: 11400000, guid: 12aa2086d73ad5d49bfbbe8675cbc975, type: 2}
     key: hoodie1
     color: {r: 0.39607844, g: 0.40392157, b: 0.41568628, a: 1}
     pattern: 0
     dressiness: 0.15
     warmth: 0.85
   - clothing: {fileID: 11400000, guid: 41def5fc47c2a4140ba72158da008e97, type: 2}
+    aliases:
+    - {fileID: 11400000, guid: 7984225d6c8e75c48a41d6495ec2ed9c, type: 2}
     key: sleeve1
     color: {r: 0.31764707, g: 0.37254903, b: 0.23529412, a: 1}
     pattern: 4
     dressiness: 0.1
     warmth: 0.65
   - clothing: {fileID: 11400000, guid: 8cf3bb290949741a8bff3be903fc1620, type: 2}
+    aliases:
+    - {fileID: 11400000, guid: 1b20345fbef14374c8be9247459a3c0f, type: 2}
     key: sweater1
     color: {r: 0.58431375, g: 0.58431375, b: 0.58431375, a: 1}
     pattern: 3
     dressiness: 0.55
     warmth: 0.85
   - clothing: {fileID: 11400000, guid: 1d05ca6ea3cb9483dbc77fc41ece28a9, type: 2}
+    aliases:
+    - {fileID: 11400000, guid: c682acfff784fb6479992c78d3a3f896, type: 2}
     key: pants1
     color: {r: 0.23921569, g: 0.1882353, b: 0.18039216, a: 1}
     pattern: 0
     dressiness: 0.85
     warmth: 0.55
   - clothing: {fileID: 11400000, guid: e3dcc64d726d34794848c23fc2ff1d44, type: 2}
+    aliases:
+    - {fileID: 11400000, guid: 75e15a94a682e9642933d4263c3817ca, type: 2}
+    - {fileID: 11400000, guid: 1859bb4124c7e4a1885f0d90281eda66, type: 2}
     key: pants2
     color: {r: 0.3882353, g: 0.4509804, b: 0.50980395, a: 1}
     pattern: 2
     dressiness: 0.35
     warmth: 0.6
   - clothing: {fileID: 11400000, guid: 2a69a30dee2af473b869c71ebed55590, type: 2}
+    aliases:
+    - {fileID: 11400000, guid: d55b0fbd0b9374346acbd43fcb830980, type: 2}
     key: pants3
     color: {r: 0.6784314, g: 0.654902, b: 0.5137255, a: 1}
     pattern: 4
     dressiness: 0.1
     warmth: 0.55
   - clothing: {fileID: 11400000, guid: fd83dbc442bf84864b2a7b387299d711, type: 2}
+    aliases:
+    - {fileID: 11400000, guid: e1fef239fce00bb42b31036a3cf8ce08, type: 2}
     key: loafers1
     color: {r: 0.6745098, g: 0.5372549, b: 0.3764706, a: 1}
     pattern: 0
     dressiness: 0.95
     warmth: 0.3
   - clothing: {fileID: 11400000, guid: 824141d35caba44b0abd8c487f8c20cf, type: 2}
+    aliases:
+    - {fileID: 11400000, guid: 0496e82296662744aa7194ef0e0d0f6b, type: 2}
+    - {fileID: 11400000, guid: 50794f24c24c949a4ac4dca9b282a8a1, type: 2}
     key: sneakers2
     color: {r: 0.4509804, g: 0.41568628, b: 0.48235294, a: 1}
     pattern: 0
     dressiness: 0.15
     warmth: 0.45
   - clothing: {fileID: 11400000, guid: 343ccc8b17d33470fbb53150fbb9bff1, type: 2}
+    aliases:
+    - {fileID: 11400000, guid: 85a035a871612f44d99cb3895541caea, type: 2}
     key: sneakers3
     color: {r: 0.57254905, g: 0.5764706, b: 0.5647059, a: 1}
     pattern: 0
+    dressiness: 0.1
+    warmth: 0.45
+  - clothing: {fileID: 11400000, guid: a938cc6407f026346a04b972009c04ed, type: 2}
+    aliases:
+    - {fileID: 11400000, guid: 7659e4ec8baa166438a1cbe823af4243, type: 2}
+    key: cap2
+    color: {r: 0.59607846, g: 0.52156866, b: 0.44313726, a: 1}
+    pattern: 1
+    dressiness: 0.25
+    warmth: 0.35
+  - clothing: {fileID: 11400000, guid: 0c71aeaaf671ad846b33dcb978ad85f0, type: 2}
+    aliases:
+    - {fileID: 11400000, guid: be4a377e0313a0045a06baf6587ce19d, type: 2}
+    key: hat3
+    color: {r: 0.89411765, g: 0.84705883, b: 0.6784314, a: 1}
+    pattern: 7
+    dressiness: 0.45
+    warmth: 0.6
+  - clothing: {fileID: 11400000, guid: af430081cbe21e346bebed39a0b7d4d8, type: 2}
+    aliases:
+    - {fileID: 11400000, guid: 20c9ef327a9a85448bb55c0499456c69, type: 2}
+    key: shirt4
+    color: {r: 0.9098039, g: 0.87058824, b: 0.77254903, a: 1}
+    pattern: 5
+    dressiness: 0.25
+    warmth: 0.2
+  - clothing: {fileID: 11400000, guid: bf30008ded43d9e4e9fe193efe542ed7, type: 2}
+    aliases:
+    - {fileID: 11400000, guid: 5094e6ab53207b54581749a4e67e6aa4, type: 2}
+    key: shirt5
+    color: {r: 0.4509804, g: 0.47843137, b: 0.46666667, a: 1}
+    pattern: 3
+    dressiness: 0.15
+    warmth: 0.2
+  - clothing: {fileID: 11400000, guid: 08fd14727526e6c42b8093a46afd24a3, type: 2}
+    aliases:
+    - {fileID: 11400000, guid: ccdeb097e72cd114f822d16adc462d7f, type: 2}
+    key: shirt6
+    color: {r: 0.9137255, g: 0.77254903, b: 0.16862746, a: 1}
+    pattern: 5
+    dressiness: 0.1
+    warmth: 0.2
+  - clothing: {fileID: 11400000, guid: 70bb475b46ffd1c4a9269a6a3079735b, type: 2}
+    aliases:
+    - {fileID: 11400000, guid: b46f0b6480693674b959f8b9c95c811e, type: 2}
+    key: shirt7
+    color: {r: 0.8901961, g: 0.7058824, b: 0.75686276, a: 1}
+    pattern: 5
+    dressiness: 0.2
+    warmth: 0.2
+  - clothing: {fileID: 11400000, guid: d5b149047ae8ac5428ca2c410e970d34, type: 2}
+    aliases:
+    - {fileID: 11400000, guid: 0b57f7244091f1d4cb88275a249a66ee, type: 2}
+    key: hoodie4
+    color: {r: 0.5686275, g: 0.59607846, b: 0.54509807, a: 1}
+    pattern: 4
+    dressiness: 0.1
+    warmth: 0.85
+  - clothing: {fileID: 11400000, guid: 9545a107b376fec4bae58acc0c5142cd, type: 2}
+    aliases:
+    - {fileID: 11400000, guid: d1c5aed6cabc2054da438b3f5718a2ff, type: 2}
+    key: hoodie5
+    color: {r: 0.45490196, g: 0.23921569, b: 0.19607843, a: 1}
+    pattern: 1
+    dressiness: 0.35
+    warmth: 0.85
+  - clothing: {fileID: 11400000, guid: 31c14813a22d89d479962aa3a32bbdc7, type: 2}
+    aliases:
+    - {fileID: 11400000, guid: 127bb08f628d7e14f96c7c47de8a6b06, type: 2}
+    key: sweater2
+    color: {r: 0.4627451, g: 0.69803923, b: 0.84705883, a: 1}
+    pattern: 7
+    dressiness: 0.3
+    warmth: 0.85
+  - clothing: {fileID: 11400000, guid: 14ea568926c911f498f8bf75870302d1, type: 2}
+    aliases:
+    - {fileID: 11400000, guid: ed0ff6a17411ca248acd1bf388107d90, type: 2}
+    key: sweater4
+    color: {r: 0.6313726, g: 0.34901962, b: 0.23137255, a: 1}
+    pattern: 1
+    dressiness: 0.45
+    warmth: 0.85
+  - clothing: {fileID: 11400000, guid: 2de29defb3d7bd54283740b60836fe97, type: 2}
+    aliases:
+    - {fileID: 11400000, guid: 3cdd90f90e2a0ee4a91cc47b027113b3, type: 2}
+    key: sweater5
+    color: {r: 0.5647059, g: 0.5647059, b: 0.5647059, a: 1}
+    pattern: 6
+    dressiness: 0.45
+    warmth: 0.85
+  - clothing: {fileID: 11400000, guid: f674d31c1257b4c46a8873635d0e2214, type: 2}
+    aliases:
+    - {fileID: 11400000, guid: 8ff1081cee48b03438fb1be3f69820e1, type: 2}
+    key: sweater6
+    color: {r: 0.6666667, g: 0.7137255, b: 0.68235296, a: 1}
+    pattern: 5
+    dressiness: 0.25
+    warmth: 0.85
+  - clothing: {fileID: 11400000, guid: f926d58ffbdb51c479b0b44034dd5692, type: 2}
+    aliases:
+    - {fileID: 11400000, guid: 088c34c0051563d44aa0b12708dfa2ef, type: 2}
+    key: pants6
+    color: {r: 0.72156864, g: 0.61960787, b: 0.38039216, a: 1}
+    pattern: 1
+    dressiness: 0.25
+    warmth: 0.55
+  - clothing: {fileID: 11400000, guid: f280df3020afc4c4f82351d37afee424, type: 2}
+    aliases:
+    - {fileID: 11400000, guid: 46a5cda5683cfa34180a2faa03ec0475, type: 2}
+    key: pants7
+    color: {r: 0.4509804, g: 0.4862745, b: 0.4627451, a: 1}
+    pattern: 4
+    dressiness: 0.1
+    warmth: 0.55
+  - clothing: {fileID: 11400000, guid: c174f4450e9cfdd46bd847000af310b5, type: 2}
+    aliases:
+    - {fileID: 11400000, guid: 03c8c2a65d934924ba91a6e43350d461, type: 2}
+    key: pants8
+    color: {r: 0.54509807, g: 0.3254902, b: 0.18431373, a: 1}
+    pattern: 4
+    dressiness: 0.2
+    warmth: 0.55
+  - clothing: {fileID: 11400000, guid: 1437aef5bf2791149b5b07ab80a02e04, type: 2}
+    aliases:
+    - {fileID: 11400000, guid: 46fd1c9b43162e14289a79a47718ece9, type: 2}
+    key: pants9
+    color: {r: 0.9019608, g: 0.7294118, b: 0.7529412, a: 1}
+    pattern: 7
+    dressiness: 0.15
+    warmth: 0.55
+  - clothing: {fileID: 11400000, guid: f8caf3a4e2951a14cbd592bfdf617c6f, type: 2}
+    aliases:
+    - {fileID: 11400000, guid: ba0f8856d6f344541a82737a621ca046, type: 2}
+    key: loafers2
+    color: {r: 0.70980394, g: 0.4862745, b: 0.30588236, a: 1}
+    pattern: 1
+    dressiness: 0.7
+    warmth: 0.3
+  - clothing: {fileID: 11400000, guid: 165fc0788934ea34ba148d7b6d0c2386, type: 2}
+    aliases:
+    - {fileID: 11400000, guid: 2ce2fb4cc6ee1e744932e8e6e165b05a, type: 2}
+    key: sneakers4
+    color: {r: 0.8509804, g: 0.87058824, b: 0.8235294, a: 1}
+    pattern: 7
     dressiness: 0.1
     warmth: 0.45
   references:
@@ -140,3 +318,81 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 2a69a30dee2af473b869c71ebed55590, type: 2}
     - {fileID: 11400000, guid: 68f5989caf41148d2aad447877414e5c, type: 2}
     - {fileID: 11400000, guid: 824141d35caba44b0abd8c487f8c20cf, type: 2}
+  - name: Commando
+    items:
+    - {fileID: 11400000, guid: 41def5fc47c2a4140ba72158da008e97, type: 2}
+    - {fileID: 11400000, guid: f280df3020afc4c4f82351d37afee424, type: 2}
+    - {fileID: 11400000, guid: e23ad20c9db944863bbb33b5072806e4, type: 2}
+    - {fileID: 11400000, guid: 343ccc8b17d33470fbb53150fbb9bff1, type: 2}
+  - name: Sportswear
+    items:
+    - {fileID: 11400000, guid: 1e5b4ffcc39df4913aa638663e30a44a, type: 2}
+    - {fileID: 11400000, guid: f926d58ffbdb51c479b0b44034dd5692, type: 2}
+    - {fileID: 11400000, guid: a938cc6407f026346a04b972009c04ed, type: 2}
+    - {fileID: 11400000, guid: 165fc0788934ea34ba148d7b6d0c2386, type: 2}
+  - name: French
+    items:
+    - {fileID: 11400000, guid: 8cf3bb290949741a8bff3be903fc1620, type: 2}
+    - {fileID: 11400000, guid: c174f4450e9cfdd46bd847000af310b5, type: 2}
+    - {fileID: 11400000, guid: b0e3378c494e1406d8798fb0d6c3782e, type: 2}
+    - {fileID: 11400000, guid: fd83dbc442bf84864b2a7b387299d711, type: 2}
+  - name: Army
+    items:
+    - {fileID: 11400000, guid: d5b149047ae8ac5428ca2c410e970d34, type: 2}
+    - {fileID: 11400000, guid: f280df3020afc4c4f82351d37afee424, type: 2}
+    - {fileID: 11400000, guid: a938cc6407f026346a04b972009c04ed, type: 2}
+    - {fileID: 11400000, guid: 165fc0788934ea34ba148d7b6d0c2386, type: 2}
+  - name: Baron
+    items:
+    - {fileID: 11400000, guid: 9545a107b376fec4bae58acc0c5142cd, type: 2}
+    - {fileID: 11400000, guid: c174f4450e9cfdd46bd847000af310b5, type: 2}
+    - {fileID: 11400000, guid: 0c71aeaaf671ad846b33dcb978ad85f0, type: 2}
+    - {fileID: 11400000, guid: f8caf3a4e2951a14cbd592bfdf617c6f, type: 2}
+  - name: Gardener
+    items:
+    - {fileID: 11400000, guid: 08fd14727526e6c42b8093a46afd24a3, type: 2}
+    - {fileID: 11400000, guid: 1437aef5bf2791149b5b07ab80a02e04, type: 2}
+    - {fileID: 11400000, guid: 0c71aeaaf671ad846b33dcb978ad85f0, type: 2}
+    - {fileID: 11400000, guid: f8caf3a4e2951a14cbd592bfdf617c6f, type: 2}
+  - name: Forester
+    items:
+    - {fileID: 11400000, guid: af430081cbe21e346bebed39a0b7d4d8, type: 2}
+    - {fileID: 11400000, guid: f926d58ffbdb51c479b0b44034dd5692, type: 2}
+    - {fileID: 11400000, guid: 68f5989caf41148d2aad447877414e5c, type: 2}
+    - {fileID: 11400000, guid: fd83dbc442bf84864b2a7b387299d711, type: 2}
+  - name: Tiger
+    items:
+    - {fileID: 11400000, guid: bf30008ded43d9e4e9fe193efe542ed7, type: 2}
+    - {fileID: 11400000, guid: 1d05ca6ea3cb9483dbc77fc41ece28a9, type: 2}
+    - {fileID: 11400000, guid: e23ad20c9db944863bbb33b5072806e4, type: 2}
+    - {fileID: 11400000, guid: 343ccc8b17d33470fbb53150fbb9bff1, type: 2}
+  - name: Sakura
+    items:
+    - {fileID: 11400000, guid: 70bb475b46ffd1c4a9269a6a3079735b, type: 2}
+    - {fileID: 11400000, guid: 1437aef5bf2791149b5b07ab80a02e04, type: 2}
+    - {fileID: 11400000, guid: b0e3378c494e1406d8798fb0d6c3782e, type: 2}
+    - {fileID: 11400000, guid: 824141d35caba44b0abd8c487f8c20cf, type: 2}
+  - name: Sky
+    items:
+    - {fileID: 11400000, guid: 31c14813a22d89d479962aa3a32bbdc7, type: 2}
+    - {fileID: 11400000, guid: e3dcc64d726d34794848c23fc2ff1d44, type: 2}
+    - {fileID: 11400000, guid: b0e3378c494e1406d8798fb0d6c3782e, type: 2}
+    - {fileID: 11400000, guid: 165fc0788934ea34ba148d7b6d0c2386, type: 2}
+  - name: Autumn
+    items:
+    - {fileID: 11400000, guid: 14ea568926c911f498f8bf75870302d1, type: 2}
+    - {fileID: 11400000, guid: c174f4450e9cfdd46bd847000af310b5, type: 2}
+    - {fileID: 11400000, guid: a938cc6407f026346a04b972009c04ed, type: 2}
+    - {fileID: 11400000, guid: fd83dbc442bf84864b2a7b387299d711, type: 2}
+  - name: Chess
+    items:
+    - {fileID: 11400000, guid: 2de29defb3d7bd54283740b60836fe97, type: 2}
+    - {fileID: 11400000, guid: 1d05ca6ea3cb9483dbc77fc41ece28a9, type: 2}
+    - {fileID: 11400000, guid: 68f5989caf41148d2aad447877414e5c, type: 2}
+    - {fileID: 11400000, guid: 343ccc8b17d33470fbb53150fbb9bff1, type: 2}
+  - name: Grandma's Garden
+    items:
+    - {fileID: 11400000, guid: f674d31c1257b4c46a8873635d0e2214, type: 2}
+    - {fileID: 11400000, guid: 1437aef5bf2791149b5b07ab80a02e04, type: 2}
+    - {fileID: 11400000, guid: 0c71aeaaf671ad846b33dcb978ad85f0, type: 2}
+    - {fileID: 11400000, guid: f8caf3a4e2951a14cbd592bfdf617c6f, type: 2}

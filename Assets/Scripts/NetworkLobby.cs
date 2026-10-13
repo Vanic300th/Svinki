@@ -15,12 +15,13 @@ using UnityEngine.SceneManagement;
 using SceneManager = UnityEngine.SceneManagement.SceneManager;
 
 [RequireComponent(typeof(NetworkManager))]
-public sealed class NetworkLobby : MonoBehaviour
+public sealed partial class NetworkLobby : MonoBehaviour
 {
     private sealed class Member
     {
         public string Id, Name;
         public bool Ready, Spectator, FinishReady, Eliminated;
+        public float NextRunwayControl;
         public NetworkConnection Connection;
         public NetworkObject Avatar;
         public float ReservedUntil;
@@ -29,8 +30,10 @@ public sealed class NetworkLobby : MonoBehaviour
         public int ColorSlot;
     }
     public const int Capacity = 6;
+    public int LastLobbyAnomalyRound { get; set; }
+    public int LobbyAnomalyChoice { get; set; }
     public const float ReconnectGrace = 60f;
-    public const int ProtocolVersion = 13;
+    public const int ProtocolVersion = 25;
     public static NetworkLobby Instance { get; private set; }
     [SerializeField] private NetworkObject playerPrefab;
     [SerializeField] private GameObject offlinePlayerPrefab;
@@ -55,7 +58,7 @@ public sealed class NetworkLobby : MonoBehaviour
     public bool IsEliminated => Offline ? PlayerRegistry.Players.Any(p => p != null && p.IsLocal && !p.IsAlive) :
         Snapshot.players.Any(p => p.id == identity && p.eliminated);
     public bool IsSpectator => IsEliminated || Snapshot.players.Any(p => p.id == identity && p.spectator);
-    public bool InputAllowed => !HowToPlay.BlocksInput && !PhotoAlbum.BlocksInput && !EmoteWheel.BlocksInput && Results == null && !MenuVisible && !InventoryOpen && !CargoOpen && !IsSpectator && (Offline || Snapshot.phase == SessionPhase.Round);
+    public bool InputAllowed => !HowToPlay.BlocksInput && !PhotoAlbum.BlocksInput && !EmoteWheel.BlocksInput && Results == null && !MenuVisible && !InventoryOpen && !CargoOpen && !IsSpectator && (Offline || Snapshot.phase == SessionPhase.Round || Snapshot.phase == SessionPhase.Lobby);
     public bool IsFinishReady => Snapshot.players.Any(p => p.id == identity && p.finishReady);
     public bool NearFinish => PlayerRegistry.Players.Any(p => p != null && p.IsLocal && RoundFinishStation.ForScene(p.gameObject.scene)?.Contains(p) == true);
     public string Identity => identity;
@@ -101,6 +104,8 @@ public sealed class NetworkLobby : MonoBehaviour
         Nickname = PlayerPrefs.GetString("svinki.nickname", "Pig");
         manager.ServerManager.RegisterBroadcast<SessionRequest>(OnRequest);
         manager.ClientManager.RegisterBroadcast<SessionMessage>(OnMessage);
+        RegisterRoundPhotos();
+        RegisterLockerPhotos();
         manager.ServerManager.OnRemoteConnectionState += OnRemoteState;
         manager.ClientManager.OnClientConnectionState += OnClientState;
         manager.SceneManager.OnLoadEnd += OnLoadEnd;
@@ -127,6 +132,8 @@ public sealed class NetworkLobby : MonoBehaviour
         Instance = null; intentionalStop = true; closing = true;
         manager.ServerManager.UnregisterBroadcast<SessionRequest>(OnRequest);
         manager.ClientManager.UnregisterBroadcast<SessionMessage>(OnMessage);
+        DisposeRoundPhotos();
+        DisposeLockerPhotos();
         manager.ServerManager.OnRemoteConnectionState -= OnRemoteState;
         manager.ClientManager.OnClientConnectionState -= OnClientState;
         manager.SceneManager.OnLoadEnd -= OnLoadEnd;
@@ -157,6 +164,7 @@ public sealed class NetworkLobby : MonoBehaviour
         admissionClosed = false; members.Clear(); connections.Clear(); banned.Clear();
         Snapshot = new SessionSnapshot(); phase = SessionPhase.Lobby;
         roundResults = null; offlineResults = null; InventoryOpen = false; CargoOpen = false;
+        ResetRoundPhotos();
         Nickname = CleanNickname(Nickname); PlayerPrefs.SetString("svinki.nickname", Nickname); PlayerPrefs.Save();
     }
     public void CreateOnline(bool continuing = false) => BeginOnline(true, null, continuing);
@@ -226,13 +234,9 @@ public sealed class NetworkLobby : MonoBehaviour
     public void EndRound() => FinishReady(true);
     public void FinishReady(bool value)
     {
-        if (!Offline) { Send(SessionAction.FinishReady, value); return; }
-        if (value && Results == null && !IsEliminated)
-        {
-            if (!NearFinish) { Report("Return to the Ready button in the starting room."); return; }
-            PresentOfflineOutfit();
-        }
+        // Readiness is physical occupancy. Legacy UI/network requests cannot bypass the lift countdown.
     }
+
     private void PresentOfflineOutfit()
     {
         if (Results != null) return;
@@ -240,7 +244,8 @@ public sealed class NetworkLobby : MonoBehaviour
         if (rules == null) { Report("Outfit rating rules could not be found."); return; }
         var player = PlayerRegistry.Players.FirstOrDefault(p => p != null && p.IsLocal);
         if (player == null) return;
-        offlineResults = new OutfitRoundResults { round = 1, entries = new[] {
+        BeginRunwayClock();
+        offlineResults = new OutfitRoundResults { round = offlineRound, entries = new[] {
             OutfitRoundResults.Rate(rules, "offline", Nickname,
                 player.GetComponentInChildren<PigAppearance>(true)?.FaceCode ?? SelectedAppearance,
                 player.Outfit.Items, !player.IsAlive) } };
@@ -249,8 +254,7 @@ public sealed class NetworkLobby : MonoBehaviour
     public void ContinueAfterResults()
     {
         if (!Offline) { Send(SessionAction.Continue); return; }
-        if (IsEliminated) { RestartOfflineRound(); return; }
-        offlineResults = null; MenuVisible = false; Cursor.lockState = CursorLockMode.Locked; Cursor.visible = false; Changed?.Invoke();
+        if (!Busy) StartCoroutine(RestartOffline());
     }
     public void ToggleAdmission() => Send(SessionAction.ToggleAdmission);
     public static string ReactionText(string kind) => kind == "clap" ? "Applause!" : kind == "heart" ? "Love this outfit!" : kind == "oink" ? "Oink-oink!" : "";
@@ -280,7 +284,7 @@ public sealed class NetworkLobby : MonoBehaviour
     {
         float deadline = Time.unscaledTime + ReconnectGrace;
         var stale = new List<Scene>();
-        for (int i = 0; i < SceneManager.sceneCount; i++) { var scene = SceneManager.GetSceneAt(i); if (scene.name == "SampleScene") stale.Add(scene); }
+        for (int i = 0; i < SceneManager.sceneCount; i++) { var scene = SceneManager.GetSceneAt(i); if (scene.name == "SampleScene" || scene.name == FriendslopSceneName) stale.Add(scene); }
         foreach (Scene scene in stale) { var unload = SceneManager.UnloadSceneAsync(scene); if (unload != null) while (!unload.isDone) yield return null; }
         Report("Connection lost. Reconnecting (up to 60 seconds)…");
         while (!intentionalStop && Time.unscaledTime < deadline)
@@ -298,14 +302,17 @@ public sealed class NetworkLobby : MonoBehaviour
         if (!string.IsNullOrEmpty(message.Error)) Report(message.Error);
         if (message.Terminal) { EndFromService(message.Error); return; }
         if (string.IsNullOrEmpty(message.Snapshot)) return;
-        Snapshot = JsonUtility.FromJson<SessionSnapshot>(message.Snapshot);
+        var previous=Snapshot;
+        Snapshot = JsonUtility.FromJson<SessionSnapshot>(message.Snapshot); runwayReceivedAt = Time.unscaledTime;
+        ReceivePhotoPhase(previous);
+        PruneLockerPhotos();
         awaitingHello = false; Busy = false;
         bool inRound = Snapshot.phase == SessionPhase.Round;
-        if (!inRound) MenuVisible = true;
+        if (!inRound && Snapshot.phase != SessionPhase.Lobby) MenuVisible = true;
         if (inRound && IsSpectator) MenuVisible = false;
         if (Snapshot.phase == SessionPhase.Results) { InventoryOpen = false; CargoOpen = false; Cursor.lockState = CursorLockMode.None; Cursor.visible = true; }
         Report(Snapshot.phase == SessionPhase.Results ? "Outfit results for round " + Snapshot.round + "." :
-            inRound ? IsSpectator ? "Spectating until the next round. ← / → — switch player; Esc — menu." : "Round " + Snapshot.round + ". Esc — menu." : "Lobby " + Snapshot.code + ". Mark yourself ready.");
+            inRound ? IsSpectator ? "Ghost flight · WASD — move · Space / Ctrl — up / down · Shift — faster" : "Round " + Snapshot.round + ". Esc — menu." : "Friendslop lobby " + Snapshot.code + ". Enter the freight lift together to begin a run.");
     }
     private void OnRequest(NetworkConnection connection, SessionRequest request, Channel channel)
     {
@@ -323,7 +330,7 @@ public sealed class NetworkLobby : MonoBehaviour
             { Reject(connection, admissionClosed ? "The host closed the lobby to new players." : "The lobby is full or changing rounds. Try again later."); return; }
             if (member == null)
             {
-                member = new Member { Id = id, Name = CleanNickname(request.Nickname), Spectator = phase == SessionPhase.Round,
+                member = new Member { Id = id, Name = CleanNickname(request.Nickname), Spectator = phase == SessionPhase.Round || phase == SessionPhase.Results,
                     ColorSlot = Enumerable.Range(0, Capacity).First(slot => members.Values.All(p => p.ColorSlot != slot)),
                     Appearance = PigFace.Sanitize(request.Appearance) };
                 members.Add(id, member);
@@ -331,7 +338,8 @@ public sealed class NetworkLobby : MonoBehaviour
             member.Connection = connection; member.ReservedUntil = 0; member.Ready = false;
             connections.Add(connection, member);
             Publish();
-            if (roundScene.IsValid() && phase == SessionPhase.Round) manager.SceneManager.LoadConnectionScenes(connection, new SceneLoadData(roundScene));
+            if (phase == SessionPhase.Lobby) LoadFriendslop(connection);
+            else if (roundScene.IsValid() && (phase == SessionPhase.Round || phase == SessionPhase.Results)) manager.SceneManager.LoadConnectionScenes(connection, new SceneLoadData(roundScene));
             return;
         }
         if (!connections.TryGetValue(connection, out Member caller)) return;
@@ -341,25 +349,20 @@ public sealed class NetworkLobby : MonoBehaviour
                 if (phase == SessionPhase.Lobby)
                 {
                     caller.Appearance = PigFace.Sanitize(request.Appearance);
+                    if (caller.Avatar != null) caller.Avatar.GetComponent<NetworkPlayer>().SetAppearance(caller.Appearance);
                     caller.Ready = false;
                 }
                 break;
             case SessionAction.Ready:
-                if (phase == SessionPhase.Lobby) caller.Ready = request.Value;
+                // Readiness is physical lift occupancy, checked by the host.
+                // A client cannot bypass it with the old menu broadcast.
                 break;
             case SessionAction.Start:
-                if (caller.Id == hostIdentity) BeginRound();
+                // Only the server lift countdown may start a run.
                 break;
             case SessionAction.EndRound:
             case SessionAction.FinishReady:
-                if (phase == SessionPhase.Round && !caller.Spectator && !caller.Eliminated && caller.Avatar != null)
-                {
-                    bool ready = request.Action == SessionAction.EndRound || request.Value;
-                    var avatar = caller.Avatar.GetComponent<PlayerAvatar>();
-                    if (!ready || RoundFinishStation.ForScene(roundScene)?.Contains(avatar) == true) caller.FinishReady = ready;
-                    else manager.ServerManager.Broadcast(connection, new SessionMessage { Error = "Go to the Ready button in the starting room." });
-                    TryFinishRound();
-                }
+                // The host derives finish readiness from lift occupancy, never client requests.
                 break;
             case SessionAction.RunwayReact:
                 if (phase == SessionPhase.Results && Time.unscaledTime >= caller.NextReaction && ReactionText(request.Target).Length > 0)
@@ -367,6 +370,9 @@ public sealed class NetworkLobby : MonoBehaviour
                     caller.NextReaction = Time.unscaledTime + .65f;
                     runwayReaction = caller.Name + ": " + ReactionText(request.Target); runwayReactionSequence++;
                 }
+                break;
+            case SessionAction.RunwayControl:
+                AcceptRunwayMovement(caller, request.Target);
                 break;
             case SessionAction.RunwayPose:
                 if (phase == SessionPhase.Results && int.TryParse(request.Target, out int pose) && pose >= 0 && pose <= 2)
@@ -376,7 +382,7 @@ public sealed class NetworkLobby : MonoBehaviour
                 }
                 break;
             case SessionAction.Continue:
-                if (caller.Id == hostIdentity && phase == SessionPhase.Results) ReturnToLobby();
+                if (caller.Id == hostIdentity && phase == SessionPhase.Results && ServerRunwayElapsed >= (roundResults?.entries.Length ?? 0) * FinalRunwayView.SecondsPerPlayer) ReturnToLobby();
                 break;
             case SessionAction.ToggleAdmission:
                 if (caller.Id == hostIdentity) admissionClosed = !admissionClosed;
@@ -406,7 +412,7 @@ public sealed class NetworkLobby : MonoBehaviour
     }
     private void BeginRound()
     {
-        if (phase != SessionPhase.Lobby || members.Count == 0 || members.Values.Any(p => p.Connection == null || !p.Ready)) return;
+        if (phase != SessionPhase.Lobby || !AllInStartLift()) return;
         try
         {
             var defaultItems = playerPrefab.GetComponent<PlayerOutfit>().StartingItems.Select(p => p.name).ToArray();
@@ -419,9 +425,11 @@ public sealed class NetworkLobby : MonoBehaviour
         }
         catch (Exception error) { Report("Could not start the round: checkpoint could not be saved. " + error.Message); return; }
         phase = SessionPhase.Loading;
+        DespawnSessionAvatars();
+        ResetRoundPhotos();
         foreach (Member member in members.Values) { member.Spectator = false; member.FinishReady = false; member.Eliminated = false; }
         // One host runs one round. NavMesh collider collection requires the default physics world.
-        var data = new SceneLoadData("SampleScene");
+        var data = new SceneLoadData("SampleScene") { ReplaceScenes = ReplaceOption.OnlineOnly };
         data.Options.AllowStacking = false;
         manager.SceneManager.LoadConnectionScenes(connections.Keys.ToArray(), data);
         Publish();
@@ -429,10 +437,14 @@ public sealed class NetworkLobby : MonoBehaviour
     private void OnLoadEnd(SceneLoadEndEventArgs args)
     {
         // Additive FishNet loads otherwise keep the bright Lobby RenderSettings active.
-        Scene presentation = args.LoadedScenes.FirstOrDefault(scene => scene.name == "SampleScene");
+        Scene presentation = args.LoadedScenes.FirstOrDefault(scene => scene.name == "SampleScene" || scene.name == FriendslopSceneName);
         if (!presentation.IsValid() && args.SkippedSceneNames.Contains("SampleScene"))
             presentation = SceneManager.GetSceneByName("SampleScene");
+        if (!presentation.IsValid() && args.SkippedSceneNames.Contains(FriendslopSceneName))
+            presentation = SceneManager.GetSceneByName(FriendslopSceneName);
         if (presentation.IsValid() && presentation.isLoaded) SceneManager.SetActiveScene(presentation);
+        if (args.QueueData.AsServer && phase == SessionPhase.Lobby && presentation.name == FriendslopSceneName)
+        { roundScene = presentation; Publish(); return; }
         if (!args.QueueData.AsServer || phase != SessionPhase.Loading) return;
         Scene loaded = args.LoadedScenes.FirstOrDefault(scene => scene.name == "SampleScene");
         if (!loaded.IsValid() && args.SkippedSceneNames.Contains("SampleScene"))
@@ -442,13 +454,15 @@ public sealed class NetworkLobby : MonoBehaviour
     }
     private void OnPresence(ClientPresenceChangeEventArgs args)
     {
-        if (!args.Added || args.Scene != roundScene || !connections.TryGetValue(args.Connection, out Member member) || member.Spectator) return;
+        if (!args.Added || !connections.TryGetValue(args.Connection, out Member member) || member.Spectator ||
+            (phase == SessionPhase.Lobby ? args.Scene.name != FriendslopSceneName : args.Scene != roundScene)) return;
+        if (phase == SessionPhase.Lobby) roundScene = args.Scene;
         if (member.Avatar != null)
         {
             member.Avatar.GiveOwnership(args.Connection); return;
         }
         int slot = members.Values.ToList().IndexOf(member);
-        NetworkObject player = Instantiate(playerPrefab, new Vector3((slot % 3 - 1) * 1.5f, .05f, -3 + slot / 3 * 1.5f), Quaternion.identity);
+        NetworkObject player = Instantiate(playerPrefab, new Vector3((slot % 3 - 1) * 1.5f, .05f, (phase == SessionPhase.Lobby ? -22 : -3) + slot / 3 * 1.5f), Quaternion.identity);
         string[] saved = resume?.players.FirstOrDefault(p => p.id == member.Id)?.outfit;
         if (saved != null) player.GetComponent<NetworkPlayer>().RestoreOutfit(saved);
         player.GetComponent<NetworkPlayer>().SetIdentity(member.Id, member.Name);
@@ -476,7 +490,7 @@ public sealed class NetworkLobby : MonoBehaviour
                 p.Eliminated || p.Avatar.GetComponent<NetworkPlayer>().IsDead))
             .OrderByDescending(p => p.rating.score).ThenBy(p => p.nickname, StringComparer.Ordinal).ToArray();
         roundResults = new OutfitRoundResults { round = round, entries = entries };
-        phase = SessionPhase.Results; Publish();
+        BeginRunwayClock(); phase = SessionPhase.Results; Publish();
     }
     private void TryFinishRound()
     {
@@ -485,15 +499,23 @@ public sealed class NetworkLobby : MonoBehaviour
         if (all.Length > 0 && all.All(p => p.Eliminated)) { PresentOutfits(); return; }
         var participants = all.Where(p => !p.Eliminated).ToArray();
         var station = RoundFinishStation.ForScene(roundScene);
-        if (participants.Length > 0 && station != null && participants.All(p => p.Connection != null && p.FinishReady &&
-            p.Avatar != null && station.Contains(p.Avatar.GetComponent<PlayerAvatar>()))) PresentOutfits();
+        var lift = station?.Elevator;
+        if (lift == null) return;
+        int inside = participants.Count(p => p.Connection != null && p.Avatar != null && station.Contains(p.Avatar.GetComponent<PlayerAvatar>()));
+        if (lift.Step(inside, participants.Length, participants.All(p => p.Connection != null && p.Avatar != null))) PresentOutfits();
     }
+
     public bool CanEditOutfit(NetworkPlayer player) => hosting && phase == SessionPhase.Round && player != null &&
         members.TryGetValue(player.ParticipantId, out Member member) && member.Avatar == player.NetworkObject && !member.Spectator && !member.Eliminated && !player.IsDead;
     public void PlayerEliminated(NetworkPlayer player)
     {
         if (!hosting || player == null || !player.IsDead || !members.TryGetValue(player.ParticipantId, out Member member)) return;
         member.Eliminated = true; member.FinishReady = false; Publish(); TryFinishRound();
+    }
+    public void PlayerRevived(NetworkPlayer player)
+    {
+        if (!hosting || phase != SessionPhase.Round || player == null || player.IsDead || !members.TryGetValue(player.ParticipantId, out var member)) return;
+        member.Eliminated = false; member.FinishReady = false; Publish();
     }
     public void RestartOfflineRound()
     {
@@ -508,7 +530,7 @@ public sealed class NetworkLobby : MonoBehaviour
             var unload = SceneManager.UnloadSceneAsync(scene);
             while (unload != null && !unload.isDone) yield return null;
         }
-        Offline = false; offlineResults = null; Busy = false; StartOffline();
+        offlineRound++; offlineResults = null; Busy = false; LoadOfflineWorld(FriendslopSceneName);
     }
     public void OutfitChanged(NetworkPlayer player)
     {
@@ -522,6 +544,7 @@ public sealed class NetworkLobby : MonoBehaviour
         roundResults = null;
         foreach (Member member in members.Values.Where(p => p.Connection == null).ToArray()) RemoveMember(member);
         Publish();
+        LoadFriendslop(connections.Keys.ToArray());
     }
     private void OnRemoteState(NetworkConnection connection, RemoteConnectionStateArgs args)
     {
@@ -529,7 +552,7 @@ public sealed class NetworkLobby : MonoBehaviour
         connections.Remove(connection); member.Connection = null; member.Ready = false; member.FinishReady = false;
         if (closing) return;
         if (member.Id == hostIdentity) { EndFromService("The host ended the session."); return; }
-        if (phase == SessionPhase.Round)
+        if (phase == SessionPhase.Round || phase == SessionPhase.Lobby)
         {
             member.ReservedUntil = Time.unscaledTime + ReconnectGrace;
             if (member.Avatar != null) member.Avatar.GetComponent<NetworkPlayer>().FreezeDisconnected();
@@ -539,6 +562,7 @@ public sealed class NetworkLobby : MonoBehaviour
     }
     private void RemoveMember(Member member)
     {
+        for (int slot = 0; slot < 6; slot++) lockerStore.Put(LockerKey(member.Id, slot), null);
         if (member.Avatar != null && member.Avatar.IsSpawned) manager.ServerManager.Despawn(member.Avatar);
         member.Avatar = null; members.Remove(member.Id);
         if (member.Connection != null) connections.Remove(member.Connection);
@@ -548,7 +572,7 @@ public sealed class NetworkLobby : MonoBehaviour
         if (!hosting) return;
         var snapshot = new SessionSnapshot
         {
-            phase = phase, code = code, host = hostIdentity, round = round, closed = admissionClosed, results = roundResults, runwayReaction = runwayReaction, runwayReactionSequence = runwayReactionSequence,
+            phase = phase, code = code, host = hostIdentity, round = round, closed = admissionClosed, results = roundResults, runwayReaction = runwayReaction, runwayReactionSequence = runwayReactionSequence, runwayElapsed = phase == SessionPhase.Results ? ServerRunwayElapsed : 0,
             players = members.Values.Select(p => new ParticipantSnapshot { id = p.Id, nickname = p.Name,
                 colorSlot = p.ColorSlot,
                 connected = p.Connection != null, ready = p.Ready, spectator = p.Spectator,
@@ -560,15 +584,27 @@ public sealed class NetworkLobby : MonoBehaviour
     }
     private void Update()
     {
+        TickRunwayClock();
         if (Offline && !Busy && IsEliminated && Results == null) PresentOfflineOutfit();
+        TickStartLift();
+        if (Offline && !Busy && Results == null && Time.unscaledTime >= nextFinishCheck)
+        {
+            nextFinishCheck = Time.unscaledTime + .2f;
+            var avatar = PlayerRegistry.Players.FirstOrDefault(p => p != null && p.IsLocal);
+            var station = avatar != null ? RoundFinishStation.ForScene(avatar.gameObject.scene) : null;
+            if (station?.Elevator != null && station.Elevator.Step(station.Contains(avatar) ? 1 : 0, 1, avatar.IsAlive)) PresentOfflineOutfit();
+        }
         if (hosting && phase == SessionPhase.Round && Time.unscaledTime >= nextFinishCheck)
         {
             nextFinishCheck = Time.unscaledTime + .2f;
             bool changed = false;
             var station = RoundFinishStation.ForScene(roundScene);
-            foreach (Member member in members.Values.Where(p => p.FinishReady))
-                if (member.Connection == null || member.Avatar == null || station?.Contains(member.Avatar.GetComponent<PlayerAvatar>()) != true)
-                { member.FinishReady = false; changed = true; }
+            PlayerBodyCarry.ReviveInLift(station);
+            foreach (Member member in members.Values)
+            {
+                bool inside = !member.Spectator && !member.Eliminated && member.Connection != null && member.Avatar != null && station?.Contains(member.Avatar.GetComponent<PlayerAvatar>()) == true;
+                if (member.FinishReady != inside) { member.FinishReady = inside; changed = true; }
+            }
             if (changed) Publish();
             TryFinishRound();
         }
@@ -579,7 +615,7 @@ public sealed class NetworkLobby : MonoBehaviour
         }
         if (awaitingHello && Time.unscaledTime > connectionDeadline)
         { awaitingHello = false; EndFromService("The host did not respond. Check the code and connection, then try again."); }
-        if (Results == null && !HowToPlay.ConsumedEscape && !PhotoAlbum.ConsumedEscape && !OutfitInventoryView.ConsumedEscape && !CartCargoView.ConsumedEscape && !InventoryOpen && !CargoOpen && !PlayerChat.ConsumedEscape && !EmoteWheel.ConsumedEscape && UnityEngine.InputSystem.Keyboard.current?.escapeKey.wasPressedThisFrame == true && (Snapshot.phase == SessionPhase.Round || Offline))
+        if (Results == null && !LockerPhotoViewer.ConsumedEscape && !LobbyPanel.ConsumedEscape && !HowToPlay.ConsumedEscape && !PhotoAlbum.ConsumedEscape && !OutfitInventoryView.ConsumedEscape && !CartCargoView.ConsumedEscape && !InventoryOpen && !CargoOpen && !PlayerChat.ConsumedEscape && !EmoteWheel.ConsumedEscape && UnityEngine.InputSystem.Keyboard.current?.escapeKey.wasPressedThisFrame == true && (Snapshot.phase == SessionPhase.Round || Snapshot.phase == SessionPhase.Lobby || Offline))
         {
             MenuVisible = !MenuVisible;
             Cursor.lockState = MenuVisible ? CursorLockMode.None : CursorLockMode.Locked; Cursor.visible = MenuVisible;
@@ -623,49 +659,25 @@ public sealed class NetworkLobby : MonoBehaviour
         }
         // FishNet resets its scene bookkeeping on shutdown; client-loaded scenes still need explicit cleanup.
         var stale = new List<Scene>();
-        for (int i = 0; i < SceneManager.sceneCount; i++) { var scene = SceneManager.GetSceneAt(i); if (scene.name == "SampleScene") stale.Add(scene); }
+        for (int i = 0; i < SceneManager.sceneCount; i++) { var scene = SceneManager.GetSceneAt(i); if (scene.name == "SampleScene" || scene.name == FriendslopSceneName) stale.Add(scene); }
         foreach (Scene scene in stale) if (scene.IsValid() && scene.isLoaded) await UnloadOffline(scene);
         await eos.Leave();
         hosting = false; Busy = false; MenuVisible = true; members.Clear(); connections.Clear(); roundScene = default;
+        ClearLockerPhotos();
+        LastLobbyAnomalyRound = 0; LobbyAnomalyChoice = 0;
         Snapshot = new SessionSnapshot(); phase = SessionPhase.Menu; closing = false; roundResults = null; offlineResults = null; InventoryOpen = false; CargoOpen = false;
+        ResetRoundPhotos();
+        PhotoAlbum.Instance?.ResetRound();
         Cursor.lockState = CursorLockMode.None; Cursor.visible = true; Changed?.Invoke();
     }
     private static async Task UnloadOffline(Scene scene)
     {
         AsyncOperation unload = SceneManager.UnloadSceneAsync(scene); if (unload == null) return; while (!unload.isDone) await Task.Yield();
     }
-    public async void StartOffline()
+    public void StartOffline()
     {
         if (Busy || InSession || Offline) return;
-        int token = ++operation;
-        Busy = true; Offline = true; offlineResults = null; Report("Loading single player…");
-        try
-        {
-            AsyncOperation load = SceneManager.LoadSceneAsync("SampleScene", LoadSceneMode.Additive);
-            while (!load.isDone) await Task.Yield();
-            Scene scene = SceneManager.GetSceneByName("SampleScene");
-            if (token != operation) { if (scene.IsValid() && scene.isLoaded) await UnloadOffline(scene); return; }
-            SceneManager.SetActiveScene(scene);
-            foreach (GameObject root in scene.GetRootGameObjects())
-                foreach (NetworkBehaviour component in root.GetComponentsInChildren<NetworkBehaviour>(true)) component.enabled = false;
-            foreach (GameObject root in scene.GetRootGameObjects())
-                foreach (NetworkObject component in root.GetComponentsInChildren<NetworkObject>(true))
-                { component.SetIsNetworked(false); component.gameObject.SetActive(true); }
-            RoundClothingLayout.Begin(scene);
-            RoundWorldLayout.Begin(scene);
-            // Keep FishNet's cached component references valid when the scene unloads.
-            foreach (GameObject root in scene.GetRootGameObjects())
-                foreach (UnityEngine.AI.NavMeshAgent agent in root.GetComponentsInChildren<UnityEngine.AI.NavMeshAgent>(true)) agent.enabled = true;
-            GameObject player = Instantiate(offlinePlayerPrefab, new Vector3(0f, .05f, -3f), Quaternion.identity);
-            player.GetComponentInChildren<PigAppearance>(true)?.Apply(SelectedAppearance);
-            SceneManager.MoveGameObjectToScene(player, scene);
-            player.GetComponent<WorldOutfitRenderer>()?.SetFirstPersonHidden(true);
-            Camera.main.GetComponent<GrayboxFirstPersonCamera>().SetTarget(player.transform);
-            FindAnyObjectByType<MannequinWardrobe>()?.Bind(player.GetComponent<PlayerOutfit>());
-            RoundMonkeySpawner.Begin(scene, 1);
-            MenuVisible = false; Report("Single player. Esc — menu.");
-        }
-        catch (Exception error) { await StopSession(); Report(error.Message); }
-        finally { Busy = false; Changed?.Invoke(); }
+        Offline = true; offlineRound = 1;
+        LoadOfflineWorld(FriendslopSceneName);
     }
 }

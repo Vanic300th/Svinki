@@ -48,6 +48,7 @@ public sealed class PlayerKnockdown : MonoBehaviour
         if (!CanFall || NetworkLobby.Instance?.Results != null) return false;
         if (network != null) return network.TryMannequinHit(impactDirection);
         ApplyHit(Hits + 1);
+        if (GetComponent<PlayerAvatar>()?.IsLocal == true) Camera.main?.GetComponent<PlayerFearEffects>()?.Hit(impactDirection);
         if (IsDead) DropOutfit(null);
         GetComponent<PlayerMannequinCarry>()?.Release(false);
         ShoppingCart.For(GetComponent<PlayerAvatar>())?.Release(GetComponent<PlayerAvatar>(), false);

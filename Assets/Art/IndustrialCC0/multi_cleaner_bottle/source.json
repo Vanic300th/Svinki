@@ -1,0 +1,93 @@
+{
+  "id": "multi_cleaner_bottle",
+  "source": "https://polyhaven.com/a/multi_cleaner_bottle",
+  "license": "CC0-1.0",
+  "resolution": "1k",
+  "info": {
+    "type": 2,
+    "date_published": 1681430400,
+    "name": "Multi Cleaner Bottle",
+    "staging": null,
+    "authors": {
+      "James Ray Cock": "All"
+    },
+    "info": null,
+    "categories": [
+      "containers",
+      "props",
+      "collection: the_shed"
+    ],
+    "tags": [
+      "shed",
+      "cleaning",
+      "garage",
+      "storage",
+      "plastic",
+      "bottle",
+      "workshop",
+      "clutter",
+      "cleaning supplies",
+      "janitorial",
+      "sanitation",
+      "plastic containers",
+      "multipurpose",
+      "allpurpose",
+      "household"
+    ],
+    "max_resolution": [
+      8192,
+      8192
+    ],
+    "polycount": 6792,
+    "texel_density": 22669.360094466603,
+    "dimensions": [
+      88.47218751907349,
+      89.751485735178,
+      228.56293622158105
+    ],
+    "files_hash": "3b61ed457c757d6299b0656265b2a4588ad7025a",
+    "description": "Free 8K model of a multipurpose plastic cleaner bottle with realistic wear, scuffed label and yellow cap - perfect for sheds, garages and janitorial props.",
+    "category_id": "157ac4cd-8f91-5d87-846b-a1bdc1a1656f",
+    "category": "Containers & Storage/Cans, Tins & Bottles/Cleaning & Chemical Bottles",
+    "collections": [
+      "the_shed"
+    ],
+    "attributes": {
+      "condition": [
+        "worn"
+      ],
+      "material": [
+        "plastic"
+      ]
+    },
+    "img_version": "a60ba6e3",
+    "download_count": 4733,
+    "thumbnail_url": "https://cdn.polyhaven.com/asset_img/thumbs/multi_cleaner_bottle.png?width=256&height=256&format=webp&v=a60ba6e3"
+  },
+  "files": [
+    {
+      "path": "multi_cleaner_bottle.fbx",
+      "size": 209628,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/fbx/1k/multi_cleaner_bottle/multi_cleaner_bottle_1k.fbx",
+      "md5": "560c10896f9d5a08165b8ad0c0f4661a"
+    },
+    {
+      "path": "textures/multi_cleaner_bottle_nor_gl_1k.exr",
+      "size": 592035,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/multi_cleaner_bottle/multi_cleaner_bottle_nor_gl_1k.exr",
+      "md5": "5493d15f5250e4fe287a57da13b7b298"
+    },
+    {
+      "path": "textures/multi_cleaner_bottle_rough_1k.exr",
+      "size": 944989,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/multi_cleaner_bottle/multi_cleaner_bottle_rough_1k.exr",
+      "md5": "201007e68169c316376e87903842905b"
+    },
+    {
+      "path": "textures/multi_cleaner_bottle_diff_1k.jpg",
+      "size": 376440,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/multi_cleaner_bottle/multi_cleaner_bottle_diff_1k.jpg",
+      "md5": "67ebca3e44b07a6b8532f84a06345fe8"
+    }
+  ]
+}

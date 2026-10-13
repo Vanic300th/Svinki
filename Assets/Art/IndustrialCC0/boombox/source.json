@@ -1,0 +1,114 @@
+{
+  "id": "boombox",
+  "source": "https://polyhaven.com/a/boombox",
+  "license": "CC0-1.0",
+  "resolution": "1k",
+  "info": {
+    "donated": true,
+    "name": "Boombox",
+    "type": 2,
+    "authors": {
+      "Thomas Paul Mouilleron": "All"
+    },
+    "info": null,
+    "date_published": 1695340800,
+    "staging": null,
+    "sponsors": [
+      "26820710"
+    ],
+    "categories": [
+      "appliances",
+      "electronics",
+      "collection: hidden_alley"
+    ],
+    "tags": [
+      "loudspeaker",
+      "radio",
+      "cd player",
+      "stereo",
+      "80's",
+      "sound system",
+      "portable"
+    ],
+    "max_resolution": [
+      4096,
+      4096
+    ],
+    "polycount": 10168,
+    "texel_density": 4960.093973730346,
+    "dimensions": [
+      723.7796187400818,
+      186.46465986967087,
+      470.10064125061035
+    ],
+    "files_hash": "480c7f057f485ec818a8f1c7c790248ef993b734",
+    "description": "Free 4K model of a vintage 80s portable boombox with dual speakers, cassette deck, tuner knobs, telescoping antenna and worn stickers, gritty urban wear.",
+    "category_id": "b35ed6a9-9da0-5515-9373-e5bc17cca6b5",
+    "category": "Electronics & Appliances/Audio & Video/Radios & Portable Audio",
+    "collections": [
+      "hidden_alley"
+    ],
+    "attributes": {
+      "condition": [
+        "worn"
+      ],
+      "material": [
+        "plastic",
+        "metal"
+      ]
+    },
+    "img_version": "130c7cbf",
+    "download_count": 30393,
+    "thumbnail_url": "https://cdn.polyhaven.com/asset_img/thumbs/boombox.png?width=256&height=256&format=webp&v=130c7cbf"
+  },
+  "files": [
+    {
+      "path": "boombox.fbx",
+      "size": 368796,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/fbx/1k/boombox/boombox_1k.fbx",
+      "md5": "e66726f60aba814d9de1c40b21ac69d7"
+    },
+    {
+      "path": "textures/boombox_nor_gl_1k.exr",
+      "size": 1045419,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/boombox/boombox_nor_gl_1k.exr",
+      "md5": "c2bd5b96cf0dd814e6e92891658a53bb"
+    },
+    {
+      "path": "textures/boombox_speakers_diff_1k.png",
+      "size": 1011572,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/1k/boombox/boombox_speakers_diff_1k.png",
+      "md5": "217061bade158e498f979efa6fc8507c"
+    },
+    {
+      "path": "textures/boombox_diff_1k.jpg",
+      "size": 471435,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/boombox/boombox_diff_1k.jpg",
+      "md5": "9f1c66463f38afd0c6bbd2df200133c4"
+    },
+    {
+      "path": "textures/boombox_speakers_metal_1k.png",
+      "size": 116294,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/1k/boombox/boombox_speakers_metal_1k.png",
+      "md5": "9d16d30aa1f8563665109929649c3d22"
+    },
+    {
+      "path": "textures/boombox_rough_1k.exr",
+      "size": 716387,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/boombox/boombox_rough_1k.exr",
+      "md5": "d97c4363206def7ba1f065ec9393d305"
+    },
+    {
+      "path": "textures/boombox_speakers_rough_1k.png",
+      "size": 596155,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/1k/boombox/boombox_speakers_rough_1k.png",
+      "md5": "17fe669efe3fa991d871e1336790b64f"
+    },
+    {
+      "path": "textures/boombox_metal_1k.exr",
+      "size": 22056,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/boombox/boombox_metal_1k.exr",
+      "md5": "3bcebf62b1701f181c61c0379d3cb86f"
+    }
+  ]
+}

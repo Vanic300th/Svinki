@@ -25,7 +25,7 @@ public sealed class ProximityVoice : MonoBehaviour
     {
         var lobby=NetworkLobby.Instance;
         return player!=null&&player.IsOwner&&player.IsClientStarted&&!player.IsDead&&lobby!=null&&!lobby.Offline&&
-            lobby.Snapshot.phase==SessionPhase.Round&&lobby.Results==null&&!HowToPlay.BlocksInput && !PhotoAlbum.BlocksInput&&!lobby.IsSpectator&&!lobby.MenuVisible&&!PlayerChat.BlocksInput&&!EmoteWheel.BlocksInput;
+            (lobby.Snapshot.phase==SessionPhase.Round||lobby.Snapshot.phase==SessionPhase.Lobby)&&lobby.Results==null&&!HowToPlay.BlocksInput && !PhotoAlbum.BlocksInput&&!lobby.IsSpectator&&!lobby.MenuVisible&&!PlayerChat.BlocksInput&&!EmoteWheel.BlocksInput;
     }
     private void Start()
     {
@@ -48,7 +48,7 @@ public sealed class ProximityVoice : MonoBehaviour
         else if(microphone==null&&!requesting&&Keyboard.current.bKey.wasPressedThisFrame)StartCoroutine(BeginCapture());
         if(held&&microphone!=null)Pump();
         bool visible=local!=null&&NetworkLobby.Instance!=null&&NetworkLobby.Instance.Results==null&&!NetworkLobby.Instance.MenuVisible&&!PlayerChat.IsOpen&&!EmoteWheel.IsOpen;
-        if(label!=null){label.gameObject.SetActive(visible);label.text=local!=null&&local.IsDead?"VOICE MUTED · SPECTATING":Status;label.color=IsTransmitting?new Color(.4f,1,.73f):new Color(.76f,.85f,.89f);}
+        if(label!=null){label.gameObject.SetActive(visible);GameLanguage.Set(label, local!=null&&local.IsDead?"VOICE MUTED · SPECTATING":Status);label.color=IsTransmitting?new Color(.4f,1,.73f):new Color(.76f,.85f,.89f);}
     }
     private IEnumerator BeginCapture()
     {

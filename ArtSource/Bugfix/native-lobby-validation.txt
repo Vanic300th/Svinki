@@ -1,0 +1,2 @@
+PASS: host and guest equip, photograph and stow cameras in the lobby without starting a round.
+PASS: an ordinary shot through the hoop still scores and replicates to the guest.

@@ -11,7 +11,7 @@ public sealed class PlayerRoundHud : MonoBehaviour
     private GameObject minimap, statusRoot, spectatorRoot;
     private StoreMap currentMap;
     private StoreMinimapGraphic graphic;
-    private TMP_Text status, spectating;
+    private TMP_Text status, spectating, mapTitle, mapLegend;
     private UnityEngine.UI.Button restart;
     private readonly Dictionary<Object, TMP_Text> markers = new Dictionary<Object, TMP_Text>();
     public void Build(Transform canvas, TMP_FontAsset textFont, NetworkLobby session)
@@ -19,12 +19,12 @@ public sealed class PlayerRoundHud : MonoBehaviour
         lobby = session; font = textFont;
         minimap = Rect("Minimap", canvas, new Vector2(1, 1), new Vector2(1, 1), new Vector2(-22, -22), new Vector2(340, 400)).gameObject;
         minimap.AddComponent<UnityEngine.UI.Image>().color = new Color(.025f, .045f, .06f, .94f);
-        Text(Rect("Title", minimap.transform, new Vector2(.5f, 1), new Vector2(.5f, 1), new Vector2(0, -9), new Vector2(320, 30)), "STORE MAP · NORTH", 20);
+        mapTitle = Text(Rect("Title", minimap.transform, new Vector2(.5f, 1), new Vector2(.5f, 1), new Vector2(0, -9), new Vector2(320, 30)), "STORE MAP · NORTH", 20);
         var viewport = Rect("Map viewport", minimap.transform, new Vector2(.5f, .5f), new Vector2(.5f, .5f), Vector2.zero, new Vector2(315, 315));
         viewport.gameObject.AddComponent<UnityEngine.UI.RectMask2D>();
         graphic = Rect("Floorplan", viewport, new Vector2(.5f, .5f), new Vector2(.5f, .5f), Vector2.zero, new Vector2(315, 315)).gameObject.AddComponent<StoreMinimapGraphic>();
         graphic.raycastTarget = false;
-        Text(Rect("Legend", minimap.transform, new Vector2(.5f, 0), new Vector2(.5f, 0), new Vector2(0, 8), new Vector2(320, 42)), "Players ▲ · Carts ■ · Entrance R\nNames match player colours", 16);
+        mapLegend = Text(Rect("Legend", minimap.transform, new Vector2(.5f, 0), new Vector2(.5f, 0), new Vector2(0, 8), new Vector2(320, 42)), "Players ▲ · Carts ■ · Lift L\nNames match player colours", 16);
         statusRoot = Rect("Round health", canvas, new Vector2(0, 1), new Vector2(0, 1), new Vector2(22, -82), new Vector2(285, 49)).gameObject;
         statusRoot.AddComponent<UnityEngine.UI.Image>().color = new Color(.025f, .045f, .06f, .94f);
         status = Text(Rect("Hits remaining", statusRoot.transform, new Vector2(.5f, .5f), new Vector2(.5f, .5f), Vector2.zero, new Vector2(260, 40)), "HITS LEFT  2 / 2", 23);
@@ -40,17 +40,18 @@ public sealed class PlayerRoundHud : MonoBehaviour
     private void LateUpdate()
     {
         if (lobby == null || minimap == null) return;
-        bool playing = lobby.Results == null && (lobby.Offline || lobby.Snapshot.phase == SessionPhase.Round) && !lobby.MenuVisible;
+        bool playing = lobby.Results == null && (lobby.Offline || lobby.Snapshot.phase == SessionPhase.Round || lobby.Snapshot.phase == SessionPhase.Lobby) && !lobby.MenuVisible;
         minimap.SetActive(playing); statusRoot.SetActive(playing); spectatorRoot.SetActive(playing && lobby.IsSpectator);
         restart.gameObject.SetActive(playing && lobby.Offline && lobby.IsEliminated);
         if (!playing) return;
         var local = PlayerRegistry.Players.FirstOrDefault(p => p != null && p.IsLocal);
         var life = local != null ? local.GetComponent<PlayerKnockdown>() : null;
-        status.text = lobby.IsEliminated ? "ELIMINATED" : life != null ? "HITS LEFT  " + life.HitsRemaining + " / 2" : "SPECTATOR";
+        bool safeRoom = local != null && local.gameObject.scene.name == NetworkLobby.FriendslopSceneName;
+        GameLanguage.Set(status, safeRoom ? "SAFE ROOM" : lobby.IsEliminated ? "ELIMINATED" : life != null ? "HITS LEFT  " + life.HitsRemaining + " / 2" : "SPECTATOR");
         status.color = life != null && life.Hits == 1 ? new Color(1, .65f, .3f) : Color.white;
         var target = SpectatorCamera.CurrentTarget;
-        spectating.text = lobby.Offline ? "ELIMINATED\nStart the next round to play again" : target != null ?
-            (lobby.IsEliminated ? "ELIMINATED · " : "") + "SPECTATING " + target.ParticipantName + "\n← / → — switch player · Next round: respawn" : "SPECTATING · Waiting for a living player";
+        GameLanguage.Set(spectating, lobby.Offline ? "ELIMINATED\nStart the next round to play again" :
+            "Ghost flight · WASD — move · Space / Ctrl — up / down · Shift — faster");
         if (lobby.Offline && lobby.IsEliminated && !lobby.MenuVisible) { Cursor.lockState = CursorLockMode.None; Cursor.visible = true; }
         var reference = target != null ? target.gameObject.scene : local != null ? local.gameObject.scene : UnityEngine.SceneManagement.SceneManager.GetSceneByName("SampleScene");
         if (!reference.IsValid() || !reference.isLoaded) return;
@@ -58,6 +59,8 @@ public sealed class PlayerRoundHud : MonoBehaviour
         {
             currentMap = reference.GetRootGameObjects().SelectMany(g => g.GetComponentsInChildren<StoreMap>()).FirstOrDefault();
             graphic.Bind(currentMap);
+            GameLanguage.Set(mapTitle, safeRoom ? "LOBBY MAP · NORTH" : "STORE MAP · NORTH");
+            GameLanguage.Set(mapLegend, safeRoom ? "Players ▲ · Freight lift L\nEnter the lift together to start" : "Players ▲ · Carts ■ · Return lift L\nNames match player colours");
         }
         if (target != null) graphic.Follow(target.transform.position);
         else if (local != null) graphic.Follow(local.Position);
@@ -67,7 +70,9 @@ public sealed class PlayerRoundHud : MonoBehaviour
             Mark(player, player.Position, "▲", PlayerIdentityColor.For(player.GetComponent<NetworkPlayer>()), -player.transform.eulerAngles.y, 21);
         }
         foreach (var cart in ShoppingCart.All.Where(c => c != null && c.gameObject.scene == reference)) Mark(cart, cart.transform.position, "■", new Color(1, .82f, .22f), 0, 15);
-        var ready = RoundFinishStation.ForScene(reference); if (ready != null) Mark(ready, ready.transform.position, "R", new Color(.4f, 1, .58f), 0, 18);
+        var ready = RoundFinishStation.ForScene(reference); if (ready != null && ready.Elevator == null) Mark(ready, ready.transform.position, "R", new Color(.4f, 1, .58f), 0, 18);
+        var lift = FindObjectsByType<LobbyFreightElevator>().FirstOrDefault(l => l.gameObject.scene == reference);
+        if (lift != null) Mark(lift, lift.transform.position, "L", new Color(.4f, 1, .58f), 0, 18);
         foreach (var key in markers.Keys.Where(k => k == null).ToArray()) { if (markers[key] != null) Destroy(markers[key].gameObject); markers.Remove(key); }
     }
     private void Mark(Object key, Vector3 position, string symbol, Color color, float angle, float size)
@@ -89,7 +94,7 @@ public sealed class PlayerRoundHud : MonoBehaviour
     }
     private TMP_Text Text(RectTransform rect, string text, float size)
     {
-        var label = rect.gameObject.AddComponent<TextMeshProUGUI>(); label.font = font; label.fontSize = size; label.text = text;
+        var label = rect.gameObject.AddComponent<TextMeshProUGUI>(); label.font = font; label.fontSize = size; GameLanguage.Set(label, text);
         label.color = Color.white; label.raycastTarget = false; label.richText = false; label.alignment = TextAlignmentOptions.Center; return label;
     }
 }

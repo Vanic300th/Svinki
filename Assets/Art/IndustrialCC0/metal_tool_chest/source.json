@@ -1,0 +1,105 @@
+{
+  "id": "metal_tool_chest",
+  "source": "https://polyhaven.com/a/metal_tool_chest",
+  "license": "CC0-1.0",
+  "resolution": "1k",
+  "info": {
+    "donated": true,
+    "type": 2,
+    "date_published": 1682899200,
+    "sponsors": [
+      "26820710"
+    ],
+    "name": "Metal Tool Chest",
+    "staging": null,
+    "info": null,
+    "authors": {
+      "Yann Kervran": "Rigging",
+      "John Hutcheson": "Modeling & Texturing"
+    },
+    "categories": [
+      "props",
+      "tools",
+      "industrial",
+      "containers",
+      "rigged",
+      "collection: the_shed"
+    ],
+    "tags": [
+      "old",
+      "metal",
+      "garage",
+      "workshop",
+      "storage",
+      "shed",
+      "worn",
+      "mechanics toolbox",
+      "rusted",
+      "steel",
+      "red"
+    ],
+    "max_resolution": [
+      8192,
+      8192
+    ],
+    "polycount": 14576,
+    "texel_density": 4517.763390735566,
+    "dimensions": [
+      685.3884160518646,
+      407.15324878692627,
+      651.8355906009674
+    ],
+    "files_hash": "8fdd3f7409ad7cfd5a4fc3091933d1e1d3785b0e",
+    "description": "Free 8K model of a worn red steel tool chest - rusted scratches, metal handles and lock; rigged lid and drawers, ideal for garage, workshop or industrial scenes.",
+    "category_id": "c7d5a298-97b0-5709-918e-e87832bf31a4",
+    "category": "Tools & Equipment/Workshop Equipment/Tool Chests",
+    "collections": [
+      "the_shed"
+    ],
+    "attributes": {
+      "condition": [
+        "rusted"
+      ],
+      "material": [
+        "steel",
+        "metal"
+      ],
+      "rigged": true
+    },
+    "img_version": "7d6d7a76",
+    "download_count": 16260,
+    "thumbnail_url": "https://cdn.polyhaven.com/asset_img/thumbs/metal_tool_chest.png?width=256&height=256&format=webp&v=7d6d7a76"
+  },
+  "files": [
+    {
+      "path": "metal_tool_chest.fbx",
+      "size": 440460,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/fbx/1k/metal_tool_chest/metal_tool_chest_1k.fbx",
+      "md5": "b01a4406007986e57489735d5b81e7ee"
+    },
+    {
+      "path": "textures/metal_tool_chest_nor_gl_1k.exr",
+      "size": 1366038,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/metal_tool_chest/metal_tool_chest_nor_gl_1k.exr",
+      "md5": "3e4e13fa7036015348a30378948d9b74"
+    },
+    {
+      "path": "textures/metal_tool_chest_metal_1k.exr",
+      "size": 186387,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/metal_tool_chest/metal_tool_chest_metal_1k.exr",
+      "md5": "5a59c7842b5a6e3406e9a1a4a74b936f"
+    },
+    {
+      "path": "textures/metal_tool_chest_diff_1k.jpg",
+      "size": 552016,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/metal_tool_chest/metal_tool_chest_diff_1k.jpg",
+      "md5": "4deaf0af07e8cadbfbd4975b49f597df"
+    },
+    {
+      "path": "textures/metal_tool_chest_rough_1k.exr",
+      "size": 1076551,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/metal_tool_chest/metal_tool_chest_rough_1k.exr",
+      "md5": "85a7e8699e090ce8bf28fe95a403e4fc"
+    }
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "id": "dartboard",
+  "source": "https://polyhaven.com/a/dartboard",
+  "license": "CC0-1.0",
+  "resolution": "1k",
+  "info": {
+    "donated": true,
+    "type": 2,
+    "date_published": 1679616000,
+    "name": "Dartboard",
+    "staging": null,
+    "authors": {
+      "Satyaki Mandal": "All"
+    },
+    "info": null,
+    "categories": [
+      "props",
+      "decorative",
+      "wall decoration",
+      "collection: the_shed"
+    ],
+    "sponsors": [
+      "26820710",
+      "20953239"
+    ],
+    "tags": [
+      "shed",
+      "bar",
+      "activities",
+      "darts",
+      "game",
+      "toy",
+      "pub",
+      "sports",
+      "sport",
+      "fun",
+      "entertainment",
+      "competition",
+      "target",
+      "bullseye",
+      "indoor games"
+    ],
+    "max_resolution": [
+      8192,
+      8192
+    ],
+    "polycount": 6800,
+    "texel_density": 12198.787766243375,
+    "dimensions": [
+      450.6962299346924,
+      39.77856128316404,
+      450.6962150335312
+    ],
+    "files_hash": "5e28b6807f86ea1c78ac3198ac93d24bb8130e1f",
+    "description": "Free 8K model. Weathered dartboard with chipped paint, visible metal wiring, scuffed bullseye and rustic wood edge - vintage pub/shed wall decoration.",
+    "category_id": "6b0b63c2-02df-5221-a199-f86a820e0d2b",
+    "category": "Leisure/Games & Toys/Board Games",
+    "collections": [
+      "the_shed"
+    ],
+    "attributes": {
+      "condition": [
+        "worn"
+      ],
+      "material": [
+        "fabric",
+        "metal",
+        "wood"
+      ]
+    },
+    "img_version": "23eabc30",
+    "download_count": 14290,
+    "thumbnail_url": "https://cdn.polyhaven.com/asset_img/thumbs/dartboard.png?width=256&height=256&format=webp&v=23eabc30"
+  },
+  "files": [
+    {
+      "path": "dartboard.fbx",
+      "size": 218716,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/fbx/1k/dartboard/dartboard_1k.fbx",
+      "md5": "3416fc1cc10c961ad166e276a3485432"
+    },
+    {
+      "path": "textures/dartboard_metal_1k.exr",
+      "size": 227085,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/dartboard/dartboard_metal_1k.exr",
+      "md5": "fcb8bcf63693f90ac9a80455ea18084f"
+    },
+    {
+      "path": "textures/dartboard_nor_gl_1k.exr",
+      "size": 2337604,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/dartboard/dartboard_nor_gl_1k.exr",
+      "md5": "cc55112bc1288de30dd3d03b0db3ff16"
+    },
+    {
+      "path": "textures/dartboard_diff_1k.jpg",
+      "size": 797104,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/dartboard/dartboard_diff_1k.jpg",
+      "md5": "60981fb0cf22a01475b995281a4dfb00"
+    },
+    {
+      "path": "textures/dartboard_rough_1k.exr",
+      "size": 1188222,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/dartboard/dartboard_rough_1k.exr",
+      "md5": "0948d734722018508e746f7056f90572"
+    }
+  ]
+}

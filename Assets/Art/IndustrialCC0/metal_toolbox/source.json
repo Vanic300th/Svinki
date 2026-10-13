@@ -1,0 +1,98 @@
+{
+  "id": "metal_toolbox",
+  "source": "https://polyhaven.com/a/metal_toolbox",
+  "license": "CC0-1.0",
+  "resolution": "1k",
+  "info": {
+    "type": 2,
+    "name": "Metal Toolbox",
+    "categories": [
+      "collection: project_lighthouse",
+      "containers",
+      "tools",
+      "industrial"
+    ],
+    "tags": [
+      "vintage",
+      "rustic",
+      "garage",
+      "workshop",
+      "metal",
+      "storage",
+      "shed",
+      "construction",
+      "carpentry",
+      "tool chest"
+    ],
+    "description": "Free 4K model of a vintage metal toolbox with chipped olive paint, brass latches, a wood handle with red band, rusted edges and a round badge.",
+    "authors": {
+      "Mateusz Sadek": "All"
+    },
+    "donated": true,
+    "max_resolution": [
+      4096,
+      4096
+    ],
+    "polycount": 14228,
+    "date_published": 1776330926,
+    "staging": null,
+    "social_post_pending": false,
+    "files_hash": "df0982cb97ade9651921bf5d76047a33a388118a",
+    "texel_density": 3692.8859841447725,
+    "dimensions": [
+      400.0099003314972,
+      292.32875257730484,
+      347.10586071014404
+    ],
+    "category_id": "c7d5a298-97b0-5709-918e-e87832bf31a4",
+    "category": "Tools & Equipment/Workshop Equipment/Tool Chests",
+    "collections": [
+      "project_lighthouse"
+    ],
+    "attributes": {
+      "condition": [
+        "worn"
+      ],
+      "material": [
+        "metal",
+        "brass",
+        "wood"
+      ]
+    },
+    "img_version": "a19ffa89",
+    "download_count": 1509,
+    "thumbnail_url": "https://cdn.polyhaven.com/asset_img/thumbs/metal_toolbox.png?width=256&height=256&format=webp&v=a19ffa89"
+  },
+  "files": [
+    {
+      "path": "metal_toolbox.fbx",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/fbx/1k/metal_toolbox/metal_toolbox_1k.fbx",
+      "md5": "54a40cdbd11fd72bd479bef1907e40ac",
+      "size": 536476
+    },
+    {
+      "path": "textures/metal_toolbox_diff_1k.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/metal_toolbox/metal_toolbox_diff_1k.jpg",
+      "md5": "63f1832b685c2e55594b6bb82739dacb",
+      "size": 661804
+    },
+    {
+      "path": "textures/metal_toolbox_metal_1k.exr",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/metal_toolbox/metal_toolbox_metal_1k.exr",
+      "md5": "0d441b7116f4f2324602e103fadda82f",
+      "size": 283593
+    },
+    {
+      "path": "textures/metal_toolbox_nor_gl_1k.exr",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/metal_toolbox/metal_toolbox_nor_gl_1k.exr",
+      "md5": "816d897d604bbc0348fada36b823f263",
+      "size": 1269369
+    },
+    {
+      "path": "textures/metal_toolbox_rough_1k.exr",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/metal_toolbox/metal_toolbox_rough_1k.exr",
+      "md5": "669a3a854ce787814b1de6dc72e3f03f",
+      "size": 909442
+    }
+  ]
+}

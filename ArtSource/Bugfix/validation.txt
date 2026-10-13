@@ -1,0 +1,26 @@
+Bugfix verification - 2026-10-13
+
+Changes:
+- Camera server validation allows the lobby while preserving hands and player-state restrictions.
+- Russian reset label has enough space; open settings stay above rebuilt lobby controls.
+- Sloped collision caps prevent basketballs resting behind the rim or on the backboard top.
+- Epic Device ID request is reused after a timeout, avoiding concurrent permission requests.
+- CEF receives its own main-bundle-path on macOS. Build finalizer normalizes Info.plist case and signs nested libraries, framework, helpers, browser and player after packaging.
+
+Validation:
+- Mac ARM64 and Windows x64 development builds succeeded. Windows was cross-built, not executed here.
+- Native Mac host and guest: K equip, LMB photograph, and K stow work in the lobby.
+- Ordinary basketball shot still scores and replicates to the guest.
+- Before: 6 trapped drops out of 15. After: 0 out of 18, including the hoop center. Physics trajectories and runtime networking were tested separately.
+- Russian settings visually checked at 1280x720, before and after readiness refresh.
+- Mac YouTube: official iframe loads, duration 635 seconds, decoded video frames change after clicking the player, PAUSE appears, player is unmuted. System audio output was not independently measured.
+- codesign --verify --deep --strict passes.
+
+Still needs user-device verification:
+- Internet hosting and repeated Epic permission prompts on M1/M4. Original exact error was unavailable; localhost tests do not verify EOS internet hosting.
+- Actual YouTube audibility on those devices.
+
+CEF issue and upstream reproduction:
+https://github.com/Voltstro-Studios/UnityWebBrowser/pull/441
+
+New gameplay mechanics and balance changes were deferred as requested.

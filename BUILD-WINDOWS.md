@@ -1,5 +1,9 @@
 # Собрать игру для Windows
 
+После клонирования используй **Unity 6000.6.2f1** из `ProjectSettings/ProjectVersion.txt`. На компьютере должен быть установлен Git: FishNet и EOS Plugin загружаются Unity Package Manager по Git-ссылкам из `Packages/manifest.json`. Дождись завершения импорта пакетов и компиляции.
+
+Рабочий `Assets/StreamingAssets/svinki-eos.json` и файлы `Assets/StreamingAssets/EOS/eos_*_config.json` вместе с `.meta` должны приходить из репозитория. Одного `svinki-eos.example.json` недостаточно: игра читает файл без `.example`, а EOS Plugin при сборке Windows требует `eos_windows_config.json`. Старый `.gitignore` исключал все эти настройки и ломал сборку после клонирования. Настройки теперь разрешены для Git; их необходимо закоммитить вместе с исправлением `.gitignore`.
+
 В Unity открой **File → Build Profiles**, выбери профиль **Windows** и нажми **Switch Profile**, если профиль ещё не активен. Платформа должна быть **Windows**, архитектура — **Intel 64-bit**, Scripting Backend — **Mono**. Нажми обычную кнопку **Build** и выбери папку для игры. Результат — `.exe` и файлы игры рядом с ним.
 
 Если профиль Windows уже помечен активным, но Unity предлагает сохранить `.app`, переключись на другой профиль и обратно на Windows: фактическая платформа редактора должна быть Windows, а не macOS.
@@ -26,7 +30,7 @@
 
 **Нет модуля Windows:** в Unity Hub открой **Installs → шестерёнка у версии редактора → Add modules → Windows Build Support (Mono)**. На Windows поддержка Windows обычно уже входит в редактор; на Mac нужен соответствующий модуль. Используй версию редактора из `ProjectSettings/ProjectVersion.txt`.
 
-**Нет EOS-конфигурации:** настрой онлайн по `MULTIPLAYER.md`. Нужен рабочий `Assets/StreamingAssets/svinki-eos.json` и настройки EOS Plugin. В этом проекте они уже настроены локально; при переносе проекта на другой компьютер нужно перенести и эти локальные настройки.
+**Нет EOS-конфигурации:** проверь, что получен коммит с рабочим `Assets/StreamingAssets/svinki-eos.json` и настройками EOS Plugin из `Assets/StreamingAssets/EOS`. Если они отсутствуют и после обновления репозитория, настрой онлайн по `MULTIPLAYER.md`.
 
 **Включён `EOS_DISABLE`:** убери этот символ из **Player Settings → Other Settings → Scripting Define Symbols** для настольной платформы. Он используется только для локальных тестов без EOS.
 

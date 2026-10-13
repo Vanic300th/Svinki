@@ -26,7 +26,8 @@ public static class ExpandedRoundCheck
         double area=floor.Sum(b=>(double)b.bounds.size.x*b.bounds.size.z);
         Assert(Math.Abs(area/4362.5-3)<.0001,"Floor area not three times original");
         Assert(roots.Sum(g=>g.GetComponentsInChildren<ShoppingCart>(true).Length)==3,"Not exactly three carts");
-        Assert(roots.Sum(g=>g.GetComponentsInChildren<MannequinBrain>(true).Length)==12,"Not twelve stalkers");
+        Assert(roots.Sum(g=>g.GetComponentsInChildren<MannequinBrain>(true).Length)==8,"Not eight stalkers");
+        Assert(roots.Sum(g=>g.GetComponentsInChildren<ThrowableMannequin>(true).Length)==40,"Not forty neutral mannequins");
         var wing=roots.Single(g=>g.name=="Graybox Level").transform.Find("North departments - triple area");
         foreach(Transform room in wing)
         {
@@ -38,7 +39,7 @@ public static class ExpandedRoundCheck
         var station=roots.SelectMany(g=>g.GetComponentsInChildren<RoundFinishStation>(true)).Single();
         Assert(station.transform.Find("Stand")==null&&Mathf.Abs(station.transform.position.x+6.03f)<.01f,"Ready is not a wall button");
         Assert(!ShaderUtil.ShaderHasError(Shader.Find("Svinki/Vivid Cloth")),"Clothing shader has errors");
-        string result="PASS: area="+area+" (x3), 3 carts, 12 stalkers, 16 connected new rooms, "+ids.Length+" unique network IDs, wall READY, shader valid";
+        string result="PASS: area="+area+" (x3), 3 carts, 8 stalkers, 40 neutral mannequins, 16 connected new rooms, "+ids.Length+" unique network IDs, wall READY, shader valid";
         Directory.CreateDirectory("ArtSource/ExpandedRound");File.WriteAllText("ArtSource/ExpandedRound/scene-validation.txt",result);return result;
     }
     public static string Offline()

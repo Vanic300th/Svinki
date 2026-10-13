@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5968b83ea37fc4f01b3c5e697770692b, type: 3}
   m_Name: hat3_worn 28091b83
   m_EditorClassIdentifier: Assembly-CSharp::HatClothing
-  displayName: hat3
+  displayName: Speckled hat
   model: {fileID: 919132149155446097, guid: 28091b8367ef456a8a532616f3c1e5ad, type: 3}
   fabricMaterial: {fileID: 0}
   outlineMaterial: {fileID: 2100000, guid: aa2cf511bbc874172951bf40f2fced5b, type: 2}

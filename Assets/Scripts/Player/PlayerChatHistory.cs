@@ -54,7 +54,7 @@ public sealed class PlayerChatHistory : MonoBehaviour
         root=Rect("Side chat history",canvas);root.anchorMin=root.anchorMax=Vector2.zero;root.pivot=Vector2.zero;root.anchoredPosition=new Vector2(24,140);root.sizeDelta=new Vector2(480,240);
         var bg=root.gameObject.AddComponent<UnityEngine.UI.Image>();bg.color=new Color(.025f,.055f,.07f,.78f);bg.raycastTarget=false;
         var header=Rect("History title",root);header.anchorMin=new Vector2(0,1);header.anchorMax=new Vector2(1,1);header.pivot=new Vector2(.5f,1);header.sizeDelta=new Vector2(-24,32);header.anchoredPosition=new Vector2(0,-7);
-        var title=header.gameObject.AddComponent<TextMeshProUGUI>();title.font=PlayerChat.Instance.Font;title.fontSize=18;title.text="CHAT · ENTER TO TYPE";title.color=new Color(.63f,.81f,.84f);title.raycastTarget=false;
+        var title=header.gameObject.AddComponent<TextMeshProUGUI>();title.font=PlayerChat.Instance.Font;title.fontSize=18;GameLanguage.Set(title,"CHAT · ENTER TO TYPE");title.color=new Color(.63f,.81f,.84f);title.raycastTarget=false;
         var viewport=Rect("History viewport",root);Stretch(viewport,new Vector2(10,8),new Vector2(-10,-40));
         viewportImage=viewport.gameObject.AddComponent<UnityEngine.UI.Image>();viewportImage.color=Color.white;viewportImage.raycastTarget=false;viewport.gameObject.AddComponent<UnityEngine.UI.Mask>().showMaskGraphic=false;
         content=Rect("History content",viewport);content.anchorMin=new Vector2(0,1);content.anchorMax=new Vector2(1,1);content.pivot=new Vector2(.5f,1);content.sizeDelta=Vector2.zero;

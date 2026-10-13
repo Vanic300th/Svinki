@@ -1,0 +1,703 @@
+{
+  "social": {
+    "lift": {
+      "Inside": 0,
+      "Required": 2,
+      "Closing": false,
+      "StartedAt": 0.0
+    },
+    "basketball": {
+      "Player": "",
+      "Last": 0,
+      "Best": 0,
+      "Streak": 0
+    },
+    "darts": {
+      "Player": "",
+      "Last": 0,
+      "Best": 0,
+      "Streak": 0
+    },
+    "tv": {
+      "Url": "",
+      "Title": "",
+      "AddedBy": "",
+      "PlayerId": "",
+      "Version": 0,
+      "Playing": false,
+      "StartedAt": 0.0,
+      "Position": 0.0,
+      "Duration": 0.0
+    },
+    "music": {
+      "Url": "",
+      "Title": "",
+      "AddedBy": "",
+      "PlayerId": "",
+      "Version": 0,
+      "Playing": false,
+      "StartedAt": 0.0,
+      "Position": 0.0,
+      "Duration": 0.0
+    },
+    "boardCommands": 0,
+    "queue": 0,
+    "tvError": "",
+    "musicError": "",
+    "held": "",
+    "hockey": "AIR HOCKEY  0 : 0\nFree / Free",
+    "tvActual": 0.0,
+    "musicActual": 0.0,
+    "navInLobby": false,
+    "navAtSpawn": false,
+    "dartboardPosition": {
+      "x": 10.699999809265137,
+      "y": 1.7000000476837158,
+      "z": -28.5
+    },
+    "dartboardForward": {
+      "x": 1.0000001192092896,
+      "y": 0.0,
+      "z": -1.1920928955078125e-07
+    },
+    "lockers": [
+      {
+        "owner": "765564dbd2464222b3e37e8372e66233",
+        "slot": 0,
+        "photos": 1,
+        "hashes": [
+          "13-43-BE-D7-8A-FD-87-7A-88-29-3E-4C-5F-B0-A5-21-99-20-BD-BD-0C-90-09-9C-77-87-F2-57-8B-CF-FD-A8",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "door": {
+          "x": 0.0,
+          "y": -0.7933533191680908,
+          "z": 0.0,
+          "w": 0.6087614297866821
+        }
+      },
+      {
+        "owner": "117142c2bd6a456b921c75c8a7705b35",
+        "slot": 1,
+        "photos": 0,
+        "hashes": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "door": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0,
+          "w": 1.0
+        }
+      },
+      {
+        "owner": "",
+        "slot": 2,
+        "photos": 0,
+        "hashes": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "door": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0,
+          "w": 1.0
+        }
+      },
+      {
+        "owner": "",
+        "slot": 3,
+        "photos": 0,
+        "hashes": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "door": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0,
+          "w": 1.0
+        }
+      },
+      {
+        "owner": "",
+        "slot": 4,
+        "photos": 0,
+        "hashes": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "door": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0,
+          "w": 1.0
+        }
+      },
+      {
+        "owner": "",
+        "slot": 5,
+        "photos": 0,
+        "hashes": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "door": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0,
+          "w": 1.0
+        }
+      }
+    ],
+    "props": [
+      {
+        "name": "Basketball 1",
+        "holder": "",
+        "position": {
+          "x": 8.0,
+          "y": 0.15000000596046448,
+          "z": -17.5
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "sleeping": true,
+        "canScore": false
+      },
+      {
+        "name": "Basketball 2",
+        "holder": "",
+        "position": {
+          "x": 8.649999618530273,
+          "y": 0.15000000596046448,
+          "z": -17.5
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "sleeping": true,
+        "canScore": false
+      },
+      {
+        "name": "Basketball 3",
+        "holder": "",
+        "position": {
+          "x": 9.300000190734863,
+          "y": 0.15000000596046448,
+          "z": -17.5
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "sleeping": true,
+        "canScore": false
+      },
+      {
+        "name": "Cleaner bottle",
+        "holder": "",
+        "position": {
+          "x": -5.499965667724609,
+          "y": 0.9049938321113586,
+          "z": -26.40000343322754
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "sleeping": true,
+        "canScore": false
+      },
+      {
+        "name": "Cushion",
+        "holder": "",
+        "position": {
+          "x": -7.5,
+          "y": 0.925000011920929,
+          "z": -24.600000381469727
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "sleeping": true,
+        "canScore": false
+      },
+      {
+        "name": "Dart 1",
+        "holder": "",
+        "position": {
+          "x": 9.287468910217285,
+          "y": 1.0125000476837158,
+          "z": -27.873056411743164
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "sleeping": true,
+        "canScore": false
+      },
+      {
+        "name": "Dart 2",
+        "holder": "",
+        "position": {
+          "x": 9.544681549072266,
+          "y": 1.0124999284744263,
+          "z": -27.9486026763916
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "sleeping": true,
+        "canScore": false
+      },
+      {
+        "name": "Dart 3",
+        "holder": "",
+        "position": {
+          "x": 9.530067443847656,
+          "y": 1.0125000476837158,
+          "z": -27.674175262451172
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "sleeping": true,
+        "canScore": false
+      },
+      {
+        "name": "Dart 4",
+        "holder": "",
+        "position": {
+          "x": 9.594857215881348,
+          "y": 1.0124989748001099,
+          "z": -27.568397521972656
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "sleeping": true,
+        "canScore": false
+      },
+      {
+        "name": "Hockey puck",
+        "holder": "",
+        "position": {
+          "x": 4.5,
+          "y": 1.1399999856948853,
+          "z": -25.5
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "sleeping": false,
+        "canScore": false
+      },
+      {
+        "name": "Plastic jug",
+        "holder": "",
+        "position": {
+          "x": -5.5,
+          "y": 0.10000000149011612,
+          "z": -28.0
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "sleeping": true,
+        "canScore": false
+      },
+      {
+        "name": "Ratchet wrench",
+        "holder": "",
+        "position": {
+          "x": -6.5,
+          "y": 0.7699999809265137,
+          "z": -26.200000762939453
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "sleeping": true,
+        "canScore": false
+      },
+      {
+        "name": "Rubber duck",
+        "holder": "",
+        "position": {
+          "x": -5.0,
+          "y": 0.15000000596046448,
+          "z": -27.0
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "sleeping": true,
+        "canScore": false
+      },
+      {
+        "name": "Rusty can",
+        "holder": "",
+        "position": {
+          "x": -6.000002861022949,
+          "y": 0.8450003266334534,
+          "z": -26.399999618530273
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "sleeping": true,
+        "canScore": false
+      },
+      {
+        "name": "Small box",
+        "holder": "",
+        "position": {
+          "x": -5.0,
+          "y": 0.17500001192092896,
+          "z": -28.0
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "sleeping": true,
+        "canScore": false
+      },
+      {
+        "name": "Small rusty tin",
+        "holder": "",
+        "position": {
+          "x": -7.0,
+          "y": 0.809999942779541,
+          "z": -26.5
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "sleeping": true,
+        "canScore": false
+      },
+      {
+        "name": "Toolbox",
+        "holder": "",
+        "position": {
+          "x": -6.0,
+          "y": 0.17500001192092896,
+          "z": -28.0
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "sleeping": true,
+        "canScore": false
+      }
+    ]
+  },
+  "mechanics": {
+    "players": [
+      {
+        "name": "host",
+        "bodyHolder": "",
+        "bodyCart": "",
+        "ballHolder": "",
+        "ball": false,
+        "ghost": false,
+        "bodyPosition": {
+          "x": 3.0,
+          "y": 0.07999992370605469,
+          "z": -14.654999732971191
+        },
+        "ballPosition": {
+          "x": 3.0,
+          "y": 0.5299999117851257,
+          "z": -14.654999732971191
+        },
+        "ghostPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      },
+      {
+        "name": "guest",
+        "bodyHolder": "",
+        "bodyCart": "",
+        "ballHolder": "",
+        "ball": false,
+        "ghost": false,
+        "bodyPosition": {
+          "x": 0.0,
+          "y": 0.05000000074505806,
+          "z": -22.0
+        },
+        "ballPosition": {
+          "x": 0.0,
+          "y": 0.5,
+          "z": -22.0
+        },
+        "ghostPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      }
+    ],
+    "activeHostiles": 0,
+    "memories": 1,
+    "scares": 0,
+    "photoViewer": false,
+    "runwayOwn": false,
+    "runwayIndex": 1,
+    "danger": 0.0,
+    "musicVolume": 0.6499999761581421,
+    "runwayElapsed": 0.0,
+    "runwayPosition": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  "photo": {
+    "owned": true,
+    "equipped": false,
+    "album": false,
+    "shots": 0,
+    "count": 0,
+    "cooldown": 0.0,
+    "notification": ""
+  },
+  "music": {
+    "present": true,
+    "playing": true,
+    "paused": false,
+    "time": 7.151745796203613,
+    "output": 0.006250161677598953,
+    "load": "Loaded"
+  },
+  "cameraPickups": [],
+  "npcs": [],
+  "sharedAlbums": [],
+  "resultsAlbums": false,
+  "albumPlayer": "",
+  "albumPhoto": 0,
+  "aggressors": 0,
+  "snapshot": {
+    "phase": 1,
+    "code": "LOCAL1",
+    "host": "765564dbd2464222b3e37e8372e66233",
+    "round": 2,
+    "closed": false,
+    "players": [
+      {
+        "id": "765564dbd2464222b3e37e8372e66233",
+        "nickname": "host",
+        "ready": false,
+        "connected": true,
+        "spectator": false,
+        "finishReady": false,
+        "eliminated": false,
+        "reservation": 0.0,
+        "appearance": 95615907,
+        "colorSlot": 0
+      },
+      {
+        "id": "117142c2bd6a456b921c75c8a7705b35",
+        "nickname": "guest",
+        "ready": false,
+        "connected": true,
+        "spectator": false,
+        "finishReady": false,
+        "eliminated": false,
+        "reservation": 0.0,
+        "appearance": 95615907,
+        "colorSlot": 1
+      }
+    ],
+    "results": {
+      "round": 0,
+      "entries": []
+    },
+    "runwayReaction": "",
+    "runwayReactionSequence": 0,
+    "runwayElapsed": 0.0
+  },
+  "status": "Friendslop lobby LOCAL1. Enter the freight lift together to begin a run.",
+  "identity": "765564dbd2464222b3e37e8372e66233",
+  "avatars": 2,
+  "offline": false,
+  "inputAllowed": false,
+  "menuVisible": false,
+  "cargoOpen": true,
+  "forwardPressed": false,
+  "carriedMannequin": "",
+  "chat": [],
+  "relayedVoice": 0,
+  "receivedVoice": 0,
+  "voiceOutput": 0.006250161677598953,
+  "knockedDown": false,
+  "cameraHeight": 1.649999976158142,
+  "hits": 0,
+  "eliminated": false,
+  "players": [
+    {
+      "name": "host",
+      "emote": "None",
+      "hits": 0,
+      "down": false,
+      "dead": false,
+      "owner": true,
+      "server": true,
+      "headHeight": 1.1320068836212158,
+      "outfit": [
+        "Hat1"
+      ]
+    },
+    {
+      "name": "guest",
+      "emote": "None",
+      "hits": 0,
+      "down": false,
+      "dead": false,
+      "owner": false,
+      "server": true,
+      "headHeight": 1.1319925785064697,
+      "outfit": []
+    }
+  ],
+  "cart": "",
+  "cartRole": "",
+  "carts": [],
+  "pickups": [],
+  "localPosition": {
+    "x": 3.0,
+    "y": 0.07999992370605469,
+    "z": -14.654999732971191
+  },
+  "eyePosition": {
+    "x": 3.0,
+    "y": 1.7299998998641968,
+    "z": -14.434999465942383
+  },
+  "eyeForward": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 1.0
+  },
+  "monkeys": [],
+  "stuns": [],
+  "mapMarkers": [
+    {
+      "name": "guest",
+      "local": false,
+      "visible": true,
+      "nameVisible": false,
+      "mapPosition": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "worldPosition": {
+        "x": 0.0,
+        "y": 0.05000000074505806,
+        "z": -22.0
+      },
+      "colour": {
+        "r": 0.30000001192092896,
+        "g": 0.949999988079071,
+        "b": 1.0,
+        "a": 1.0
+      },
+      "nameColour": {
+        "r": 1.0,
+        "g": 1.0,
+        "b": 1.0,
+        "a": 1.0
+      }
+    },
+    {
+      "name": "host",
+      "local": true,
+      "visible": true,
+      "nameVisible": false,
+      "mapPosition": {
+        "x": 35.931556701660156,
+        "y": 87.9724349975586
+      },
+      "worldPosition": {
+        "x": 3.0,
+        "y": 0.07999992370605469,
+        "z": -14.654999732971191
+      },
+      "colour": {
+        "r": 1.0,
+        "g": 0.44999998807907104,
+        "b": 0.3199999928474426,
+        "a": 1.0
+      },
+      "nameColour": {
+        "r": 1.0,
+        "g": 1.0,
+        "b": 1.0,
+        "a": 1.0
+      }
+    }
+  ],
+  "mapSize": 315.0
+}

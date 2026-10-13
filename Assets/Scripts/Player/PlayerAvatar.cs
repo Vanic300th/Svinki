@@ -49,6 +49,9 @@ public sealed class PlayerAvatar : MonoBehaviour
         outfit = GetComponent<PlayerOutfit>();
         viewSource = GetComponent<IPlayerViewSource>();
         if(GetComponent<PlayerPhotoCamera>()==null)gameObject.AddComponent<PlayerPhotoCamera>();
+        if (GetComponent<PlayerLobbyHands>() == null) gameObject.AddComponent<PlayerLobbyHands>();
+        if (GetComponent<PlayerBodyCarry>() == null) gameObject.AddComponent<PlayerBodyCarry>();
+        if (GetComponent<PlayerBallForm>() == null) gameObject.AddComponent<PlayerBallForm>();
     }
 
     private void OnEnable() => PlayerRegistry.Register(this);

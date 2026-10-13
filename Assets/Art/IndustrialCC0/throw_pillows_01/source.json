@@ -1,0 +1,81 @@
+{
+  "id": "throw_pillows_01",
+  "source": "https://polyhaven.com/a/throw_pillows_01",
+  "license": "CC0-1.0",
+  "resolution": "1k",
+  "info": {
+    "donated": true,
+    "date_published": 1630022400,
+    "name": "Throw Pillows 01",
+    "categories": [
+      "decorative"
+    ],
+    "type": 2,
+    "staging": null,
+    "tags": [
+      "decorative",
+      "pillow",
+      "throw",
+      "pattern",
+      "african",
+      "red",
+      "triangle",
+      "orange"
+    ],
+    "authors": {
+      "Serhii Khromov": "All"
+    },
+    "max_resolution": [
+      4096,
+      4096
+    ],
+    "polycount": 6362,
+    "texel_density": 3393.691567163853,
+    "dimensions": [
+      1021.5678811073303,
+      627.4925470352173,
+      450.1592831220478
+    ],
+    "files_hash": "8a475b95a0956bd700394e0f5ed32822071e2f54",
+    "description": "Free 4K model of two decorative throw pillows with bold African-inspired zigzag chevrons in red, orange and ochre on a textured woven fabric.",
+    "category_id": "2d8a6ed6-8345-5c6f-8391-5fb3944ee86f",
+    "category": "Decor & Art/Ornaments/Cushions & Pillows",
+    "attributes": {
+      "condition": [
+        "clean"
+      ],
+      "material": [
+        "fabric"
+      ]
+    },
+    "img_version": "d1a30215",
+    "download_count": 22865,
+    "thumbnail_url": "https://cdn.polyhaven.com/asset_img/thumbs/throw_pillows_01.png?width=256&height=256&format=webp&v=d1a30215"
+  },
+  "files": [
+    {
+      "path": "throw_pillows_01.fbx",
+      "size": 322092,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/fbx/1k/throw_pillows_01/throw_pillows_01_1k.fbx",
+      "md5": "da6f609c7406fd3e5871a9415ef6087e"
+    },
+    {
+      "path": "textures/throw_pillows_01_diff_1k.jpg",
+      "size": 299887,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/throw_pillows_01/throw_pillows_01_diff_1k.jpg",
+      "md5": "8e140f48bf4a9c48ccca4ecc941bba19"
+    },
+    {
+      "path": "textures/throw_pillows_01_rough_1k.jpg",
+      "size": 339241,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/throw_pillows_01/throw_pillows_01_rough_1k.jpg",
+      "md5": "47b3576090f2b98a9d18bd9bbd5265ab"
+    },
+    {
+      "path": "textures/throw_pillows_01_nor_gl_1k.exr",
+      "size": 2508983,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/throw_pillows_01/throw_pillows_01_nor_gl_1k.exr",
+      "md5": "1ef294171e26c9b82be755a1f0fa7437"
+    }
+  ]
+}

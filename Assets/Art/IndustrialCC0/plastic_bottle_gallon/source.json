@@ -1,0 +1,89 @@
+{
+  "id": "plastic_bottle_gallon",
+  "source": "https://polyhaven.com/a/plastic_bottle_gallon",
+  "license": "CC0-1.0",
+  "resolution": "1k",
+  "info": {
+    "donated": true,
+    "name": "Plastic Bottle Gallon",
+    "type": 2,
+    "info": null,
+    "authors": {
+      "Rahul Chaudhary": "All"
+    },
+    "date_published": 1675987200,
+    "staging": null,
+    "categories": [
+      "containers",
+      "collection: the_shed"
+    ],
+    "tags": [
+      "rubbish",
+      "dirty",
+      "shed",
+      "outdoor",
+      "trash",
+      "clutter",
+      "garage",
+      "old",
+      "plastic",
+      "carton",
+      "milk"
+    ],
+    "max_resolution": [
+      8192,
+      8192
+    ],
+    "polycount": 13728,
+    "texel_density": 17176.361384739783,
+    "dimensions": [
+      166.28039628267288,
+      126.3512596487999,
+      274.4927511084825
+    ],
+    "files_hash": "8e579852c844aa8beea73397b4e05717a2303d93",
+    "description": "Free 8K model of a weathered off-white plastic gallon jug with integrated handle, scuffs, dirt and rusty stains, scratched, dented and worn neck threads.",
+    "category_id": "dcd43897-4493-506d-ade0-451fa381403f",
+    "category": "Containers & Storage/Cans, Tins & Bottles/Jugs & Bottles",
+    "collections": [
+      "the_shed"
+    ],
+    "attributes": {
+      "condition": [
+        "weathered"
+      ],
+      "material": [
+        "plastic"
+      ]
+    },
+    "img_version": "78d42773",
+    "download_count": 5490,
+    "thumbnail_url": "https://cdn.polyhaven.com/asset_img/thumbs/plastic_bottle_gallon.png?width=256&height=256&format=webp&v=78d42773"
+  },
+  "files": [
+    {
+      "path": "plastic_bottle_gallon.fbx",
+      "size": 457116,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/fbx/1k/plastic_bottle_gallon/plastic_bottle_gallon_1k.fbx",
+      "md5": "f15d5be5af797e2cbf3b2320ad7cfd27"
+    },
+    {
+      "path": "textures/plastic_bottle_gallon_rough_1k.exr",
+      "size": 731791,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/plastic_bottle_gallon/plastic_bottle_gallon_rough_1k.exr",
+      "md5": "dc101a4e75d0021bd7d04e106d133fd8"
+    },
+    {
+      "path": "textures/plastic_bottle_gallon_diff_1k.jpg",
+      "size": 317396,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/plastic_bottle_gallon/plastic_bottle_gallon_diff_1k.jpg",
+      "md5": "e3655eb80c6bce520865a4f4a2b37bd9"
+    },
+    {
+      "path": "textures/plastic_bottle_gallon_nor_gl_1k.exr",
+      "size": 917385,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/plastic_bottle_gallon/plastic_bottle_gallon_nor_gl_1k.exr",
+      "md5": "b9aeae72e9de4458cfb93a4d37e011bc"
+    }
+  ]
+}

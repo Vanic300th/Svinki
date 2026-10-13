@@ -26,13 +26,15 @@ public sealed class PigMotion : MonoBehaviour
     public PigEmote ActiveEmote { get; private set; }
     public const float EmoteDuration = 3f;
     private float emoteStarted;
-    public static bool CanEmote(PlayerAvatar player) => player != null && player.isActiveAndEnabled && player.IsAlive &&
-        player.GetComponent<PlayerKnockdown>()?.IsDown != true && ShoppingCart.For(player) == null &&
-        player.GetComponent<PlayerMonkeyCarry>()?.Held == null && player.GetComponent<PlayerPhotoCamera>()?.Equipped != true && player.GetComponent<PlayerMannequinCarry>()?.Held == null;
+    public static bool CanEmote(PlayerAvatar player) => player != null && player.isActiveAndEnabled && CarryRules.FreeHands(player);
     public void PlayEmote(PigEmote kind)
     {
         if (kind < PigEmote.None || kind > PigEmote.Shrug) return;
         ActiveEmote = kind; emoteStarted = Time.time;
+    }
+    public void ApplyPreviewEmote(PigEmote kind, float age)
+    {
+        ActiveEmote = kind; emoteStarted = Time.time - Mathf.Max(0, age); ApplyEmote(0);
     }
     private void Gesture(string name, Vector3 angles, float weight)
     {
@@ -43,7 +45,7 @@ public sealed class PigMotion : MonoBehaviour
     {
         float t = Time.time - emoteStarted;
         if (ActiveEmote == PigEmote.None) return;
-        if (t >= EmoteDuration || speed > .3f || !CanEmote(GetComponentInParent<PlayerAvatar>())) { ActiveEmote = PigEmote.None; return; }
+        if (t >= EmoteDuration || speed > .3f || motor != null && !CanEmote(GetComponentInParent<PlayerAvatar>())) { ActiveEmote = PigEmote.None; return; }
         float w = Mathf.SmoothStep(0, 1, Mathf.Min(t / .18f, (EmoteDuration - t) / .35f));
         float beat = Mathf.Sin(t * 6);
         switch (ActiveEmote)

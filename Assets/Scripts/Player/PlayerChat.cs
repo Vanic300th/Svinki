@@ -56,8 +56,8 @@ public sealed class PlayerChat : MonoBehaviour
     }
 
     private bool CanChat => !HowToPlay.BlocksInput && !PhotoAlbum.BlocksInput && !EmoteWheel.BlocksInput && (NetworkLobby.Instance == null ||
-        !NetworkLobby.Instance.MenuVisible && !NetworkLobby.Instance.InventoryOpen && (NetworkLobby.Instance.Offline ||
-        NetworkLobby.Instance.Snapshot.phase == SessionPhase.Round && !NetworkLobby.Instance.IsSpectator));
+        !NetworkLobby.Instance.MenuVisible && !NetworkLobby.Instance.InventoryOpen && !NetworkLobby.Instance.CargoOpen && (NetworkLobby.Instance.Offline ||
+        (NetworkLobby.Instance.Snapshot.phase == SessionPhase.Round || NetworkLobby.Instance.Snapshot.phase == SessionPhase.Lobby) && !NetworkLobby.Instance.IsSpectator));
 
     private PlayerAvatar LocalPlayer()
     {
@@ -170,7 +170,7 @@ public sealed class PlayerChat : MonoBehaviour
         panel.GetComponent<UnityEngine.UI.Image>().color = new Color(.04f, .055f, .085f, .94f);
         var hint = CreateText("Chat Help", panel.transform);
         Stretch(hint.rectTransform, new Vector2(18, 62), new Vector2(-18, -12));
-        hint.text = "Chat  ·  Enter — send  ·  Esc — cancel  ·  Scroll — history";
+        GameLanguage.Set(hint, "Chat  ·  Enter — send  ·  Esc — cancel  ·  Scroll — history");
         hint.fontSize = 20; hint.color = new Color(.7f, .78f, .87f);
         var field = new GameObject("Message", typeof(RectTransform), typeof(UnityEngine.UI.Image));
         field.transform.SetParent(panel.transform, false);
@@ -181,7 +181,7 @@ public sealed class PlayerChat : MonoBehaviour
         Stretch(viewport.GetComponent<RectTransform>(), new Vector2(12, 4), new Vector2(-12, -4));
         var text = CreateText("Message Text", viewport.transform);
         var placeholder = CreateText("Placeholder", viewport.transform);
-        placeholder.text = "Type a message…"; placeholder.color = new Color(.55f, .62f, .7f);
+        GameLanguage.Set(placeholder, "Type a message…"); placeholder.color = new Color(.55f, .62f, .7f);
         input = field.AddComponent<TMP_InputField>();
         input.textViewport = viewport.GetComponent<RectTransform>();
         input.textComponent = text; input.placeholder = placeholder;

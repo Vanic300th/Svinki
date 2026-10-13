@@ -1,0 +1,2606 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: GameUI_en
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: c10a1babf52fb46a19911cb12e9792c9, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 615505920
+    m_Localized: "You got knocked down! Getting up\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 632283136
+    m_Localized: "W/S \u2014 push \u2022 A/D \u2014 steer \u2022 Shift \u2014 sprint\nLMB \u2014 launch \u2022 E \u2014 release"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 632283137
+    m_Localized: "You're riding! E / Space \u2014 hop out"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 632283138
+    m_Localized: The cart is moving too fast
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477440
+    m_Localized: "E \u2014 push cart \u2022 R \u2014 ride in basket"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477441
+    m_Localized: "LMB \u2014 throw \u2022 RMB / E \u2014 release"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477442
+    m_Localized: "E \u2014 grab mannequin"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477443
+    m_Localized: "E \u2014 cancel ready"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477444
+    m_Localized: "E \u2014 press Ready"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477445
+    m_Localized: "E \u2014 pick up: "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477446
+    m_Localized: This clothing slot is already occupied
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477447
+    m_Localized: Item
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477448
+    m_Localized: Create a lobby or join with a friend's code.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477449
+    m_Localized: Pig
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477450
+    m_Localized: The host ended the game. The host keeps the checkpoint.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477451
+    m_Localized: Leave the current session first.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477452
+    m_Localized: "Connecting to EOS\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477453
+    m_Localized: Could not start the host.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477454
+    m_Localized: Could not start the connection.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477455
+    m_Localized: "Connecting to the host\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477456
+    m_Localized: The local test port is in use.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477457
+    m_Localized: The local test could not connect.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477458
+    m_Localized: "Local test: connecting\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477459
+    m_Localized: Return to the Ready button in the starting room.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477460
+    m_Localized: Outfit rating rules could not be found.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477461
+    m_Localized: Applause!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477462
+    m_Localized: Love this outfit!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477463
+    m_Localized: Oink-oink!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477464
+    m_Localized: Connection closed. The host keeps the checkpoint.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477465
+    m_Localized: "Connection lost. Reconnecting (up to 60 seconds)\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477466
+    m_Localized: Reconnection failed. You can rejoin by code as a spectator.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477467
+    m_Localized: 'Outfit results for round '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477468
+    m_Localized: "Spectating until the next round. \u2190 / \u2192 \u2014 switch player; Esc \u2014 menu."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477469
+    m_Localized: 'Round '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477470
+    m_Localized: ". Esc \u2014 menu."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477471
+    m_Localized: 'Lobby '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477472
+    m_Localized: . Mark yourself ready.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477473
+    m_Localized: Incompatible game version.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477474
+    m_Localized: Could not verify the guest profile.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477475
+    m_Localized: The host removed you from this session.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477476
+    m_Localized: This profile is already connected.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477477
+    m_Localized: The host closed the lobby to new players.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477478
+    m_Localized: The lobby is full or changing rounds. Try again later.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477479
+    m_Localized: Go to the Ready button in the starting room.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477480
+    m_Localized: The host removed you from the session.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477481
+    m_Localized: 'Could not start the round: checkpoint could not be saved. '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477482
+    m_Localized: The host ended the session.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477483
+    m_Localized: The host did not respond. Check the code and connection, then try again.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477484
+    m_Localized: The host ended the session. The host keeps the checkpoint.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477485
+    m_Localized: Session ended. The host saved the checkpoint.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477486
+    m_Localized: "Cancelling connection\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477487
+    m_Localized: Connection cancelled.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477488
+    m_Localized: "Loading single player\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477489
+    m_Localized: "Single player. Esc \u2014 menu."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477490
+    m_Localized: 'Flashlight [F]: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477491
+    m_Localized: on
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477492
+    m_Localized: off
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477493
+    m_Localized: Stolen by a thief
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477494
+    m_Localized: 'Stolen: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477495
+    m_Localized: '
+
+      carrying: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477496
+    m_Localized: YOUR OUTFIT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477497
+    m_Localized: Close
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477498
+    m_Localized: Dropped clothes can be picked up again
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477499
+    m_Localized: Drop
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477500
+    m_Localized: Drop All
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477501
+    m_Localized: "Tab / I \u2014 inventory \xB7 Esc \u2014 close"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477502
+    m_Localized: Empty
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477503
+    m_Localized: No clothes equipped
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477504
+    m_Localized: 'Equipped: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477505
+    m_Localized: Press E at the Ready button to rate your outfit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477506
+    m_Localized: 'Ready at the entrance: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477507
+    m_Localized: "You're ready. Waiting for others \u2022 Stay near the entrance"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477508
+    m_Localized: Look at the Ready button and press E
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477509
+    m_Localized: Could not drop the item here. Try moving away from the wall.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477510
+    m_Localized: Dropped
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477511
+    m_Localized: New clothing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477512
+    m_Localized: PIGS ON THE RUNWAY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477513
+    m_Localized: Pose
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477514
+    m_Localized: Applaud
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477515
+    m_Localized: Heart
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477516
+    m_Localized: Oink!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477517
+    m_Localized: "View Scores \u2192"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477518
+    m_Localized: 'Pose: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477519
+    m_Localized: Wave
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477520
+    m_Localized: Star
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477521
+    m_Localized: Spin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477522
+    m_Localized: Player's pose
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477523
+    m_Localized: 'Walk '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477524
+    m_Localized: ' of '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477525
+    m_Localized: s until scores
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477526
+    m_Localized: s until next
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477527
+    m_Localized: " \xB7 outfit on show"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477528
+    m_Localized: OUTFIT RESULTS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477529
+    m_Localized: See how well your clothes work together
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477530
+    m_Localized: PLAYERS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477531
+    m_Localized: Left
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477532
+    m_Localized: Right
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477533
+    m_Localized: Compatibility
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477534
+    m_Localized: Colours
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477535
+    m_Localized: Patterns
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477536
+    m_Localized: Outfit completeness
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477537
+    m_Localized: WHAT WORKS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477538
+    m_Localized: WHAT TO TRY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477539
+    m_Localized: Next Round
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477540
+    m_Localized: Main Menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477541
+    m_Localized: "OUTFIT RESULTS \xB7 ROUND "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477542
+    m_Localized: Keep Searching
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477543
+    m_Localized: Waiting for host
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477544
+    m_Localized: No players with clothes yet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477545
+    m_Localized: No clothes found yet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477546
+    m_Localized: No outfit yet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477547
+    m_Localized: Not rated
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477548
+    m_Localized: Collect clothes that look good together.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477549
+    m_Localized: No clothing found yet.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477550
+    m_Localized: These clothes do not have rating rules yet.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477551
+    m_Localized: Complete look
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477552
+    m_Localized: Great combination
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477553
+    m_Localized: Promising look
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477554
+    m_Localized: Outfit in progress
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477555
+    m_Localized: Mixed look
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477556
+    m_Localized: ' and '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477557
+    m_Localized: ' go really well together.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477558
+    m_Localized: ' are the best pair in your outfit.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477559
+    m_Localized: "First item found \u2014 start building your outfit."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477560
+    m_Localized: 'Some clothes are not rated yet: rules cover '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477561
+    m_Localized: 'Missing: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477562
+    m_Localized: 'Try a different pair: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477563
+    m_Localized: Several bold patterns clash. Try adding one solid-colour item.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477564
+    m_Localized: All four pieces work together. Try experimenting with the details.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477565
+    m_Localized: headwear
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477566
+    m_Localized: top
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477567
+    m_Localized: trousers
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477568
+    m_Localized: footwear
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477569
+    m_Localized: Incompatible or damaged checkpoint.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477570
+    m_Localized: The checkpoint is damaged.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477571
+    m_Localized: READY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477572
+    m_Localized: 'Online play is not configured: svinki-eos.json is missing. See MULTIPLAYER.md.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477573
+    m_Localized: Fill in your EOS project settings in svinki-eos.json.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477574
+    m_Localized: To test EOS in the Editor on Mac, select macOS in File > Build Profiles. Test Windows builds on Windows.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477575
+    m_Localized: Initializing EOS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477576
+    m_Localized: Could not create the EOS platform. Check your project settings.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477577
+    m_Localized: Enabling relay
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477578
+    m_Localized: Creating guest profile
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477579
+    m_Localized: Creating profile
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477580
+    m_Localized: Guest sign-in
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477581
+    m_Localized: The guest profile lost its EOS connection.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477582
+    m_Localized: Creating lobby
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477583
+    m_Localized: Could not find an available code. Try again.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477584
+    m_Localized: Enter the six-digit lobby code.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477585
+    m_Localized: Finding lobby
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477586
+    m_Localized: Searching by code
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477587
+    m_Localized: The lobby was not found or is already closed.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477588
+    m_Localized: Reading lobby
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477589
+    m_Localized: Joining lobby
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477590
+    m_Localized: The host ended the session or removed you. The host keeps the checkpoint.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477591
+    m_Localized: . Check your connection and EOS settings.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477592
+    m_Localized: EOS did not respond within 25 seconds. Check your connection and try again.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477593
+    m_Localized: Online play is only available in the desktop version.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477594
+    m_Localized: Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477595
+    m_Localized: Nickname
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477596
+    m_Localized: Friend's Code
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477597
+    m_Localized: "SVINKI \u2014 Single Player"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477598
+    m_Localized: 'LOBBY  '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477599
+    m_Localized: "SVINKI \u2014 Play with Friends"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477600
+    m_Localized: 'Host: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477601
+    m_Localized: ' (you)'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477602
+    m_Localized: reconnecting
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477603
+    m_Localized: spectator
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477604
+    m_Localized: ready
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477605
+    m_Localized: not ready
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477606
+    m_Localized: '
+
+
+      Players: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477607
+    m_Localized: "/6  \xB7  Round "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477608
+    m_Localized: "  \xB7  Admission closed"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477609
+    m_Localized: "  \xB7  Admission open"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477610
+    m_Localized: Cancel Connection
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477611
+    m_Localized: Resume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477612
+    m_Localized: "Ready \u2014 Rate Outfit at Entrance"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477613
+    m_Localized: Create Lobby
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477614
+    m_Localized: Continue from Checkpoint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477615
+    m_Localized: Join by Code
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477616
+    m_Localized: Play Solo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477617
+    m_Localized: "Local test: host / client \u2014 F8 / F9"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477618
+    m_Localized: "Editor: F8 \u2014 host, F9 \u2014 localhost client; a second game instance is required."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477619
+    m_Localized: Cancel Ready
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477620
+    m_Localized: Ready
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477621
+    m_Localized: Start Round
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477622
+    m_Localized: Resume Spectating
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477623
+    m_Localized: "Ready \u2014 At Entrance"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477624
+    m_Localized: 'Copy Code: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477625
+    m_Localized: 'Code copied: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477626
+    m_Localized: Open Admission
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477627
+    m_Localized: Close Admission
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477628
+    m_Localized: End Session
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477629
+    m_Localized: Leave Session
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477630
+    m_Localized: Mouse Sensitivity
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477631
+    m_Localized: "25% \u2014 slow                         300% \u2014 fast"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477632
+    m_Localized: Reset to Default
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477633
+    m_Localized: YOUR PIG
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477634
+    m_Localized: Mix accessories, colours and patterns
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477635
+    m_Localized: Glasses & Moustache
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477636
+    m_Localized: Beard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477637
+    m_Localized: Piercings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477638
+    m_Localized: 'Eyes: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477639
+    m_Localized: open
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477640
+    m_Localized: squinting
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477641
+    m_Localized: 'Brows: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477642
+    m_Localized: relaxed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477643
+    m_Localized: raised
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477644
+    m_Localized: cheeky
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477645
+    m_Localized: 'Glasses: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477646
+    m_Localized: none
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477647
+    m_Localized: round
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477648
+    m_Localized: square
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477649
+    m_Localized: cat-eye
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477650
+    m_Localized: aviator
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477651
+    m_Localized: round sunglasses
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477652
+    m_Localized: square sunglasses
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477653
+    m_Localized: 'Mohawk: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477654
+    m_Localized: 'Skin colour: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477655
+    m_Localized: 'Pattern: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477656
+    m_Localized: 'Pattern colour: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477657
+    m_Localized: 'Hair colour: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477658
+    m_Localized: 'Moustache: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477659
+    m_Localized: curled
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477660
+    m_Localized: straight
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477661
+    m_Localized: 'Beard: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477662
+    m_Localized: 'Ear piercing: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477663
+    m_Localized: 'Brow piercing: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477664
+    m_Localized: 'Tattoo: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477665
+    m_Localized: 'Nose ring: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477666
+    m_Localized: Scroll for more. Changes are saved.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477667
+    m_Localized: yes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477668
+    m_Localized: "Chat  \xB7  Enter \u2014 send  \xB7  Esc \u2014 cancel"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477669
+    m_Localized: "Type a message\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477670
+    m_Localized: pink
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477671
+    m_Localized: cream
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477672
+    m_Localized: chocolate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477673
+    m_Localized: grey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477674
+    m_Localized: mint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477675
+    m_Localized: blue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477676
+    m_Localized: lavender
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477677
+    m_Localized: coral
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477678
+    m_Localized: brown
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477679
+    m_Localized: black
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477680
+    m_Localized: blond
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477681
+    m_Localized: white
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477682
+    m_Localized: purple
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477683
+    m_Localized: magenta
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477684
+    m_Localized: solid
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477685
+    m_Localized: spots
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477686
+    m_Localized: stripes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477687
+    m_Localized: saddle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477688
+    m_Localized: socks
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477689
+    m_Localized: heart
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477690
+    m_Localized: star
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477691
+    m_Localized: lightning
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477692
+    m_Localized: arm stripes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477693
+    m_Localized: Hat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477694
+    m_Localized: T-shirt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477695
+    m_Localized: Jeans
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477696
+    m_Localized: Sneakers
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477697
+    m_Localized: Patterned trousers
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477698
+    m_Localized: Knitted hat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477699
+    m_Localized: Camouflage long sleeve
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477700
+    m_Localized: Lace-up sneakers
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477701
+    m_Localized: Cap
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477702
+    m_Localized: Leather loafers
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477703
+    m_Localized: Light hat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477704
+    m_Localized: Light trousers
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477705
+    m_Localized: Sport sneakers
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477706
+    m_Localized: Dark T-shirt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477707
+    m_Localized: Warm sweater
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477708
+    m_Localized: Collared shirt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477709
+    m_Localized: Hoodie
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477710
+    m_Localized: Colourful T-shirt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477711
+    m_Localized: Military
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477712
+    m_Localized: Streetwear
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477713
+    m_Localized: Classic
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477714
+    m_Localized: Camouflage casual
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477715
+    m_Localized: Cozy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477716
+    m_Localized: Sport
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477717
+    m_Localized: How to Play
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477718
+    m_Localized: Language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477719
+    m_Localized: English
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477720
+    m_Localized: "\u0420\u0443\u0441\u0441\u043A\u0438\u0439"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477721
+    m_Localized: Glasses + Moustache
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477722
+    m_Localized: 'Flashlight [F]: ON'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477723
+    m_Localized: 'Flashlight [F]: OFF'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477724
+    m_Localized: 'Flashlight [F]: on'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477725
+    m_Localized: 'Flashlight [F]: off'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477726
+    m_Localized: "CHAT \xB7 ENTER TO TYPE"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477727
+    m_Localized: "Chat  \xB7  Enter \u2014 send  \xB7  Esc \u2014 cancel  \xB7  Scroll \u2014 history"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477728
+    m_Localized: CART
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477729
+    m_Localized: Store worn clothes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477730
+    m_Localized: "G / Esc \u2014 close \xB7 Items stay in this cart"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477731
+    m_Localized: Load nearby item
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477732
+    m_Localized: Wear
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477733
+    m_Localized: Unload
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477734
+    m_Localized: No floor clothes nearby. Move the cart closer.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477735
+    m_Localized: Request sent
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477736
+    m_Localized: Done
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477737
+    m_Localized: Could not transfer. Check space, clothing slot and distance.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477738
+    m_Localized: ELIMINATED
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477739
+    m_Localized: SPECTATOR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477740
+    m_Localized: 'ELIMINATED
+
+      Start the next round to play again'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477741
+    m_Localized: "SPECTATING \xB7 Waiting for a living player"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477742
+    m_Localized: "VOICE MUTED \xB7 SPECTATING"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477743
+    m_Localized: "HOLD B \xB7 VOICE \xB7 25 m"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477744
+    m_Localized: ALLOW MICROPHONE ACCESS TO USE VOICE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477745
+    m_Localized: MICROPHONE PERMISSION REQUIRED
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477746
+    m_Localized: NO MICROPHONE FOUND
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477747
+    m_Localized: MICROPHONE UNAVAILABLE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477748
+    m_Localized: MICROPHONE FORMAT UNAVAILABLE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477749
+    m_Localized: "STARTING MICROPHONE\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477750
+    m_Localized: MICROPHONE DISCONNECTED
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477751
+    m_Localized: NO MICROPHONE INPUT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477752
+    m_Localized: MICROPHONE READ FAILED
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477753
+    m_Localized: "MIC LIVE \xB7 B TO TALK \xB7 25 m"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477754
+    m_Localized: "W/S \u2014 push \u2022 A/D \u2014 steer \u2022 Shift \u2014 sprint\nLMB \u2014 launch \u2022 E \u2014 release \u2022 G \u2014 storage"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477755
+    m_Localized: "You're riding! E / Space \u2014 hop out \u2022 G \u2014 storage"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477756
+    m_Localized: "LMB \u2014 hit with monkey \u2022 RMB / E \u2014 release\nOne hit only \xB7 Stuns aggressive mannequins for 30 seconds"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477757
+    m_Localized: "E \u2014 grab monkey toy"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477758
+    m_Localized: "E \u2014 push cart \u2022 R \u2014 ride \u2022 G \u2014 storage"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477759
+    m_Localized: You already have a camera
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477760
+    m_Localized: "E \u2014 pick up camera \xB7 K \u2014 equip \xB7 P \u2014 album"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477761
+    m_Localized: ROUND PHOTO ALBUM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477762
+    m_Localized: No photos yet. Press K to equip your camera, then LMB.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477763
+    m_Localized: "\u2190 Previous"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477764
+    m_Localized: "Next \u2192"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477765
+    m_Localized: "Close \xB7 P / Esc"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477766
+    m_Localized: "Photo albums \u2192"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477767
+    m_Localized: ROUND PHOTO ALBUMS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477768
+    m_Localized: Choose a player and browse their round photos
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477769
+    m_Localized: "\u2190 Outfit scores"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477770
+    m_Localized: "Receiving album\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477771
+    m_Localized: "Receiving this player's photos\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477772
+    m_Localized: This player did not take any photos this round.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477773
+    m_Localized: "Ghost \xB7 eliminated"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477774
+    m_Localized: "Eliminated \xB7 original pig appearance"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477775
+    m_Localized: 'EMOTES
+
+      <size=19>Move to choose</size>'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477776
+    m_Localized: Cheer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477777
+    m_Localized: Clap
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477778
+    m_Localized: Dance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477779
+    m_Localized: Laugh
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477780
+    m_Localized: Shrug
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477781
+    m_Localized: WAVE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477782
+    m_Localized: CHEER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477783
+    m_Localized: CLAP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477784
+    m_Localized: DANCE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477785
+    m_Localized: LAUGH
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477786
+    m_Localized: SHRUG
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477787
+    m_Localized: "HOLD V \u2014 EMOTES"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477788
+    m_Localized: "Release V to play \xB7 RMB / Esc to cancel"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477789
+    m_Localized: Headwear
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477790
+    m_Localized: Top
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477791
+    m_Localized: Trousers
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477792
+    m_Localized: Footwear
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477793
+    m_Localized: HOW TO PLAY SVINKI
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477794
+    m_Localized: Find an outfit. Keep an eye on the mannequins. Meet your friends at the entrance.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477795
+    m_Localized: Continue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477796
+    m_Localized: Back to game / menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477797
+    m_Localized: "Got it \u2014 Continue"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477798
+    m_Localized: Movement & HUD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477799
+    m_Localized: Clothes & round
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477800
+    m_Localized: Carts & toys
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477801
+    m_Localized: Friends & danger
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477802
+    m_Localized: Camera & photos
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477803
+    m_Localized: LOBBY  {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477804
+    m_Localized: 'Copy Code: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477805
+    m_Localized: 'Code copied: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477806
+    m_Localized: Outfit results for round {0}.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477807
+    m_Localized: "Round {0}. Esc \u2014 menu."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477808
+    m_Localized: Lobby {0}. Mark yourself ready.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477809
+    m_Localized: 'Could not start the round: checkpoint could not be saved. {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477810
+    m_Localized: '{0}. Check your connection and EOS settings.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477811
+    m_Localized: HITS LEFT  {0} / 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477812
+    m_Localized: "SPECTATING {0}\n\u2190 / \u2192 \u2014 switch player \xB7 Next round: respawn"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477813
+    m_Localized: "ELIMINATED \xB7 SPECTATING {0}\n\u2190 / \u2192 \u2014 switch player \xB7 Next round: respawn"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477814
+    m_Localized: 'Equipped: {0} / 4'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477815
+    m_Localized: 'Ready at the entrance: {0}/{1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477816
+    m_Localized: 'Ready at the entrance: {0} / {1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477817
+    m_Localized: CART STORAGE  {0} / {1}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477818
+    m_Localized: SHUTTER READY IN  {0}s
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477819
+    m_Localized: "LMB \u2014 take photo   \xB7   K / RMB \u2014 stow   \xB7   P \u2014 album ({0})"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477820
+    m_Localized: "PHOTO {0} / {1}  \xB7  Latest {2} pictures are kept this round"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477821
+    m_Localized: "PHOTO {0} / {1} \xB7 latest {2} pictures from this round"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477822
+    m_Localized: "PHOTO {0} / {1} \xB7 receiving {2} photos"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477823
+    m_Localized: '{0}
+
+      {1} photos'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477824
+    m_Localized: "{0}\nReceiving album\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477825
+    m_Localized: "{0} \u2014 photo album"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477826
+    m_Localized: "{0} \xB7 ghost photographer \u2014 photo album"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477827
+    m_Localized: "{0} \xB7 ghost"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477828
+    m_Localized: "{0} \xB7 ghost \u2014 eliminated"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477829
+    m_Localized: "{0} \xB7 outfit on show"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477830
+    m_Localized: "{0}. {1}\nGhost \xB7 eliminated"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477831
+    m_Localized: '{0}. {1}
+
+      {2} / 100'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477832
+    m_Localized: "OUTFIT RESULTS \xB7 ROUND {0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477833
+    m_Localized: "Walk {0} of {1} \xB7 {2}s until scores"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477834
+    m_Localized: "Walk {0} of {1} \xB7 {2}s until next"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477835
+    m_Localized: "Page {0} / {1}  \xB7  Use the tabs  \xB7  F1 \u2014 guide  \xB7  Esc \u2014 back"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477836
+    m_Localized: 'Eyes: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477837
+    m_Localized: 'Brows: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477838
+    m_Localized: 'Glasses: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477839
+    m_Localized: 'Mohawk: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477840
+    m_Localized: 'Skin colour: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477841
+    m_Localized: 'Pattern: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477842
+    m_Localized: 'Pattern colour: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477843
+    m_Localized: 'Hair colour: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477844
+    m_Localized: 'Moustache: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477845
+    m_Localized: 'Beard: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477846
+    m_Localized: 'Ear piercing: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477847
+    m_Localized: 'Brow piercing: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477848
+    m_Localized: 'Tattoo: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477849
+    m_Localized: 'Nose ring: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477850
+    m_Localized: 'Pose: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477851
+    m_Localized: "E \u2014 pick up: {0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477852
+    m_Localized: 'Stolen: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477853
+    m_Localized: 'Stolen by a thief: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477854
+    m_Localized: 'Dropped: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477855
+    m_Localized: 'New clothing: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477856
+    m_Localized: 'Missing: {0}.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477857
+    m_Localized: '{0} and {1} go really well together.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477858
+    m_Localized: '{0} and {1} are the best pair in your outfit.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477859
+    m_Localized: 'Try a different pair: {0} + {1}.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477860
+    m_Localized: '{0}. {1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477861
+    m_Localized: '{0}
+
+      <size=19>Release V</size>'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477862
+    m_Localized: 'Some clothes are not rated yet: rules cover {0} of {1}.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477863
+    m_Localized: W A S D / arrows
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477864
+    m_Localized: Move around the store
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477865
+    m_Localized: Mouse
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477866
+    m_Localized: Look around and aim at items
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477867
+    m_Localized: Shift
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477868
+    m_Localized: Hold to sprint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477869
+    m_Localized: Space
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477870
+    m_Localized: Jump
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477871
+    m_Localized: Ctrl
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477872
+    m_Localized: Hold to crouch; look under displays
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477873
+    m_Localized: F
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477874
+    m_Localized: Toggle your flashlight
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477875
+    m_Localized: Esc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477876
+    m_Localized: Open the menu or close the current panel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477877
+    m_Localized: F1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477878
+    m_Localized: Open this guide again
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477879
+    m_Localized: E
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477880
+    m_Localized: Collect the clothing under your crosshair
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477881
+    m_Localized: Tab / I
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477882
+    m_Localized: Open your outfit inventory
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477883
+    m_Localized: Inventory buttons
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477884
+    m_Localized: Drop one piece or your whole outfit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477885
+    m_Localized: E at READY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477886
+    m_Localized: Finish at the entrance when everyone is ready
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477887
+    m_Localized: Ready / Start
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477888
+    m_Localized: In the lobby, everyone readies; the host starts
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477889
+    m_Localized: The host returns everyone to the lobby
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477890
+    m_Localized: Pig customisation
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477891
+    m_Localized: "Choose your pig\u2019s face, skin and accessories"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477892
+    m_Localized: Change language or mouse sensitivity
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477893
+    m_Localized: E at cart
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477894
+    m_Localized: Push a cart; E again releases it
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477895
+    m_Localized: R at cart
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477896
+    m_Localized: Ride in the basket
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477897
+    m_Localized: "W/S \xB7 A/D"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477898
+    m_Localized: Push forward/backward and steer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477899
+    m_Localized: "Shift \xB7 LMB"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477900
+    m_Localized: Sprint with a cart; left click launches it
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477901
+    m_Localized: E / Space
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477902
+    m_Localized: Leave the cart basket
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477903
+    m_Localized: G
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477904
+    m_Localized: Open cart cargo to store, wear or unload clothes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477905
+    m_Localized: E at toy / figure
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477906
+    m_Localized: Grab with free hands
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477907
+    m_Localized: "LMB \xB7 RMB / E"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477908
+    m_Localized: 'LMB: attack / throw. RMB or E: release'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477909
+    m_Localized: Hold B
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477910
+    m_Localized: Talk nearby; release to mute
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477911
+    m_Localized: Enter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477912
+    m_Localized: Open text chat; Enter again sends
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477913
+    m_Localized: Esc in chat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477914
+    m_Localized: Cancel the message
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477915
+    m_Localized: Mouse wheel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477916
+    m_Localized: Scroll chat history while chat is open
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477917
+    m_Localized: Hold V
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477918
+    m_Localized: Open the emote wheel; aim and release V to choose
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477919
+    m_Localized: Esc / RMB
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477920
+    m_Localized: Cancel the emote wheel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477921
+    m_Localized: Left / Right
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477922
+    m_Localized: Switch living players while spectating
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477923
+    m_Localized: Lobby code
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477924
+    m_Localized: Copy the code and share it with friends
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477925
+    m_Localized: Your camera
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477926
+    m_Localized: Always with you from the start of each round
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477927
+    m_Localized: K
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477928
+    m_Localized: Equip or stow your camera with free hands
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477929
+    m_Localized: LMB with camera
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477930
+    m_Localized: Take a photo for your album
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477931
+    m_Localized: RMB / E
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477932
+    m_Localized: Stow your camera
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477933
+    m_Localized: P
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477934
+    m_Localized: Open or close your round photo album
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477935
+    m_Localized: Browse photos while the album is open
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477936
+    m_Localized: Photo albums in results
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477937
+    m_Localized: "View everyone\u2019s photos after the runway"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477938
+    m_Localized: Esc in album
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477939
+    m_Localized: Close the album and return to the game
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477940
+    m_Localized: 'FIND YOUR WAY
+
+      The store has offset departments, side routes and concealed shelves. Search behind displays and inside stock cabinets.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477941
+    m_Localized: 'NEARBY MAP
+
+      The map follows you and shows your room and nearby departments. It follows the selected player while spectating.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477942
+    m_Localized: 'PLAYER COLOURS
+
+      Each arrow and through-wall nickname share a unique colour, kept across rounds and reconnects. Carts: yellow squares. READY: green R.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477943
+    m_Localized: 'LIVE PIG & ITEMS
+
+      The side pig mirrors your appearance and outfit. Aim at items for an E prompt; crouch to inspect low shelves.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477944
+    m_Localized: 'BUILD A LOOK
+
+      Collect headwear, a top, trousers and footwear. Your inventory shows the four slots; drop a piece to make room for another.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477945
+    m_Localized: 'NEW ROUND, NEW SEARCH
+
+      Clothing changes hiding spots each round. Mannequins, carts and toys also get new reachable spawn positions.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477946
+    m_Localized: 'RETURN TO THE ENTRANCE
+
+      READY is on the left wall towards the back of the entrance. Gather together; leaving the zone or changing your outfit cancels readiness.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477947
+    m_Localized: 'FASHION SHOW
+
+      Everyone sees the runway and outfit scores. Old and new clothes share one rating system. The 16 example sets guide colours, patterns and combinations. Mix your own look. Eliminated pigs appear as ghosts.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477948
+    m_Localized: 'THREE SHARED CARTS
+
+      A cart has one driver and one passenger. Wall collisions stop it; a launched cart can knock down other pigs.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477949
+    m_Localized: 'EIGHT STORAGE SLOTS
+
+      Cargo carries spare garments, including several pieces for the same clothing slot. Transfer items while the cart is stopped or moving slowly.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477950
+    m_Localized: 'ONE MONKEY PER PLAYER
+
+      Toys spawn at random reachable spots. One successful hit consumes a toy, even against an ordinary mannequin; a miss keeps it.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477951
+    m_Localized: 'THIRTY-SECOND STUN
+
+      A toy hit knocks an aggressive mannequin down for 30 seconds. You need free hands and cannot carry a toy while using a cart.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477952
+    m_Localized: 'PROXIMITY VOICE
+
+      Full volume nearby, fading to silence at 25 metres. Your microphone is active only while B is held; allow microphone access when prompted.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477953
+    m_Localized: 'WATCH THE MANNEQUINS
+
+      Aggressive mannequins freeze while a living player sees them. Coordinate who keeps watch while friends search.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477954
+    m_Localized: 'TWO HITS
+
+      The first aggressive hit knocks you down. The second eliminates you until the next round; you drop your clothes and spectate friends.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477955
+    m_Localized: 'THIEVES & CHAT
+
+      Small thieves steal clothing and take it to their nest. Messages appear above pigs and stay in the side history. Emotes need free hands; voice is muted after death.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477956
+    m_Localized: 'ALWAYS WITH YOU
+
+      Every pig starts with a camera. Press K to equip or stow it; no pickup is needed. Stowing frees your hands for toys and carts.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477957
+    m_Localized: 'CHEAP CAMERA PHOTOS
+
+      Pictures have chunky pixels, grain and compression artefacts. The viewfinder marks the photo area; the shutter needs 1 second.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477958
+    m_Localized: 'ROUND PHOTO ALBUM
+
+      LMB takes a photo; P opens your latest 12 pictures. Photos exclude the HUD. Your latest 12 are shared in Photo albums beside the outfit scores, including after death.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477959
+    m_Localized: 'STORE MANNEQUINS
+
+      40 neutral displays and 8 attackers spawn in new spots each round. Neutral figures can be carried and thrown. The camera flash is cosmetic and never stuns mannequins. The entrance stays clear.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477960
+    m_Localized: Load nearest floor item
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477961
+    m_Localized: "HOLD V \xB7 EMOTES"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477962
+    m_Localized: "Release V to perform  \xB7  Esc to cancel"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477963
+    m_Localized: Golden trousers
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477964
+    m_Localized: Autumn camouflage trousers
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477965
+    m_Localized: Grey camouflage trousers
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477966
+    m_Localized: Pink dotted trousers
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477967
+    m_Localized: Patterned loafers
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477968
+    m_Localized: Speckled sneakers
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477969
+    m_Localized: Speckled hat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477970
+    m_Localized: Tiger T-shirt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477971
+    m_Localized: Sakura T-shirt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477972
+    m_Localized: Cream floral T-shirt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477973
+    m_Localized: Yellow floral T-shirt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477974
+    m_Localized: Striped sweater
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477975
+    m_Localized: Blue sweater
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477976
+    m_Localized: Autumn sweater
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477977
+    m_Localized: Checked sweater
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477978
+    m_Localized: Floral sweater
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477979
+    m_Localized: Green camouflage long sleeve
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477980
+    m_Localized: Grey camouflage hoodie
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477981
+    m_Localized: Brown patterned hoodie
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477982
+    m_Localized: Desert camouflage T-shirt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477983
+    m_Localized: Camouflage cap
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477984
+    m_Localized: Woven cap
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477985
+    m_Localized: HEADWEAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477986
+    m_Localized: TOP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477987
+    m_Localized: TROUSERS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477988
+    m_Localized: FOOTWEAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477989
+    m_Localized: '<size=18>0{0}</size>
+
+      {1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477990
+    m_Localized: "Players: {0}/6  \xB7  Round {1}{2}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477991
+    m_Localized: "{0}{1}{2} \u2014 {3}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636477992
+    m_Localized: '{0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 536991490048
+    m_Localized: AFTER HOURS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 536995684352
+    m_Localized: 03 / BOUTIQUE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 536995684353
+    m_Localized: 04 / ATELIER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 536995684354
+    m_Localized: FITTING ROOMS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 536995684355
+    m_Localized: COLLECTION ARCHIVE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 536995684356
+    m_Localized: STAFF ONLY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 536995684357
+    m_Localized: GALLERY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 536995684358
+    m_Localized: LOOK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 536995684359
+    m_Localized: AGAIN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 536995684360
+    m_Localized: PEACH / NEW COLLECTION
+    m_Metadata:
+      m_Items: []
+  - m_Id: 536995684361
+    m_Localized: 11 / VINTAGE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 536995684362
+    m_Localized: 12 / SPORTS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 536995684363
+    m_Localized: 13 / LOUNGE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 536995684364
+    m_Localized: 14 / SHOWROOM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 536995684365
+    m_Localized: COLOUR LAB
+    m_Metadata:
+      m_Items: []
+  - m_Id: 536995684366
+    m_Localized: DENIM ARCADE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 536995684367
+    m_Localized: STREET MARKET
+    m_Metadata:
+      m_Items: []
+  - m_Id: 536995684368
+    m_Localized: THE TAILOR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 536995684369
+    m_Localized: NEON LOUNGE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 536995684370
+    m_Localized: SPORTS CLUB
+    m_Metadata:
+      m_Items: []
+  - m_Id: 536995684371
+    m_Localized: SUMMER COURT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 536995684372
+    m_Localized: WINTER CABIN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 536995684373
+    m_Localized: PRINT GALLERY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 536995684374
+    m_Localized: SHOE VAULT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 536995684375
+    m_Localized: ACCESSORY BAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 536995684376
+    m_Localized: COLLECTIONS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 536995684377
+    m_Localized: COUTURE SALON
+    m_Metadata:
+      m_Items: []
+  - m_Id: 536995684378
+    m_Localized: CARGO DEPOT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 536995684379
+    m_Localized: LIFESTYLE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 536995684380
+    m_Localized: THE OUTLET
+    m_Metadata:
+      m_Items: []
+  - m_Id: 536995684381
+    m_Localized: '[E] Pick up: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 536995684382
+    m_Localized: 'Thief stole: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 536995684383
+    m_Localized: Torso
+    m_Metadata:
+      m_Items: []
+  - m_Id: 536995684384
+    m_Localized: Legs
+    m_Metadata:
+      m_Items: []
+  - m_Id: 536995684385
+    m_Localized: Feet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 536995684386
+    m_Localized: '{0}: Applause!'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 536995684387
+    m_Localized: '{0}: Love this outfit!'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 536995684388
+    m_Localized: '{0}: Oink-oink!'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 116410192748544
+    m_Localized: "STORE MAP \xB7 NORTH"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 116410201137152
+    m_Localized: "Players \u25B2 \xB7 Carts \u25A0 \xB7 Entrance R\nNames match player colours"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 116410201137153
+    m_Localized: NEXT ROUND
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1376394830405632
+    m_Localized: 'Music volume: {0}%'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1376394842988544
+    m_Localized: Ball
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1376394842988545
+    m_Localized: BALL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1376394842988546
+    m_Localized: 'BALL
+
+      <size=19>Release V</size>'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1376394842988547
+    m_Localized: "Space / Ctrl \u2014 leave ball form"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1376394842988548
+    m_Localized: "E \u2014 place body in cart"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1376394842988549
+    m_Localized: "E / RMB \u2014 put down body"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1376394842988550
+    m_Localized: "LMB \u2014 throw player ball \xB7 E / RMB \u2014 put down"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1376394842988551
+    m_Localized: "E \u2014 enlarge photo"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1376394842988552
+    m_Localized: "E \u2014 carry body \xB7 put it in a loaded cart and bring it to the lift"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1376394842988553
+    m_Localized: "E \u2014 pick up player ball"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1376394842988554
+    m_Localized: FULL SCREEN / WINDOW
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1376394842988555
+    m_Localized: Click a photo to enlarge it
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1376394842988556
+    m_Localized: EMPTY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1376394842988557
+    m_Localized: Choose a slot on the locker
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1376394842988558
+    m_Localized: PLACE SELECTED PHOTO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1376394842988559
+    m_Localized: VIEW PINNED PHOTO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1376394842988560
+    m_Localized: OUTFIT MEMORIES
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1376394842988561
+    m_Localized: WEAR OUTFIT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1376394842988562
+    m_Localized: Save your chosen outfits during the runway show
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1376394842988563
+    m_Localized: No saved outfits yet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1376394842988564
+    m_Localized: "OUTFIT MEMORY {0} / {1} \xB7 ROUND {2}\n{3}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1376394842988565
+    m_Localized: SAVE OUTFIT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1376394842988566
+    m_Localized: Player's turn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1376394842988567
+    m_Localized: "WASD \u2014 walk \xB7 Space \u2014 jump \xB7 Ctrl \u2014 crouch \xB7 V \u2014 emotes"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1376394842988568
+    m_Localized: "Ghost flight \xB7 WASD \u2014 move \xB7 Space / Ctrl \u2014 up / down \xB7 Shift \u2014 faster"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1376394842988569
+    m_Localized: Outfit saved to your locker
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1395474048212992
+    m_Localized: "CLOSE \xB7 ESC"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1395474060795904
+    m_Localized: OPEN / CLOSE DOOR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1395474060795905
+    m_Localized: PREVIOUS PHOTO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1395474060795906
+    m_Localized: NEXT PHOTO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1395474060795907
+    m_Localized: SAVED PHOTO {0} / {1}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1395474060795908
+    m_Localized: PLAYER LOCKER {0}
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

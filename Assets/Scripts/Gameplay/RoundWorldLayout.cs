@@ -16,6 +16,7 @@ public sealed class RoundWorldLayout : MonoBehaviour
     private readonly Collider[] overlaps = new Collider[128];
     private System.Random random;
     private StoreMap map;
+    private bool populationChosen;
     private NavMeshPath path;
     private Vector3 entrance;
     public int Seed { get; private set; }
@@ -32,9 +33,21 @@ public sealed class RoundWorldLayout : MonoBehaviour
     {
         Seed = seed; random = new System.Random(seed); placements.Clear(); relocating.Clear(); path = new NavMeshPath();
         map = gameObject.scene.GetRootGameObjects().SelectMany(r => r.GetComponentsInChildren<StoreMap>(true)).FirstOrDefault();
+        if (!populationChosen)
+        {
+            populationChosen = true;
+        var hostile = gameObject.scene.GetRootGameObjects().SelectMany(r => r.GetComponentsInChildren<MannequinBrain>())
+            .Where(b => b.enabled).OrderBy(b => b.name, StringComparer.Ordinal).ToArray();
+        int keep = Mathf.Max(1, Mathf.RoundToInt(hostile.Length / 1.5f));
+        foreach (var extra in hostile.Skip(keep))
+        {
+            var online = extra.GetComponent<NetworkMannequinAuthority>();
+            if (online != null) online.SetRoundActive(false); else extra.gameObject.SetActive(false);
+        }
+        }
         var targets = gameObject.scene.GetRootGameObjects().SelectMany(r => r.GetComponentsInChildren<Transform>(true))
-            .Where(t => t.GetComponent<ShoppingCart>() != null || t.GetComponent<ThrowableMannequin>() != null ||
-                t.GetComponent<MannequinBrain>() != null || t.GetComponent<ThiefBrain>() != null).OrderBy(t => t.name, StringComparer.Ordinal).ToArray();
+            .Where(t => t.gameObject.activeInHierarchy && t.GetComponent<FixedFactoryDisplay>() == null && (t.GetComponent<ShoppingCart>() != null || t.GetComponent<ThrowableMannequin>() != null ||
+                t.GetComponent<MannequinBrain>()?.enabled == true || t.GetComponent<ThiefBrain>() != null)).OrderBy(t => t.name, StringComparer.Ordinal).ToArray();
         foreach (var target in targets)
         {
             relocating.Add(target);

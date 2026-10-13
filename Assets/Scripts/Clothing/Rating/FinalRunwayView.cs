@@ -6,7 +6,19 @@ using UnityEngine;
 /// <summary>A local stage driven by the shared server result snapshot; inventories stay untouched.</summary>
 public sealed class FinalRunwayView : MonoBehaviour
 {
-    public const float SecondsPerPlayer = 8;
+    public const float SecondsPerPlayer = 10;
+    public static FinalRunwayView Active { get; private set; }
+    public bool OwnControl => Showing && results != null && index >= 0 && index < results.entries.Length && (lobby.Offline || results.entries[index].id == lobby.Identity);
+    private RunwayMovement localMovement;
+    private float jumpVelocity, nextMovementSend;
+    private TMP_Text controlHint;
+    public void Emote(PigEmote kind)
+    {
+        if (!OwnControl) return;
+        localMovement.emote = (int)kind; localMovement.emoteAt = lobby.RunwayElapsed;
+        lobby.SubmitRunwayMovement(localMovement);
+    }
+
     private NetworkLobby lobby;
     private GameObject panel, stage, pig;
     private TMP_FontAsset font;
@@ -25,7 +37,7 @@ public sealed class FinalRunwayView : MonoBehaviour
 
     public void Build(Transform parent, TMP_FontAsset menuFont, NetworkLobby session)
     {
-        lobby = session; font = menuFont;
+        lobby = session; font = menuFont; Active = this;
         panel = new GameObject("Final Runway", typeof(RectTransform), typeof(UnityEngine.UI.Image));
         panel.transform.SetParent(parent, false);
         var root = (RectTransform)panel.transform; root.anchorMin = Vector2.zero; root.anchorMax = Vector2.one;
@@ -36,25 +48,29 @@ public sealed class FinalRunwayView : MonoBehaviour
         var portrait = Rect("Runway stage", 70, 157, 1420, 570);
         var raw = portrait.gameObject.AddComponent<UnityEngine.UI.RawImage>(); raw.raycastTarget = false;
         CreateStage(raw);
-        progress = Label("", 90, 740, 1000, 40, 23);
-        reaction = Label("", 90, 785, 1000, 36, 25); reaction.color = new Color(1, .72f, .46f);
-        poseButton = Button("Pose", 90, 841, 220, () =>
+        progress = Label("", 90, 735, 1000, 30, 23);
+        reaction = Label("", 90, 775, 1000, 26, 20); reaction.color = new Color(1, .72f, .46f);
+        poseButton = Button("SAVE OUTFIT", 90, 841, 220, () =>
         {
-            if (results == null || index < 0) return;
-            localPose = (localPose + 1) % 3; poseUntil = Time.unscaledTime + 2;
-            lobby.RunwayPose(localPose);
+            if (OwnControl && !results.entries[index].eliminated)
+            {
+                bool saved = OutfitMemoryStore.Save(results.entries[index], results.round);
+                GameLanguage.Set(reaction, saved ? "Outfit saved to your locker" : OutfitMemoryStore.Error ?? "Could not save outfit");
+                reactionUntil = Time.unscaledTime + 3;
+            }
         });
         poseLabel = poseButton.GetComponentInChildren<TMP_Text>();
         Button("Applaud", 330, 841, 270, () => React("clap"));
         Button("Heart", 620, 841, 230, () => React("heart"));
         Button("Oink!", 870, 841, 190, () => React("oink"));
         Button("View Scores →", 1120, 841, 360, Skip);
+        controlHint = Label("WASD — walk · Space — jump · Ctrl — crouch · V — emotes", 90, 810, 1370, 28, 19);
         panel.SetActive(false);
     }
     public void Begin(OutfitRoundResults snapshot)
     {
         results = snapshot; start = Time.unscaledTime; index = -1; localPose = 0;
-        seenReaction = lobby.Snapshot.runwayReactionSequence; reactionUntil = 0; reaction.text = "";
+        seenReaction = lobby.Snapshot.runwayReactionSequence; reactionUntil = 0; GameLanguage.Set(reaction, "");
         panel.SetActive(snapshot != null && snapshot.entries.Length > 0);
         if (Showing) Tick(snapshot);
     }
@@ -64,21 +80,23 @@ public sealed class FinalRunwayView : MonoBehaviour
     {
         if (!Showing || snapshot == null) return;
         results = snapshot;
-        float elapsed = Time.unscaledTime - start;
+        float elapsed = lobby.RunwayElapsed;
         int next = Mathf.FloorToInt(elapsed / SecondsPerPlayer);
         if (next >= results.entries.Length) { Skip(); return; }
         if (next != index) { index = next; Present(results.entries[index]); }
         var entry = results.entries[index];
         bool own = lobby.Offline || entry.id == lobby.Identity;
-        poseButton.interactable = own;
-        poseLabel.text = own ? "Pose: " + (entry.presentationPose == 1 ? "Wave" : entry.presentationPose == 2 ? "Star" : "Spin") : "Player's pose";
-        progress.text = "Walk " + (index + 1) + " of " + results.entries.Length + " · " + Mathf.CeilToInt(SecondsPerPlayer - elapsed % SecondsPerPlayer) + (index + 1 == results.entries.Length ? "s until scores" : "s until next");
+        poseButton.interactable = own && !entry.eliminated;
+        controlHint.gameObject.SetActive(own);
+        if (own) ReadMovement();
+        GameLanguage.Set(poseLabel, own ? "SAVE OUTFIT" : "Player's turn");
+        GameLanguage.Set(progress, "Walk " + (index + 1) + " of " + results.entries.Length + " · " + Mathf.CeilToInt(SecondsPerPlayer - elapsed % SecondsPerPlayer) + (index + 1 == results.entries.Length ? "s until scores" : "s until next"));
         if (lobby.Snapshot.runwayReactionSequence != seenReaction)
         {
             seenReaction = lobby.Snapshot.runwayReactionSequence;
-            reaction.text = lobby.Snapshot.runwayReaction; reactionUntil = Time.unscaledTime + 3;
+            GameLanguage.Set(reaction, lobby.Snapshot.runwayReaction); reactionUntil = Time.unscaledTime + 3;
         }
-        if (Time.unscaledTime > reactionUntil) reaction.text = "";
+        if (Time.unscaledTime > reactionUntil) GameLanguage.Set(reaction, "");
         Animate(elapsed % SecondsPerPlayer, Time.unscaledTime < poseUntil && own ? localPose : entry.presentationPose);
         if (Time.unscaledTime >= nextRender)
         { nextRender = Time.unscaledTime + 1f / 25; cameraStage.Render(); }
@@ -86,12 +104,12 @@ public sealed class FinalRunwayView : MonoBehaviour
     private void React(string kind)
     {
         lobby.RunwayReact(kind);
-        if (lobby.Offline) { reaction.text = lobby.Nickname + ": " + NetworkLobby.ReactionText(kind); reactionUntil = Time.unscaledTime + 3; }
+        if (lobby.Offline) { GameLanguage.Set(reaction, lobby.Nickname + ": " + NetworkLobby.ReactionText(kind)); reactionUntil = Time.unscaledTime + 3; }
     }
     private void Present(OutfitResultEntry entry)
     {
-        ClearPig(); localPose = 0;
-        nameLabel.text = entry.nickname + (entry.eliminated ? " · ghost — eliminated" : " · outfit on show");
+        ClearPig(); localPose = 0; localMovement = entry.movement; jumpVelocity = 0; nextMovementSend = 0;
+        GameLanguage.Set(nameLabel, entry.nickname + (entry.eliminated ? " · ghost — eliminated" : " · outfit on show"));
         var prefab = Resources.Load<GameObject>("Pigs/PigAvatar"); if (prefab == null) return;
         pig = Instantiate(prefab, stage.transform); pig.name = "Runway Pig";
         var motion = pig.GetComponent<PigMotion>(); if (motion != null) motion.enabled = false;
@@ -108,35 +126,42 @@ public sealed class FinalRunwayView : MonoBehaviour
         foreach (Transform part in pig.GetComponentsInChildren<Transform>(true)) part.gameObject.layer = 30;
         if (entry.eliminated) { pig.name = "Runway Ghost Pig"; pig.AddComponent<RunwayGhost>().Apply(); }
     }
+    private void ReadMovement()
+    {
+        var keys = UnityEngine.InputSystem.Keyboard.current;
+        float dt = Mathf.Min(Time.unscaledDeltaTime, .1f);
+        bool allowed = !EmoteWheel.BlocksInput && !HowToPlay.BlocksInput && !PhotoAlbum.BlocksInput && !PlayerChat.BlocksInput;
+        var input = allowed ? GrayboxPlayerController.ReadMoveInput() : Vector2.zero;
+        localMovement.crouch = allowed && (keys?.leftCtrlKey.isPressed == true || keys?.rightCtrlKey.isPressed == true) ? 1 : 0;
+        localMovement.position += new Vector3(input.x, 0, input.y) * dt * (localMovement.crouch > 0 ? 1 : 2.2f);
+        if (input.sqrMagnitude > .01f) localMovement.yaw = Mathf.Atan2(input.x, input.y) * Mathf.Rad2Deg;
+        if (allowed && keys?.spaceKey.wasPressedThisFrame == true && localMovement.position.y <= .001f) jumpVelocity = 5;
+        jumpVelocity -= dt * 12; localMovement.position.y = Mathf.Max(0, localMovement.position.y + jumpVelocity * dt);
+        if (localMovement.position.y <= 0) jumpVelocity = 0;
+        localMovement.position.x = Mathf.Clamp(localMovement.position.x, -.85f, .85f); localMovement.position.z = Mathf.Clamp(localMovement.position.z, -3.5f, 1.1f);
+        if (Time.unscaledTime >= nextMovementSend) { nextMovementSend = Time.unscaledTime + .05f; lobby.SubmitRunwayMovement(localMovement); }
+    }
     private void Animate(float time, int pose)
     {
         if (pig == null) return;
         foreach (var pair in rest) if (pair.Key != null) pair.Key.localRotation = pair.Value;
-        bool walking = time < 2 || time > 6;
-        float z = time < 2 ? Mathf.SmoothStep(-2.7f, .5f, time / 2) : time > 6 ? Mathf.SmoothStep(.5f, -2.7f, (time - 6) / 2) : .5f;
-        pig.transform.localPosition = new Vector3(0, walking ? Mathf.Abs(Mathf.Sin(time * 9)) * .025f : .008f * Mathf.Sin(time * 3), z);
-        pig.transform.localRotation = Quaternion.Euler(0, time > 6 ? 180 : time < 2 ? 0 : pose == 0 ? (time - 2) * 90 : 0, 0);
-        if (results.entries[index].eliminated)
-        {
-            pig.transform.localPosition += Vector3.up * (.18f + .045f * Mathf.Sin(time * 3));
-            Bone("UpperArm_L", new Vector3(0, 0, 18)); Bone("UpperArm_R", new Vector3(0, 0, -18));
-            if (!walking && pose == 1)
-            { Bone("UpperArm_R", new Vector3(-35, 0, -105)); Bone("Forearm_R", new Vector3(0, 0, Mathf.Sin(time * 10) * 25)); }
-            else if (!walking && pose == 2)
-            { Bone("UpperArm_L", new Vector3(0, 0, 110)); Bone("UpperArm_R", new Vector3(0, 0, -110)); }
-            return;
-        }
-        if (walking)
-        {
-            float step = Mathf.Sin(time * 9) * 22;
-            Bone("Thigh_L", new Vector3(step, 0, 0)); Bone("Thigh_R", new Vector3(-step, 0, 0));
-            Bone("UpperArm_L", new Vector3(-step * .7f, 0, 0)); Bone("UpperArm_R", new Vector3(step * .7f, 0, 0));
-        }
-        else if (pose == 1)
-        { Bone("UpperArm_R", new Vector3(-35, 0, -105)); Bone("Forearm_R", new Vector3(0, 0, Mathf.Sin(time * 10) * 25)); }
-        else if (pose == 2)
-        { Bone("UpperArm_L", new Vector3(0, 0, 110)); Bone("UpperArm_R", new Vector3(0, 0, -110)); Bone("Head", new Vector3(0, 0, Mathf.Sin(time * 3) * 9)); }
+        var entry = results.entries[index]; var movement = OwnControl ? localMovement : entry.movement;
+        pig.transform.localPosition = movement.position + Vector3.up * (entry.eliminated ? .18f : 0);
+        pig.transform.localRotation = Quaternion.Euler(0, movement.yaw, 0);
+        pig.transform.localScale = new Vector3(1 + movement.crouch * .25f, 1 - movement.crouch * .42f, 1 + movement.crouch * .2f);
+        bool walking = OwnControl && GrayboxPlayerController.ReadMoveInput().sqrMagnitude > .01f;
+        if (!OwnControl) walking = Vector3.Distance(pig.transform.localPosition, previousPresentedPosition) > .002f;
+        previousPresentedPosition = pig.transform.localPosition;
+        float step = walking ? Mathf.Sin(Time.unscaledTime * 9) * 22 : 0;
+        Bone("Thigh_L", new Vector3(step, 0, 0)); Bone("Thigh_R", new Vector3(-step, 0, 0));
+        Bone("UpperArm_L", new Vector3(-step * .7f, 0, 0)); Bone("UpperArm_R", new Vector3(step * .7f, 0, 0));
+        if (movement.position.y > .05f) { Bone("Thigh_L", new Vector3(-18, 0, 0)); Bone("Thigh_R", new Vector3(-18, 0, 0)); }
+        if (movement.emote == (int)PigEmote.Ball && lobby.RunwayElapsed - movement.emoteAt < PigMotion.EmoteDuration)
+            pig.transform.localScale = new Vector3(1.15f, .55f, 1.15f);
+        else if (movement.emote > 0 && movement.emote < (int)PigEmote.Ball)
+            pig.GetComponent<PigMotion>()?.ApplyPreviewEmote((PigEmote)movement.emote, lobby.RunwayElapsed - movement.emoteAt);
     }
+    private Vector3 previousPresentedPosition;
     private void Bone(string name, Vector3 rotation)
     { if (bones.TryGetValue(name, out var bone)) bone.localRotation = rest[bone] * Quaternion.Euler(rotation); }
     private void ClearPig()
@@ -195,7 +220,7 @@ public sealed class FinalRunwayView : MonoBehaviour
     {
         var rect = Rect(string.IsNullOrEmpty(text) ? "Runway text" : text, x, y, width, height);
         var label = rect.gameObject.AddComponent<TextMeshProUGUI>(); label.font = font; label.fontSize = size;
-        label.text = text; label.color = Color.white; label.richText = false; label.raycastTarget = false;
+        GameLanguage.Set(label, text); label.color = Color.white; label.richText = false; label.raycastTarget = false;
         label.enableAutoSizing = true; label.fontSizeMin = size * .8f; label.fontSizeMax = size; return label;
     }
     private UnityEngine.UI.Button Button(string text, float x, float y, float width, Action action)
@@ -205,12 +230,13 @@ public sealed class FinalRunwayView : MonoBehaviour
         var obj = new GameObject("Label", typeof(RectTransform)); obj.transform.SetParent(rect, false);
         var tr = (RectTransform)obj.transform; tr.anchorMin = Vector2.zero; tr.anchorMax = Vector2.one;
         tr.offsetMin = new Vector2(8, 3); tr.offsetMax = new Vector2(-8, -3);
-        var label = obj.AddComponent<TextMeshProUGUI>(); label.font = font; label.fontSize = 23; label.text = text;
+        var label = obj.AddComponent<TextMeshProUGUI>(); label.font = font; label.fontSize = 23; GameLanguage.Set(label, text);
         label.alignment = TextAlignmentOptions.Center; label.color = Color.white; label.raycastTarget = false;
         button.onClick.AddListener(() => action()); return button;
     }
     private void OnDestroy()
     {
+        if (Active == this) Active = null;
         if (stage != null) Destroy(stage);
         if (texture != null) { texture.Release(); Destroy(texture); }
         foreach (var material in materials) if (material != null) Destroy(material);

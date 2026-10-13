@@ -1,0 +1,99 @@
+{
+  "id": "Television_01",
+  "source": "https://polyhaven.com/a/Television_01",
+  "license": "CC0-1.0",
+  "resolution": "1k",
+  "info": {
+    "date_published": 1585605600,
+    "name": "Television 01",
+    "old_id": 34,
+    "type": 2,
+    "authors": {
+      "Gabriel Radi\u0107": "All"
+    },
+    "sponsors": [
+      "11109006",
+      "26820710",
+      "3237733"
+    ],
+    "categories": [
+      "props",
+      "electronics",
+      "collection: the_shed"
+    ],
+    "tags": [
+      "vintage",
+      "prop",
+      "furniture",
+      "metal",
+      "wood",
+      "tv",
+      "television",
+      "video",
+      "audio"
+    ],
+    "max_resolution": [
+      4096,
+      4096
+    ],
+    "polycount": 1918,
+    "texel_density": 3077.7084023052357,
+    "dimensions": [
+      599.9999642372131,
+      470.8106815814972,
+      456.84892892313655
+    ],
+    "files_hash": "c00ac1c3a4f0cf9e01639ba242ce3748fb690ae7",
+    "description": "Free 4K model of a vintage tabletop CRT TV with wood casing, scratched metal bezel, worn knobs and speaker grille, smudged glass and realistic weathering.",
+    "category_id": "2dcd04f3-a4a8-52c8-9495-789fba825be7",
+    "category": "Electronics & Appliances/Audio & Video/Televisions",
+    "collections": [
+      "the_shed"
+    ],
+    "attributes": {
+      "condition": [
+        "worn"
+      ],
+      "material": [
+        "wood",
+        "metal",
+        "glass"
+      ]
+    },
+    "img_version": "fd00df78",
+    "download_count": 90487,
+    "thumbnail_url": "https://cdn.polyhaven.com/asset_img/thumbs/Television_01.png?width=256&height=256&format=webp&v=fd00df78"
+  },
+  "files": [
+    {
+      "path": "Television_01.fbx",
+      "size": 79228,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/fbx/1k/Television_01/Television_01_1k.fbx",
+      "md5": "3abf6b33cc956c0c42c6e7f88e30bdb2"
+    },
+    {
+      "path": "textures/Television_01_metallic_1k.exr",
+      "size": 166176,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/Television_01/Television_01_metallic_1k.exr",
+      "md5": "431c36e43ccca19611204eeba757e691"
+    },
+    {
+      "path": "textures/Television_01_diff_1k.jpg",
+      "size": 102231,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/Television_01/Television_01_diff_1k.jpg",
+      "md5": "bf1b3d0563c279557acfed2402c421b1"
+    },
+    {
+      "path": "textures/Television_01_roughness_1k.jpg",
+      "size": 207596,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/Television_01/Television_01_roughness_1k.jpg",
+      "md5": "a48cd146481eadd564c75a5ebb067ac6"
+    },
+    {
+      "path": "textures/Television_01_nor_gl_1k.exr",
+      "size": 919355,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/Television_01/Television_01_nor_gl_1k.exr",
+      "md5": "249402994145210273800cf3164a72f4"
+    }
+  ]
+}

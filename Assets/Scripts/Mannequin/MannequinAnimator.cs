@@ -10,7 +10,9 @@ using UnityEngine;
 public class MannequinAnimator : MonoBehaviour
 {
     /// <summary>Команды визуалу — то, что пересылается по сети.</summary>
-    public enum Command : byte { None = 0, StartMoving = 1, Settle = 2, Freeze = 3, Attack = 4 }
+    public enum Command : byte { None = 0, StartMoving = 1, Settle = 2, Freeze = 3, Attack = 4, Scare = 5 }
+    private float scareUntil;
+    private Vector3 modelRestPosition;
 
     private static readonly int SpeedParam = Animator.StringToHash("Speed");
     private const string LocomotionState = "Locomotion";
@@ -71,6 +73,7 @@ public class MannequinAnimator : MonoBehaviour
     private void Awake()
     {
         if (animator == null) animator = GetComponentInChildren<Animator>();
+        modelRestPosition = animator.transform.localPosition;
         animator.applyRootMotion = false;
         animator.cullingMode = AnimatorCullingMode.AlwaysAnimate; // кости нужны для проверки видимости даже за кадром
 
@@ -129,6 +132,7 @@ public class MannequinAnimator : MonoBehaviour
             case Command.Settle: BeginSettle(duration, null); break;
             case Command.Freeze: Freeze(); break;
             case Command.Attack: PlayAttack(); break;
+            case Command.Scare: PlayScare(); break;
         }
     }
 
@@ -201,6 +205,11 @@ public class MannequinAnimator : MonoBehaviour
         animator.CrossFadeInFixedTime(attackClip, 0.1f, 0);
         headWeightTarget = 0f;
     }
+    public void PlayScare()
+    {
+        scareUntil = Time.time + .45f;
+        Commanded?.Invoke(Command.Scare, 0f);
+    }
 
     // ---------- Внутреннее ----------
 
@@ -228,6 +237,11 @@ public class MannequinAnimator : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (animator.transform != transform)
+        {
+            float t = Mathf.Clamp01((scareUntil - Time.time) / .45f);
+            animator.transform.localPosition = modelRestPosition + Vector3.forward * (.38f * Mathf.Sin(t * Mathf.PI));
+        }
         // Во время движения плавно отпускаем голову обратно анимации
         if (!settling && headWeightTarget == 0f)
             headWeight = Mathf.MoveTowards(headWeight, 0f, Time.deltaTime * 4f);

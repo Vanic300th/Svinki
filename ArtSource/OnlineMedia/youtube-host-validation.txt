@@ -1,0 +1,1 @@
+PASS official YouTube IFrame in native CEF on TV RenderTexture; real video duration, synchronized URL/play/pause/seek/stop, native player click permits autoplay, native browser footer pause updates shared state, decoded timeline advances, pause reaches actual player, resume matches shared seek position, browser ready without player errors; browser disposed on stop.

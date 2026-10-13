@@ -4,28 +4,23 @@ using UnityEngine;
 
 public sealed partial class NetworkPlayer
 {
-    private readonly SyncVar<bool> cameraOwned = new SyncVar<bool>();
     private readonly SyncVar<bool> cameraEquipped = new SyncVar<bool>();
-    public void AwardCamera()
-    {
-        cameraOwned.Value=true;GetComponent<PlayerPhotoCamera>().Apply(true,false);
-    }
+    public void AwardCamera()=>ApplyPhotoCamera();
     private void SetupPhotoCamera()
     {
         if(GetComponent<PlayerPhotoCamera>()==null)gameObject.AddComponent<PlayerPhotoCamera>();
-        cameraOwned.OnChange+=(old,next,server)=>GetComponent<PlayerPhotoCamera>().Apply(next,cameraEquipped.Value);
-        cameraEquipped.OnChange+=(old,next,server)=>GetComponent<PlayerPhotoCamera>().Apply(cameraOwned.Value,next);
+        cameraEquipped.OnChange+=(old,next,server)=>GetComponent<PlayerPhotoCamera>().Apply(next);
     }
-    private void ApplyPhotoCamera()=>GetComponent<PlayerPhotoCamera>().Apply(cameraOwned.Value,cameraEquipped.Value);
+    private void ApplyPhotoCamera()=>GetComponent<PlayerPhotoCamera>().Apply(cameraEquipped.Value);
     public void RequestCameraEquip(bool equipped){if(IsOwner)CameraEquipServerRpc(equipped);}
     [ServerRpc(RequireOwnership=true)]
     private void CameraEquipServerRpc(bool equipped)
     {
         var camera=GetComponent<PlayerPhotoCamera>();
-        if(equipped && (!cameraOwned.Value || !camera.CanUse))return;
-        cameraEquipped.Value=equipped;camera.Apply(cameraOwned.Value,equipped);
+        if(equipped && !camera.CanUse)return;
+        cameraEquipped.Value=equipped;camera.Apply(equipped);
     }
-    public void StowCamera(){if(IsServerInitialized){cameraEquipped.Value=false;GetComponent<PlayerPhotoCamera>().Apply(cameraOwned.Value,false);}else RequestCameraEquip(false);}
+    public void StowCamera(){if(IsServerInitialized){cameraEquipped.Value=false;GetComponent<PlayerPhotoCamera>().Apply(false);}else RequestCameraEquip(false);}
     public void RequestPhoto(){if(IsOwner)PhotoServerRpc();}
     [ServerRpc(RequireOwnership=true)]
     private void PhotoServerRpc()

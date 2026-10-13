@@ -29,6 +29,34 @@ public sealed class PlayerRagdoll : MonoBehaviour
     public bool IsRecovering => recoveryTime > 0;
     public Vector3 PelvisPosition => parts.Count > 0 && running ? parts[0].Body.position : transform.position;
     public int BodyCount => parts.Count;
+    public void CarryAt(Vector3 point)
+    {
+        if (!running || parts.Count == 0) return;
+        Vector3 delta = point - PelvisPosition;
+        for (int i = 0; i < parts.Count; i++)
+        {
+            var part = parts[i];
+            part.Body.isKinematic = !simulate || i == 0;
+            if (delta.sqrMagnitude > 4) part.Body.position += delta;
+        }
+        parts[0].Body.MovePosition(point);
+    }
+    public void ReleaseCarry()
+    {
+        if (!running) return;
+        foreach (Part part in parts)
+        {
+            part.Body.isKinematic = !simulate;
+            if (simulate) { part.Body.linearVelocity = Vector3.zero; part.Body.angularVelocity = Vector3.zero; }
+        }
+    }
+    public void SetCartCollision(ShoppingCart cart, bool ignore)
+    {
+        if (cart == null) return;
+        foreach (var collider in cart.GetComponentsInChildren<Collider>())
+            foreach (var part in parts)
+                if (part.Collider != null && collider != null) Physics.IgnoreCollision(part.Collider, collider, ignore);
+    }
 
     private void Awake()
     {

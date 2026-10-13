@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public enum ClothingPattern { Plain, Woven, Denim, Stripes, Camouflage }
+public enum ClothingPattern { Plain, Woven, Denim, Stripes, Camouflage, Floral, Checks, Speckled }
 
 [Serializable]
 public sealed class ClothingRatingProfile
 {
     public ClothingDefinition clothing;
+    public ClothingDefinition[] aliases = Array.Empty<ClothingDefinition>();
     public string key;
     public Color color = Color.gray;
     public ClothingPattern pattern;
@@ -30,7 +31,7 @@ public sealed class OutfitRating
     public string verdict, strength, improvement;
 }
 
-/// <summary>Deterministic compatibility rules calibrated to the six supplied outfits.</summary>
+/// <summary>Deterministic compatibility rules shared by the original and expanded wardrobe.</summary>
 [CreateAssetMenu(menuName = "Svinki/Оценка образов")]
 public sealed class OutfitRatingCatalog : ScriptableObject
 {
@@ -39,8 +40,10 @@ public sealed class OutfitRatingCatalog : ScriptableObject
     public static OutfitRatingCatalog Load() => Resources.Load<OutfitRatingCatalog>("OutfitRating");
 
     public ClothingRatingProfile Profile(ClothingDefinition clothing) => clothing == null ? null :
-        items.FirstOrDefault(p => p != null && p.clothing == clothing);
-    public ClothingDefinition FindClothing(string assetName) => items.FirstOrDefault(p => p != null && p.clothing != null && p.clothing.name == assetName)?.clothing;
+        items.FirstOrDefault(p => p != null && (p.clothing == clothing || (p.aliases != null && p.aliases.Contains(clothing))));
+    public ClothingDefinition FindClothing(string assetName) => items.Where(p => p != null)
+        .SelectMany(p => new[] { p.clothing }.Concat(p.aliases ?? Array.Empty<ClothingDefinition>()))
+        .FirstOrDefault(c => c != null && c.name == assetName);
 
     public OutfitRating Evaluate(IEnumerable<ClothingDefinition> outfit)
     {
@@ -106,8 +109,8 @@ public sealed class OutfitRatingCatalog : ScriptableObject
     private float PatternMatch(ClothingRatingProfile a, ClothingRatingProfile b)
     {
         if (ProvenPair(a, b)) return 100;
-        bool activeA = a.pattern == ClothingPattern.Stripes || a.pattern == ClothingPattern.Camouflage;
-        bool activeB = b.pattern == ClothingPattern.Stripes || b.pattern == ClothingPattern.Camouflage;
+        bool activeA = a.pattern >= ClothingPattern.Stripes;
+        bool activeB = b.pattern >= ClothingPattern.Stripes;
         if (!activeA || !activeB) return 92;
         return a.pattern == b.pattern ? 78 : 35;
     }

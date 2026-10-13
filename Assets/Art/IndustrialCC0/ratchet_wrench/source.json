@@ -1,0 +1,97 @@
+{
+  "id": "ratchet_wrench",
+  "source": "https://polyhaven.com/a/ratchet_wrench",
+  "license": "CC0-1.0",
+  "resolution": "1k",
+  "info": {
+    "donated": true,
+    "name": "Ratchet Wrench",
+    "type": 2,
+    "info": null,
+    "authors": {
+      "John Hutcheson": "All"
+    },
+    "date_published": 1670544000,
+    "staging": null,
+    "categories": [
+      "props",
+      "tools",
+      "industrial",
+      "collection: the_shed",
+      "rigged"
+    ],
+    "tags": [
+      "metal",
+      "shed",
+      "workshop",
+      "construction",
+      "garage",
+      "mechanic",
+      "wrench",
+      "nuts",
+      "bolts"
+    ],
+    "max_resolution": [
+      8192,
+      8192
+    ],
+    "polycount": 8796,
+    "texel_density": 37918.11877329677,
+    "dimensions": [
+      44.089458882808685,
+      43.394144624471664,
+      246.20076268911362
+    ],
+    "files_hash": "db0eaed0940d34477b2f9962ec8339365f3fa992",
+    "description": "Free 8K model: rigged, realistic chrome ratchet wrench with scuffed, oily metal, worn edges, and detailed head and handle geometry.",
+    "category_id": "8df19fe5-50db-5ca2-a9bf-8eb52962c94a",
+    "category": "Tools & Equipment/Hand Tools/Wrenches & Spanners",
+    "collections": [
+      "the_shed"
+    ],
+    "attributes": {
+      "condition": [
+        "worn"
+      ],
+      "material": [
+        "metal"
+      ],
+      "rigged": true
+    },
+    "img_version": "9f201b3e",
+    "download_count": 5054,
+    "thumbnail_url": "https://cdn.polyhaven.com/asset_img/thumbs/ratchet_wrench.png?width=256&height=256&format=webp&v=9f201b3e"
+  },
+  "files": [
+    {
+      "path": "ratchet_wrench.fbx",
+      "size": 348972,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/fbx/1k/ratchet_wrench/ratchet_wrench_1k.fbx",
+      "md5": "ed0fe716572797c1dbfe48fce0273b96"
+    },
+    {
+      "path": "textures/ratchet_wrench_rough_1k.exr",
+      "size": 1071321,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/ratchet_wrench/ratchet_wrench_rough_1k.exr",
+      "md5": "9a892c0f083b4c1ff210ecb550b54cd1"
+    },
+    {
+      "path": "textures/ratchet_wrench_metal_1k.exr",
+      "size": 15763,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/ratchet_wrench/ratchet_wrench_metal_1k.exr",
+      "md5": "c260de6d77e01cde4627f58facbd853c"
+    },
+    {
+      "path": "textures/ratchet_wrench_nor_gl_1k.exr",
+      "size": 842360,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/ratchet_wrench/ratchet_wrench_nor_gl_1k.exr",
+      "md5": "ee5f288c3ba20d8e1131e0fb374d23b8"
+    },
+    {
+      "path": "textures/ratchet_wrench_diff_1k.jpg",
+      "size": 286148,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/ratchet_wrench/ratchet_wrench_diff_1k.jpg",
+      "md5": "92bda4c684ff4ceb5a15f8a5200d17dd"
+    }
+  ]
+}

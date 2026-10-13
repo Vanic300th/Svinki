@@ -1,0 +1,96 @@
+{
+  "id": "industrial_wall_sconce",
+  "source": "https://polyhaven.com/a/industrial_wall_sconce",
+  "license": "CC0-1.0",
+  "resolution": "1k",
+  "info": {
+    "type": 2,
+    "name": "Industrial Wall Sconce",
+    "categories": [
+      "lighting",
+      "decorative"
+    ],
+    "tags": [
+      "old",
+      "vintage",
+      "antique",
+      "fancy",
+      "farmhouse",
+      "rustic",
+      "brass",
+      "copper",
+      "wall light"
+    ],
+    "authors": {
+      "Ulan Cabanilla": "All"
+    },
+    "donated": true,
+    "max_resolution": [
+      4096,
+      4096
+    ],
+    "polycount": 9826,
+    "texel_density": 8048.494109862261,
+    "dimensions": [
+      150.348000228405,
+      251.5759002417326,
+      341.7818397283554
+    ],
+    "date_published": 1742342400,
+    "staging": null,
+    "files_hash": "aa185f8f5968206d2240a1e39b3fce85dc68dff5",
+    "description": "Free 4K model: vintage industrial wall sconce with aged brass/copper backplate, curved arm and black conical shade showing worn, rustic patina.",
+    "category_id": "30d3bf62-e52b-5b8f-9ef0-d600b9067973",
+    "category": "Lighting/Wall/Sconces",
+    "attributes": {
+      "condition": [
+        "worn"
+      ],
+      "material": [
+        "brass",
+        "metal"
+      ]
+    },
+    "img_version": "66f0059e",
+    "download_count": 8545,
+    "thumbnail_url": "https://cdn.polyhaven.com/asset_img/thumbs/industrial_wall_sconce.png?width=256&height=256&format=webp&v=66f0059e"
+  },
+  "files": [
+    {
+      "path": "industrial_wall_sconce.fbx",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/fbx/1k/industrial_wall_sconce/industrial_wall_sconce_1k.fbx",
+      "md5": "9685c06f0af4d74495eea4b4a826722b",
+      "size": 305436
+    },
+    {
+      "path": "textures/industrial_wall_sconce_bulb_diff_1k.png",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/1k/industrial_wall_sconce/industrial_wall_sconce_bulb_diff_1k.png",
+      "md5": "8efc1a6181fa9b99ee41864949a1e584",
+      "size": 593199
+    },
+    {
+      "path": "textures/industrial_wall_sconce_diff_1k.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/industrial_wall_sconce/industrial_wall_sconce_diff_1k.jpg",
+      "md5": "00a9741f896c002be1fb4307a16c834d",
+      "size": 445573
+    },
+    {
+      "path": "textures/industrial_wall_sconce_metal_1k.exr",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/industrial_wall_sconce/industrial_wall_sconce_metal_1k.exr",
+      "md5": "ab96f65d5473e9ba21960e56d5cef4a4",
+      "size": 522181
+    },
+    {
+      "path": "textures/industrial_wall_sconce_nor_gl_1k.exr",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/industrial_wall_sconce/industrial_wall_sconce_nor_gl_1k.exr",
+      "md5": "20d0fac0fa7dbb7934ec433177c54dd3",
+      "size": 455899
+    },
+    {
+      "path": "textures/industrial_wall_sconce_rough_1k.exr",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/industrial_wall_sconce/industrial_wall_sconce_rough_1k.exr",
+      "md5": "92fd8bb4fc6374b106defb70f7bd317b",
+      "size": 505277
+    }
+  ]
+}

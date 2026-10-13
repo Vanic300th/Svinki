@@ -1,0 +1,19 @@
+{
+  "id": "dirty_carpet",
+  "source": "https://polyhaven.com/a/dirty_carpet",
+  "license": "CC0-1.0",
+  "files": [
+    {
+      "path": "dirty_carpet_diff_1k.jpg",
+      "size": 978020,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/dirty_carpet/dirty_carpet_diff_1k.jpg",
+      "md5": "97c0a4b94e5660c117cc511b240aa3b3"
+    },
+    {
+      "path": "dirty_carpet_nor_gl_1k.jpg",
+      "size": 1089297,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/dirty_carpet/dirty_carpet_nor_gl_1k.jpg",
+      "md5": "f6835454628831b0d8feceba6202e7a1"
+    }
+  ]
+}

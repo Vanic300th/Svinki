@@ -18,7 +18,7 @@ public sealed class FirstPersonBody : MonoBehaviour
 
     private void LateUpdate()
     {
-        bool local = player == null || player.IsOwner;
+        bool local = (player == null || player.IsOwner) && GetComponent<PlayerAvatar>()?.IsAlive != false;
         if (!local || source == null || bodyMesh == null)
         {
             if (body != null) body.enabled = false;

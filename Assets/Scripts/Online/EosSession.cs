@@ -25,6 +25,7 @@ public sealed class EosSession : MonoBehaviour
 #if !UNITY_WEBGL && !EOS_DISABLE
     private PlatformInterface platform;
     private ProductUserId user;
+    private Task<Result> deviceIdTask;
     private ulong memberNotify, authNotify;
     // Read only in player builds (#if !UNITY_EDITOR in OnDestroy), so the editor compiler reports them as unused.
 #pragma warning disable 0414
@@ -66,11 +67,22 @@ public sealed class EosSession : MonoBehaviour
             var relay = new SetRelayControlOptions { RelayControl = RelayControl.AllowRelays };
             Check(platform.GetP2PInterface().SetRelayControl(ref relay), "Enabling relay");
         }
-        var deviceTask = new TaskCompletionSource<Result>();
-        var device = new CreateDeviceIdOptions { DeviceModel = SystemInfo.operatingSystemFamily.ToString() };
-        platform.GetConnectInterface().CreateDeviceId(ref device, null, (ref CreateDeviceIdCallbackInfo info) => deviceTask.TrySetResult(info.ResultCode));
-        Result created = await WithTimeout(deviceTask.Task);
-        if (created != Result.Success && created != Result.DuplicateNotAllowed) Check(created, "Creating guest profile");
+        if (deviceIdTask == null)
+        {
+            var completion = new TaskCompletionSource<Result>();
+            deviceIdTask = completion.Task;
+            var device = new CreateDeviceIdOptions { DeviceModel = SystemInfo.operatingSystemFamily.ToString() };
+            platform.GetConnectInterface().CreateDeviceId(ref device, null,
+                (ref CreateDeviceIdCallbackInfo info) => completion.TrySetResult(info.ResultCode));
+        }
+        // A macOS keychain prompt can outlive the connection timeout. Retrying must
+        // await that native request, rather than enqueue another permission prompt.
+        Result created = await WithTimeout(deviceIdTask);
+        if (created != Result.Success && created != Result.DuplicateNotAllowed)
+        {
+            deviceIdTask = null;
+            Check(created, "Creating guest profile");
+        }
         await Login(nickname);
         var authOptions = new AddNotifyAuthExpirationOptions();
         authNotify = platform.GetConnectInterface().AddNotifyAuthExpiration(ref authOptions, null,

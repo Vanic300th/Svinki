@@ -158,7 +158,7 @@ public class MannequinBrain : MonoBehaviour
                     attackApplied = true;
                     if (targetAvatar != null && targetAvatar.IsAlive && InAttackRange() &&
                         HasClearLine(transform.position + Vector3.up * .8f, target.position + Vector3.up * .8f))
-                        targetAvatar.GetComponent<PlayerKnockdown>()?.TryMannequinHit(target.position - transform.position);
+                        if (targetAvatar.GetComponent<PlayerKnockdown>()?.TryMannequinHit(target.position - transform.position) == true) anim.PlayScare();
                 }
                 if (stateTimer >= anim.AttackLength)
                 {

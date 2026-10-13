@@ -21,6 +21,7 @@ public class GrayboxFirstPersonCamera : MonoBehaviour
         // Своя 3D-модель остаётся видимой зеркалу, но не закрывает обзор от первого лица.
         int mirrorLayer = LayerMask.NameToLayer("LocalPlayerMirror");
         Camera view = GetComponent<Camera>();
+        if (GetComponent<PlayerFearEffects>() == null) gameObject.AddComponent<PlayerFearEffects>();
         if (view != null) view.nearClipPlane = Mathf.Min(view.nearClipPlane, 0.05f);
         if (view != null && mirrorLayer >= 0)
             view.cullingMask &= ~(1 << mirrorLayer);
@@ -55,6 +56,8 @@ public class GrayboxFirstPersonCamera : MonoBehaviour
         if (knockdown != null && knockdown.VisualAmount > 0)
             transform.position = knockdown.EyePosition + Quaternion.Euler(0, yaw, 0) * Vector3.forward * EyeForwardOffset;
         transform.rotation = Quaternion.Euler(pitch, yaw, knockdown != null ? 28 * knockdown.VisualAmount : 0);
+        var ball = target.GetComponent<PlayerBallForm>();
+        if (ball?.IsBall == true) transform.position = ball.Position + Vector3.up * 1.1f;
     }
 
     public void SetSpectatorMode() { target = null; playerController = null; }

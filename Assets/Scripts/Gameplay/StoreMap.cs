@@ -8,6 +8,8 @@ public sealed class StoreMap : MonoBehaviour
     [SerializeField] private Footprint[] floors = Array.Empty<Footprint>();
     [SerializeField] private Footprint[] walls = Array.Empty<Footprint>();
     [SerializeField] private Vector2 minimum, maximum;
+    [SerializeField, Range(.1f, 1f)] private float visibleRange = .3f;
+    public float VisibleRange => visibleRange;
     public Footprint[] Floors => floors;
     public Footprint[] Walls => walls;
     public Vector2 Minimum => minimum;

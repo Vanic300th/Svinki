@@ -48,7 +48,7 @@ public sealed class PigAppearanceMenu : MonoBehaviour
             var layout = button.gameObject.AddComponent<UnityEngine.UI.LayoutElement>();
             layout.minHeight = layout.preferredHeight = 40;
             TMP_Text text = button.GetComponentInChildren<TMP_Text>();
-            refreshLabels.Add(() => text.text = label());
+            refreshLabels.Add(() => GameLanguage.Set(text, label()));
         }
         Choice(() => "Eyes: " + (face.eyes == 0 ? "open" : "squinting"), () => face.eyes = (face.eyes + 1) % 2);
         Choice(() => "Brows: " + new[] { "relaxed", "raised", "cheeky" }[face.brows], () => face.brows = (face.brows + 1) % 3);
@@ -165,7 +165,7 @@ public sealed class PigAppearanceMenu : MonoBehaviour
     {
         var r = Rect(text, parent ?? panel.transform, x, y, width, height);
         var label = r.gameObject.AddComponent<TextMeshProUGUI>(); label.font = font; label.fontSize = size;
-        label.text = text; label.color = Color.white; label.richText = false; label.raycastTarget = false; return label;
+        GameLanguage.Set(label, text); label.color = Color.white; label.richText = false; label.raycastTarget = false; return label;
     }
     private UnityEngine.UI.Button Button(string text, float x, float y, float width, Action action, Transform parent = null)
     {

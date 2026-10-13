@@ -1,0 +1,4 @@
+PASS 16 replacement props: validated pickup, throw and reset
+PASS real hoop triggers: downward pass scores once, upward pass does not
+PASS real dart collision: score, stick and return
+PASS TV model retains live screen and local VideoPlayer

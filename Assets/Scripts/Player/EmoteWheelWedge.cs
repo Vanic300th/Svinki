@@ -5,10 +5,12 @@ using UnityEngine.UI;
 public sealed class EmoteWheelWedge : MaskableGraphic
 {
     public int Index;
+    public int Count = 6;
     protected override void OnPopulateMesh(VertexHelper mesh)
     {
         mesh.Clear(); const int steps = 20;
-        float from = 90 - Index * 60 - 28, to = from + 56;
+        float segment = 360f / Count;
+        float from = 90 - Index * segment - segment * .5f + 2, to = from + segment - 4;
         for (int i = 0; i <= steps; i++)
         {
             float angle = Mathf.Lerp(from, to, (float)i / steps) * Mathf.Deg2Rad;

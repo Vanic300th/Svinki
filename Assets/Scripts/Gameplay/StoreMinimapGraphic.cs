@@ -3,8 +3,6 @@ using UnityEngine;
 [RequireComponent(typeof(CanvasRenderer))]
 public sealed class StoreMinimapGraphic : UnityEngine.UI.MaskableGraphic
 {
-    // Show the player's neighbourhood: reduce the full-map viewing range by 70%.
-    private const float VisibleRange = .30f;
     private StoreMap map;
     private Vector2 viewCenter;
     public void Bind(StoreMap value)
@@ -15,6 +13,7 @@ public sealed class StoreMinimapGraphic : UnityEngine.UI.MaskableGraphic
     }
     public void Follow(Vector3 world)
     {
+        if (map != null && map.VisibleRange >= 1) return;
         var center = new Vector2(world.x, world.z);
         if (center == viewCenter) return;
         viewCenter = center;
@@ -22,7 +21,7 @@ public sealed class StoreMinimapGraphic : UnityEngine.UI.MaskableGraphic
     }
     private float Scale => map == null ? 0 : Mathf.Min(
         rectTransform.rect.width / (map.Maximum.x - map.Minimum.x + 4),
-        rectTransform.rect.height / (map.Maximum.y - map.Minimum.y + 4)) / VisibleRange;
+        rectTransform.rect.height / (map.Maximum.y - map.Minimum.y + 4)) / map.VisibleRange;
     public Vector2 Project(Vector3 world)
     {
         if (map == null) return Vector2.zero;

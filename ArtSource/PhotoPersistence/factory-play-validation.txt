@@ -1,0 +1,1 @@
+PASS normal offline freight lift loads factory; six AFK mannequins remain at authored arrival positions after round shuffle; no hostile AI, stationary rigidbodies; existing carry/release works; permanent album survives scene transition.

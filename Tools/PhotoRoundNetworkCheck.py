@@ -30,14 +30,14 @@ def launch(p,host):
  args=[exe,'--local-host' if host else '--local-join','--port','7797','--profile','photo-host' if host else 'photo-guest','--nickname','PhotoHost' if host else 'PhotoGuest','--session-test-path',p,'-screen-width','1280','-screen-height','720','-windowed','-logFile',p+'.log']
  procs.append(subprocess.Popen(args,stdout=open(p+'.stdout','w'),stderr=subprocess.STDOUT))
 try:
- launch(H,True);wait(lambda:state(H).get('snapshot',{}).get('phase')==1,'host lobby')
- launch(G,False);wait(lambda:len(state(H).get('snapshot',{}).get('players',[]))==2,'guest lobby')
- command(H,'ready');command(G,'ready');command(H,'start')
+ launch(H,True);wait(lambda:state(H).get('snapshot',{}).get('phase')==1,'host lobby',120)
+ launch(G,False);wait(lambda:len(state(H).get('snapshot',{}).get('players',[]))==2,'guest lobby',90)
+ command(H,'ready');command(G,'ready');wait(lambda:all(x['ready'] for x in state(H)['snapshot']['players']),'both ready');command(H,'start')
  wait(lambda:state(H).get('avatars')==2 and state(G).get('avatars')==2 and state(G).get('snapshot',{}).get('phase')==3,'two-player round')
  command(H,'calm-npcs');command(G,'calm-npcs');time.sleep(1)
  a=state(H);b=state(G)
- assert len(a['carts'])==3 and len(a['monkeys'])==2 and len(a['cameraPickups'])==2
- assert len(a['npcs'])==40 and len(a['pickups'])==96
+ assert len(a['carts'])==3 and len(a['monkeys'])==2 and len(a['cameraPickups'])==0
+ assert len(a['npcs'])==48 and len(a['pickups'])==96
  def poses(items):return {x['name']:x['position'] for x in items}
  import math
  maximum=0
@@ -46,9 +46,9 @@ try:
   for name,pos in left.items():
    distance=math.sqrt(sum((pos[k]-right[name][k])**2 for k in ('x','y','z')));maximum=max(maximum,distance);assert distance<.15,(category,name,distance)
  (out/'two-player-layout.json').write_text(json.dumps({'host':a,'guest':b,'maximumPoseDifference':maximum},indent=2))
- print('PASS two players: 3 carts, 40 mannequins, 96 clothes, 2 toys, 2 cameras; shared poses',maximum,flush=True)
- command(H,'photo-warp');time.sleep(.7);key(H,'E');wait(lambda:state(H)['photo']['owned'],'host camera pickup',8)
- command(G,'photo-warp');time.sleep(.7);key(G,'E');wait(lambda:state(G)['photo']['owned'],'guest camera pickup',8)
+ print('PASS two players: 3 carts, 48 mannequins, 96 clothes, 2 toys, carried cameras; shared poses',maximum,flush=True)
+ assert state(H)['photo']['owned'] and not state(H)['photo']['equipped']
+ assert state(G)['photo']['owned'] and not state(G)['photo']['equipped']
  command(H,'design-position',index=0);command(H,'look-forward');key(H,'K');wait(lambda:state(H)['photo']['equipped'],'host camera equip',8)
  capture(H,'camera-viewfinder.png')
  mouse(H);wait(lambda:state(H)['photo']['count']==1,'host photograph',8)
@@ -58,7 +58,7 @@ try:
  mouse(G);wait(lambda:state(G)['photo']['count']==1,'guest photograph',8)
  assert state(H)['photo']['count']==1
  assert not any(x['down'] for x in state(G)['stuns'])
- print('PASS host and guest camera pickup, equipped state, shutter, separate photo albums, no mannequin stun',flush=True)
+ print('PASS host and guest carried cameras, equipped state, shutter, separate photo albums, no mannequin stun',flush=True)
  key(H,'P');wait(lambda:state(H)['photo']['album'],'album open')
  old=state(H)['localPosition'];command(H,'key-down','W');time.sleep(.8);command(H,'key-up');new=state(H)['localPosition']
  assert math.dist(list(old.values()),list(new.values()))<.1
@@ -73,11 +73,11 @@ try:
  command(H,'mouse-right');command(H,'mouse-up');wait(lambda:not state(H)['photo']['equipped'],'camera stow')
  print('PASS album blocks movement, Escape consumes menu input, 12-image cap, stow; screenshot evidence written',flush=True)
  saved=state(H);command(G,'mouse-right');command(G,'mouse-up');command(H,'warp-finish');command(G,'warp-finish');time.sleep(.7);command(H,'end');command(G,'end');wait(lambda:state(H).get('snapshot',{}).get('phase')==5,'fashion show');command(H,'continue');wait(lambda:state(H).get('avatars')==0,'round unload');wait(lambda:state(H)['photo']['count']==0,'album reset')
- (out/'camera-network-validation.txt').write_text('PASS: two native clients; camera pickup with E, equip with K, host and guest photographs with LMB; owner-only albums; no mannequin stun.\nPASS: same random poses for all 96 garments, 40 mannequins, three carts and two cameras; two monkeys for two players. Maximum pose difference '+str(maximum)+'m.\nPASS: album blocks movement; Escape closes album without opening menu; latest 12-image cap; camera stow; album cleared on round unload.\n')
+ (out/'camera-network-validation.txt').write_text('PASS: two native clients; camera carried from spawn, equip with K, host and guest photographs with LMB; owner-only albums; no mannequin stun.\nPASS: same random poses for all 96 garments, 48 mannequins, three carts; two monkeys for two players. Maximum pose difference '+str(maximum)+'m.\nPASS: album blocks movement; Escape closes album without opening menu; latest 12-image cap; camera stow; album cleared on round unload.\n')
  print('PASS next round unload clears album',flush=True)
- wait(lambda:state(H).get('snapshot',{}).get('phase')==1 and state(G).get('snapshot',{}).get('phase')==1,'return to lobby');command(H,'ready');command(G,'ready');command(H,'start');wait(lambda:state(H).get('avatars')==2 and state(G).get('avatars')==2,'second round');command(H,'calm-npcs');command(G,'calm-npcs');time.sleep(.7);fresh=state(H);assert poses(saved['carts'])!=poses(fresh['carts']) and poses(saved['pickups'])!=poses(fresh['pickups']);assert not fresh['photo']['owned'] and fresh['photo']['count']==0;assert len(fresh['monkeys'])==2 and len(fresh['cameraPickups'])==2;print('PASS next round produces a different layout and fresh equipment',flush=True)
- command(H,'leave');wait(lambda:state(H).get('avatars')==0 and state(H).get('snapshot',{}).get('phase')==0,'session leave');command(H,'solo');wait(lambda:state(H).get('offline') and state(H).get('avatars')==1,'solo');command(H,'calm-npcs');assert len(state(H)['monkeys'])==1 and len(state(H)['cameraPickups'])==1;command(H,'photo-warp');time.sleep(.7);key(H,'E');wait(lambda:state(H)['photo']['owned'],'solo camera pickup');command(H,'design-position',index=0);command(H,'look-forward');key(H,'K');wait(lambda:state(H)['photo']['equipped'],'solo equip');mouse(H);wait(lambda:state(H)['photo']['count']==1,'solo photo');command(H,'leave');wait(lambda:state(H).get('avatars')==0 and state(H)['photo']['count']==0,'solo reset');print('PASS solo spawn, pickup, shutter, album and reset',flush=True)
- with (out/'camera-network-validation.txt').open('a') as report:report.write('PASS: second round changes cart and clothing positions; camera ownership and album reset; two new monkeys and cameras.\nPASS: single-player round, one monkey and camera, E pickup, K equip, LMB photo and album reset.\n')
+ wait(lambda:state(H).get('snapshot',{}).get('phase')==1 and state(G).get('snapshot',{}).get('phase')==1,'return to lobby');command(H,'ready');command(G,'ready');wait(lambda:all(x['ready'] for x in state(H)['snapshot']['players']),'both ready');command(H,'start');wait(lambda:state(H).get('avatars')==2 and state(G).get('avatars')==2,'second round');command(H,'calm-npcs');command(G,'calm-npcs');time.sleep(.7);fresh=state(H);assert poses(saved['carts'])!=poses(fresh['carts']) and poses(saved['pickups'])!=poses(fresh['pickups']);assert fresh['photo']['owned'] and not fresh['photo']['equipped'] and fresh['photo']['count']==0;assert len(fresh['monkeys'])==2 and len(fresh['cameraPickups'])==0;print('PASS next round produces a different layout and fresh equipment',flush=True)
+ command(H,'leave');wait(lambda:state(H).get('avatars')==0 and state(H).get('snapshot',{}).get('phase')==0,'session leave');command(H,'solo');wait(lambda:state(H).get('offline') and state(H).get('avatars')==1,'solo');command(H,'calm-npcs');assert len(state(H)['monkeys'])==1 and len(state(H)['cameraPickups'])==0;assert state(H)['photo']['owned'];command(H,'design-position',index=0);command(H,'look-forward');key(H,'K');wait(lambda:state(H)['photo']['equipped'],'solo equip');mouse(H);wait(lambda:state(H)['photo']['count']==1,'solo photo');command(H,'leave');wait(lambda:state(H).get('avatars')==0 and state(H)['photo']['count']==0,'solo reset');print('PASS solo carried camera, shutter, album and reset',flush=True)
+ with (out/'camera-network-validation.txt').open('a') as report:report.write('PASS: second round changes cart and clothing positions; camera equipped state and album reset; two new monkeys.\nPASS: single-player round, one monkey, carried camera, K equip, LMB photo and album reset.\n')
 except Exception as e:
  (out/'camera-test-failure.txt').write_text(str(e)+'\n'+json.dumps({'host':state(H),'guest':state(G)},indent=2))
  raise

@@ -8,6 +8,7 @@ public sealed class OutfitResultsView : MonoBehaviour
 {
     private NetworkLobby lobby;
     private FinalRunwayView runway;
+    private ResultsPhotoAlbumsView albums;
     private TMP_FontAsset font;
     private GameObject panel, studio, model;
     private Camera cameraPreview;
@@ -19,6 +20,7 @@ public sealed class OutfitResultsView : MonoBehaviour
     private readonly List<TMP_Text> values = new List<TMP_Text>();
     private OutfitRoundResults shown;
     private float yaw, nextRender;
+    private int selectedPlayer;
 
     public void Build(Transform canvas, TMP_FontAsset menuFont, NetworkLobby session)
     {
@@ -32,7 +34,8 @@ public sealed class OutfitResultsView : MonoBehaviour
         root.sizeDelta = new Vector2(1560, 920);
         panel.GetComponent<UnityEngine.UI.Image>().color = new Color(.035f, .05f, .075f, 1);
         heading = Label("OUTFIT RESULTS", 36, 30, 1488, 52, 36);
-        Label("See how well your clothes work together", 36, 90, 1488, 40, 24).color = new Color(.67f, .75f, .83f);
+        Label("See how well your clothes work together", 36, 90, 1100, 40, 24).color = new Color(.67f, .75f, .83f);
+        Button("Photo albums →",1210,88,310,48,()=>albums.Show(shown,selectedPlayer));
         Label("PLAYERS", 36, 145, 300, 36, 22);
         for (int i = 0; i < 6; i++)
         {
@@ -60,6 +63,7 @@ public sealed class OutfitResultsView : MonoBehaviour
         continueLabel = next.GetComponentInChildren<TMP_Text>();
         Button("Main Menu", 1290, 840, 234, 48, lobby.Leave);
         runway = gameObject.AddComponent<FinalRunwayView>(); runway.Build(panel.transform, font, lobby);
+        albums=gameObject.AddComponent<ResultsPhotoAlbumsView>();albums.Build(panel.transform,font,lobby);
         panel.SetActive(false);
     }
 
@@ -67,45 +71,47 @@ public sealed class OutfitResultsView : MonoBehaviour
     {
         if (panel == null) return;
         panel.SetActive(visible);
-        if (!visible) { shown = null; runway.Hide(); return; }
+        if (!visible) { shown = null; runway.Hide(); albums.Hide(); return; }
+        Cursor.lockState=CursorLockMode.None;Cursor.visible=true;
         var results = lobby.Results;
         if (results != null && (shown == null || results.round != shown.round || results.entries.Length != shown.entries.Length))
         {
             shown = results;
-            heading.text = "OUTFIT RESULTS · ROUND " + results.round;
+            GameLanguage.Set(heading, "OUTFIT RESULTS · ROUND " + results.round);
             for (int i = 0; i < players.Count; i++)
             {
                 bool exists = i < results.entries.Length;
                 players[i].gameObject.SetActive(exists);
-                if (exists) players[i].GetComponentInChildren<TMP_Text>().text =
-                    (i + 1) + ". " + results.entries[i].nickname + "\n" + (results.entries[i].eliminated ? "Ghost · eliminated" : results.entries[i].rating.score + " / 100");
+                if (exists) GameLanguage.Set(players[i].GetComponentInChildren<TMP_Text>(), (i + 1) + ". " + results.entries[i].nickname + "\n" + (results.entries[i].eliminated ? "Ghost · eliminated" : results.entries[i].rating.score + " / 100"));
             }
             Select(0);
             runway.Begin(results);
         }
         shown = results; runway.Tick(results);
-        next.interactable = !runway.Showing && (lobby.Offline || lobby.IsHost);
-        continueLabel.text = lobby.Offline ? lobby.IsEliminated ? "Next Round" : "Keep Searching" : lobby.IsHost ? "Next Round" : "Waiting for host";
+        next.interactable = !runway.Showing && lobby.RunwayElapsed >= results.entries.Length * FinalRunwayView.SecondsPerPlayer && (lobby.Offline || lobby.IsHost);
+        GameLanguage.Set(continueLabel, lobby.Offline ? lobby.IsEliminated ? "Next Round" : "Keep Searching" : lobby.IsHost ? "Next Round" : "Waiting for host");
         if (Time.unscaledTime >= nextRender && cameraPreview != null)
         { nextRender = Time.unscaledTime + 1f / 15; cameraPreview.Render(); }
     }
 
     private void Select(int index)
     {
+        selectedPlayer=index;
         if (shown == null || index >= shown.entries.Length)
         {
-            playerName.text = "No players with clothes yet";
-            score.text = "— / 100"; verdict.text = ""; strength.text = ""; improvement.text = ""; clothes.text = "";
+            GameLanguage.Set(playerName, "No players with clothes yet");
+            GameLanguage.Set(score, "— / 100"); GameLanguage.Set(verdict, ""); GameLanguage.Set(strength, ""); GameLanguage.Set(improvement, ""); GameLanguage.Set(clothes, "");
             ClearModel(); return;
         }
         var entry = shown.entries[index]; var rating = entry.rating;
-        playerName.text = entry.nickname + (entry.eliminated ? " · ghost" : "");
-        score.text = rating.score + " / 100"; verdict.text = rating.verdict;
-        strength.text = rating.strength; improvement.text = rating.improvement;
-        clothes.text = entry.eliminated ? "Eliminated · original pig appearance" : entry.names.Length == 0 ? "No clothes found yet" : string.Join("\n", entry.names);
+        if (entry.eliminated) GameLanguage.Set(playerName, entry.nickname + " · ghost");
+        else GameLanguage.SetLiteral(playerName, entry.nickname);
+        GameLanguage.Set(score, rating.score + " / 100"); GameLanguage.Set(verdict, rating.verdict);
+        GameLanguage.Set(strength, rating.strength); GameLanguage.Set(improvement, rating.improvement);
+        GameLanguage.Set(clothes, entry.eliminated ? "Eliminated · original pig appearance" : entry.names.Length == 0 ? "No clothes found yet" : string.Join("\n", entry.names));
         int[] measures = { rating.matching, rating.palette, rating.patterns, rating.completeness };
         for (int i = 0; i < measures.Length; i++)
-        { bars[i].rectTransform.sizeDelta = new Vector2(670 * measures[i] / 100f, 8); values[i].text = measures[i] + "%"; }
+        { bars[i].rectTransform.sizeDelta = new Vector2(670 * measures[i] / 100f, 8); GameLanguage.Set(values[i], measures[i] + "%"); }
         for (int i = 0; i < players.Count; i++) players[i].GetComponent<UnityEngine.UI.Image>().color =
             i == index ? new Color(.20f, .36f, .43f) : new Color(.10f, .16f, .22f);
         ClearModel();
@@ -177,7 +183,7 @@ public sealed class OutfitResultsView : MonoBehaviour
     {
         var rect = Rect(text.Length == 0 ? "Result text" : text, parent, x, y, width, height);
         var label = rect.gameObject.AddComponent<TextMeshProUGUI>(); label.font = font; label.fontSize = size;
-        label.text = text; label.color = Color.white; label.richText = false; label.raycastTarget = false;
+        GameLanguage.Set(label, text); label.color = Color.white; label.richText = false; label.raycastTarget = false;
         label.enableAutoSizing = true; label.fontSizeMin = size * .78f; label.fontSizeMax = size; return label;
     }
     private UnityEngine.UI.Button Button(string text, float x, float y, float width, float height, Action action)

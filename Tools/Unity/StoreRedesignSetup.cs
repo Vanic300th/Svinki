@@ -107,7 +107,7 @@ public static class StoreRedesignSetup
             var roomData=rooms.Select(r=>"{\"name\":"+Quote(r.name)+",\"x0\":"+Number(r.x0)+",\"x1\":"+Number(r.x1)+",\"z0\":"+Number(r.z0)+",\"z1\":"+Number(r.z1)+"}");
             var slotData=anchors.Select((p,i)=>"{\"x\":"+Number(p.x)+",\"y\":"+Number(p.y)+",\"z\":"+Number(p.z)+",\"yaw\":"+Number(angles[i].eulerAngles.y)+"}");
             File.WriteAllText("ArtSource/StoreRedesign/layout.json","{\"rooms\":["+string.Join(",",roomData)+"],\"anchors\":["+string.Join(",",slotData)+"]}");
-            string result="30 connected departments; stepped 110m-wide outline; 96 hidden clothing anchors; 3 carts; 12 attackers; angled partitions and varied interiors; navigation and network IDs saved.";
+            string result="30 connected departments; stepped 110m-wide outline; 96 hidden clothing anchors; 3 carts; 8 attackers; angled partitions and varied interiors; navigation and network IDs saved.";
             File.WriteAllText("ArtSource/StoreRedesign/scene-validation.txt",result);return result;
         }
         finally{if(previous.IsValid()&&previous.isLoaded)SceneManager.SetActiveScene(previous);}

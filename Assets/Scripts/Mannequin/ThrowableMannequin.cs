@@ -52,10 +52,11 @@ public sealed class ThrowableMannequin : MonoBehaviour
 
     public bool TryGrab(PlayerAvatar player)
     {
+        if (!CarryRules.FreeHands(player)) return false;
         if (!HasAuthority || IsHeld || player == null || player.gameObject.scene != gameObject.scene ||
             Vector3.Distance(player.EyePosition, Center) > 3.8f) return false;
         var hands = player.GetComponent<PlayerMannequinCarry>();
-        if (hands == null || hands.Held != null || player.GetComponent<PlayerPhotoCamera>()?.Equipped == true || player.GetComponent<PlayerMonkeyCarry>()?.Held != null) return false;
+        if (hands == null || hands.Held != null || player.GetComponent<PlayerLobbyHands>()?.Held != null || player.GetComponent<PlayerPhotoCamera>()?.Equipped == true || player.GetComponent<PlayerMonkeyCarry>()?.Held != null) return false;
         RestoreCollisions();
         dangerousUntil = 0;
         ApplyHolder(player);

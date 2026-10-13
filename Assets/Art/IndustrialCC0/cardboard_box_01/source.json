@@ -1,0 +1,92 @@
+{
+  "id": "cardboard_box_01",
+  "source": "https://polyhaven.com/a/cardboard_box_01",
+  "license": "CC0-1.0",
+  "resolution": "1k",
+  "info": {
+    "donated": true,
+    "date_published": 1671148800,
+    "name": "Cardboard Box 01",
+    "type": 2,
+    "staging": null,
+    "authors": {
+      "Rahul Chaudhary": "All"
+    },
+    "info": null,
+    "sponsors": [
+      "26820710"
+    ],
+    "categories": [
+      "industrial",
+      "containers",
+      "collection: the_shed"
+    ],
+    "tags": [
+      "warehouse",
+      "shed",
+      "storage",
+      "box",
+      "paper",
+      "worn",
+      "old",
+      "broken",
+      "damaged",
+      "garage"
+    ],
+    "max_resolution": [
+      4096,
+      4096
+    ],
+    "polycount": 16952,
+    "texel_density": 3131.7654492951356,
+    "dimensions": [
+      387.02359795570374,
+      515.8704221248627,
+      341.7995423078537
+    ],
+    "files_hash": "2a37ded0aeebc15100db0e1d285ad36cf40b8f42",
+    "description": "Free 4K model of a worn, creased cardboard box with torn flaps, taped seams and a weathered strap - aged, dented paper texture and realistic damage.",
+    "category_id": "2b755d16-ccc5-53d7-87f2-217bb6122eff",
+    "category": "Containers & Storage/Boxes & Crates/Cardboard Boxes",
+    "collections": [
+      "the_shed"
+    ],
+    "attributes": {
+      "condition": [
+        "worn"
+      ],
+      "material": [
+        "paper"
+      ]
+    },
+    "img_version": "9b57d609",
+    "download_count": 35211,
+    "thumbnail_url": "https://cdn.polyhaven.com/asset_img/thumbs/cardboard_box_01.png?width=256&height=256&format=webp&v=9b57d609"
+  },
+  "files": [
+    {
+      "path": "cardboard_box_01.fbx",
+      "size": 546524,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/fbx/1k/cardboard_box_01/cardboard_box_01_1k.fbx",
+      "md5": "de7813a2652c0cbfc4e35293addbce7f"
+    },
+    {
+      "path": "textures/cardboard_box_01_rough_1k.exr",
+      "size": 669411,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/cardboard_box_01/cardboard_box_01_rough_1k.exr",
+      "md5": "f0afa732547682a239b7de8e30b8ecb6"
+    },
+    {
+      "path": "textures/cardboard_box_01_diff_1k.jpg",
+      "size": 567741,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/cardboard_box_01/cardboard_box_01_diff_1k.jpg",
+      "md5": "a306e586325d1759ba3225d2b6ad5121"
+    },
+    {
+      "path": "textures/cardboard_box_01_nor_gl_1k.exr",
+      "size": 1804042,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/cardboard_box_01/cardboard_box_01_nor_gl_1k.exr",
+      "md5": "9f66ac980dc8c755ef093f829b8f289c"
+    }
+  ]
+}

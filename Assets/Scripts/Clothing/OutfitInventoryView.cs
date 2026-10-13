@@ -62,17 +62,16 @@ public sealed class OutfitInventoryView : MonoBehaviour
         {
             var outfit = Player.Outfit;
             for (int i = 0; i < 4; i++)
-            { var clothing = outfit.Get((ClothingSlot)i); names[i].text = clothing != null ? clothing.DisplayName : "Empty"; drop[i].interactable = clothing != null; }
-            state.text = outfit.IsEmpty ? "No clothes equipped" : "Equipped: " + outfit.Count + " / 4";
+            { var clothing = outfit.Get((ClothingSlot)i); GameLanguage.Set(names[i], clothing != null ? clothing.DisplayName : "Empty"); drop[i].interactable = clothing != null; }
+            GameLanguage.Set(state, outfit.IsEmpty ? "No clothes equipped" : "Equipped: " + outfit.Count + " / 4");
             dropAll.interactable = !outfit.IsEmpty;
         }
         finishHint.transform.parent.gameObject.SetActive(playing && !lobby.MenuVisible && !lobby.InventoryOpen && lobby.NearFinish);
         if (finishHint.transform.parent.gameObject.activeSelf)
         {
             var players = lobby.Snapshot.players.Where(p => !p.spectator && !p.eliminated).ToArray();
-            finishHint.text = lobby.Offline ? "Press E at the Ready button to rate your outfit" :
-                "Ready at the entrance: " + players.Count(p => p.finishReady) + " / " + players.Length + "\n" +
-                (lobby.IsFinishReady ? "You're ready. Waiting for others • Stay near the entrance" : "Look at the Ready button and press E");
+            GameLanguage.Set(finishHint, lobby.Offline ? "Stay in the lift to finish the run" :
+                "In return lift: " + players.Count(p => p.finishReady) + " / " + players.Length + "\nStay inside · Leaving cancels departure");
         }
     }
     public void SetOpen(bool value)
@@ -100,7 +99,7 @@ public sealed class OutfitInventoryView : MonoBehaviour
     private TMP_Text Text(RectTransform rect, string text, float size)
     {
         var label = rect.gameObject.AddComponent<TextMeshProUGUI>(); label.font = font; label.fontSize = size;
-        label.text = text; label.color = Color.white; label.richText = false; label.raycastTarget = false;
+        GameLanguage.Set(label, text); label.color = Color.white; label.richText = false; label.raycastTarget = false;
         return label;
     }
     private TMP_Text Label(string text, float x, float y, float width, float height, float size) => Text(Rect(text, panel.transform, x, y, width, height), text, size);

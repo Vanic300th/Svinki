@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public enum PigEmote : byte { None, Wave, Cheer, Clap, Dance, Laugh, Shrug }
+public enum PigEmote : byte { None, Wave, Cheer, Clap, Dance, Laugh, Shrug, Ball }
 
 [DefaultExecutionOrder(-300)]
 public sealed class EmoteWheel : MonoBehaviour
@@ -21,7 +21,7 @@ public sealed class EmoteWheel : MonoBehaviour
     private int selection = -1;
     private CursorLockMode oldLock;
     private bool oldVisible;
-    private static readonly string[] Names = { "Wave", "Cheer", "Clap", "Dance", "Laugh", "Shrug" };
+    private static readonly string[] Names = { "Wave", "Cheer", "Clap", "Dance", "Laugh", "Shrug", "Ball" };
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     private static void ResetStatics() { Instance = null; dismissedFrame = escapeFrame = -1; }
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
@@ -40,9 +40,10 @@ public sealed class EmoteWheel : MonoBehaviour
     private bool CanOpen(PlayerAvatar player)
     {
         var lobby = NetworkLobby.Instance;
+        if (FinalRunwayView.Active?.OwnControl == true) return !HowToPlay.BlocksInput && !PhotoAlbum.BlocksInput && !PlayerChat.BlocksInput;
         return !HowToPlay.BlocksInput && !PhotoAlbum.BlocksInput && PigMotion.CanEmote(player) && !PlayerChat.BlocksInput && (lobby == null ||
             lobby.Results == null && !lobby.MenuVisible && !lobby.InventoryOpen && !lobby.CargoOpen && !lobby.IsSpectator &&
-            (lobby.Offline || lobby.Snapshot.phase == SessionPhase.Round));
+            (lobby.Offline || lobby.Snapshot.phase == SessionPhase.Round || lobby.Snapshot.phase == SessionPhase.Lobby));
     }
     private void Start() { Build(); }
     private void Update()
@@ -68,7 +69,8 @@ public sealed class EmoteWheel : MonoBehaviour
         { if (keys.escapeKey.wasPressedThisFrame) escapeFrame = Time.frameCount; Close(false); return; }
         if (mouse != null && RectTransformUtility.ScreenPointToLocalPointInRectangle(wheel, mouse.position.ReadValue(), null, out var point))
         {
-            int next = point.magnitude < 100 ? -1 : Mathf.FloorToInt(Mathf.Repeat(Mathf.Atan2(point.x, point.y) * Mathf.Rad2Deg + 30, 360) / 60);
+            float segment = 360f / Names.Length;
+            int next = point.magnitude < 100 ? -1 : Mathf.FloorToInt(Mathf.Repeat(Mathf.Atan2(point.x, point.y) * Mathf.Rad2Deg + segment * .5f, 360) / segment);
             if (next != selection) { selection = next; Paint(); }
         }
         if (keys.vKey.wasReleasedThisFrame) Close(true);
@@ -82,12 +84,15 @@ public sealed class EmoteWheel : MonoBehaviour
         Cursor.lockState = menu ? CursorLockMode.None : oldLock; Cursor.visible = menu || oldVisible;
         if (!perform || chosen < 0 || !CanOpen(player)) return;
         var kind = (PigEmote)(chosen + 1); var network = player.GetComponent<NetworkPlayer>();
-        if (network != null) network.RequestEmote(kind); else player.GetComponentInChildren<PigMotion>()?.PlayEmote(kind);
+        if (FinalRunwayView.Active?.OwnControl == true) { FinalRunwayView.Active.Emote(kind); return; }
+        if (network != null) network.RequestEmote(kind);
+        else if (kind == PigEmote.Ball) player.GetComponent<PlayerBallForm>()?.Enter();
+        else player.GetComponentInChildren<PigMotion>()?.PlayEmote(kind);
     }
     private void Paint()
     {
         for (int i = 0; i < wedges.Length; i++) wedges[i].color = i == selection ? new Color(1,.40f,.32f,.96f) : new Color(.075f,.18f,.21f,.96f);
-        center.text = selection < 0 ? "EMOTES\n<size=19>Move to choose</size>" : Names[selection].ToUpperInvariant() + "\n<size=19>Release V</size>";
+        GameLanguage.Set(center, selection < 0 ? "EMOTES\n<size=19>Move to choose</size>" : Names[selection].ToUpperInvariant() + "\n<size=19>Release V</size>");
     }
     private RectTransform Rect(string name, Transform parent, Vector2 size, Vector2 position)
     {
@@ -97,7 +102,7 @@ public sealed class EmoteWheel : MonoBehaviour
     private TMP_Text Text(string name, Transform parent, string value, Vector2 size, Vector2 position, int fontSize)
     {
         var rect = Rect(name, parent, size, position); var text = rect.gameObject.AddComponent<TextMeshProUGUI>();
-        text.font = PlayerChat.Instance.Font; text.text = value; text.fontSize = fontSize; text.color = Color.white;
+        text.font = PlayerChat.Instance.Font; GameLanguage.Set(text, value); text.fontSize = fontSize; text.color = Color.white;
         text.alignment = TextAlignmentOptions.Center; text.raycastTarget = false; return text;
     }
     private void Build()
@@ -108,15 +113,15 @@ public sealed class EmoteWheel : MonoBehaviour
         var background = Rect("Wheel overlay", transform, Vector2.zero, Vector2.zero);
         background.anchorMin = Vector2.zero; background.anchorMax = Vector2.one; background.offsetMin = background.offsetMax = Vector2.zero;
         background.gameObject.AddComponent<Image>().color = new Color(0,0,0,.4f); panel = background.gameObject;
-        wheel = Rect("Wheel", background, new Vector2(500,500), Vector2.zero); wedges = new EmoteWheelWedge[6];
-        for (int i = 0; i < 6; i++)
+        wheel = Rect("Wheel", background, new Vector2(500,500), Vector2.zero); wedges = new EmoteWheelWedge[Names.Length];
+        for (int i = 0; i < Names.Length; i++)
         {
             var rect = Rect(Names[i] + " sector", wheel, new Vector2(500,500), Vector2.zero);
-            var wedge = rect.gameObject.AddComponent<EmoteWheelWedge>(); wedge.Index = i; wedge.raycastTarget = false; wedges[i] = wedge;
+            var wedge = rect.gameObject.AddComponent<EmoteWheelWedge>(); wedge.Index = i; wedge.Count = Names.Length; wedge.raycastTarget = false; wedges[i] = wedge;
         }
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < Names.Length; i++)
         {
-            float angle = (90 - i * 60) * Mathf.Deg2Rad;
+            float angle = (90 - i * 360f / Names.Length) * Mathf.Deg2Rad;
             Text(Names[i], wheel, "<size=18>0" + (i+1) + "</size>\n" + Names[i], new Vector2(150,80), new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * 177, 29);
         }
         center = Text("Selected emote", wheel, "", new Vector2(192,110), Vector2.zero, 27);

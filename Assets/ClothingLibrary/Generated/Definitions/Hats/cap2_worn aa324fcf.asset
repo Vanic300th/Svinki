@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5968b83ea37fc4f01b3c5e697770692b, type: 3}
   m_Name: cap2_worn aa324fcf
   m_EditorClassIdentifier: Assembly-CSharp::HatClothing
-  displayName: cap2
+  displayName: Woven cap
   model: {fileID: 919132149155446097, guid: aa324fcf4d514890a79b556b630318b0, type: 3}
   fabricMaterial: {fileID: 0}
   outlineMaterial: {fileID: 2100000, guid: aa2cf511bbc874172951bf40f2fced5b, type: 2}

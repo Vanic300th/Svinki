@@ -1,0 +1,117 @@
+{
+  "id": "modular_airduct_rectangular_01",
+  "source": "https://polyhaven.com/a/modular_airduct_rectangular_01",
+  "license": "CC0-1.0",
+  "resolution": "1k",
+  "info": {
+    "type": 2,
+    "name": "Modular Airduct Rectangular 01",
+    "categories": [
+      "industrial"
+    ],
+    "authors": {
+      "James Ray Cock": "All"
+    },
+    "staging": null,
+    "date_published": 1629331200,
+    "tags": [
+      "vent",
+      "airduct",
+      "modular",
+      "pieces",
+      "workshop",
+      "warehouse",
+      "rectangular",
+      "metal",
+      "airvent",
+      "utility",
+      "infrastructure"
+    ],
+    "max_resolution": [
+      8192,
+      8192
+    ],
+    "polycount": 45090,
+    "texel_density": 1915.5460481962573,
+    "dimensions": [
+      7663.504123687744,
+      2586.645245552063,
+      1256.1511993408203
+    ],
+    "sponsors": [
+      "146648879",
+      "26820710"
+    ],
+    "files_hash": "7241493c7894d6ce392291a582243edc369ec975",
+    "description": "Free 8K modular airduct set: realistic rectangular metal vents, elbows, joints and grilles. Industrial, workshop/warehouse-ready with detailed, worn-metal finish",
+    "category_id": "760470a4-1eb2-5904-8031-1bd26bbeebb4",
+    "category": "Industrial & Infrastructure/Pipes & Ducts/HVAC Ducts",
+    "attributes": {
+      "condition": [
+        "worn"
+      ],
+      "material": [
+        "metal"
+      ]
+    },
+    "img_version": "afb54b06",
+    "download_count": 20721,
+    "thumbnail_url": "https://cdn.polyhaven.com/asset_img/thumbs/modular_airduct_rectangular_01.png?width=256&height=256&format=webp&v=afb54b06"
+  },
+  "files": [
+    {
+      "path": "modular_airduct_rectangular_01.fbx",
+      "size": 1493324,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/fbx/1k/modular_airduct_rectangular_01/modular_airduct_rectangular_01_1k.fbx",
+      "md5": "358f02400d5989c95adb26432b5f7f48"
+    },
+    {
+      "path": "textures/modular_airduct_rectangular_01_parts01_diff_1k.png",
+      "size": 4278427,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/1k/modular_airduct_rectangular_01/modular_airduct_rectangular_01_parts01_diff_1k.png",
+      "md5": "3ab7dbb0b51a1a955847dcafa769561b"
+    },
+    {
+      "path": "textures/modular_airduct_rectangular_01_parts01_nor_gl_1k.png",
+      "size": 3537701,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/1k/modular_airduct_rectangular_01/modular_airduct_rectangular_01_parts01_nor_gl_1k.png",
+      "md5": "a93fed3b1cee4367947a7b5201bbfb86"
+    },
+    {
+      "path": "textures/modular_airduct_rectangular_01_parts02_metal_1k.png",
+      "size": 155756,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/1k/modular_airduct_rectangular_01/modular_airduct_rectangular_01_parts02_metal_1k.png",
+      "md5": "7ba91ef9262eb06607d38cc3622e21e7"
+    },
+    {
+      "path": "textures/modular_airduct_rectangular_01_parts01_rough_1k.png",
+      "size": 1512380,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/1k/modular_airduct_rectangular_01/modular_airduct_rectangular_01_parts01_rough_1k.png",
+      "md5": "6089e019630f21cc2be912b752258a2e"
+    },
+    {
+      "path": "textures/modular_airduct_rectangular_01_parts01_metal_1k.png",
+      "size": 81065,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/1k/modular_airduct_rectangular_01/modular_airduct_rectangular_01_parts01_metal_1k.png",
+      "md5": "f908ab0adf459454a44e6cda95040d40"
+    },
+    {
+      "path": "textures/modular_airduct_rectangular_01_parts02_diff_1k.png",
+      "size": 4850306,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/1k/modular_airduct_rectangular_01/modular_airduct_rectangular_01_parts02_diff_1k.png",
+      "md5": "3dfb67514bb6fff09a69919ea3d57a85"
+    },
+    {
+      "path": "textures/modular_airduct_rectangular_01_parts02_nor_gl_1k.png",
+      "size": 4124577,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/1k/modular_airduct_rectangular_01/modular_airduct_rectangular_01_parts02_nor_gl_1k.png",
+      "md5": "69bb45602f3755dc020966844c9cdc37"
+    },
+    {
+      "path": "textures/modular_airduct_rectangular_01_parts02_rough_1k.png",
+      "size": 1644031,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/1k/modular_airduct_rectangular_01/modular_airduct_rectangular_01_parts02_rough_1k.png",
+      "md5": "04e6cfe6b74e9de48053fe3af5b64ecf"
+    }
+  ]
+}

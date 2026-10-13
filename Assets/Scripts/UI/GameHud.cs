@@ -88,7 +88,7 @@ public sealed class GameHud : MonoBehaviour
 
     private static void SetText(TMP_Text label, string text)
     {
-        if (label != null && label.text != text) label.text = text;
+        if (label != null && label.text != text) GameLanguage.Set(label, text);
     }
 
     private static void Show(GameObject target, bool visible)

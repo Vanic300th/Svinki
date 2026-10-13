@@ -60,7 +60,7 @@ public sealed class VoicePlayback : MonoBehaviour
     {
         if(source==null)return;
         source.transform.position=avatar!=null?avatar.EyePosition:transform.position+Vector3.up*1.6f;
-        source.mute=avatar==null||!avatar.IsAlive||NetworkLobby.Instance==null||NetworkLobby.Instance.Results!=null||NetworkLobby.Instance.Snapshot.phase!=SessionPhase.Round;
+        source.mute=avatar==null||!avatar.IsAlive||NetworkLobby.Instance==null||NetworkLobby.Instance.Results!=null||(NetworkLobby.Instance.Snapshot.phase!=SessionPhase.Round&&NetworkLobby.Instance.Snapshot.phase!=SessionPhase.Lobby);
         if(Time.unscaledTime-lastPacket>.5f&&source.isPlaying){source.Stop();lock(sync){read=count=0;primed=false;lastSample=0;}}
     }
     private void OnDestroy(){if(source!=null)source.Stop();if(clip!=null)Destroy(clip);}

@@ -19,6 +19,7 @@ public sealed class SessionMenu : MonoBehaviour
     private PigAppearanceMenu appearanceMenu;
     private OutfitResultsView resultsView;
     private HowToPlay guide;
+    private UnityEngine.UI.Button englishLanguage, russianLanguage;
     private void Start()
     {
         lobby = GetComponent<NetworkLobby>();
@@ -52,7 +53,7 @@ public sealed class SessionMenu : MonoBehaviour
         panel.GetComponent<UnityEngine.UI.Image>().color = new Color(.04f, .055f, .085f, .98f);
         title = Label("SVINKI", 52, 44, 440, 64, 28);
         Button("How to Play", 510, 50, 155, () => guide.Show());
-        Button("Settings", 680, 50, 165, () => settingsPanel.SetActive(!settingsPanel.activeSelf));
+        Button("Settings", 680, 50, 165, () => { settingsPanel.SetActive(!settingsPanel.activeSelf); settingsPanel.transform.SetAsLastSibling(); });
         status = Label("", 52, 114, 800, 110, 24);
         nickname = Input("Nickname", 52, 230, 385, lobby.Nickname, 24);
         code = Input("Friend's Code", 460, 230, 385, "", 6);
@@ -69,12 +70,14 @@ public sealed class SessionMenu : MonoBehaviour
         gameObject.AddComponent<PlayerRoundHud>().Build(canvasObject.transform, font, lobby);
         guide=gameObject.AddComponent<HowToPlay>();guide.Build(canvasObject.transform,font,lobby);
         lobby.Changed += Refresh;
+        GameLanguage.Changed += RefreshLanguage;
         Refresh();
     }
     private void OnDestroy()
     {
         UnityEngine.SceneManagement.SceneManager.sceneLoaded -= OnSceneLoaded;
         if (lobby != null) lobby.Changed -= Refresh;
+        GameLanguage.Changed -= RefreshLanguage;
         if (font != null) Destroy(font);
     }
     private void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, UnityEngine.SceneManagement.LoadSceneMode mode)
@@ -97,15 +100,16 @@ public sealed class SessionMenu : MonoBehaviour
     {
         if (panel == null) return;
         var snapshot = lobby.Snapshot;
-        title.text = lobby.Offline ? "SVINKI — Single Player" : lobby.InSession ? "LOBBY  " + snapshot.code : "SVINKI — Play with Friends";
-        status.text = lobby.Status;
+        GameLanguage.Set(title, lobby.Offline ? "SVINKI — Single Player" : lobby.InSession ? "LOBBY  " + snapshot.code : "SVINKI — Play with Friends");
+        GameLanguage.Set(status, lobby.Status);
         nickname.gameObject.SetActive(!lobby.InSession && !lobby.Offline && !lobby.Busy);
         code.gameObject.SetActive(nickname.gameObject.activeSelf);
+        // Names remain literal even when a nickname happens to be an English UI word.
         roster.text = string.Join("\n", snapshot.players.Select(p =>
-            (p.id == snapshot.host ? "Host: " : "• ") + p.nickname + (p.id == lobby.Identity ? " (you)" : "") + " — " +
-            (!p.connected ? "reconnecting" : p.spectator ? "spectator" : p.ready ? "ready" : "not ready"))) +
-            (lobby.InSession ? "\n\nPlayers: " + snapshot.players.Length + "/6  ·  Round " + snapshot.round +
-             (snapshot.closed ? "  ·  Admission closed" : "  ·  Admission open") : "");
+            (p.id == snapshot.host ? GameLanguage.Text("Host: ") : "• ") + p.nickname + (p.id == lobby.Identity ? GameLanguage.Text(" (you)") : "") + " — " +
+            GameLanguage.Text(!p.connected ? "reconnecting" : p.spectator ? "spectator" : p.ready ? "ready" : "not ready"))) +
+            (lobby.InSession ? "\n\n" + string.Format(GameLanguage.Text("Players: {0}/6  ·  Round {1}{2}"),snapshot.players.Length,snapshot.round,
+             GameLanguage.Text(snapshot.closed ? "  ·  Admission closed" : "  ·  Admission open")) : "");
         string key = snapshot.phase + ":" + lobby.IsHost + ":" + lobby.Busy + ":" + lobby.Offline + ":" +
             string.Join(",", snapshot.players.Select(p => p.id + p.ready + p.connected + p.finishReady)) + ":" + snapshot.closed + ":" + lobby.NearFinish;
         if (key == layoutKey) return;
@@ -117,7 +121,7 @@ public sealed class SessionMenu : MonoBehaviour
             var button = Button(label, 52, 605 + row++ * 60, 795, action); button.interactable = enabled; controls.Add(button.gameObject);
         }
         if (lobby.Busy) { Add("Cancel Connection", lobby.Cancel); return; }
-        if (lobby.Offline) { Add("Resume", Resume); Add("Ready — Rate Outfit at Entrance", lobby.EndRound, lobby.NearFinish); Add("Main Menu", lobby.Leave); return; }
+        if (lobby.Offline) { Add("Resume", Resume); Add("Main Menu", lobby.Leave); return; }
         if (!lobby.InSession)
         {
 #if !UNITY_WEBGL
@@ -133,14 +137,11 @@ public sealed class SessionMenu : MonoBehaviour
         }
         if (snapshot.phase == SessionPhase.Lobby)
         {
-            var self = snapshot.players.FirstOrDefault(p => p.id == lobby.Identity);
-            Add(self?.ready == true ? "Cancel Ready" : "Ready", () => lobby.Ready(self?.ready != true));
-            if (lobby.IsHost) Add("Start Round", lobby.StartRound, snapshot.players.Length > 0 && snapshot.players.All(p => p.ready && p.connected));
+            Add("Enter Friendslop Lobby", Resume);
         }
         else if (snapshot.phase == SessionPhase.Round)
         {
             Add(lobby.IsSpectator ? "Resume Spectating" : "Resume", Resume);
-            if (!lobby.IsSpectator) Add(lobby.IsFinishReady ? "Cancel Ready" : "Ready — At Entrance", () => lobby.FinishReady(!lobby.IsFinishReady), lobby.IsFinishReady || lobby.NearFinish);
         }
         Add("Copy Code: " + snapshot.code, () => { GUIUtility.systemCopyBuffer = snapshot.code; lobby.Report("Code copied: " + snapshot.code); });
         if (lobby.IsHost) Add(snapshot.closed ? "Open Admission" : "Close Admission", lobby.ToggleAdmission);
@@ -158,9 +159,9 @@ public sealed class SessionMenu : MonoBehaviour
     }
     private void BuildSettings()
     {
-        var box = Rect("Settings", panel.transform, 52, 310, 795, 280);
+        var box = Rect("Settings", panel.transform, 52, 250, 795, 530);
         settingsPanel = box.gameObject;
-        settingsPanel.AddComponent<UnityEngine.UI.Image>().color = new Color(.07f,.10f,.15f,.99f);
+        settingsPanel.AddComponent<UnityEngine.UI.Image>().color = new Color(.07f,.10f,.15f,1);
         Label("Mouse Sensitivity", 24, 20, 730, 44, 26, box);
         var value = Label("", 24, 65, 730, 34, 22, box);
         var track = Rect("Mouse sensitivity", box, 28, 122, 735, 40);
@@ -174,16 +175,52 @@ public sealed class SessionMenu : MonoBehaviour
         slider.minValue = .25f; slider.maxValue = 3; slider.handleRect = handle; slider.targetGraphic = handleImage;
         slider.direction = UnityEngine.UI.Slider.Direction.LeftToRight;
         slider.SetValueWithoutNotify(MouseSettings.Multiplier);
-        void RefreshValue(float v) => value.text = Mathf.RoundToInt(v * 100) + "%";
+        void RefreshValue(float v) => GameLanguage.Set(value, Mathf.RoundToInt(v * 100) + "%");
         RefreshValue(slider.value);
         slider.onValueChanged.AddListener(v => { MouseSettings.Set(v); RefreshValue(v); });
         Label("25% — slow                         300% — fast", 24, 177, 730, 36, 20, box);
-        var reset = Rect("Reset sensitivity", box, 24, 225, 240, 38);
+        var reset = Rect("Reset sensitivity", box, 24, 225, 350, 44);
         var resetImage = reset.gameObject.AddComponent<UnityEngine.UI.Image>(); resetImage.color = new Color(.16f,.26f,.36f);
         var button = reset.gameObject.AddComponent<UnityEngine.UI.Button>(); button.targetGraphic = resetImage;
-        Label("Reset to Default", 12, 2, 215, 34, 20, reset).alignment = TextAlignmentOptions.Center;
+        var resetLabel = Label("Reset to Default", 12, 5, 326, 34, 20, reset);
+        resetLabel.alignment = TextAlignmentOptions.Center;
+        resetLabel.textWrappingMode = TextWrappingModes.NoWrap;
+        resetLabel.overflowMode = TextOverflowModes.Ellipsis;
         button.onClick.AddListener(() => slider.value = 1);
+        var musicLabel = Label("", 24, 280, 730, 36, 24, box);
+        var musicTrack = Rect("Music volume", box, 28, 326, 735, 36);
+        musicTrack.gameObject.AddComponent<UnityEngine.UI.Image>().color = background.color;
+        var musicArea = Rect("Music handle area", musicTrack, 12, 0, 711, 36);
+        var musicHandle = Rect("Music handle", musicArea, 0, 0, 24, 36);
+        musicHandle.sizeDelta = new Vector2(24, 0); musicHandle.pivot = new Vector2(.5f, .5f);
+        musicHandle.anchoredPosition = Vector2.zero;
+        var musicImage = musicHandle.gameObject.AddComponent<UnityEngine.UI.Image>(); musicImage.color = handleImage.color;
+        var musicSlider = musicTrack.gameObject.AddComponent<UnityEngine.UI.Slider>();
+        musicSlider.minValue = 0; musicSlider.maxValue = 1; musicSlider.handleRect = musicHandle; musicSlider.targetGraphic = musicImage;
+        musicSlider.SetValueWithoutNotify(MusicSettings.Volume);
+        void RefreshMusic(float v) => GameLanguage.Set(musicLabel, "Music volume: " + Mathf.RoundToInt(v * 100) + "%");
+        RefreshMusic(musicSlider.value);
+        musicSlider.onValueChanged.AddListener(v => { MusicSettings.Set(v); RefreshMusic(v); });
+        Label("Language", 24, 398, 730, 36, 24, box);
+        UnityEngine.UI.Button LanguageButton(string name, float x, string code)
+        {
+            var language = Rect(name + " language", box, x, 450, 350, 52);
+            var image = language.gameObject.AddComponent<UnityEngine.UI.Image>();
+            var choice = language.gameObject.AddComponent<UnityEngine.UI.Button>(); choice.targetGraphic = image;
+            Label(name, 10, 5, 330, 42, 24, language).alignment = TextAlignmentOptions.Center;
+            choice.onClick.AddListener(() => GameLanguage.Select(code)); return choice;
+        }
+        englishLanguage = LanguageButton("English",24,"en");
+        russianLanguage = LanguageButton("Русский",400,"ru");
+        RefreshLanguage();
         settingsPanel.SetActive(false);
+    }
+    private void RefreshLanguage()
+    {
+        layoutKey = null; Refresh();
+        if (englishLanguage != null) englishLanguage.targetGraphic.color = GameLanguage.Code == "en" ? new Color(.28f,.47f,.5f) : new Color(.16f,.26f,.36f);
+        if (russianLanguage != null) russianLanguage.targetGraphic.color = GameLanguage.Code == "ru" ? new Color(.28f,.47f,.5f) : new Color(.16f,.26f,.36f);
+        if (settingsPanel != null && settingsPanel.activeSelf) settingsPanel.transform.SetAsLastSibling();
     }
     private void Resume()
     {
@@ -201,7 +238,7 @@ public sealed class SessionMenu : MonoBehaviour
     {
         var rect = Rect("Text", parent ?? panel.transform, x, y, width, height);
         var label = rect.gameObject.AddComponent<TextMeshProUGUI>(); label.font = font; label.fontSize = size;
-        label.text = text; label.color = Color.white; label.richText = false; label.raycastTarget = false;
+        GameLanguage.Set(label, text); label.color = Color.white; label.richText = false; label.raycastTarget = false;
         return label;
     }
     private UnityEngine.UI.Button Button(string text, float x, float y, float width, Action action, float height = 50)
@@ -210,7 +247,11 @@ public sealed class SessionMenu : MonoBehaviour
         var image = rect.gameObject.AddComponent<UnityEngine.UI.Image>(); image.color = new Color(.16f, .26f, .36f);
         var button = rect.gameObject.AddComponent<UnityEngine.UI.Button>(); button.targetGraphic = image;
         var label = Label(text, 12, 5, width - 24, height - 10, 25, rect); label.alignment = TextAlignmentOptions.Center;
-        button.onClick.AddListener(() => action()); return button;
+        button.onClick.AddListener(() => action());
+        // Session refreshes append controls after the settings panel.
+        // Keep the open settings above those controls on every refresh.
+        if (settingsPanel != null && settingsPanel.activeSelf) settingsPanel.transform.SetAsLastSibling();
+        return button;
     }
     private TMP_InputField Input(string placeholder, float x, float y, float width, string value, int limit)
     {

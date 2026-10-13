@@ -1,0 +1,6 @@
+PASS idle ambient
+PASS TV fades and pauses ambient
+PASS jukebox keeps ambient suppressed after TV pauses
+PASS media pause restores ambient
+PASS stop restores ambient
+PASS RU/EN localized font atlas changes preserve world depth

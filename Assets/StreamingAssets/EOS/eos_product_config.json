@@ -1,0 +1,38 @@
+{
+  "ProductName": "Svinki",
+  "ProductId": "e21b176a5a314a4e8468f4e07f377533",
+  "ProductVersion": "0.1.0",
+  "imported": true,
+  "Clients": [
+    {
+      "Value": {
+        "ClientId": "xyza7891POfbKzo3ETWDZ8oJDlL9W8ll",
+        "ClientSecret": "in6SO+cvm25VoPE8W5vbeRWABqBGfhp3hvxf2OhZ7j8",
+        "EncryptionKey": "C3AC6C9D60F5D959AA0E7541BD327CF5EFB993409048BA6E137C364984F748E6"
+      },
+      "Name": "Client"
+    }
+  ],
+  "Environments": {
+    "Deployments": [
+      {
+        "Value": {
+          "SandboxId": {
+            "Value": "3859b97fd16941c2b0759bb68d4c7ffa"
+          },
+          "DeploymentId": "b645b6feb0d04305b25ae8e442984c06"
+        },
+        "Name": "Deployment"
+      }
+    ],
+    "Sandboxes": [
+      {
+        "Value": {
+          "Value": "3859b97fd16941c2b0759bb68d4c7ffa"
+        },
+        "Name": "Sandbox"
+      }
+    ]
+  },
+  "schemaVersion": "1.0"
+}

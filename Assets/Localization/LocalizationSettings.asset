@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: LocalizationSettings
   m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Settings.LocalizationSettings
   m_StartupSelectors:
+  - rid: 6991051395698262100
   - rid: 6991051315930202211
   m_AvailableLocales:
     rid: 6991051315930202188
@@ -196,3 +197,6 @@ MonoBehaviour:
       data:
         m_LocaleId:
           m_Code: en
+    - rid: 6991051395698262100
+      type: {class: SavedGameLocaleSelector, ns: , asm: Assembly-CSharp}
+      data: 

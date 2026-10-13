@@ -24,6 +24,7 @@ public sealed class OutfitResultEntry
     public int appearance;
     public bool eliminated;
     public int presentationPose;
+    public RunwayMovement movement = new RunwayMovement { position = new UnityEngine.Vector3(0, 0, -2.5f) };
     public string[] clothing = Array.Empty<string>(), names = Array.Empty<string>();
     public OutfitRating rating;
 }

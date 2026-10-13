@@ -80,8 +80,9 @@ public static class ExpandedRoundSetup
             }
             Physics.SyncTransforms();
             // Twelve aggressive stalkers in total. Additional ones occupy distinct departments.
-            var stalkers=Items<MannequinBrain>();var source=stalkers.First().gameObject;
-            for(int i=stalkers.Length;i<12;i++)
+            var stalkers=Items<MannequinBrain>();foreach(var extra in stalkers.OrderBy(b=>b.name,StringComparer.Ordinal).Skip(8))UnityEngine.Object.DestroyImmediate(extra.gameObject);
+            stalkers=Items<MannequinBrain>();var source=stalkers.First().gameObject;
+            for(int i=stalkers.Length;i<8;i++)
             {
                 int n=i-stalkers.Length;var room=wing.GetChild(n%wing.childCount);
                 var floor=room.Find("Floor").GetComponent<BoxCollider>().bounds;

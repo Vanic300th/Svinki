@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/FriendslopLobby.unity
+    guid: 47ebfe35cfc4c4830ba8407b8db7cc6c
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: df2df86733de042fb9f35cded993bd8e, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

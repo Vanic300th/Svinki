@@ -42,7 +42,7 @@ public sealed partial class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
     [ServerRpc(RequireOwnership = true)]
     private void VoiceServerRpc(ushort sequence,byte[] packet,Channel channel=Channel.Unreliable)
     {
-        if(!VoiceCodec.IsValid(packet)||IsDead||NetworkLobby.Instance?.CanEditOutfit(this)!=true)return;
+        if(!VoiceCodec.IsValid(packet)||IsDead||NetworkLobby.Instance?.CanCommunicate(this)!=true)return;
         float now=Time.unscaledTime;
         voiceBudget=Mathf.Min(8,voiceBudget+Mathf.Max(0,now-voiceBudgetAt)*60);voiceBudgetAt=now;
         if(voiceBudget<1||now-lastVoiceAt<.5f&&!VoiceCodec.IsNewer(sequence,lastVoiceSequence))return;
@@ -65,9 +65,10 @@ public sealed partial class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
     [ServerRpc(RequireOwnership = true)]
     private void EmoteServerRpc(byte kind)
     {
-        if (kind < 1 || kind > 6 || Time.time < nextEmoteAllowed || NetworkLobby.Instance?.CanEditOutfit(this) != true ||
+        if (kind < 1 || kind > 7 || Time.time < nextEmoteAllowed || NetworkLobby.Instance?.CanCommunicate(this) != true ||
             !PigMotion.CanEmote(GetComponent<PlayerAvatar>())) return;
         nextEmoteAllowed = Time.time + .8f; emoteUntil = Time.time + PigMotion.EmoteDuration;
+        if (kind == (byte)PigEmote.Ball) { if (ball.Enter()) ballPose.Value = ball.Capture(); return; }
         emote.Value = ((emote.Value & ~7u) + 8u) | kind;
     }
     private float nextRagdollSend;
@@ -101,11 +102,11 @@ public sealed partial class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
         foreach (string id in ids) { var item = FindInCatalog(id); if (item != null) items.Add(item); }
         GetComponent<PlayerOutfit>().SetItems(items);
     }
-    public void FreezeDisconnected() { StowCamera(); GetComponent<PlayerMonkeyCarry>()?.Release(); move = Vector2.zero; sprint = false; GetComponent<PlayerMannequinCarry>()?.Release(false); ShoppingCart.For(GetComponent<PlayerAvatar>())?.Release(GetComponent<PlayerAvatar>(), false); }
+    public void FreezeDisconnected() { StowCamera(); GetComponent<PlayerMonkeyCarry>()?.Release(); move = Vector2.zero; sprint = false; GetComponent<PlayerLobbyHands>()?.Release(false); GetComponent<PlayerMannequinCarry>()?.Release(false); ShoppingCart.For(GetComponent<PlayerAvatar>())?.Release(GetComponent<PlayerAvatar>(), false); }
     public override void OnOwnershipClient(NetworkConnection previousOwner)
     {
         base.OnOwnershipClient(previousOwner);
-        if (worldOutfit != null) worldOutfit.SetFirstPersonHidden(IsOwner);
+        if (worldOutfit != null) worldOutfit.SetFirstPersonHidden(IsOwner && !IsDead);
         if (IsOwner) StartCoroutine(BindLocalView()); else UnbindLocalView();
     }
     private void UnbindLocalView()
@@ -141,6 +142,7 @@ public sealed partial class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
         pigFace.OnChange += OnPigFaceChanged;
         wornClothing.OnChange += OnWornClothingChanged;
         SetupPhotoCamera();
+        SetupMechanics();
     }
 
     public override void OnStartServer()
@@ -161,13 +163,15 @@ public sealed partial class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
     public override void OnStartClient()
     {
         base.OnStartClient();
-        if (worldOutfit != null) worldOutfit.SetFirstPersonHidden(IsOwner);
+        if (worldOutfit != null) worldOutfit.SetFirstPersonHidden(IsOwner && !IsDead);
         ApplyWornClothing();
         ApplyPhotoCamera();
         pigAppearance?.Apply(pigFace.Value);
         pigMotion?.PlayEmote((PigEmote)(emote.Value & 7u));
         knockdown?.ApplyHit(hitsTaken.Value);
         knockdown?.ApplyNetworkPose(knockdownPose.Value);
+        bodyCarry.Apply(bodyAttachment.Value.Holder, bodyAttachment.Value.Cart);
+        if (!IsServerInitialized) ball.Apply(ballPose.Value);
         if (IsOwner) StartCoroutine(BindLocalView());
     }
 
@@ -190,13 +194,15 @@ public sealed partial class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
     public override void OnStopClient()
     {
         UnbindLocalView();
+        CleanupMechanics();
         base.OnStopClient();
     }
 
     private void Update()
     {
+        TickMechanics();
         if (NetworkObject != null && IsServerInitialized && (emote.Value & 7u) != 0 &&
-            (Time.time >= emoteUntil || MotionSpeed > .3f || !PigMotion.CanEmote(GetComponent<PlayerAvatar>()) || NetworkLobby.Instance?.CanEditOutfit(this) != true))
+            (Time.time >= emoteUntil || MotionSpeed > .3f || !PigMotion.CanEmote(GetComponent<PlayerAvatar>()) || NetworkLobby.Instance?.CanCommunicate(this) != true))
             emote.Value &= ~7u;
         if (IsOwner && view != null && Keyboard.current != null)
         {
@@ -205,7 +211,9 @@ public sealed partial class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
             yaw = view.transform.eulerAngles.y; pitch = Mathf.DeltaAngle(0f, view.transform.eulerAngles.x);
             sprint = allowed && (Keyboard.current.leftShiftKey.isPressed || Keyboard.current.rightShiftKey.isPressed);
             crouch = allowed && (Keyboard.current.leftCtrlKey.isPressed || Keyboard.current.rightCtrlKey.isPressed);
-            motor.Simulate(move, yaw, allowed && Keyboard.current.spaceKey.wasPressedThisFrame, sprint, crouch, Time.deltaTime);
+            if (!IsDead && !ball.IsBall) motor.Simulate(move, yaw, allowed && Keyboard.current.spaceKey.wasPressedThisFrame, sprint, crouch, Time.deltaTime);
+            if (ball.IsBall && !PlayerChat.BlocksInput && !EmoteWheel.BlocksInput && NetworkLobby.Instance?.MenuVisible != true &&
+                (Keyboard.current.spaceKey.wasPressedThisFrame || Keyboard.current.leftCtrlKey.wasPressedThisFrame || Keyboard.current.rightCtrlKey.wasPressedThisFrame)) RequestBallExit();
             if (Time.unscaledTime >= nextPoseSend)
             {
                 nextPoseSend = Time.unscaledTime + .05f;
@@ -250,6 +258,7 @@ public sealed partial class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
     public bool TryKnockDown(Vector3 direction)
     {
         if (NetworkObject == null || !IsServerInitialized || knockdown == null || !knockdown.CanFall) return false;
+        StopBall();
         GetComponent<PlayerMannequinCarry>()?.Release(false);
         ShoppingCart.For(GetComponent<PlayerAvatar>())?.Release(GetComponent<PlayerAvatar>(), false);
         knockdown.SetDown(true, direction);
@@ -261,7 +270,9 @@ public sealed partial class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
     {
         if (!IsServerInitialized || knockdown == null || !knockdown.CanFall ||
             NetworkLobby.Instance?.CanEditOutfit(this) != true) return false;
+        if (ball.IsBall) { ball.Exit(); ballPose.Value = ball.Capture(); }
         hitsTaken.Value = Mathf.Min(2, hitsTaken.Value + 1);
+        if (Owner.IsValid) MannequinScareTargetRpc(Owner, direction);
         knockdown.ApplyHit(hitsTaken.Value);
         if (IsDead) knockdown.DropOutfit(NetworkObject.NetworkManager);
         GetComponent<PlayerMannequinCarry>()?.Release(false);
@@ -271,6 +282,9 @@ public sealed partial class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
         if (IsDead) NetworkLobby.Instance.PlayerEliminated(this);
         return true;
     }
+
+    [TargetRpc]
+    private void MannequinScareTargetRpc(NetworkConnection connection, Vector3 direction) => Camera.main?.GetComponent<PlayerFearEffects>()?.Hit(direction);
 
     public void RestoreEliminated()
     {
@@ -313,7 +327,7 @@ public sealed partial class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
     [ServerRpc(RequireOwnership = true)]
     private void SendChatServerRpc(string message)
     {
-        if (Time.unscaledTime < nextChatAllowed) return;
+        if (Time.unscaledTime < nextChatAllowed || NetworkLobby.Instance?.CanCommunicate(this) != true) return;
         string clean = PlayerChat.CleanMessage(message);
         if (clean.Length == 0) return;
         nextChatAllowed = Time.unscaledTime + .5f;
@@ -398,7 +412,7 @@ public sealed partial class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
     [ServerRpc(RequireOwnership = true)]
     private void GrabMannequinServerRpc(NetworkObject target, Vector3 hitPoint)
     {
-        if (knockdown != null && knockdown.IsDown) return;
+        if (knockdown != null && knockdown.IsDown || ball?.IsBall == true) return;
         if (target == null || target.gameObject.scene != gameObject.scene ||
             !float.IsFinite(hitPoint.x) || !float.IsFinite(hitPoint.y) || !float.IsFinite(hitPoint.z)) return;
         var mannequin = target.GetComponent<ThrowableMannequin>();

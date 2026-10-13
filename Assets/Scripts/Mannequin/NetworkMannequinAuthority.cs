@@ -1,4 +1,5 @@
 using FishNet.Object;
+using FishNet.Object.Synchronizing;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -16,12 +17,24 @@ public sealed class NetworkMannequinAuthority : NetworkBehaviour
     private MannequinVisibility visibility;
     private NavMeshAgent agent;
     private Transform currentTarget;
+    private readonly SyncVar<bool> roundActive = new SyncVar<bool>(true);
+    public bool RoundActive => roundActive.Value;
+    public void SetRoundActive(bool value) { roundActive.Value = value; ApplyRoundActive(value); }
+    private void ApplyRoundActive(bool value)
+    {
+        if (value) return;
+        brain.enabled = false; visibility.enabled = false;
+        if (agent != null) agent.enabled = false;
+        foreach (var collider in GetComponentsInChildren<Collider>(true)) collider.enabled = false;
+        foreach (var renderer in GetComponentsInChildren<Renderer>(true)) renderer.enabled = false;
+    }
 
     private void Awake()
     {
         brain = GetComponent<MannequinBrain>();
         visibility = GetComponent<MannequinVisibility>();
         agent = GetComponent<NavMeshAgent>();
+        roundActive.OnChange += (previous, next, asServer) => ApplyRoundActive(next);
     }
 
     private void Start()
@@ -29,12 +42,13 @@ public sealed class NetworkMannequinAuthority : NetworkBehaviour
         // Network prefabs start with navigation disabled: guests only display server poses.
         // Start runs after the scene's NavMeshSurface has registered/baked its data.
         if (agent != null)
-            agent.enabled = NetworkLobby.Instance == null || NetworkLobby.Instance.Offline || FishNet.InstanceFinder.IsServerStarted;
+            agent.enabled = roundActive.Value && (NetworkLobby.Instance == null || NetworkLobby.Instance.Offline || FishNet.InstanceFinder.IsServerStarted);
     }
 
     public override void OnStartNetwork()
     {
         base.OnStartNetwork();
+        ApplyRoundActive(roundActive.Value);
         if (!IsServerStarted)
         {
             brain.enabled = false;
@@ -45,7 +59,7 @@ public sealed class NetworkMannequinAuthority : NetworkBehaviour
 
     private void Update()
     {
-        if (NetworkObject == null || !IsServerInitialized) return;
+        if (NetworkObject == null || !IsServerInitialized || !roundActive.Value) return;
         PlayerAvatar closest = PlayerRegistry.Nearest(transform.position, gameObject.scene);
         Transform next = closest != null ? closest.transform : null;
         if (next == currentTarget) return;

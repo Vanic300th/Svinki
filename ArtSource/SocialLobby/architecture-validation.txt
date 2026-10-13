@@ -1,0 +1,1 @@
+PASS: module counts, 96 clothing pickups, 3 carts, 8 aggressive/40 neutral mannequins retained; HTTP media validation; bull/triple/double/miss scoring; 0.7m body clearance from spawn to lobby and lift; anomaly has no combat brain.

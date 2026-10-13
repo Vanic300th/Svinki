@@ -15,6 +15,23 @@ MonoBehaviour:
   m_GroupName: Localization-Assets-Shared
   m_GUID: 1f76636b2d04d4a158389e7260d67725
   m_SerializeEntries:
+  - m_GUID: 16653f6c60f0640a6a239afc077a93e2
+    m_Address: SvinkiBilingual
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    - Locale-ru
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ba3dfca74ef4f48d0899f972389c85cf
+    m_Address: Assets/Localization/GameAssets Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c10a1babf52fb46a19911cb12e9792c9
+    m_Address: Assets/Localization/GameUI Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d8f06c436638a4cf4b2591f984702f23
     m_Address: Assets/Localization/GameEnglish Shared Data.asset
     m_ReadOnly: 1

@@ -1,0 +1,5 @@
+PASS: K without equipment explains E pickup and does not grant a camera.
+PASS: Host and guest: actual E pickup, K equip, K stow and K re-equip.
+PASS: Both clients shoot with LMB; photographs stay in their own albums.
+PASS: Rebinding restores the album singleton, preserves photos and equipment; album blocks K.
+PASS: Solo: pickup event restored, E grants the camera to its actual picker, K and LMB work, album survives rebinding.

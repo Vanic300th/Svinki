@@ -1,0 +1,1 @@
+PASS real ccMixter JSON parsed; title/author/featuring/CC BY license and full MP3; NC/ND/SA/foreign license hosts/credentials/file schemes rejected; stream domain and size checks; malformed fields fail closed; ID/source consistency; direct ccMixter MP3 cannot bypass metadata validation; stable track pages canonicalized; direct MP3 retained.

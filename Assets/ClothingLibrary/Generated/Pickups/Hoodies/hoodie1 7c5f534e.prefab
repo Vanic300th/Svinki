@@ -76,7 +76,6 @@ MonoBehaviour:
   onPickedUp:
     m_PersistentCalls:
       m_Calls: []
-  highlightColor: {r: 1, g: 0.79, b: 0.13, a: 1}
   glowStrength: 0
   sparkleRate: 10
   preserveBaseColor: 1
