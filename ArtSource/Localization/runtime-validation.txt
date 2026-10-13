@@ -1,5 +1,0 @@
-PASS: saved Russian language selected on fresh Play startup.
-PASS: settings buttons switch Russian to English without restarting.
-PASS: Russian empty photo album, hidden label activation, literal player-name preservation.
-PASS: translated store signs and dynamic clothing/rating messages use the local locale.
-PASS: formatted rating advice and clothing names translate; nickname Hat remains literal in album heading.

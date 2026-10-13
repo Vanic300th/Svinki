@@ -19,8 +19,8 @@ public static class ExpandedRoundCheck
     }
     public static string SavedScene()
     {
-        var scene=SceneManager.GetSceneByPath("Assets/Scenes/SampleScene.unity");
-        if(!scene.IsValid()||!scene.isLoaded)scene=UnityEditor.SceneManagement.EditorSceneManager.OpenScene("Assets/Scenes/SampleScene.unity",UnityEditor.SceneManagement.OpenSceneMode.Additive);
+        var scene=SceneManager.GetSceneByPath(SvinkiAssetPaths.GameplayScene);
+        if(!scene.IsValid()||!scene.isLoaded)scene=UnityEditor.SceneManagement.EditorSceneManager.OpenScene(SvinkiAssetPaths.GameplayScene,UnityEditor.SceneManagement.OpenSceneMode.Additive);
         var roots=scene.GetRootGameObjects();
         var floor=roots.SelectMany(g=>g.GetComponentsInChildren<BoxCollider>(true)).Where(b=>b.name=="Floor"&&b.bounds.center.y<.3f).ToArray();
         double area=floor.Sum(b=>(double)b.bounds.size.x*b.bounds.size.z);

@@ -1,1 +1,0 @@
-PASS: actual CC0 model prefabs/materials installed in FriendslopLobby and SampleScene; 245 network roots and IDs preserved. No gameplay/network/EOS changes.

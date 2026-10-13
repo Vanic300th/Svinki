@@ -14,7 +14,7 @@ for attribute in mesh.color_attributes:
 bpy.ops.object.select_all(action='DESELECT')
 for o in bpy.data.objects:
  if o.type in {'MESH','ARMATURE'}:o.select_set(True)
-bpy.ops.export_scene.fbx(filepath=os.path.abspath('Assets/Art/Items/MonkeyToy/ChimpanzeeToy.fbx'),use_selection=True,object_types={'ARMATURE','MESH'},add_leaf_bones=False,bake_anim=False,axis_forward='-Z',axis_up='Y',apply_unit_scale=True,mesh_smooth_type='FACE')
+bpy.ops.export_scene.fbx(filepath=os.path.abspath('Assets/_Project/Content/Items/MonkeyToy/ChimpanzeeToy.fbx'),use_selection=True,object_types={'ARMATURE','MESH'},add_leaf_bones=False,bake_anim=False,axis_forward='-Z',axis_up='Y',apply_unit_scale=True,mesh_smooth_type='FACE')
 bpy.context.preferences.filepaths.save_version=0
 bpy.ops.wm.save_as_mainfile(filepath=os.path.abspath('ArtSource/MonkeyToy/ChimpanzeeToy.blend'))
 print('ORANGE_PLUSH_EXPORTED')

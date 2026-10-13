@@ -1,1 +1,0 @@
-PASS: 40 neutral mannequins, 8 aggressive mannequins, 3 carts; 156 unique nonzero network IDs; all 144 existing IDs preserved.

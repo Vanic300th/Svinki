@@ -1,1 +1,0 @@
-PASS: 8 aggressive mannequins, 3 carts, 144 unique nonzero network IDs.

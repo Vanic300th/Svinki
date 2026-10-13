@@ -6,13 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Lobby.unity
+    path: Assets/_Project/Scenes/Bootstrap/Lobby.unity
     guid: 63bee7c6beac046b1831477d251ef883
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
+    path: Assets/_Project/Scenes/Gameplay/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
-    path: Assets/Scenes/FriendslopLobby.unity
+    path: Assets/_Project/Scenes/Lobby/FriendslopLobby.unity
     guid: 47ebfe35cfc4c4830ba8407b8db7cc6c
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: df2df86733de042fb9f35cded993bd8e, type: 2}

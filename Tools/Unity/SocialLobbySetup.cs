@@ -13,7 +13,7 @@ using UnityEngine.Video;
 
 public static class SocialLobbySetup
 {
-    private const string Folder = "Assets/Art/Lobby";
+    private const string Folder = SvinkiAssetPaths.LobbyMaterials;
     private static Material concrete, steel, rust, lockerPaint, cloth, leather, wood, white, dark, orange, pink;
     private static TMP_FontAsset font;
     private static T[] Items<T>(Scene scene) where T : Component => scene.GetRootGameObjects().SelectMany(r => r.GetComponentsInChildren<T>(true)).ToArray();
@@ -76,10 +76,10 @@ public static class SocialLobbySetup
     }
     public static string Apply()
     {
-        if (File.Exists("Assets/Scenes/FriendslopLobby.unity")) return "Separate Friendslop lobby already installed; use FriendslopSceneSetup/Check.";
+        if (File.Exists(SvinkiAssetPaths.SocialLobbyScene)) return "Separate Friendslop lobby already installed; use FriendslopSceneSetup/Check.";
         if (EditorApplication.isPlayingOrWillChangePlaymode) throw new Exception("Edit mode required");
-        var scene = SceneManager.GetSceneByPath("Assets/Scenes/SampleScene.unity");
-        if (!scene.IsValid() || !scene.isLoaded) scene = EditorSceneManager.OpenScene("Assets/Scenes/SampleScene.unity", OpenSceneMode.Additive);
+        var scene = SceneManager.GetSceneByPath(SvinkiAssetPaths.GameplayScene);
+        if (!scene.IsValid() || !scene.isLoaded) scene = EditorSceneManager.OpenScene(SvinkiAssetPaths.GameplayScene, OpenSceneMode.Additive);
         if (scene.isDirty) throw new Exception("Scene has unsaved edits; save them before setup");
         if (Items<LobbyActivityManager>(scene).Length > 0) return "Social lobby already installed";
         var idField = typeof(NetworkObject).GetField("SceneId", BindingFlags.Instance | BindingFlags.NonPublic);

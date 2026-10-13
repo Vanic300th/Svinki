@@ -15,10 +15,10 @@ public static class MonkeyToySetup
     public static string Build()
     {
         if(EditorApplication.isPlaying)throw new Exception("Stop Play first");
-        const string modelPath="Assets/Art/Items/MonkeyToy/ChimpanzeeToy.fbx",prefabPath="Assets/Prefabs/MonkeyToy.prefab";
+        const string modelPath=SvinkiAssetPaths.Items + "/MonkeyToy/ChimpanzeeToy.fbx",prefabPath=SvinkiAssetPaths.Prefabs + "/MonkeyToy.prefab";
         var importer=(ModelImporter)AssetImporter.GetAtPath(modelPath);importer.animationType=ModelImporterAnimationType.Generic;importer.importAnimation=false;importer.SaveAndReimport();
-        var material=AssetDatabase.LoadAssetAtPath<Material>("Assets/Art/Items/MonkeyToy/Monkey Toy.mat");
-        if(material==null){material=new Material(Shader.Find("Svinki/Animal Toy"));AssetDatabase.CreateAsset(material,"Assets/Art/Items/MonkeyToy/Monkey Toy.mat");}
+        var material=AssetDatabase.LoadAssetAtPath<Material>(SvinkiAssetPaths.Items + "/MonkeyToy/Monkey Toy.mat");
+        if(material==null){material=new Material(Shader.Find("Svinki/Animal Toy"));AssetDatabase.CreateAsset(material,SvinkiAssetPaths.Items + "/MonkeyToy/Monkey Toy.mat");}
         material.SetColor("_BaseColor",Color.white);material.SetFloat("_VividGain",1.12f);material.SetFloat("_Saturation",1);material.SetFloat("_Contrast",1);EditorUtility.SetDirty(material);
         var temp=EditorSceneManager.NewPreviewScene();GameObject root=null;
         try
@@ -36,12 +36,12 @@ public static class MonkeyToySetup
         finally{EditorSceneManager.ClosePreviewScene(temp);}
         var prefab=AssetDatabase.LoadAssetAtPath<NetworkObject>(prefabPath);
         var registry=AssetDatabase.LoadAssetAtPath<DefaultPrefabObjects>("Assets/DefaultPrefabObjects.asset");registry.AddObject(prefab,true);registry.InitializePrefabRange(0);EditorUtility.SetDirty(registry);
-        foreach(var path in new[]{"Assets/Prefabs/NetworkPlayer.prefab","Assets/Prefabs/OfflinePlayer.prefab"})
+        foreach(var path in new[]{SvinkiAssetPaths.NetworkPlayerPrefab,SvinkiAssetPaths.OfflinePlayerPrefab})
         {
             var player=PrefabUtility.LoadPrefabContents(path);try{if(player.GetComponent<PlayerMonkeyCarry>()==null)player.AddComponent<PlayerMonkeyCarry>();PrefabUtility.SaveAsPrefabAsset(player,path);}finally{PrefabUtility.UnloadPrefabContents(player);}
         }
-        var previous=SceneManager.GetActiveScene();var scene=SceneManager.GetSceneByPath("Assets/Scenes/SampleScene.unity");bool opened=!scene.IsValid()||!scene.isLoaded;
-        if(opened)scene=EditorSceneManager.OpenScene("Assets/Scenes/SampleScene.unity",OpenSceneMode.Additive);
+        var previous=SceneManager.GetActiveScene();var scene=SceneManager.GetSceneByPath(SvinkiAssetPaths.GameplayScene);bool opened=!scene.IsValid()||!scene.isLoaded;
+        if(opened)scene=EditorSceneManager.OpenScene(SvinkiAssetPaths.GameplayScene,OpenSceneMode.Additive);
         try
         {
             var brains=scene.GetRootGameObjects().SelectMany(r=>r.GetComponentsInChildren<MannequinBrain>(true)).ToArray();

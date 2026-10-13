@@ -16,7 +16,7 @@ public static class SvinkiExpansionVerification
     public static string SavedScene()
     {
         var previous=UnityEngine.SceneManagement.SceneManager.GetActiveScene();
-        var scene=UnityEditor.SceneManagement.EditorSceneManager.OpenScene("Assets/Scenes/SampleScene.unity",UnityEditor.SceneManagement.OpenSceneMode.Additive);
+        var scene=UnityEditor.SceneManagement.EditorSceneManager.OpenScene(SvinkiAssetPaths.GameplayScene,UnityEditor.SceneManagement.OpenSceneMode.Additive);
         try
         {
             UnityEngine.SceneManagement.SceneManager.SetActiveScene(scene);var roots=scene.GetRootGameObjects();

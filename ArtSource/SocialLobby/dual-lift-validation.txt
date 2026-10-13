@@ -1,7 +1,0 @@
-PASS: 156 original factory network IDs preserved; 188 unique IDs across lobby and factory.
-PASS: clear walking approaches to both lifts.
-PASS: script compilation; Windows profile restored; Lobby bootstrap opened.
-PASS: native Host + two Clients, reconnect, repeated run and offline regression: 20 assertions.
-PASS: start and finish use physical lift occupancy/countdowns; exiting cancels departure; manual Ready/Finish cannot bypass.
-BUILD: Succeeded; two pre-existing scene errors for missing hoodie1 prefab.
-EOS internet sessions were not exercised by the local transport test.

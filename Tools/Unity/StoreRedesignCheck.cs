@@ -17,7 +17,7 @@ public static class StoreRedesignCheck
 {
     private static readonly BindingFlags Private=BindingFlags.Instance|BindingFlags.NonPublic;
     [Serializable]private class ReachReport{public int count,reachable;public string[] unreachable;}
-    private static Scene Scene()=>SceneManager.GetSceneByPath("Assets/Scenes/SampleScene.unity");
+    private static Scene Scene()=>SceneManager.GetSceneByPath(SvinkiAssetPaths.GameplayScene);
     private static T[] All<T>()where T:Component=>Scene().GetRootGameObjects().SelectMany(r=>r.GetComponentsInChildren<T>(true)).ToArray();
     private static void Assert(bool b,string why){if(!b)throw new Exception(why);}
     private static bool Reachable(ClothingPickup item,out Vector3 stand)

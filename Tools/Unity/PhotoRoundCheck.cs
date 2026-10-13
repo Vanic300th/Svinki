@@ -11,9 +11,9 @@ public static class PhotoRoundCheck
 {
     public static void Spawns()
     {
-        var scene=UnityEngine.SceneManagement.SceneManager.GetSceneByPath("Assets/Scenes/SampleScene.unity");
+        var scene=UnityEngine.SceneManagement.SceneManager.GetSceneByPath(SvinkiAssetPaths.GameplayScene);
         bool opened=!scene.IsValid()||!scene.isLoaded;
-        if(opened)scene=EditorSceneManager.OpenScene("Assets/Scenes/SampleScene.unity",OpenSceneMode.Additive);
+        if(opened)scene=EditorSceneManager.OpenScene(SvinkiAssetPaths.GameplayScene,OpenSceneMode.Additive);
         bool wasDirty=scene.isDirty;
         var roots=scene.GetRootGameObjects();var transforms=roots.SelectMany(r=>r.GetComponentsInChildren<Transform>(true)).ToArray();
         var targets=transforms.Where(t=>t.GetComponent<FixedFactoryDisplay>()==null&&(t.GetComponent<ShoppingCart>()!=null||t.GetComponent<ThrowableMannequin>()!=null||t.GetComponent<MannequinBrain>()!=null||t.GetComponent<ThiefBrain>()!=null)).ToArray();

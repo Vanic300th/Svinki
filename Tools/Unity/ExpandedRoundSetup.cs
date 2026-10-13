@@ -19,16 +19,16 @@ public static class ExpandedRoundSetup
     public static string Build()
     {
         if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("Stop Play first");
-        scene=SceneManager.GetSceneByPath("Assets/Scenes/SampleScene.unity");
-        if(!scene.IsValid()||!scene.isLoaded) scene=EditorSceneManager.OpenScene("Assets/Scenes/SampleScene.unity",OpenSceneMode.Additive);
+        scene=SceneManager.GetSceneByPath(SvinkiAssetPaths.GameplayScene);
+        if(!scene.IsValid()||!scene.isLoaded) scene=EditorSceneManager.OpenScene(SvinkiAssetPaths.GameplayScene,OpenSceneMode.Additive);
         Scene previous=SceneManager.GetActiveScene();SceneManager.SetActiveScene(scene);
         try
         {
             Transform level=scene.GetRootGameObjects().Single(g=>g.name=="Graybox Level").transform;
             var definitions=AssetDatabase.FindAssets("t:ClothingDefinition").Select(AssetDatabase.GUIDToAssetPath).Select(AssetDatabase.LoadAssetAtPath<ClothingDefinition>).Where(c=>c!=null).ToArray();
-            plaster=AssetDatabase.LoadAssetAtPath<Material>("Assets/Materials/PeachStore/Warm plaster.mat");
-            wood=AssetDatabase.LoadAssetAtPath<Material>("Assets/Materials/PeachStore/Walnut display.mat");
-            metal=AssetDatabase.LoadAssetAtPath<Material>("Assets/Materials/PeachStore/Dark steel.mat");
+            plaster=AssetDatabase.LoadAssetAtPath<Material>(SvinkiAssetPaths.SharedMaterials + "/PeachStore/Warm plaster.mat");
+            wood=AssetDatabase.LoadAssetAtPath<Material>(SvinkiAssetPaths.SharedMaterials + "/PeachStore/Walnut display.mat");
+            metal=AssetDatabase.LoadAssetAtPath<Material>(SvinkiAssetPaths.SharedMaterials + "/PeachStore/Dark steel.mat");
             double oldArea=Items<BoxCollider>().Where(b=>b.name=="Floor"&&b.bounds.center.y<.3f&&!b.transform.IsChildOf(level.Find("North departments - triple area"))).Sum(b=>(double)b.bounds.size.x*b.bounds.size.z);
             wing=level.Find("North departments - triple area");
             if(wing==null)
@@ -43,7 +43,7 @@ public static class ExpandedRoundSetup
                 {
                     int index=row*4+col;float a=-30+col*width/4,b=a+width/4,z0=start+row*depth,z1=z0+depth,mx=(a+b)/2,mz=(z0+z1)/2;
                     var room=new GameObject((15+index)+" / "+names[index]).transform;room.SetParent(wing,false);
-                    Box("Floor",room,new Vector3(mx,-.15f,mz),new Vector3(b-a,.3f,depth),AssetDatabase.LoadAssetAtPath<Material>("Assets/Materials/PeachStore/Floor "+((index%8)+3).ToString("00")+".mat"));
+                    Box("Floor",room,new Vector3(mx,-.15f,mz),new Vector3(b-a,.3f,depth),AssetDatabase.LoadAssetAtPath<Material>(SvinkiAssetPaths.SharedMaterials + "/PeachStore/Floor "+((index%8)+3).ToString("00")+".mat"));
                     Box("Ceiling",room,new Vector3(mx,4.92f,mz),new Vector3(b-a,.24f,depth),plaster);
                     if(row==3) Box("North wall",room,new Vector3(mx,2.4f,z1),new Vector3(b-a,4.8f,.28f),plaster);
                     else DoorHorizontal(room,a,b,z1,mx,4);
@@ -109,9 +109,9 @@ public static class ExpandedRoundSetup
             SetupReady(level);SetupLayout(level);Brighten(definitions);
             foreach(var pickup in Items<ClothingPickup>()) { var modifier=pickup.GetComponent<NavMeshModifier>();if(modifier==null)modifier=pickup.gameObject.AddComponent<NavMeshModifier>();modifier.ignoreFromBuild=true; }
             Physics.SyncTransforms();var surface=Items<NavMeshSurface>().Single();surface.useGeometry=NavMeshCollectGeometry.PhysicsColliders;surface.collectObjects=CollectObjects.All;
-            surface.BuildNavMesh();var dataMesh=surface.navMeshData;var saved=AssetDatabase.LoadAssetAtPath<NavMeshData>("Assets/Settings/StoreExpandedNavMesh.asset");
+            surface.BuildNavMesh();var dataMesh=surface.navMeshData;var saved=AssetDatabase.LoadAssetAtPath<NavMeshData>(SvinkiAssetPaths.Settings + "/StoreExpandedNavMesh.asset");
             if(saved!=null&&saved!=dataMesh){surface.RemoveData();EditorUtility.CopySerialized(dataMesh,saved);UnityEngine.Object.DestroyImmediate(dataMesh);surface.navMeshData=saved;surface.AddData();EditorUtility.SetDirty(saved);}
-            else if(saved==null)AssetDatabase.CreateAsset(dataMesh,"Assets/Settings/StoreExpandedNavMesh.asset");
+            else if(saved==null)AssetDatabase.CreateAsset(dataMesh,SvinkiAssetPaths.Settings + "/StoreExpandedNavMesh.asset");
             BuildMap(level);
             foreach(var brain in Items<MannequinBrain>())
             {

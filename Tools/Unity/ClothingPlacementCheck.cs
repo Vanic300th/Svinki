@@ -10,7 +10,7 @@ public static class ClothingPlacementCheck
 {
     public static object Main()
     {
-        var scene=SceneManager.GetSceneByPath("Assets/Scenes/SampleScene.unity");
+        var scene=SceneManager.GetSceneByPath(SvinkiAssetPaths.GameplayScene);
         var clothes=scene.GetRootGameObjects().SelectMany(g=>g.GetComponentsInChildren<ClothingPickup>(true)).ToArray();
         Physics.SyncTransforms();
         var physics=scene.GetPhysicsScene();
@@ -40,7 +40,7 @@ public static class ClothingPlacementCheck
                 sceneId=(ulong)typeof(FishNet.Object.NetworkObject).GetField("SceneId",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic).GetValue(c.GetComponent<FishNet.Object.NetworkObject>()),
                 meshes=c.GetComponentsInChildren<MeshRenderer>(true).Length,sprites=c.GetComponentsInChildren<SpriteRenderer>(true).Length};
         }).ToArray();
-        var prefab=AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/NetworkPlayer.prefab");
+        var prefab=AssetDatabase.LoadAssetAtPath<GameObject>(SvinkiAssetPaths.NetworkPlayerPrefab);
         var catalog=new SerializedObject(prefab.GetComponent<NetworkPlayer>()).FindProperty("clothingCatalog");
         var definitions=clothes.Select(c=>c.Clothing).Distinct().ToArray();
         bool registered=definitions.All(d=>Enumerable.Range(0,catalog.arraySize).Any(i=>catalog.GetArrayElementAtIndex(i).objectReferenceValue==d));

@@ -1,1 +1,0 @@
-PASS offline gameplay: camera capture stored to SQLite; round reset retains archive; saved-photo selection, pin and clear; database reopen restores locker image; archive UI opens/browses/closes with one EventSystem.

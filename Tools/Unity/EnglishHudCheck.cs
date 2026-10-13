@@ -55,7 +55,7 @@ public static class EnglishHudCheck
         var preview=wardrobe.GetComponentInChildren<PigAppearance>(true);
         Check(preview!=null && !preview.GetComponent<PigMotion>().enabled,"Preview pig missing or independently animated");
         var items=Resources.LoadAll<ClothingDefinition>("");
-        if(items.Length==0) items=AssetDatabase.FindAssets("t:ClothingDefinition",new[]{"Assets/ClothingLibrary/Generated/Definitions"}).Select(g=>AssetDatabase.LoadAssetAtPath<ClothingDefinition>(AssetDatabase.GUIDToAssetPath(g))).ToArray();
+        if(items.Length==0) items=AssetDatabase.FindAssets("t:ClothingDefinition",new[]{SvinkiAssetPaths.ClothingDefinitions}).Select(g=>AssetDatabase.LoadAssetAtPath<ClothingDefinition>(AssetDatabase.GUIDToAssetPath(g))).ToArray();
         var outfit=items.Where(c=>c.PigRigged).GroupBy(c=>c.Slot).Select(g=>g.First()).ToArray();
         Check(outfit.Length==4,"Missing four clothing slots");
         player.Outfit.SetItems(outfit);source.Apply(PigFace.Preset(2).Encode());

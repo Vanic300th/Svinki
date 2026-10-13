@@ -8,7 +8,7 @@ public static class SocialLobbyMapSetup
 {
     public static string Apply()
     {
-        if (System.IO.File.Exists("Assets/Scenes/FriendslopLobby.unity")) return "Separate Friendslop scene already contains the authored map and lighting.";
+        if (System.IO.File.Exists(SvinkiAssetPaths.SocialLobbyScene)) return "Separate Friendslop scene already contains the authored map and lighting.";
         var scene=SceneManager.GetSceneByName("SampleScene");
         var map=scene.GetRootGameObjects().SelectMany(g=>g.GetComponentsInChildren<StoreMap>(true)).Single();
         if(map.Floors.Any(f=>f.center.y < -15))return "Lobby already mapped";

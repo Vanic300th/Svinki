@@ -15,13 +15,14 @@ public static class FriendslopSceneSetup
     static T[] Items<T>(Scene scene) where T:Component => scene.GetRootGameObjects().SelectMany(g=>g.GetComponentsInChildren<T>(true)).ToArray();
     public static string Apply()
     {
-        const string path="Assets/Scenes/FriendslopLobby.unity";
+        const string path=SvinkiAssetPaths.SocialLobbyScene;
         if(File.Exists(path))return "Friendslop scene already created";
         if(EditorApplication.isPlayingOrWillChangePlaymode)throw new Exception("Edit mode required");
         var factory=SceneManager.GetSceneByName("SampleScene");
-        if(!factory.IsValid())factory=EditorSceneManager.OpenScene("Assets/Scenes/SampleScene.unity",OpenSceneMode.Additive);
+        if(!factory.IsValid())factory=EditorSceneManager.OpenScene(SvinkiAssetPaths.GameplayScene,OpenSceneMode.Additive);
         if(factory.isDirty)throw new Exception("Unsaved factory changes");
-        const string recovery="Assets/_Recovery/FriendslopSource.unity";
+        const string recovery=SvinkiAssetPaths.Scenes + "/Development/Recovery/FriendslopSource.unity";
+        SvinkiAssetPaths.EnsureFolder(Path.GetDirectoryName(recovery).Replace('\\','/'));
         File.Copy("ArtSource/SocialLobby/Before/SampleScene.unity",recovery,true);AssetDatabase.ImportAsset(recovery);
         var baseline=EditorSceneManager.OpenScene(recovery,OpenSceneMode.Additive);
         var idField=typeof(NetworkObject).GetField("SceneId",BindingFlags.NonPublic|BindingFlags.Instance);
@@ -56,7 +57,7 @@ public static class FriendslopSceneSetup
         foreach(var part in room.GetComponentsInChildren<Transform>(true).Where(t=>t.name.StartsWith("Passage ")).ToArray())UnityEngine.Object.DestroyImmediate(part.gameObject);
         var seal=GameObject.CreatePrimitive(PrimitiveType.Cube);seal.name="North industrial wall";seal.transform.SetParent(room.transform,false);
         seal.transform.localPosition=new Vector3(0,1.6f,9);seal.transform.localScale=new Vector3(4,3.2f,.3f);
-        seal.GetComponent<Renderer>().sharedMaterial=AssetDatabase.LoadAssetAtPath<Material>("Assets/Art/Lobby/Aged concrete.mat");
+        seal.GetComponent<Renderer>().sharedMaterial=AssetDatabase.LoadAssetAtPath<Material>(SvinkiAssetPaths.LobbyMaterials + "/Aged concrete.mat");
         // Clone a group together so camera stacks and HUD references are remapped within the new scene.
         var source=new GameObject("Friendslop presentation");SceneManager.MoveGameObjectToScene(source,factory);
         string[] names={"Main Camera","Directional Light","Global Volume","EventSystem","GameHUD","HUD Character Model","HUD Character Camera","Room Physics"};

@@ -1,6 +1,6 @@
 # Реальные ассеты в Friendslop
 
-Сцены `Assets/Scenes/FriendslopLobby.unity` и `Assets/Scenes/SampleScene.unity` оформлены реальными моделями и текстурами из бесплатных CC0-паков. Концепты остаются ориентиром для следующего прохода по окружению, а не обещанием точного совпадения с текущим уровнем.
+Сцены `Assets/_Project/Scenes/Lobby/FriendslopLobby.unity` и `Assets/_Project/Scenes/Gameplay/SampleScene.unity` оформлены реальными моделями и текстурами из бесплатных CC0-паков. Концепты остаются ориентиром для следующего прохода по окружению, а не обещанием точного совпадения с текущим уровнем.
 
 ## Что установлено
 
@@ -31,7 +31,7 @@
 
 Покрытия: [Concrete Floor Worn 001](https://polyhaven.com/a/concrete_floor_worn_001), [Worn Corrugated Iron](https://polyhaven.com/a/worn_corrugated_iron), [Rusty Painted Metal](https://polyhaven.com/a/rusty_painted_metal), [Dirty Carpet](https://polyhaven.com/a/dirty_carpet).
 
-Модели, текстуры, URP-материалы и визуальные префабы находятся в `Assets/Art/IndustrialCC0`. У каждого источника есть `source.json`; исходные FBX и необходимые текстуры включены в проект. Исходные Blender-файлы и отчёты находятся в `ArtSource/IndustrialCC0`. Все перечисленные источники обозначены CC0; [политика Poly Haven](https://polyhaven.com/license), [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/). Ссылки и авторы сохранены для происхождения ассетов.
+Модели, текстуры, URP-материалы и визуальные префабы находятся в `Assets/_Project/Content/Environment/IndustrialCC0`. У каждого источника есть `source.json`; исходные FBX и необходимые текстуры включены в проект. Исходные Blender-файлы находятся в `ArtSource/IndustrialCC0`. Все перечисленные источники обозначены CC0; [политика Poly Haven](https://polyhaven.com/license), [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/). Ссылки и авторы сохранены для происхождения ассетов.
 
 ## Что сохранено
 
@@ -59,12 +59,12 @@ Industrial Set 3.0 **не импортирован**: он отсутствуе�
 unity command run_script --file Tools/Unity/FriendslopArtSetup.cs --entry FriendslopArtSetup.Apply --caller plugin --skill unity-cli --format json --timeout_ms 60000 --timeout 70
 ```
 
-Authoring-проход сохраняет обе сцены и проверяет сохранность сетевых корней и SceneId. Помощник `Assets/Editor/IndustrialArtAssets.cs` создаёт только визуальные префабы и URP-материалы. Он не включается в runtime-сборку.
+Authoring-проход сохраняет обе сцены и проверяет сохранность сетевых корней и SceneId. Помощник `Assets/_Project/Editor/IndustrialArtAssets.cs` создаёт только визуальные префабы и URP-материалы. Он не включается в runtime-сборку.
 
 Проверки: `FriendslopSceneCheck.Check` — состав сцен, сетевые ID и маршруты к лифтам; `PhotoRoundCheck.Spawns` — 64 варианта появления предметов и манекенов на заводе; `FriendslopArtPlayCheck.Check` — нормальная offline-сессия, подбор/бросок/reset заменённых предметов и реальные физические попадания. Последнюю запускают только после входа в offline-лобби, вне сетевой комнаты.
 
 Скриншоты из Unity сохраняет `FriendslopArtPreview.Capture` в `ArtSource/IndustrialCC0/Previews`. Это рендеры игровых сцен, а не генерация изображения. Windows-билд не выполнялся; проверка Host/Client/Late Join с этими моделями остаётся отдельным ручным прогоном.
 
-Текущий результат: все перечисленные проверки пройдены, включая реальные триггеры кольца, столкновение дротика, возврат предметов и рабочую привязку экрана телевизора. Отчёты: `art-installation.txt` и `play-validation.txt` в `ArtSource/IndustrialCC0`, проверка размещения заводского содержимого — `ArtSource/PhotoRound/spawn-validation.txt` (64 seed, 7360 размещений).
+Текущий результат: все перечисленные проверки пройдены, включая реальные триггеры кольца, столкновение дротика, возврат предметов и рабочую привязку экрана телевизора. Проверка размещения заводского содержимого охватила 64 seed и 7360 размещений. Служебные отчёты удалены при очистке проекта.
 
 При открытии завода Unity также сообщает о ранее отсутствовавшем префабе `hoodie1` (GUID `7c5f534ed257b4eaf99b19575c37029b`). Этот проход по окружению не исправляет и не удаляет исходную ссылку на одежду.

@@ -1,1 +1,0 @@
-PASS: 33 rigged garments; 19 unique references (6 originals + 16 supplied, 3 overlaps); 2800 complete combinations; original definitions rated; mixed wardrobes; 96 shuffled hiding slots cover every garment; all network prefabs/catalogs and scene IDs valid; every garment attaches to the pig; setup can be repeated.

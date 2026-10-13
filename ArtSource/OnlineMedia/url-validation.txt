@@ -1,1 +1,0 @@
-PASS canonical YouTube watch/short/embed URLs; stable Audius IDs; direct MP3/MP4 retained; wrong domains, ports, credentials, file/JS URLs and invalid IDs rejected; YouTube audio-only rejected.

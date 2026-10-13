@@ -17,8 +17,9 @@ public static class LobbyPolishSetup
     private static Scene Load(string name)
     {
         if (EditorApplication.isPlayingOrWillChangePlaymode) throw new Exception("Edit mode required");
-        var scene = SceneManager.GetSceneByPath("Assets/Scenes/" + name + ".unity");
-        if (!scene.IsValid() || !scene.isLoaded) scene = EditorSceneManager.OpenScene("Assets/Scenes/" + name + ".unity", OpenSceneMode.Additive);
+        string path = SvinkiAssetPaths.ScenePath(name);
+        var scene = SceneManager.GetSceneByPath(path);
+        if (!scene.IsValid() || !scene.isLoaded) scene = EditorSceneManager.OpenScene(path, OpenSceneMode.Additive);
         if (scene.isDirty) throw new Exception("Save pending edits in " + name);
         return scene;
     }
@@ -47,10 +48,10 @@ public static class LobbyPolishSetup
     }
     public static string ApplySigns()
     {
-        var legacyShader = AssetDatabase.LoadAssetAtPath<Shader>("Assets/Shaders/WorldLegacyText.shader");
-        var tmpShader = AssetDatabase.LoadAssetAtPath<Shader>("Assets/Shaders/WorldTMPText.shader");
+        var legacyShader = AssetDatabase.LoadAssetAtPath<Shader>(SvinkiAssetPaths.Shaders + "/WorldLegacyText.shader");
+        var tmpShader = AssetDatabase.LoadAssetAtPath<Shader>(SvinkiAssetPaths.Shaders + "/WorldTMPText.shader");
         Need(legacyShader != null && tmpShader != null && !ShaderUtil.ShaderHasError(legacyShader) && !ShaderUtil.ShaderHasError(tmpShader), "World text shader import failed");
-        Directory.CreateDirectory("Assets/Materials/WorldText"); AssetDatabase.Refresh();
+        Directory.CreateDirectory(SvinkiAssetPaths.SharedMaterials + "/WorldText"); AssetDatabase.Refresh();
         int count = 0;
         foreach (var name in new[] { "FriendslopLobby", "SampleScene" })
         {
@@ -61,7 +62,7 @@ public static class LobbyPolishSetup
                 var original = tmp != null ? tmp.font.material : old.font.material;
                 var shader = tmp != null ? tmpShader : legacyShader;
                 string fontPath = AssetDatabase.GetAssetPath(tmp != null ? (UnityEngine.Object)tmp.font : old.font);
-                string path = "Assets/Materials/WorldText/" + (tmp != null ? "TMP-" : "Legacy-") + AssetDatabase.AssetPathToGUID(fontPath) + ".mat";
+                string path = SvinkiAssetPaths.SharedMaterials + "/WorldText/" + (tmp != null ? "TMP-" : "Legacy-") + AssetDatabase.AssetPathToGUID(fontPath) + ".mat";
                 var material = AssetDatabase.LoadAssetAtPath<Material>(path);
                 if (material == null) { material = new Material(original) { shader = shader }; AssetDatabase.CreateAsset(material, path); }
                 var depth = label.GetComponent<WorldTextDepth>() ?? label.gameObject.AddComponent<WorldTextDepth>();

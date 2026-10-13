@@ -36,7 +36,7 @@ public static class MechanicsBuild
         if (string.IsNullOrEmpty(output)) throw new Exception("Build output missing");
         Directory.CreateDirectory(Path.GetDirectoryName(output));
         var report = BuildPipeline.BuildPlayer(new BuildPlayerOptions {
-            scenes = new[] { "Assets/Scenes/Lobby.unity", "Assets/Scenes/FriendslopLobby.unity", "Assets/Scenes/SampleScene.unity" },
+            scenes = new[] { SvinkiAssetPaths.BootstrapScene, SvinkiAssetPaths.SocialLobbyScene, SvinkiAssetPaths.GameplayScene },
             locationPathName = output, target = target, targetGroup = BuildTargetGroup.Standalone,
             options = BuildOptions.Development | BuildOptions.CompressWithLz4
         });

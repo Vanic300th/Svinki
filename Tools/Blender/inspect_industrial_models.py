@@ -3,7 +3,7 @@ from pathlib import Path
 from mathutils import Vector
 root=Path(__file__).resolve().parents[2]
 report={}
-for path in (root/'Assets/Art/IndustrialCC0').glob('*/*.fbx'):
+for path in (root/'Assets/_Project/Content/Environment/IndustrialCC0').glob('*/*.fbx'):
     bpy.ops.wm.read_factory_settings(use_empty=True)
     bpy.ops.import_scene.fbx(filepath=str(path))
     report[path.parent.name]=[]

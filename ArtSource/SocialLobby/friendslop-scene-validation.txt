@@ -1,1 +1,0 @@
-PASS: separate FriendslopLobby, 31 social network objects; 156 original factory network IDs preserved; original Ready station restored; build scene registered.

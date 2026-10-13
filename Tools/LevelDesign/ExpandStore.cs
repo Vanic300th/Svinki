@@ -23,9 +23,9 @@ public static class ExpandStore
     {
         if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("Stop Play Mode.");
         Scene previous = SceneManager.GetActiveScene();
-        scene = SceneManager.GetSceneByPath("Assets/Scenes/SampleScene.unity");
+        scene = SceneManager.GetSceneByPath(SvinkiAssetPaths.GameplayScene);
         bool opened = !scene.IsValid() || !scene.isLoaded;
-        if (opened) scene = EditorSceneManager.OpenScene("Assets/Scenes/SampleScene.unity", OpenSceneMode.Additive);
+        if (opened) scene = EditorSceneManager.OpenScene(SvinkiAssetPaths.GameplayScene, OpenSceneMode.Additive);
         SceneManager.SetActiveScene(scene);
         try
         {
@@ -58,16 +58,16 @@ public static class ExpandStore
             { Undo.RecordObject(light,"Expand light reach"); light.range*=1.25f; }
             Undo.DestroyObjectImmediate(architecture.Find("Partition 1").gameObject);
             wing=new GameObject("Expanded north wing - v1").transform; wing.SetParent(level,false); Undo.RegisterCreatedObjectUndo(wing.gameObject,"New north wing");
-            plaster=AssetDatabase.LoadAssetAtPath<Material>("Assets/Materials/PeachStore/Warm plaster.mat");
-            metal=AssetDatabase.LoadAssetAtPath<Material>("Assets/Materials/PeachStore/Dark steel.mat");
-            wood=AssetDatabase.LoadAssetAtPath<Material>("Assets/Materials/PeachStore/Walnut display.mat");
+            plaster=AssetDatabase.LoadAssetAtPath<Material>(SvinkiAssetPaths.SharedMaterials + "/PeachStore/Warm plaster.mat");
+            metal=AssetDatabase.LoadAssetAtPath<Material>(SvinkiAssetPaths.SharedMaterials + "/PeachStore/Dark steel.mat");
+            wood=AssetDatabase.LoadAssetAtPath<Material>(SvinkiAssetPaths.SharedMaterials + "/PeachStore/Walnut display.mat");
             var source=Items<ThrowableMannequin>().First(t=>t.transform.position.y<.1f).gameObject;
             var clothes=Items<ClothingPickup>().Where(c=>c.Clothing!=null).ToArray();
             for(int i=0;i<4;i++)
             {
                 float a=cuts[i],b=cuts[i+1],mid=(a+b)*.5f;
                 Transform room=new GameObject(titles[i]).transform;room.SetParent(wing,false);
-                var floor=AssetDatabase.LoadAssetAtPath<Material>($"Assets/Materials/PeachStore/Floor {(i+3):00}.mat");
+                var floor=AssetDatabase.LoadAssetAtPath<Material>(SvinkiAssetPaths.SharedMaterials + $"/PeachStore/Floor {(i+3):00}.mat");
                 Box("Floor",room,new Vector3(mid,-.15f,55),new Vector3(b-a,.3f,20),floor);
                 Box("Ceiling",room,new Vector3(mid,4.92f,55),new Vector3(b-a,.24f,20),plaster);
                 DoorWall(room,a,b,45,mid-2,mid+2);
@@ -129,7 +129,7 @@ public static class ExpandStore
         surface.BuildNavMesh();
         var data=surface.navMeshData;
         if(data==null)throw new InvalidOperationException("Navigation bake produced no data.");
-        const string path="Assets/Settings/StoreExpandedNavMesh.asset";
+        const string path=SvinkiAssetPaths.Settings + "/StoreExpandedNavMesh.asset";
         var saved=AssetDatabase.LoadAssetAtPath<NavMeshData>(path);
         if(saved==null){AssetDatabase.CreateAsset(data,path);saved=data;}
         else if(saved!=data)

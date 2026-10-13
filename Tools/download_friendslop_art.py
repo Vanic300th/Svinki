@@ -6,7 +6,8 @@ from pathlib import Path
 import urllib.request
 
 ROOT = Path(__file__).resolve().parents[1]
-DEST = ROOT / 'Assets/Art/IndustrialCC0'
+DEST = ROOT / 'Assets/_Project/Content/Environment/IndustrialCC0'
+RAW_TEXTURES = ROOT / 'ArtSource/IndustrialCC0/RawTextures'
 UA = {'User-Agent': 'FriendslopAssetImport/1.0'}
 MODELS = ['sofa_02', 'Television_01', 'modular_industrial_pipes_01',
           'metal_tool_chest', 'ratchet_wrench', 'industrial_coffee_table',
@@ -31,7 +32,10 @@ def model(name):
     folder.mkdir(parents=True, exist_ok=True)
     files = [(name + '.' + format_name, item)] + list(item.get('include', {}).items())
     for path, file in files:
-        target = folder / path
+        texture_path = Path(path)
+        raw_map = texture_path.suffix.lower() in {'.jpg', '.png', '.exr'} and (
+            '_rough' in texture_path.stem or '_metal' in texture_path.stem)
+        target = (RAW_TEXTURES / name / path) if raw_map else (folder / path)
         target.parent.mkdir(parents=True, exist_ok=True)
         if not target.exists():
             binary = fetch(file['url'])
@@ -51,7 +55,9 @@ def texture(name):
     files = []
     for kind in ['Diffuse', 'nor_gl']:
         item = data[kind]['1k']['jpg']
-        target = folder / Path(item['url']).name
+        # Unity materials already reference these canonical names; do not recreate _1k duplicates.
+        suffix = 'diff' if kind == 'Diffuse' else 'nor_gl'
+        target = folder / (name + '_' + suffix + '.jpg')
         if not target.exists():
             target.write_bytes(fetch(item['url']))
         if hashlib.md5(target.read_bytes()).hexdigest() != item['md5']:

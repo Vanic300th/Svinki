@@ -29,7 +29,7 @@ public static class PigClothingCheck
 
     private static IEnumerator Capture()
     {
-        var all = AssetDatabase.FindAssets("", new[] { "Assets/ClothingLibrary/Generated/Definitions" })
+        var all = AssetDatabase.FindAssets("", new[] { SvinkiAssetPaths.ClothingDefinitions })
             .Select(AssetDatabase.GUIDToAssetPath).Select(AssetDatabase.LoadAssetAtPath<ClothingDefinition>)
             .Where(c => c != null && c.PigRigged).ToArray();
         Require(all.Length == 15, "Missing wardrobe definitions.");
@@ -72,7 +72,7 @@ public static class PigClothingCheck
         var copies = new List<ClothingDefinition>();
         try
         {
-            var pickups = AssetDatabase.FindAssets("t:Prefab",new[]{"Assets/ClothingLibrary/Generated/Pickups"})
+            var pickups = AssetDatabase.FindAssets("t:Prefab",new[]{SvinkiAssetPaths.ClothingPickups})
                 .Select(AssetDatabase.GUIDToAssetPath).Select(AssetDatabase.LoadAssetAtPath<GameObject>)
                 .Where(p=>p.GetComponent<ClothingPickup>()?.Clothing?.PigRigged==true).ToArray();
             foreach (GameObject prefab in pickups)

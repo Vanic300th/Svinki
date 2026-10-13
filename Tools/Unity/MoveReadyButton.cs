@@ -11,7 +11,7 @@ public static class MoveReadyButton
     public static void Apply()
     {
         if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("Edit mode required.");
-        var scene = EditorSceneManager.OpenScene("Assets/Scenes/SampleScene.unity", OpenSceneMode.Single);
+        var scene = EditorSceneManager.OpenScene(SvinkiAssetPaths.GameplayScene, OpenSceneMode.Single);
         var station = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<RoundFinishStation>(true)).Single();
         Vector3 oldPosition = station.transform.position;
         station.transform.position = new Vector3(-6.03f, 1.35f, -7.5f);

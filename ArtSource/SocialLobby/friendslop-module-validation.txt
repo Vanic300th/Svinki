@@ -1,1 +1,0 @@
-PASS: separate playable lobby, six lockers/36 photo slots/17 props, media/board/sports; no attacking AI; original factory content/return lift; 251 unique scene network IDs; clear routes to start and return lifts.

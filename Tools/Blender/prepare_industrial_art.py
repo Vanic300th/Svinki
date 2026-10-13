@@ -2,7 +2,7 @@
 import bpy,json,os,re
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
-DEST=ROOT/'Assets/Art/IndustrialCC0'
+DEST=ROOT/'Assets/_Project/Content/Environment/IndustrialCC0'
 report={}
 def describe():
     return [{'name':o.name,'type':o.type,'dimensions':list(o.dimensions),'location':list(o.location),

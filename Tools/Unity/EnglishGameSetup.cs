@@ -23,7 +23,7 @@ public static class EnglishGameSetup
             Translate(AssetDatabase.LoadAssetAtPath<ClothingDefinition>(AssetDatabase.GUIDToAssetPath(guid)), "displayName");
         var rating = Resources.Load<OutfitRatingCatalog>("OutfitRating");
         if (rating != null) Translate(rating, "name");
-        foreach (string guid in AssetDatabase.FindAssets("t:Prefab",new[]{"Assets/Prefabs","Assets/ClothingLibrary/Generated/Pickups"}))
+        foreach (string guid in AssetDatabase.FindAssets("t:Prefab",new[]{SvinkiAssetPaths.Prefabs,SvinkiAssetPaths.ClothingPickups}))
         {
             string path=AssetDatabase.GUIDToAssetPath(guid);
             GameObject root=PrefabUtility.LoadPrefabContents(path);
@@ -33,7 +33,7 @@ public static class EnglishGameSetup
             PrefabUtility.UnloadPrefabContents(root);
         }
         var original = EditorSceneManager.GetSceneManagerSetup();
-        foreach (string path in new[]{"Assets/Scenes/Lobby.unity","Assets/Scenes/SampleScene.unity","Assets/Scenes/testroom.unity"}.Where(File.Exists))
+        foreach (string path in new[]{SvinkiAssetPaths.BootstrapScene,SvinkiAssetPaths.GameplayScene,SvinkiAssetPaths.DevelopmentScene}.Where(File.Exists))
         {
             var scene=UnityEngine.SceneManagement.SceneManager.GetSceneByPath(path);
             bool opened=!scene.IsValid() || !scene.isLoaded;
@@ -44,20 +44,20 @@ public static class EnglishGameSetup
             if(changes!=before) { EditorSceneManager.MarkSceneDirty(scene); EditorSceneManager.SaveScene(scene); }
             if(opened) EditorSceneManager.CloseScene(scene,true);
         }
-        if (!AssetDatabase.IsValidFolder("Assets/Localization")) AssetDatabase.CreateFolder("Assets","Localization");
+        SvinkiAssetPaths.EnsureFolder(SvinkiAssetPaths.Localization);
         var settings=LocalizationEditorSettings.ActiveLocalizationSettings;
         if(settings==null)
         {
             settings=ScriptableObject.CreateInstance<LocalizationSettings>();
-            AssetDatabase.CreateAsset(settings,"Assets/Localization/LocalizationSettings.asset");
+            AssetDatabase.CreateAsset(settings,SvinkiAssetPaths.Localization + "/LocalizationSettings.asset");
             LocalizationEditorSettings.ActiveLocalizationSettings=settings;
         }
         var en=LocalizationEditorSettings.GetLocales().FirstOrDefault(l=>l.Identifier.Code=="en");
-        if(en==null) {en=Locale.CreateLocale("en");AssetDatabase.CreateAsset(en,"Assets/Localization/English.asset");LocalizationEditorSettings.AddLocale(en);}
+        if(en==null) {en=Locale.CreateLocale("en");AssetDatabase.CreateAsset(en,SvinkiAssetPaths.Localization + "/English.asset");LocalizationEditorSettings.AddLocale(en);}
         settings.SetSelectedLocale(en);
         settings.GetStartupLocaleSelectors().Clear();
         settings.GetStartupLocaleSelectors().Add(new SpecificLocaleSelector { LocaleId = new LocaleIdentifier("en") });
-        var table=LocalizationEditorSettings.GetStringTableCollection("GameEnglish") ?? LocalizationEditorSettings.CreateStringTableCollection("GameEnglish","Assets/Localization");
+        var table=LocalizationEditorSettings.GetStringTableCollection("GameEnglish") ?? LocalizationEditorSettings.CreateStringTableCollection("GameEnglish",SvinkiAssetPaths.Localization);
         var english=table.StringTables.First(t=>t.LocaleIdentifier.Code=="en");
         foreach(var pair in translations) english.AddEntry(pair.Key,pair.Value.Replace("\\n","\n"));
         EditorUtility.SetDirty(settings); EditorUtility.SetDirty(table); EditorUtility.SetDirty(table.SharedData); EditorUtility.SetDirty(english);

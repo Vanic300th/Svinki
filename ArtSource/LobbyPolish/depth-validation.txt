@@ -1,2 +1,0 @@
-Legacy: 84890 visible pixels, 0 through wall.
-TMP: 12611 visible pixels, 0 through wall.

@@ -37,12 +37,12 @@ public static class QuickGameAudit
  {
   Need(!EditorApplication.isPlaying,"Edit mode required");
   int definitions=0,prefabs=0;
-  foreach(var guid in AssetDatabase.FindAssets("t:ClothingDefinition",new[]{"Assets/ClothingLibrary/Generated/Definitions"}))
+  foreach(var guid in AssetDatabase.FindAssets("t:ClothingDefinition",new[]{SvinkiAssetPaths.ClothingDefinitions}))
   {
    string path=AssetDatabase.GUIDToAssetPath(guid);var item=AssetDatabase.LoadAssetAtPath<ClothingDefinition>(path);
    Need(item!=null&&item.Model!=null,"Missing clothing model: "+path);definitions++;
   }
-  foreach(var guid in AssetDatabase.FindAssets("t:Prefab",new[]{"Assets/ClothingLibrary/Generated/Pickups"}))
+  foreach(var guid in AssetDatabase.FindAssets("t:Prefab",new[]{SvinkiAssetPaths.ClothingPickups}))
   {
    string path=AssetDatabase.GUIDToAssetPath(guid);var root=PrefabUtility.LoadPrefabContents(path);
    try{foreach(var t in root.GetComponentsInChildren<Transform>(true))Need(PrefabUtility.GetPrefabInstanceStatus(t.gameObject)!=PrefabInstanceStatus.MissingAsset,"Missing nested clothing prefab: "+path);prefabs++;}

@@ -20,8 +20,8 @@ public static class BuildPeachDepartmentStore
     [Serializable] public class Wall { public string axis; public float fixedValue,start,end,height; public Door[] doors; }
     [Serializable] public class Placement { public string kind; public float x,y,z,yaw; }
     [Serializable] public class Fixture { public string kind; public float x,z,w,l; }
-    const string Art = "Assets/Art/LevelDesign";
-    const string Mats = "Assets/Materials/PeachStore";
+    const string Art = SvinkiAssetPaths.LevelDesign;
+    const string Mats = SvinkiAssetPaths.SharedMaterials + "/PeachStore";
     static Transform root,architecture,furniture,decor,gameplay,lighting;
     static Material plaster,metal,wood,cream,peach,teal,glow,glass;
     static Dictionary<string,GameObject> pickupSources;
@@ -31,7 +31,7 @@ public static class BuildPeachDepartmentStore
     public static string Build()
     {
         var scene = EditorSceneManager.GetActiveScene();
-        if (EditorApplication.isPlaying || scene.path != "Assets/Scenes/SampleScene.unity")
+        if (EditorApplication.isPlaying || scene.path != SvinkiAssetPaths.GameplayScene)
             throw new InvalidOperationException("Open SampleScene in Edit Mode first.");
         EnsureFolder(Mats); EnsureFolder(Art);
         // Save a recoverable snapshot of the user's current scene before rebuilding its geometry.

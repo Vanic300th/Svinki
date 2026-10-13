@@ -10,7 +10,7 @@ public static class NameplateCheck
     static BindingFlags flags=BindingFlags.Instance|BindingFlags.NonPublic|BindingFlags.Public;
     public static string Spawn()
     {
-        var prefab=UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/NetworkPlayer.prefab");
+        var prefab=UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>(SvinkiAssetPaths.NetworkPlayerPrefab);
         var obj=UnityEngine.Object.Instantiate(prefab,new Vector3(0,.05f,1),Quaternion.Euler(0,180,0));obj.name="Nickname test remote";
         UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(obj,Camera.main.gameObject.scene);
         obj.GetComponent<NetworkPlayer>().SetIdentity("nickname-test","Проверка ника");

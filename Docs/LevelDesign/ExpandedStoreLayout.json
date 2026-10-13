@@ -142,6 +142,6 @@
   "total_clothing_pickups": 32,
   "new_throwable_mannequins": 24,
   "new_clothing_pickups": 8,
-  "source_scene": "Assets/Scenes/SampleScene.unity",
+  "source_scene": "Assets/_Project/Scenes/Gameplay/SampleScene.unity",
   "snapshot": "Docs/LevelDesign/BeforeExpansion.unity"
 }

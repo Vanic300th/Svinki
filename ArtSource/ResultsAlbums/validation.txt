@@ -1,4 +1,0 @@
-PASS: Two clients receive identical images: latest 12 host photos and both photos of the eliminated guest. Eight aggressive mannequins on each client.
-PASS: Score-screen album button, player selection, next/previous and return to scores all work.
-PASS: A spectator joining after the round receives the same complete photo albums.
-PASS: Round unload clears shared and personal photos. Solo supports both empty albums and real photographs in results.

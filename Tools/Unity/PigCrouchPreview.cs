@@ -11,9 +11,9 @@ public static class PigCrouchPreview
 {
     public static string Before() => Gallery("before");
     public static string After() => Gallery("squash");
-    public static string Network() => Gallery("squash-network", "Assets/Prefabs/NetworkPlayer.prefab");
+    public static string Network() => Gallery("squash-network", SvinkiAssetPaths.NetworkPlayerPrefab);
 
-    static string Gallery(string name, string prefabPath = "Assets/Prefabs/OfflinePlayer.prefab")
+    static string Gallery(string name, string prefabPath = SvinkiAssetPaths.OfflinePlayerPrefab)
     {
         NetworkLobby.Instance.StartCoroutine(Capture(name, prefabPath));
         return "Scheduled native rendered crouch capture: " + name;

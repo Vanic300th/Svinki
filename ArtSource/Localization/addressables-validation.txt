@@ -1,1 +1,0 @@
-Final rebuild: FAIL SBP ErrorError. Current project compilation is blocked by missing LobbyPanel and PlayerLocker in new lobby scripts. Earlier Windows Addressables build and localization runtime checks passed.

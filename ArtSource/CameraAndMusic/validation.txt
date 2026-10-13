@@ -1,5 +1,0 @@
-PASS: Host and guest carry cameras at spawn; K equips, stows and re-equips without a pickup. No world cameras spawn.
-PASS: Both clients: music produces audio, recovers after stop/rebind, and respects listener pause.
-PASS: Both clients shoot with LMB; photographs stay in their own albums.
-PASS: Rebinding restores the album singleton, preserves photos and equipment; album blocks K.
-PASS: Solo: camera is always carried, K and LMB work, album survives rebinding. New scene clears photos and starts music.

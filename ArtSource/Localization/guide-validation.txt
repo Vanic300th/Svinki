@@ -1,5 +1,0 @@
-PASS: Russian guide page 1
-PASS: Russian guide page 2
-PASS: Russian guide page 3
-PASS: Russian guide page 4
-PASS: Russian guide page 5

@@ -9,7 +9,8 @@ from io_scene_fbx import parse_fbx
 
 PROJECT=Path(__file__).resolve().parents[2]
 SOURCE=PROJECT/'ArtSource/Pigs/v2'
-EXPORT=PROJECT/'Assets/Art/Characters/Pigs'
+EXPORT=PROJECT/'Assets/_Project/Content/Characters/Pigs'
+LEGACY_EXPORT=PROJECT/'ArtSource/Pigs/LegacyExports'
 manifest=json.loads((SOURCE/'appearance_manifest.json').read_text())
 bpy.ops.wm.open_mainfile(filepath=str(SOURCE/'Svinki_Modular_Pigs.blend'))
 scene=bpy.data.scenes['02_Modular_Master']
@@ -88,9 +89,10 @@ results['limb_pose_moved_vertices']=moved
 files={'Pig_Modular.fbx':list(manifest['slots'])}
 files.update({'Pig_'+name+'.fbx':slots for name,slots in manifest['presets'].items()})
 for filename,slots in files.items():
+    fbx_path=(EXPORT if filename=='Pig_Modular.fbx' else LEGACY_EXPORT)/filename
     # Blender's FBX importer reparents skinned objects to their armature.
     # Check the serialized FBX hierarchy itself before testing its reimport.
-    fbx,_=parse_fbx.parse(str(EXPORT/filename))
+    fbx,_=parse_fbx.parse(str(fbx_path))
     fbx_objects=next(e for e in fbx.elems if e.id==b'Objects')
     ids={}
     for e in fbx_objects.elems:
@@ -104,7 +106,7 @@ for filename,slots in files.items():
         for name in manifest['slots'][slot]:
             assert (ids[name],ids[slot]) in links, (filename,name,'lost FBX slot link')
     bpy.ops.wm.read_factory_settings(use_empty=True)
-    bpy.ops.import_scene.fbx(filepath=str(EXPORT/filename))
+    bpy.ops.import_scene.fbx(filepath=str(fbx_path))
     objects=bpy.context.scene.objects
     imported_meshes=[o for o in objects if o.type=='MESH']
     expected=set(manifest['base_objects'])

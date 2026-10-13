@@ -10,7 +10,7 @@ public static class ResultsAlbumsSetup
     public static void Build()
     {
         if(EditorApplication.isPlaying)throw new Exception("Edit mode is required");
-        var scene=EditorSceneManager.OpenScene("Assets/Scenes/SampleScene.unity",OpenSceneMode.Single);
+        var scene=EditorSceneManager.OpenScene(SvinkiAssetPaths.GameplayScene,OpenSceneMode.Single);
         var brains=scene.GetRootGameObjects().SelectMany(r=>r.GetComponentsInChildren<MannequinBrain>(true))
             .OrderBy(b=>b.name,StringComparer.Ordinal).ToArray();
         if(brains.Length<8)throw new Exception("Expected at least eight aggressive mannequins");

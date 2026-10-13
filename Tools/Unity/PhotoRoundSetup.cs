@@ -12,7 +12,7 @@ public static class PhotoRoundSetup
 {
     public static void Build()
     {
-        const string folder="Assets/Art/Items/PhotoCamera";
+        const string folder=SvinkiAssetPaths.Items + "/PhotoCamera";
         System.IO.Directory.CreateDirectory(folder);AssetDatabase.Refresh();
         Material Mat(string name,Color colour)
         {var path=folder+"/"+name+".mat";var mat=AssetDatabase.LoadAssetAtPath<Material>(path);if(mat==null){mat=new Material(Shader.Find("Universal Render Pipeline/Lit"));AssetDatabase.CreateAsset(mat,path);}mat.color=colour;EditorUtility.SetDirty(mat);return mat;}
@@ -28,10 +28,10 @@ public static class PhotoRoundSetup
             var box=root.AddComponent<BoxCollider>();box.size=new Vector3(.42f,.28f,.33f);box.center=new Vector3(0,0,.045f);box.isTrigger=true;
             root.AddComponent<NetworkObject>();var item=root.AddComponent<PickupItem>();var serialized=new SerializedObject(item);serialized.FindProperty("itemName").stringValue="Photo Camera";serialized.ApplyModifiedPropertiesWithoutUndo();
             root.AddComponent<PhotoCameraPickup>();root.AddComponent<NetworkPickup>();root.AddComponent<NavMeshModifier>().ignoreFromBuild=true;
-            PrefabUtility.SaveAsPrefabAsset(root,"Assets/Prefabs/PhotoCamera.prefab");
+            PrefabUtility.SaveAsPrefabAsset(root,SvinkiAssetPaths.Prefabs + "/PhotoCamera.prefab");
         }
         finally{EditorSceneManager.ClosePreviewScene(preview);}
-        var prefab=AssetDatabase.LoadAssetAtPath<NetworkObject>("Assets/Prefabs/PhotoCamera.prefab");
+        var prefab=AssetDatabase.LoadAssetAtPath<NetworkObject>(SvinkiAssetPaths.Prefabs + "/PhotoCamera.prefab");
         var registry=AssetDatabase.LoadAssetAtPath<DefaultPrefabObjects>("Assets/DefaultPrefabObjects.asset");registry.AddObject(prefab,true);registry.InitializePrefabRange(0);
         typeof(DefaultPrefabObjects).GetMethod("SetAssetPathHashes",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic).Invoke(registry,new object[]{0});
         if(prefab.AssetPathHash==0)throw new Exception("Photo camera network asset hash was not initialized");

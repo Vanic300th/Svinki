@@ -10,4 +10,4 @@ The monkey is orange with a cream face, hands and feet, preserving its dark eyes
 
 **E** picks it up. **LMB** starts an eased wind-up, forward swing and return lasting 0.84 seconds; impacts are evaluated by the server during the strike portion. **RMB / E** releases it. A miss retains the toy. One hit on any mannequin consumes it; an aggressive mannequin falls and remains inactive for 30 seconds. One toy spawns per round participant.
 
-Runtime validation and screenshots are in `ArtSource/EmoteMonkey/`. The runnable Editor check is `Tools/Unity/EmoteMonkeyCheck.cs`. The Windows release archive is `Builds/Svinki-Windows.zip`.
+Runtime screenshots are in `ArtSource/EmoteMonkey/`; temporary validation reports were removed during cleanup. The runnable Editor check is `Tools/Unity/EmoteMonkeyCheck.cs`. The Windows release archive is `Builds/Svinki-Windows.zip`.

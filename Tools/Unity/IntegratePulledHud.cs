@@ -12,11 +12,11 @@ public static class IntegratePulledHud
         if (EditorApplication.isPlaying) throw new Exception("Stop Play Mode first");
         var original=EditorSceneManager.GetSceneManagerSetup();
         int sceneCount=0, bindings=0;
-        var prefab=AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/UI/GameHUD.prefab");
+        var prefab=AssetDatabase.LoadAssetAtPath<GameObject>(SvinkiAssetPaths.Prefabs + "/UI/GameHUD.prefab");
         if(prefab==null) throw new Exception("Pulled GameHUD prefab missing");
         try
         {
-            foreach(string path in new[]{"Assets/Scenes/SampleScene.unity","Assets/Scenes/testroom.unity"})
+            foreach(string path in new[]{SvinkiAssetPaths.GameplayScene,SvinkiAssetPaths.DevelopmentScene})
             {
                 var scene=EditorSceneManager.OpenScene(path,OpenSceneMode.Single);
                 var roots=scene.GetRootGameObjects();

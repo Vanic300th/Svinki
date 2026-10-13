@@ -13,7 +13,7 @@ public static class BugfixPhysicsCheck
  [Serializable] public class Report { public Vector3 hoop; public string[] colliders; public Trial[] trials; }
  public static void Inspect()
  {
-  var scene=EditorSceneManager.OpenScene("Assets/Scenes/FriendslopLobby.unity",OpenSceneMode.Single);
+  var scene=EditorSceneManager.OpenScene(SvinkiAssetPaths.SocialLobbyScene,OpenSceneMode.Single);
   var hoop=scene.GetRootGameObjects().SelectMany(r=>r.GetComponentsInChildren<BasketballHoop>(true)).Single();
   hoop.SendMessage("Awake",SendMessageOptions.DontRequireReceiver);
   var ball=scene.GetRootGameObjects().SelectMany(r=>r.GetComponentsInChildren<LobbyProp>(true)).First(p=>p.Kind==LobbyPropKind.Basketball);

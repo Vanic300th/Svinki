@@ -1,1 +1,0 @@
-PASS six fixed, carryable AFK displays in the factory arrival room; no hostile AI; clear entrance and lift routes; 214 existing scene IDs preserved.

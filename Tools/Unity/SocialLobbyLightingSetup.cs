@@ -8,7 +8,7 @@ public static class SocialLobbyLightingSetup
 {
     public static string Apply()
     {
-        if (System.IO.File.Exists("Assets/Scenes/FriendslopLobby.unity")) return "Separate Friendslop scene already contains the authored map and lighting.";
+        if (System.IO.File.Exists(SvinkiAssetPaths.SocialLobbyScene)) return "Separate Friendslop scene already contains the authored map and lighting.";
         var scene=SceneManager.GetSceneByName("SampleScene");
         var lobby=scene.GetRootGameObjects().SelectMany(g=>g.GetComponentsInChildren<LobbyActivityManager>(true)).Single().transform;
         var navigation=lobby.GetComponent<NavMeshModifier>() ?? lobby.gameObject.AddComponent<NavMeshModifier>();

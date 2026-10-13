@@ -26,7 +26,7 @@ public static class FriendslopArtSetup
  public static string Apply()
  {
   if(EditorApplication.isPlayingOrWillChangePlaymode)throw new Exception("Edit mode required");
-  var paths=new[]{"Assets/Scenes/FriendslopLobby.unity","Assets/Scenes/SampleScene.unity"};
+  var paths=new[]{SvinkiAssetPaths.SocialLobbyScene,SvinkiAssetPaths.GameplayScene};
   var scenes=paths.Select(p=>{var s=SceneManager.GetSceneByPath(p);if(!s.IsValid()||!s.isLoaded)s=EditorSceneManager.OpenScene(p,OpenSceneMode.Additive);if(s.isDirty)throw new Exception("Save existing scene edits first: "+p);return s;}).ToArray();
   Directory.CreateDirectory("ArtSource/IndustrialCC0/Before");foreach(string p in paths){string backup="ArtSource/IndustrialCC0/Before/"+Path.GetFileName(p);if(!File.Exists(backup))File.Copy(p,backup);}
   var field=typeof(NetworkObject).GetField("SceneId",BindingFlags.Instance|BindingFlags.NonPublic);

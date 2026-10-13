@@ -46,20 +46,21 @@ MaterialPropertyBlock для каждого игрока, без изменен�
 
 ## Файлы
 
-- `Assets/Scripts/Player/PigAppearance.cs` — код внешности и палитры.
-- `Assets/Scripts/Online/PigAppearanceMenu.cs` — меню и предпросмотр.
-- `Assets/Shaders/PigSkin.shader` — освещение и паттерны кожи.
-- `Assets/Editor/PigSkinCoordinates.cs` — координаты паттернов при импорте.
-- `Assets/Editor/PigAvatarSetup.cs` — установка материалов и префабов.
+- `Assets/_Project/Scripts/Player/PigAppearance.cs` — код внешности и палитры.
+- `Assets/_Project/Scripts/UI/PigAppearanceMenu.cs` — меню и предпросмотр.
+- `Assets/_Project/Shaders/PigSkin.shader` — освещение и паттерны кожи.
+- `Assets/_Project/Editor/PigSkinCoordinates.cs` — координаты паттернов при импорте.
+- `Assets/_Project/Editor/PigAvatarSetup.cs` — установка материалов и префабов.
 - `ArtSource/Pigs/v2/Svinki_Modular_Pigs.blend` — новая модель Blender;
   исходник v1 сохранён отдельно.
 - `ArtSource/Pigs/v2/customization_gallery.png` — шесть вариантов,
   слева направо: круглые, квадратные, кошачьи; авиаторы, солнечные круглые,
   солнечные квадратные.
-- `ArtSource/Pigs/v2/unity_validation_report.json` — проверки Unity.
-- `ArtSource/Pigs/v2/validation_report.json` — проверки Blender:
-  33 меша, 18 корней опций, 16 костей, замкнутая геометрия,
-  нормализованные веса, UV, следование Head и повторный импорт FBX.
+
+Служебные JSON-отчёты Unity и Blender удалены при очистке проекта.
+Проверка Blender подтвердила 33 меша, 18 корней опций, 16 костей,
+замкнутую геометрию, нормализованные веса, UV, следование Head
+и повторный импорт FBX.
 
 Повторная генерация: Blender в background с
 `Tools/Blender/build_modular_pigs.py -- --skip-render`, затем

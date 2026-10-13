@@ -13,7 +13,7 @@ public static class DualLiftSetup
  public static string Apply()
  {
   if(EditorApplication.isPlayingOrWillChangePlaymode)throw new Exception("Edit mode required");
-  Scene Open(string name){var s=SceneManager.GetSceneByName(name);return s.IsValid()?s:EditorSceneManager.OpenScene("Assets/Scenes/"+name+".unity",OpenSceneMode.Additive);}
+  Scene Open(string name){var s=SceneManager.GetSceneByName(name);return s.IsValid()?s:EditorSceneManager.OpenScene(SvinkiAssetPaths.ScenePath(name),OpenSceneMode.Additive);}
   var factory=Open("SampleScene");var lobby=Open("FriendslopLobby");
   if(factory.isDirty||lobby.isDirty)throw new Exception("Unsaved scene changes");
   if(Items<LobbyFreightElevator>(factory).Length>0)return "Return lift already exists";

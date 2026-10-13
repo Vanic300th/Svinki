@@ -29,8 +29,8 @@ public static class PhotoPersistenceSetup
  public static string Mannequins()
  {
   Need(!EditorApplication.isPlayingOrWillChangePlaymode,"Edit mode required");
-  var scene=SceneManager.GetSceneByPath("Assets/Scenes/SampleScene.unity");
-  if(!scene.IsValid()||!scene.isLoaded)scene=EditorSceneManager.OpenScene("Assets/Scenes/SampleScene.unity",OpenSceneMode.Additive);
+  var scene=SceneManager.GetSceneByPath(SvinkiAssetPaths.GameplayScene);
+  if(!scene.IsValid()||!scene.isLoaded)scene=EditorSceneManager.OpenScene(SvinkiAssetPaths.GameplayScene,OpenSceneMode.Additive);
   Need(!scene.isDirty,"Save existing scene edits before placing displays");
   var id=typeof(NetworkObject).GetField("SceneId",BindingFlags.Instance|BindingFlags.NonPublic);
   var originals=Items<NetworkObject>(scene).ToDictionary(n=>n,n=>(ulong)id.GetValue(n));

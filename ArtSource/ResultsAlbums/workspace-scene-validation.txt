@@ -1,1 +1,0 @@
-PASS: workspace scene matches the Unity-generated and native-tested scene byte for byte; 8 aggressive mannequins, 3 carts, 144 unique nonzero scene IDs.

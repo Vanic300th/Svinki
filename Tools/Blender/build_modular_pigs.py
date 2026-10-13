@@ -12,9 +12,11 @@ from mathutils import Vector, Quaternion
 
 PROJECT = Path(__file__).resolve().parents[2]
 SOURCE = PROJECT / 'ArtSource/Pigs/v2'
-EXPORT = PROJECT / 'Assets/Art/Characters/Pigs'
+EXPORT = PROJECT / 'Assets/_Project/Content/Characters/Pigs'
+LEGACY_EXPORT = PROJECT / 'ArtSource/Pigs/LegacyExports'
 SOURCE.mkdir(parents=True, exist_ok=True)
 EXPORT.mkdir(parents=True, exist_ok=True)
+LEGACY_EXPORT.mkdir(parents=True, exist_ok=True)
 bpy.ops.object.select_all(action='SELECT')
 bpy.ops.object.delete(use_global=False)
 for c in list(bpy.data.collections):
@@ -508,7 +510,7 @@ export_fbx(canonical,EXPORT/'Pig_Modular.fbx')
 for name,enabled in PRESETS.items():
     chosen=[o for o in canonical if o==rig or o in base or
             o.name in enabled or (o.parent and o.parent.name in enabled)]
-    export_fbx(chosen,EXPORT/('Pig_'+name+'.fbx'))
+    export_fbx(chosen,LEGACY_EXPORT/('Pig_'+name+'.fbx'))
 
 
 def clone_to_scene(scene, prefix, offset, enabled):
@@ -629,9 +631,9 @@ All parts follow the Head bone through normalized vertex groups.
 Scale: metres. Pig height approx. 2 m including ears. Front: -Y.
 16-bone Generic rig in neutral A-pose; no baked animations.
 Flat palette materials, UVs, separate objects, FBX with no leaf bones.
-FBX copies live in Assets/Art/Characters/Pigs.
-Pig_Modular.fbx includes every option; enable the desired slot roots.
-Three preset FBXs contain only the selected appearance.
+Pig_Modular.fbx lives in Assets/_Project/Content/Characters/Pigs and includes
+every option; enable the desired slot roots. Three preset FBXs contain only
+the selected appearance and live in ArtSource/Pigs/LegacyExports.
 
 This is the first modeled version, not a claim of finished game
 animation integration. Rig deformation should be checked with your

@@ -1,1 +1,0 @@
-12 layouts / 1152 physical reachability checks; failed seeds=

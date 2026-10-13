@@ -1,1 +1,0 @@
-PASS: 1760 nonempty translation entries; English and Russian locales; saved-locale startup selector; Addressables build with player.

@@ -25,13 +25,13 @@ public static class StoreRedesignSetup
     public static string Build()
     {
         if(EditorApplication.isPlayingOrWillChangePlaymode)throw new Exception("Edit mode required");
-        scene=SceneManager.GetSceneByPath("Assets/Scenes/SampleScene.unity");if(!scene.IsValid()||!scene.isLoaded)scene=EditorSceneManager.OpenScene("Assets/Scenes/SampleScene.unity",OpenSceneMode.Additive);
+        scene=SceneManager.GetSceneByPath(SvinkiAssetPaths.GameplayScene);if(!scene.IsValid()||!scene.isLoaded)scene=EditorSceneManager.OpenScene(SvinkiAssetPaths.GameplayScene,OpenSceneMode.Additive);
         var previous=SceneManager.GetActiveScene();SceneManager.SetActiveScene(scene);
         try
         {
             level=scene.GetRootGameObjects().Single(r=>r.name=="Graybox Level").transform;
             rooms.Clear();anchors.Clear();angles.Clear();
-            Material Mat(string n)=>AssetDatabase.LoadAssetAtPath<Material>("Assets/Materials/PeachStore/"+n+".mat");
+            Material Mat(string n)=>AssetDatabase.LoadAssetAtPath<Material>(SvinkiAssetPaths.SharedMaterials + "/PeachStore/"+n+".mat");
             plaster=Mat("Warm plaster");wood=Mat("Walnut display");metal=Mat("Dark steel");cream=Mat("Cream fixtures");glow=Mat("Warm diffuser");teal=Mat("Petrol accent");peach=Mat("Peach accent");
             var pickups=All<ClothingPickup>().Where(c=>c.Clothing!=null).OrderBy(c=>c.name,StringComparer.Ordinal).ToArray();
             if(pickups.Length!=96)throw new Exception("Expected all 96 clothing objects; found "+pickups.Length);
@@ -187,8 +187,8 @@ public static class StoreRedesignSetup
     private static void Bake()
     {
         var surface=All<NavMeshSurface>().Single();surface.collectObjects=CollectObjects.All;surface.useGeometry=NavMeshCollectGeometry.PhysicsColliders;surface.BuildNavMesh();
-        var fresh=surface.navMeshData;var saved=AssetDatabase.LoadAssetAtPath<NavMeshData>("Assets/Settings/StoreExpandedNavMesh.asset");
-        if(saved!=null&&saved!=fresh){surface.RemoveData();EditorUtility.CopySerialized(fresh,saved);UnityEngine.Object.DestroyImmediate(fresh);surface.navMeshData=saved;surface.AddData();EditorUtility.SetDirty(saved);}else if(saved==null)AssetDatabase.CreateAsset(fresh,"Assets/Settings/StoreExpandedNavMesh.asset");
+        var fresh=surface.navMeshData;var saved=AssetDatabase.LoadAssetAtPath<NavMeshData>(SvinkiAssetPaths.Settings + "/StoreExpandedNavMesh.asset");
+        if(saved!=null&&saved!=fresh){surface.RemoveData();EditorUtility.CopySerialized(fresh,saved);UnityEngine.Object.DestroyImmediate(fresh);surface.navMeshData=saved;surface.AddData();EditorUtility.SetDirty(saved);}else if(saved==null)AssetDatabase.CreateAsset(fresh,SvinkiAssetPaths.Settings + "/StoreExpandedNavMesh.asset");
     }
     private static void BuildMap()
     {

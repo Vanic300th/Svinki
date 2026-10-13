@@ -66,6 +66,7 @@ MonoBehaviour:
   - clothing: {fileID: 11400000, guid: 4f054a38124a84b209f6f2654b14dd60, type: 2}
     aliases:
     - {fileID: 11400000, guid: 12aa2086d73ad5d49bfbbe8675cbc975, type: 2}
+    - {fileID: 11400000, guid: 012f0c26540fc4346bf9f7b9339383b7, type: 2}
     key: hoodie1
     color: {r: 0.39607844, g: 0.40392157, b: 0.41568628, a: 1}
     pattern: 0

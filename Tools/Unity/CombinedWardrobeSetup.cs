@@ -34,7 +34,7 @@ public static class CombinedWardrobeSetup
         registry.InitializePrefabRange(0);
         typeof(DefaultPrefabObjects).GetMethod("SetAssetPathHashes", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(registry, new object[] { 0 });
         EditorUtility.SetDirty(registry);
-        var scene = EditorSceneManager.OpenScene("Assets/Scenes/SampleScene.unity", OpenSceneMode.Single);
+        var scene = EditorSceneManager.OpenScene(SvinkiAssetPaths.GameplayScene, OpenSceneMode.Single);
         var layout = scene.GetRootGameObjects().SelectMany(r => r.GetComponentsInChildren<RoundClothingLayout>(true)).Single();
         var serialized = new SerializedObject(layout);
         var pickups = serialized.FindProperty("pickups");
@@ -81,7 +81,7 @@ public static class CombinedWardrobeSetup
         var field = typeof(NetworkObject).GetField("SceneId", BindingFlags.NonPublic | BindingFlags.Instance);
         var ids = objects.Select(o => (ulong)field.GetValue(o)).ToArray();
         if (ids.Any(id => id == 0) || ids.Distinct().Count() != ids.Length) throw new Exception("Invalid network scene IDs.");
-        var player = new SerializedObject(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/NetworkPlayer.prefab").GetComponent<NetworkPlayer>());
+        var player = new SerializedObject(AssetDatabase.LoadAssetAtPath<GameObject>(SvinkiAssetPaths.NetworkPlayerPrefab).GetComponent<NetworkPlayer>());
         var catalogue = player.FindProperty("clothingCatalog");
         var registered = new SerializedObject(registry).FindProperty("_prefabs");
         foreach (var profile in rules.items)
@@ -106,7 +106,7 @@ public static class CombinedWardrobeSetup
     }
     public static void RenderOnly()
     {
-        EditorSceneManager.OpenScene("Assets/Scenes/SampleScene.unity", OpenSceneMode.Single);
+        EditorSceneManager.OpenScene(SvinkiAssetPaths.GameplayScene, OpenSceneMode.Single);
         RenderReferences(OutfitRatingCatalog.Load());
     }
     private static void RenderReferences(OutfitRatingCatalog rules)

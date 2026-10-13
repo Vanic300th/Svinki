@@ -20,7 +20,7 @@ public static class NeutralMannequinSetup
     public static string Apply()
     {
         if (EditorApplication.isPlayingOrWillChangePlaymode) throw new Exception("Edit mode required");
-        var scene = SceneManager.GetSceneByPath("Assets/Scenes/SampleScene.unity");
+        var scene = SceneManager.GetSceneByPath(SvinkiAssetPaths.GameplayScene);
         if (!scene.IsValid() || !scene.isLoaded) throw new Exception("Load SampleScene first");
         if (scene.isDirty) throw new Exception("Save pending scene edits first");
         var originals = Items<NetworkObject>(scene).ToDictionary(n => n, n => (ulong)Id.GetValue(n));

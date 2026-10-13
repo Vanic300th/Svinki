@@ -1,4 +1,0 @@
-PASS Unity 6000.6.2f1: script compilation clean; URL/provider validation; real Audius search/audio/metadata/pause/resume/local mute/duplicate rejection/SyncList queue/skip-next on FishNet Host; official YouTube IFrame/CEF RenderTexture/decoded advancing time/native footer Play-Pause/shared pause-seek-resume-stop on Host; direct HTTP ranged H.264 MP4 playback/pause-seek-resume-stop retained.
-Editor restored to clean Lobby.unity, Edit mode, Windows target unchanged. Test HTTP server stopped; no browser process remains. No player build performed.
-Offline music and YouTube playback were also validated earlier in this integration.
-LIMITATION Mac CEF iframe-internal mouse clicks failed; application controls and browser footer work. Remote Client/Late Join, Windows native playback and EOS internet sessions for the new providers are not tested. Protocol 23 requires updated participants.

@@ -1,1 +1,0 @@
-PASS real SQLite: JPEG bytes survive close/reopen; pins survive reopen; per-profile isolation; bound SQL parameters; deduplication; 120 recent photos plus protected pins; clear/reset retention. Elapsed 195 ms.

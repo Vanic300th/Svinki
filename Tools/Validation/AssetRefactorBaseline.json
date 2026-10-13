@@ -1,0 +1,1422 @@
+{
+  "version": 1,
+  "created": "2026-10-13",
+  "originalArtSource": [
+    {
+      "path": "ArtSource/Bugfix/native-lobby.png",
+      "bytes": 1030580,
+      "sha256": "6a10edb9b9989fc17ff35b7c4cce9522f9de29219dcf474731e3d72777a39528"
+    },
+    {
+      "path": "ArtSource/Bugfix/russian-settings-refreshed.png",
+      "bytes": 680104,
+      "sha256": "bb2db1f06627d6e41044c90ecc6ae4821d9856f5fa9d9d7cc80dd590479debeb"
+    },
+    {
+      "path": "ArtSource/Bugfix/russian-settings.png",
+      "bytes": 680622,
+      "sha256": "47e291267bcff6a6dd2e88bc8618b0f55f5335571e5de4d3839dddea9f49959d"
+    },
+    {
+      "path": "ArtSource/Bugfix/youtube-player.png",
+      "bytes": 747331,
+      "sha256": "764a00a73587c68277c41855970f4a712f7a213716fb926243985b6d38ea038f"
+    },
+    {
+      "path": "ArtSource/Bugfix/youtube-playing-later.png",
+      "bytes": 537531,
+      "sha256": "f48eef4d58d0d5d5e300945a3b164c0eb91d00b6a2f144e2bf2739cfae6fe9a3"
+    },
+    {
+      "path": "ArtSource/Bugfix/youtube-playing.png",
+      "bytes": 562644,
+      "sha256": "cb362fa4446b0ac59a82ca7c4a372fb43dae7b9ec9f335b94157c74fc56500d3"
+    },
+    {
+      "path": "ArtSource/CameraAndMusic/k-equipped.png",
+      "bytes": 238062,
+      "sha256": "884caabb561b22c43ac71a6af2a6086054ac81064f5d08f9875410a31b29afb2"
+    },
+    {
+      "path": "ArtSource/CameraAndMusic/verified-photo.png",
+      "bytes": 35148,
+      "sha256": "e3ff49f042924a6f95ff8b4317bcb90c01719182cc7dc66cf36d7ae9d421e160"
+    },
+    {
+      "path": "ArtSource/CameraFix/k-equipped.png",
+      "bytes": 308619,
+      "sha256": "6b2d991ecb5fcdf11d3aaf234dceebebaeadd9e55d46ed599cb94ccd86495aac"
+    },
+    {
+      "path": "ArtSource/CameraFix/pickup-required.png",
+      "bytes": 250261,
+      "sha256": "7140d6660833bd9d5087f7f149ac2a9980a12697dd50a5a52f85466d27d404aa"
+    },
+    {
+      "path": "ArtSource/CameraFix/verified-photo.png",
+      "bytes": 61929,
+      "sha256": "841f87ca71295e7ee9b4d2678ecfabf95d1867dc48fe72e22bc9a302beeefffa"
+    },
+    {
+      "path": "ArtSource/CartRunway/initial-debug.png",
+      "bytes": 137134,
+      "sha256": "418bf0481b028db3ccc1cadac8a29167f590d96ef7a7344b67d5dc4a0ba97638"
+    },
+    {
+      "path": "ArtSource/CartRunway/podium-coop.png",
+      "bytes": 197944,
+      "sha256": "2cc6a329f28acd9c0b509b29d78663c13019f8b5a6d900f3f2100791eb5f2838"
+    },
+    {
+      "path": "ArtSource/CartRunway/podium-offline.png",
+      "bytes": 180302,
+      "sha256": "f539e316c2220703a321a310411ba1e40784edb0732f322034dae93f810f12d6"
+    },
+    {
+      "path": "ArtSource/CartRunway/session-backup.json",
+      "bytes": 647,
+      "sha256": "f2822c7b2de86f7318785dc8da601af34ad97e1747dd88a2e4267401aa8a28d1"
+    },
+    {
+      "path": "ArtSource/CheapCamera/camera-guide.png",
+      "bytes": 192067,
+      "sha256": "a59b779c75e35d46318161ab4b3400121dca007666f83b9c6d1d0d3477fa223c"
+    },
+    {
+      "path": "ArtSource/CheapCamera/cheap-photo-album.png",
+      "bytes": 144338,
+      "sha256": "623d6baf4117b1ce888073421fda768df88354fc34b0bf39ec62cc8774b9896a"
+    },
+    {
+      "path": "ArtSource/CheapCamera/guest-photo.png",
+      "bytes": 48728,
+      "sha256": "a974d3c665c92de2e1eac9602a09773f7e58102656e2f5388518fcad62723af4"
+    },
+    {
+      "path": "ArtSource/CheapCamera/host-photo.png",
+      "bytes": 41032,
+      "sha256": "e134a38c6765355233a9935febfe05c5f14463daba620a6cb2fd9deae7a068ff"
+    },
+    {
+      "path": "ArtSource/CheapCamera/viewfinder-k.png",
+      "bytes": 214305,
+      "sha256": "58b6e7fd064fbac1f2bfd6b16da42e992dd7dac1ecc8f5a144f3f84139fd241b"
+    },
+    {
+      "path": "ArtSource/Clothing3D/outfits.png",
+      "bytes": 1545059,
+      "sha256": "8e4c0977ca444511e4f29ce896cd87448ca4722e77ca145ee141753ff37b3b6b"
+    },
+    {
+      "path": "ArtSource/Clothing3D/pants-after.png",
+      "bytes": 573101,
+      "sha256": "e48dab511555bf52657e8659ae36dd8e34fde5b70ed46044a27ef0b445046dd1"
+    },
+    {
+      "path": "ArtSource/Clothing3D/pants-before.png",
+      "bytes": 571684,
+      "sha256": "46ec56a065a57eb7330dda31605b738965fd05202f4cc5c2a8914817913ae82f"
+    },
+    {
+      "path": "ArtSource/Clothing3D/pants-submeshes.png",
+      "bytes": 493479,
+      "sha256": "4908fb112cb2a5a0cd7c3eabde2aa951e02e1b6f362e84c45bff8ac01c34e70a"
+    },
+    {
+      "path": "ArtSource/CrouchFix/after.png",
+      "bytes": 446593,
+      "sha256": "3ffb73933f8e9bfc3871453c380c04dd8a4a794bbf32be11b4aeee3a9374adfd"
+    },
+    {
+      "path": "ArtSource/CrouchFix/before.png",
+      "bytes": 214329,
+      "sha256": "7a8a2d0bdfc078edd5aad2dd8a571bbf64fe1177d8dfe5f6d0efaee6d3c7ec2f"
+    },
+    {
+      "path": "ArtSource/CrouchFix/network.png",
+      "bytes": 446454,
+      "sha256": "f501930f8ce22f00840a21d580ba97d6b2c2b42d55e7922f973af50a2abc6fd3"
+    },
+    {
+      "path": "ArtSource/CrouchFix/squash-network.png",
+      "bytes": 442121,
+      "sha256": "01e7cffc4df3de9c1580ee8fec55294baac81a548c2739cf624cd21b06843c0c"
+    },
+    {
+      "path": "ArtSource/CrouchFix/squash.png",
+      "bytes": 441987,
+      "sha256": "0f2d22e9d9a15ae0dd5e4855f40f016eab51465ae8f9c452921d167cefdbc169"
+    },
+    {
+      "path": "ArtSource/EmoteMonkey/guest-one-hand.png",
+      "bytes": 372465,
+      "sha256": "c5246441239e6900a6bd54b19948c651bf30d21a2b7e413e1fa73911f669a1e1"
+    },
+    {
+      "path": "ArtSource/EmoteMonkey/one-hand.png",
+      "bytes": 254686,
+      "sha256": "ff1d638a3435eb1dbb1fb78c907d5edf45350711a228b088c7cd23bb30bd12ee"
+    },
+    {
+      "path": "ArtSource/EmoteMonkey/swing.png",
+      "bytes": 247891,
+      "sha256": "0643a2675f5ac80be4d7cb12884e9cb780e5590254e6d47e74a4dc325ff0ad62"
+    },
+    {
+      "path": "ArtSource/EmoteMonkey/wheel.png",
+      "bytes": 216685,
+      "sha256": "a3eba9ee4592362eb4c94452acd6fffc27af954a2397bcc0f171b6cfb4934081"
+    },
+    {
+      "path": "ArtSource/EnglishHud/crouch.png",
+      "bytes": 257336,
+      "sha256": "b3a7ddd98f3284aafd58df22397eeb15e5f2426c02ac8e2d44d7ce4e1e77eb49"
+    },
+    {
+      "path": "ArtSource/EnglishHud/final.png",
+      "bytes": 400337,
+      "sha256": "944b65cde5b4e1ddf14ce093d290c70e5c5b12e961152edb8859ebd37cdd9d12"
+    },
+    {
+      "path": "ArtSource/EnglishHud/full-outfit.png",
+      "bytes": 257616,
+      "sha256": "84bc9ffea015cf1aab0e279be6bd15ca0ce058959e49d6c65844fb3a897350bf"
+    },
+    {
+      "path": "ArtSource/EnglishHud/inventory.png",
+      "bytes": 208571,
+      "sha256": "2b369e7fd236be5e6dd6cac620fb138c39ff9d85822deb49e2eebcc7d97302ac"
+    },
+    {
+      "path": "ArtSource/EnglishHud/live.png",
+      "bytes": 192918,
+      "sha256": "87d7d085a66e8cddae11cf21caf124165853838b2ed12434adfdfc474bef937d"
+    },
+    {
+      "path": "ArtSource/EnglishHud/menu.png",
+      "bytes": 129863,
+      "sha256": "d5a195ecf16f3d39d9016706ea8d241d0ab31d87e2274c5c3ec05d7bd7c557a2"
+    },
+    {
+      "path": "ArtSource/EnglishHud/portrait.png",
+      "bytes": 48763,
+      "sha256": "f68763f11204dcad009b8b0e8aee480c1d80ef1fab33afd1703ff0b82e2b72dc"
+    },
+    {
+      "path": "ArtSource/EnglishHud/results.png",
+      "bytes": 212886,
+      "sha256": "97a06abe7b6b8e518a1cd8480685fbdcbfa8f1e862d08464627aee2c7792fa18"
+    },
+    {
+      "path": "ArtSource/EnglishHud/runway.png",
+      "bytes": 186566,
+      "sha256": "5033867af57328eacc987c617dcac2de32589f3beb661346347d9e6a6f24eb60"
+    },
+    {
+      "path": "ArtSource/EnglishHud/test.png",
+      "bytes": 129318,
+      "sha256": "8118e59e98242acfe4bda39b9a930033c1b9bd1e349a1bccd5bbc85cf7994ac5"
+    },
+    {
+      "path": "ArtSource/ExpandedRound/cargo-client.png",
+      "bytes": 285615,
+      "sha256": "9c108c04fd7aaafff16eee30c3fdbe93577726316cb66cb832af4dda571b0e06"
+    },
+    {
+      "path": "ArtSource/ExpandedRound/cargo.png",
+      "bytes": 408850,
+      "sha256": "7acd2da37dde05ba0f4335c7e1d2537c1dce559e53b760ed6e9dd6f31c30672e"
+    },
+    {
+      "path": "ArtSource/ExpandedRound/final-hud.png",
+      "bytes": 197737,
+      "sha256": "6b7f1b53427b355358330d9330f58c89d03fdd9db216e37ac293621c3f8e671e"
+    },
+    {
+      "path": "ArtSource/ExpandedRound/host-fall.png",
+      "bytes": 322517,
+      "sha256": "1f3b1039669294fe7094dc9c54f63cbf18272684cce69a3fb9ea619cacc62eec"
+    },
+    {
+      "path": "ArtSource/ExpandedRound/host-first-hit.png",
+      "bytes": 457078,
+      "sha256": "f4fa5f0de24009c908dc7fb895dc3a66eaa5c311ee3f2942ed63d04d08ae41eb"
+    },
+    {
+      "path": "ArtSource/ExpandedRound/host-spectator.png",
+      "bytes": 350997,
+      "sha256": "ecdf8f837458054c606912c4f89f49778c337c6a1cf6520c7999bdc03aaf0d68"
+    },
+    {
+      "path": "ArtSource/ExpandedRound/live-hud.png",
+      "bytes": 231778,
+      "sha256": "3ef0f2619a0cf8199cd32b98d95975730f3e8bfd144f3e4ff3893588ae58ad09"
+    },
+    {
+      "path": "ArtSource/ExpandedRound/names-through-wall.png",
+      "bytes": 193255,
+      "sha256": "853cb072fef3a0921efeb34f625ae81c7c7052ac7f4b2e8da1bf9158858420a8"
+    },
+    {
+      "path": "ArtSource/ExpandedRound/offline-death.png",
+      "bytes": 401571,
+      "sha256": "977048837d4d45f9919f046155150d2bd5575d07ce96b0f3319ed064308a1e15"
+    },
+    {
+      "path": "ArtSource/ExpandedRound/offline-fall.png",
+      "bytes": 368597,
+      "sha256": "b4e47af2d7cd87ca0e4bf87d0392e1cec9a8d0903a99e5f74a82a304bb076379"
+    },
+    {
+      "path": "ArtSource/GameplayExpansion/animation.png",
+      "bytes": 298538,
+      "sha256": "960dd12b1a2766ffc9d57249a1785354509c16c3b861cc69941ddfa612b1dffb"
+    },
+    {
+      "path": "ArtSource/GameplayExpansion/dim-store.png",
+      "bytes": 208849,
+      "sha256": "fef82345881b67a3addab863e55dd9187bda3f4b95f67e7337d222599d78a226"
+    },
+    {
+      "path": "ArtSource/GameplayExpansion/menu-settings.png",
+      "bytes": 173505,
+      "sha256": "877d2421d97972e81b488b4314a3ef044da7e5c3367f0a34f55b927d063d5374"
+    },
+    {
+      "path": "ArtSource/GameplayExpansion/tattoo_Aviator.png",
+      "bytes": 122271,
+      "sha256": "16da3263ef24a5328d9a3d1846880c1eadcd062c181cab8715aa3c02b8a7eb6d"
+    },
+    {
+      "path": "ArtSource/GameplayExpansion/tattoo_CatEye.png",
+      "bytes": 130963,
+      "sha256": "f96b73cc0eb96f21c0af470e0ee53a01f20b497ece22c1bc8272cb54d35f84b2"
+    },
+    {
+      "path": "ArtSource/GameplayExpansion/tattoo_Round.png",
+      "bytes": 139041,
+      "sha256": "0f0a588f91dd55306d4e9381d4e1892ca567a6cb825b0ce1e55b1f1775fae948"
+    },
+    {
+      "path": "ArtSource/GameplayExpansion/tattoo_Square.png",
+      "bytes": 123040,
+      "sha256": "9dc465424f1f462caadb859f2d4ffc51657fd25ae48b3d4bd885eba8dfb98af2"
+    },
+    {
+      "path": "ArtSource/GameplayExpansion/tattoos.png",
+      "bytes": 477690,
+      "sha256": "ea8a0e8f4b184bede99832ef64968c186301c2da572bc932c613860a2f7c40ea"
+    },
+    {
+      "path": "ArtSource/IndustrialCC0/dartboard-set.blend",
+      "bytes": 873996,
+      "sha256": "6c9d0112e7cf876de04330af0d9da096e6947e79fb764a08bb6f247963d06363"
+    },
+    {
+      "path": "ArtSource/IndustrialCC0/Basketball/basketball/basketball.fbx",
+      "bytes": 42748,
+      "sha256": "8c57934f0dc7e2206e045865d5ffb15fcbfe867a1ab9b26ce78ded01c0143342"
+    },
+    {
+      "path": "ArtSource/IndustrialCC0/Basketball/basketball/basketball.glb",
+      "bytes": 26496,
+      "sha256": "88daf78e266ea21394cef1d35a61bf79fe48c0b94cb172c28859c30ad356d10a"
+    },
+    {
+      "path": "ArtSource/IndustrialCC0/Basketball/basketball/basketball.mtl",
+      "bytes": 65,
+      "sha256": "c3ae9aa97c3d3745dadf4e0035e2c4a76c79b0aed1de32c3dc5a7160b0ab4fdc"
+    },
+    {
+      "path": "ArtSource/IndustrialCC0/Basketball/basketball/basketball.obj",
+      "bytes": 71369,
+      "sha256": "80188284fe88962813d915322321c8f0470beea420d20a7d83031eb66ba4db4d"
+    },
+    {
+      "path": "ArtSource/IndustrialCC0/Basketball/basketball/License.txt",
+      "bytes": 605,
+      "sha256": "3dc8659f9b7f97264bc978e525ca7dd4c8eecc340ff71f64dc3d2c66a9dd9063"
+    },
+    {
+      "path": "ArtSource/IndustrialCC0/Basketball/basketball/blend/basketball.blend",
+      "bytes": 925312,
+      "sha256": "e25c233de09dad224e58e22b528d51780a0be29f93f5219ded32d40fad35e9c1"
+    },
+    {
+      "path": "ArtSource/IndustrialCC0/Basketball/basketball/textures/allstar_baseColor.png",
+      "bytes": 764653,
+      "sha256": "e23a8ee9ed1a08873e2883ead43d0c362c4bef12016981209b8c91297e4edfb8"
+    },
+    {
+      "path": "ArtSource/IndustrialCC0/Basketball/basketball/textures/blue_baseColor.png",
+      "bytes": 757749,
+      "sha256": "e746aafe744edc9e118999de4deeef03865700280e3f1e8be2f5c1b34201c1a4"
+    },
+    {
+      "path": "ArtSource/IndustrialCC0/Basketball/basketball/textures/classic_baseColor.png",
+      "bytes": 1008311,
+      "sha256": "23c7f95d3fa9e85b023808356ef2b4b8ed5267432f7f2b79e8658880739f25dd"
+    },
+    {
+      "path": "ArtSource/IndustrialCC0/Basketball/basketball/textures/normal.png",
+      "bytes": 845482,
+      "sha256": "4ebe9971afcf08f09315afe1bdef5863d6b3a60e542cbcc825e50d14b2417102"
+    },
+    {
+      "path": "ArtSource/IndustrialCC0/Basketball/basketball/textures/occlusionRoughnessMetallic.png",
+      "bytes": 531432,
+      "sha256": "d91bd763f5035a2ae1eeb7b0d98231ed986795f6129d818672542dd377abdb00"
+    },
+    {
+      "path": "ArtSource/IndustrialCC0/Basketball/basketball/textures/retro_baseColor.png",
+      "bytes": 1073341,
+      "sha256": "9646fc722719dd73b7fce029fbcf8faa1b001a4ed9560d17939eb804f67d9918"
+    },
+    {
+      "path": "ArtSource/IndustrialCC0/Before/FriendslopLobby.unity",
+      "bytes": 1367380,
+      "sha256": "d203e3e2f2e617b6be1d5be9b3aa4a312812aea4bdd5bb2ed23343801c394865"
+    },
+    {
+      "path": "ArtSource/IndustrialCC0/Before/SampleScene.unity",
+      "bytes": 14059024,
+      "sha256": "f1d883b115de7eb2d1f890a518369898581b00735a583adfde2dae7bb5741a4f"
+    },
+    {
+      "path": "ArtSource/IndustrialCC0/Previews/darts.png",
+      "bytes": 1012534,
+      "sha256": "3642ca566a487d447688551dde3ea7063e37b9b179594ad88ccd98ebc6093f81"
+    },
+    {
+      "path": "ArtSource/IndustrialCC0/Previews/factory.png",
+      "bytes": 393704,
+      "sha256": "ac008c08fe53de710e0bef49157a8e38ab3e2f2a27929419224d85d0b750a735"
+    },
+    {
+      "path": "ArtSource/IndustrialCC0/Previews/lobby.png",
+      "bytes": 1724107,
+      "sha256": "efb346b05c39bc9351aedb36b34686d0aceb6063c1b978bd953ad2da2879cd87"
+    },
+    {
+      "path": "ArtSource/IndustrialCC0/Previews/lounge.png",
+      "bytes": 1834127,
+      "sha256": "67733ebe4335ac3e51d0c3bc190396a2fd71e7a000516c8e1eff359a76d690ba"
+    },
+    {
+      "path": "ArtSource/IndustrialCC0/Previews/sports.png",
+      "bytes": 1479522,
+      "sha256": "128f60b97dc571ff889ef34fa5f9d85b974acb02478837e31ba2fbb6034d53c7"
+    },
+    {
+      "path": "ArtSource/LobbyPolish/legacy-occluded.png",
+      "bytes": 4407,
+      "sha256": "7ab366406095543c872023f4fcf1d401fe7913414b38ff1dd0a95ce7c8148fc3"
+    },
+    {
+      "path": "ArtSource/LobbyPolish/tmp-occluded.png",
+      "bytes": 4407,
+      "sha256": "7ab366406095543c872023f4fcf1d401fe7913414b38ff1dd0a95ce7c8148fc3"
+    },
+    {
+      "path": "ArtSource/Localization/english-settings.png",
+      "bytes": 111614,
+      "sha256": "e98080d8467c25c37e32d28c59d5694a64d4b1f2cfbd64ec4898c5a286f41d0a"
+    },
+    {
+      "path": "ArtSource/Localization/russian-album.png",
+      "bytes": 90965,
+      "sha256": "a61412d1d9bc595a38b4fe5711fc6d795092b21baabeaa246365671bff9403de"
+    },
+    {
+      "path": "ArtSource/Localization/russian-guide.png",
+      "bytes": 149542,
+      "sha256": "80e1339d3d6412290e80f71156c79a255df9f7bd824e6a00672880a03175f966"
+    },
+    {
+      "path": "ArtSource/Localization/russian-settings.png",
+      "bytes": 126497,
+      "sha256": "73eacbae45e8ff034a5a461053a6c88e33bdde769a92149c8cab8fd50bf82497"
+    },
+    {
+      "path": "ArtSource/Mechanics/camera-quality.png",
+      "bytes": 123099,
+      "sha256": "71e58073c4e475afd8769f6aec7263829f24efdb1437c4c9c2e58d53b7dceb82"
+    },
+    {
+      "path": "ArtSource/Mechanics/carrying-body.png",
+      "bytes": 445454,
+      "sha256": "cd836b2c26d9f227aab8229b1852d33250e82e03bb6685853dd6285efa757bce"
+    },
+    {
+      "path": "ArtSource/Mechanics/ghost-flight.png",
+      "bytes": 51294,
+      "sha256": "d64324613c8191014a9161258982fed84eb5d2949a8cd620ace639a30feea69e"
+    },
+    {
+      "path": "ArtSource/Mechanics/locker-memories.png",
+      "bytes": 399414,
+      "sha256": "a39e6fb2df7204605d050a25e337ca8c2cf3bc6ff84370004aef668ac29cad0e"
+    },
+    {
+      "path": "ArtSource/Mechanics/locker-occupied.png",
+      "bytes": 416219,
+      "sha256": "4d8412f95ae304611e1b0d79ceaf4b39508de7ebca624504095f6c34904aa749"
+    },
+    {
+      "path": "ArtSource/Mechanics/locker-slots.png",
+      "bytes": 400865,
+      "sha256": "9e244fed173d2e9f31d4ca96022ee06a63019839f74af56e42e25b58dd980299"
+    },
+    {
+      "path": "ArtSource/Mechanics/photo-full-screen.png",
+      "bytes": 322853,
+      "sha256": "d223b6817fef9d8b4648bc36c9edb57959a23d6de3ff827e99877acf38027143"
+    },
+    {
+      "path": "ArtSource/Mechanics/photo-window.png",
+      "bytes": 898174,
+      "sha256": "ceda3ded75ac00e4cc7e227c8b812d0f8d3cabefa28e8ba0f0d28f8a18300542"
+    },
+    {
+      "path": "ArtSource/Mechanics/runway-guest.png",
+      "bytes": 248535,
+      "sha256": "0d9f9ee5581af0a6a85a7c41919758f34c0ec383c1fea2381539a883e4dedaeb"
+    },
+    {
+      "path": "ArtSource/Mechanics/runway-host.png",
+      "bytes": 240118,
+      "sha256": "996b9d4725239dec01e053eb25ac5589e7e915e1656b72fd4e0b2412cc26e05e"
+    },
+    {
+      "path": "ArtSource/MinimapZoom/entrance-near-friend.png",
+      "bytes": 329126,
+      "sha256": "8f775773c84bdbbb078ced212b054b9999118e3dba7621ee9dcaf89605d4c2dc"
+    },
+    {
+      "path": "ArtSource/MinimapZoom/middle-rooms.png",
+      "bytes": 261178,
+      "sha256": "b8f626850044d9f8fa376d947aa9276d20b598cb8b525e436ac9f8e16dbb3a07"
+    },
+    {
+      "path": "ArtSource/MinimapZoom/north-rooms.png",
+      "bytes": 279186,
+      "sha256": "7609c421ea1b66437f480ec39122d0b60721b67976bd3162cda42d280dad4df2"
+    },
+    {
+      "path": "ArtSource/MonkeyCalm/after.png",
+      "bytes": 255564,
+      "sha256": "c30f9ff0124fe8b354578aea52c41c1eb0837b9291e121d7ae9c67014e011b59"
+    },
+    {
+      "path": "ArtSource/MonkeyCalm/before.png",
+      "bytes": 250372,
+      "sha256": "ad801792e120109e015c950e5a8c9f6cc009ea9c3a469b83328802ddfdd02066"
+    },
+    {
+      "path": "ArtSource/MonkeyToy/ChimpanzeeToy.blend",
+      "bytes": 1765423,
+      "sha256": "ddba176c84407b29bc6765c9910184cfa36bb74ff5a447d70e198f6a60787f4e"
+    },
+    {
+      "path": "ArtSource/MonkeyToy/guest-held.png",
+      "bytes": 382952,
+      "sha256": "710f028c385b1c1acf5c0fcdd7bd7609892860e0081b9f01bc5b56ffca7a0f13"
+    },
+    {
+      "path": "ArtSource/MonkeyToy/guest-stun.png",
+      "bytes": 348342,
+      "sha256": "e480cefa859d4a5cc69d003398861a9a667f328350470af88ebf457f77d4343f"
+    },
+    {
+      "path": "ArtSource/MonkeyToy/held-forward.png",
+      "bytes": 246229,
+      "sha256": "1b02f0741fcf67ef0e2d1266ea0279ee7fca5f9a30de57a321976648ed6aab12"
+    },
+    {
+      "path": "ArtSource/MonkeyToy/held-toy.png",
+      "bytes": 362817,
+      "sha256": "7c817551f8eb3f1cab8d3c4090f64757016e66d4bfb8b3b8f8516086eed7c1a4"
+    },
+    {
+      "path": "ArtSource/MonkeyToy/rigged-preview.png",
+      "bytes": 173451,
+      "sha256": "656057bbe02055a491fc634978186807b29ca93e319eede8bab077271d60b56b"
+    },
+    {
+      "path": "ArtSource/MonkeyToy/source-preview.png",
+      "bytes": 498494,
+      "sha256": "c2a3b763fce75bd871587ed12d2825393621fb0c44504179ccd3845ec9c80b58"
+    },
+    {
+      "path": "ArtSource/MonkeyToy/stunned-npc.png",
+      "bytes": 295572,
+      "sha256": "4c63152bdeeb81896649629ffdbb2b1fd1953f73c304eb0a5b11e5cf3bafc1b7"
+    },
+    {
+      "path": "ArtSource/NameplateCheck/after-both-crouching.png",
+      "bytes": 299242,
+      "sha256": "3489ea1a72b4a8bf28ee1811a4eba85d1241506017e620f45b12eee7e1c281eb"
+    },
+    {
+      "path": "ArtSource/NameplateCheck/after-half-crouch.png",
+      "bytes": 312722,
+      "sha256": "77a23caf0d6ef8925db79b9cb7dd91c0b0fdc7c2e376b0f040b424ba54aee7c0"
+    },
+    {
+      "path": "ArtSource/NameplateCheck/after-observer-crouching.png",
+      "bytes": 305269,
+      "sha256": "833463b3be9244a920a536ea8c91a356c496fe922ef90576cdfe4faee544ed45"
+    },
+    {
+      "path": "ArtSource/NameplateCheck/before-close-crouch.png",
+      "bytes": 338238,
+      "sha256": "ec66de8d1821697792f2b8b476e709aa0ece2c8ee54a7184486d9e278c8dec1d"
+    },
+    {
+      "path": "ArtSource/NameplateCheck/before-crouching.png",
+      "bytes": 289976,
+      "sha256": "2843d0b0e402afc8c02aafebc106716dd6f3db2a2beb39916f77cf014d6755ce"
+    },
+    {
+      "path": "ArtSource/NameplateCheck/before-observer-crouching.png",
+      "bytes": 263442,
+      "sha256": "f5153b5c0ea566e9ea6704e9878f623f8930140d562770860d0c0832d4e3fada"
+    },
+    {
+      "path": "ArtSource/NameplateCheck/before-standing.png",
+      "bytes": 287875,
+      "sha256": "53e05a2791465c141363470cfc6e6fd68b31dff910dcbd15a1ee1f28d361d459"
+    },
+    {
+      "path": "ArtSource/OnlineMedia/ccmixter-panel.png",
+      "bytes": 509851,
+      "sha256": "255e9e2e3955d1b6dd34027cc1278e0416eea86ee6e2b4c06ac5355fc43a6edf"
+    },
+    {
+      "path": "ArtSource/OnlineMedia/youtube-host-frame.png",
+      "bytes": 49544,
+      "sha256": "1a3394bab84bbf2760f96c981b8ce9fbe65f0dc033aa06bdca3e09a8c89bb513"
+    },
+    {
+      "path": "ArtSource/OutfitRating/combined-reference-outfits.jpg",
+      "bytes": 599273,
+      "sha256": "3a8f3ff825573090f4087c582675781dae3a3cca38e264c88ca2fedb44ab5193"
+    },
+    {
+      "path": "ArtSource/OutfitRating/results.png",
+      "bytes": 277703,
+      "sha256": "f1c36d7b8fbc8d5ab91bc4a4d7e9988eeec5d2b7283b882273be6d0f907ea3ff"
+    },
+    {
+      "path": "ArtSource/PhotoRound/camera-guide.png",
+      "bytes": 187161,
+      "sha256": "c201e827734db1de154da772c278e008a233e4ebadf2d3dfef77cf04627acbda"
+    },
+    {
+      "path": "ArtSource/PhotoRound/camera-viewfinder.png",
+      "bytes": 214299,
+      "sha256": "6545b33ea241aba32b7820ff7e53a9b46569299ed33ff13243079f293418dee9"
+    },
+    {
+      "path": "ArtSource/PhotoRound/photo-album.png",
+      "bytes": 167199,
+      "sha256": "f740c32571c9acd3897f3e7c7cc8ef34a0c2b05b9a74ebf5c4e64158d92cc13a"
+    },
+    {
+      "path": "ArtSource/PhotoRound/world-photo.png",
+      "bytes": 119177,
+      "sha256": "57dd5abdc9c7efc00ebc2f9c289a384167e4ff277984a816cefcf3b045a9123d"
+    },
+    {
+      "path": "ArtSource/Pigs/v1/appearance_manifest.json",
+      "bytes": 3891,
+      "sha256": "2fef1ef9b976d6842c7823f0abc8a85077eb0e58db95337bfa0f7836946524b3"
+    },
+    {
+      "path": "ArtSource/Pigs/v1/README.md",
+      "bytes": 8014,
+      "sha256": "b2e0255afc2b98c8af8cb91944a5aaadc5b47f0529b23627000b652790da6c86"
+    },
+    {
+      "path": "ArtSource/Pigs/v1/Svinki_Modular_Pigs.blend",
+      "bytes": 714752,
+      "sha256": "180d0e7ba6f9a68effb2bdee1781f0f6810b6700cf9acf3f869d83cfe0009122"
+    },
+    {
+      "path": "ArtSource/Pigs/v1/three_pigs_preview.png",
+      "bytes": 1807556,
+      "sha256": "bd133f49da976066c2e8194f25a433b55f774b468eaf2d69dec6a756b60b3969"
+    },
+    {
+      "path": "ArtSource/Pigs/v1/unity_face_menu.png",
+      "bytes": 119055,
+      "sha256": "8860e9f80c8c75f93c4dfec962ab13c8ab21fc8976b342d478148a623e569eba"
+    },
+    {
+      "path": "ArtSource/Pigs/v2/appearance_manifest.json",
+      "bytes": 4883,
+      "sha256": "702145a1ed257ae3513ee0f3b322721a9fe773f3eb807ff88a05d8bc4a5dd9fe"
+    },
+    {
+      "path": "ArtSource/Pigs/v2/customization_gallery.png",
+      "bytes": 712830,
+      "sha256": "39d0cf9c3c27ecac8f2ea1498f388b6e4296ac33e5b12b21545150cf35ee29e4"
+    },
+    {
+      "path": "ArtSource/Pigs/v2/preview_Aviator.png",
+      "bytes": 113651,
+      "sha256": "f052334ce44e7d6b9374ff72d36d3254391b0297d041a0e724ebfb618cfd3d31"
+    },
+    {
+      "path": "ArtSource/Pigs/v2/preview_CatEye.png",
+      "bytes": 131811,
+      "sha256": "0fddb2d3f0c4975dd64216f8a81704da5f8407bf0aa78b2577dcb72e3417146a"
+    },
+    {
+      "path": "ArtSource/Pigs/v2/preview_Round.png",
+      "bytes": 120761,
+      "sha256": "73e715bd2aa537d25d9803abbbeb4720b3ed6f3205de6e36362653013a9ea3c9"
+    },
+    {
+      "path": "ArtSource/Pigs/v2/preview_Square.png",
+      "bytes": 135576,
+      "sha256": "bab699a1b9f0bd70c66cf4d152b6946522b26b4c7ff3c26274cb2886a14ea024"
+    },
+    {
+      "path": "ArtSource/Pigs/v2/preview_stripes.png",
+      "bytes": 139556,
+      "sha256": "cd56f49573c5b9aa0addff58a297cc503fa898ddb1013aca02feaecb1f195993"
+    },
+    {
+      "path": "ArtSource/Pigs/v2/preview_SunRound.png",
+      "bytes": 119862,
+      "sha256": "9c014407a021485fae61d0da1cbd2c96cfce28b1e465eea0b11f55ba4a8566d8"
+    },
+    {
+      "path": "ArtSource/Pigs/v2/preview_SunSquare.png",
+      "bytes": 132624,
+      "sha256": "7bcf21cd5ec080bb0c9e8700c62995894ff801a73009a5c705e1c5be4bd55a11"
+    },
+    {
+      "path": "ArtSource/Pigs/v2/Svinki_Modular_Pigs.blend",
+      "bytes": 828164,
+      "sha256": "e2e0449d4340b01b24038701433d8b832b2b69b14b3fd66506b51a9808a9edf9"
+    },
+    {
+      "path": "ArtSource/Pigs/v2/unity_face_menu_scrolled.png",
+      "bytes": 170753,
+      "sha256": "926f399d44ededed13d7658bcd1bfba4ddb3b5481e8e67979f6fd0d28586661d"
+    },
+    {
+      "path": "ArtSource/Pigs/v2/unity_face_menu.png",
+      "bytes": 172320,
+      "sha256": "f48ade0f97aa4f62c1e22293a3b337377882abfd2ea54671526e83827fb7d812"
+    },
+    {
+      "path": "ArtSource/PlayerColours/matching-map-and-names.png",
+      "bytes": 187928,
+      "sha256": "583747d74d17be415970f25f7fc05edc0b8f1ce1f09dea6568b0b55dd7d0aafe"
+    },
+    {
+      "path": "ArtSource/ReadyInventory/inventory.png",
+      "bytes": 218796,
+      "sha256": "31ce93d1553dcc223e3607555b935a21ffe87102ed5f29b3db688845a4ac384c"
+    },
+    {
+      "path": "ArtSource/ReadyInventory/ready-button.png",
+      "bytes": 325356,
+      "sha256": "d8e1148fd4a56a7431a9f4277424b2d3560b9c2c5006953a5bfe62ad748c61c5"
+    },
+    {
+      "path": "ArtSource/ResultsAlbums/empty-album.png",
+      "bytes": 113561,
+      "sha256": "8621940e70d9ffca52972a6e0255e06b320e0c12161725fe49e48d9cd7d9f13f"
+    },
+    {
+      "path": "ArtSource/ResultsAlbums/ghost-album.png",
+      "bytes": 167739,
+      "sha256": "34a2e19c769ff957387f9f83089a84a467cf059fdca7194413d6a8764d3db447"
+    },
+    {
+      "path": "ArtSource/ResultsAlbums/shared-album.png",
+      "bytes": 164650,
+      "sha256": "a7f2ff63fd2ba06232d7a0edb20b2bd8ee1541497a657dd1f6d4449757580c4e"
+    },
+    {
+      "path": "ArtSource/ResultsAlbums/solo-album.png",
+      "bytes": 171344,
+      "sha256": "875176c7d2a624ca15e6be546e7f951d9eee370dcda4515d29179049debd4867"
+    },
+    {
+      "path": "ArtSource/RunwayGhost/guest-runway.png",
+      "bytes": 197630,
+      "sha256": "f7635239e6a1e1d2a96023f41098cd26e38efa77376804d73a92b723028b0adb"
+    },
+    {
+      "path": "ArtSource/RunwayGhost/offline-runway.png",
+      "bytes": 167251,
+      "sha256": "567f601b10304a629a757866fc181ecef2137df5c727f0dc6407508fa3de31ba"
+    },
+    {
+      "path": "ArtSource/SocialLobby/final-show.png",
+      "bytes": 264109,
+      "sha256": "decc4e3ab4cc9bfb81fdfeb16beb4167c28b68ab03d208a2d5326ec27f2ffbf8"
+    },
+    {
+      "path": "ArtSource/SocialLobby/layout-preview.png",
+      "bytes": 378558,
+      "sha256": "e0f623fc2c2c243ec582e0f217e2e00f6c8f65d4652350d06d2cd9536eb0dcb3"
+    },
+    {
+      "path": "ArtSource/SocialLobby/lobby-first-person.png",
+      "bytes": 437153,
+      "sha256": "7d0d3e42dde23eb67b7e5e8db3db734335a9560d626ced999cad6f48ee9dfa50"
+    },
+    {
+      "path": "ArtSource/SocialLobby/Before/NetworkLobby.cs",
+      "bytes": 40148,
+      "sha256": "ae5e7928c9783550556d0ac21585e41dc0e89a056d1a7588577d241a5ce4d472"
+    },
+    {
+      "path": "ArtSource/SocialLobby/Before/PlayerPickupInteractor.cs",
+      "bytes": 11391,
+      "sha256": "2f884e40cda2da1835a9305645dea006179c7cbde9f459fdfc0f42d8c5a29edf"
+    },
+    {
+      "path": "ArtSource/SocialLobby/Before/RoundFinishStation.cs",
+      "bytes": 2072,
+      "sha256": "330fd58705b053367bcf1f83e4d154676c70abb0fa142dd8ecb0e42b0bcd4e84"
+    },
+    {
+      "path": "ArtSource/SocialLobby/Before/SampleScene.unity",
+      "bytes": 9372919,
+      "sha256": "182671c2bc9a0d80fb654d1597dd731271ab5289478e0ef6870b5386be5d5650"
+    },
+    {
+      "path": "ArtSource/SocialLobby/Before/SessionDevelopmentDriver.cs",
+      "bytes": 31695,
+      "sha256": "4a76a128b59342f3361a3ce9b1597f498c2d674218e5bc1344f2d27a09ec7bba"
+    },
+    {
+      "path": "ArtSource/SocialLobby/Before/SessionMenu.cs",
+      "bytes": 16357,
+      "sha256": "794e3d4cf8b82385d39863342bdab817b92b5aa28621ed53ec8ee63696cc8710"
+    },
+    {
+      "path": "ArtSource/SocialLobby/BeforeDualLift/NetworkLobby.cs",
+      "bytes": 39624,
+      "sha256": "1eda60fb817c4e630147622a29ee2758f3f9cd5edaa1f8e1b82c135004675a12"
+    },
+    {
+      "path": "ArtSource/SocialLobby/BeforeDualLift/RoundFinishStation.cs",
+      "bytes": 2072,
+      "sha256": "330fd58705b053367bcf1f83e4d154676c70abb0fa142dd8ecb0e42b0bcd4e84"
+    },
+    {
+      "path": "ArtSource/SocialLobby/BeforeDualLift/SampleScene.unity",
+      "bytes": 9347501,
+      "sha256": "24e869a487bd17af5a813e13bcfe47d1b24e34ac5f2633132698934ef385a475"
+    },
+    {
+      "path": "ArtSource/SocialLobby/BeforeFriendslop/NetworkLobby.cs",
+      "bytes": 42208,
+      "sha256": "7ffaff6e3d91d4b498a9537e8e5b19d4bdfe9ac16f2ee627a27a92c88de9ab68"
+    },
+    {
+      "path": "ArtSource/StoreRedesign/department-preview.png",
+      "bytes": 187684,
+      "sha256": "52ee72a40e926a813a700a4e351745cb2aaa7b008d44fa9f78e507dacd64f80f"
+    },
+    {
+      "path": "ArtSource/StoreRedesign/guest-minimap.png",
+      "bytes": 273369,
+      "sha256": "f66403e760cc4b6ea621fea73d799bc74e3fd49effe5b05772ecd80995acfaca"
+    },
+    {
+      "path": "ArtSource/StoreRedesign/guide-0.png",
+      "bytes": 129720,
+      "sha256": "257c0b107f323edfe73a56c74cb4f55df8919dfe89706b7517f7dd2a1592aa91"
+    },
+    {
+      "path": "ArtSource/StoreRedesign/guide-1.png",
+      "bytes": 148532,
+      "sha256": "5c67e046b7b03cee8809501866867fca2e0820f88e3b8fbcfab8bf3abd6272be"
+    },
+    {
+      "path": "ArtSource/StoreRedesign/guide-2.png",
+      "bytes": 146370,
+      "sha256": "767619bf700c93c7b40702407fe9e13d983ea04f8d43d78f9ecf8dfd557c9a8f"
+    },
+    {
+      "path": "ArtSource/StoreRedesign/guide-3.png",
+      "bytes": 151229,
+      "sha256": "1163723a6625d16430a3917ada6beaa3d7270518c9c4636a8b42d6d7bc03f8c3"
+    },
+    {
+      "path": "ArtSource/StoreRedesign/guide-final-round.png",
+      "bytes": 163715,
+      "sha256": "961fb94d2ee7fb16c8ac48ae1ead1ef5d7a7ecb5bfed52923fcd894049de4984"
+    },
+    {
+      "path": "ArtSource/StoreRedesign/hidden-item.png",
+      "bytes": 332044,
+      "sha256": "f7cdc9019a8cee4507817c12077c41633b0800f52e8639803b028c6339bf753c"
+    },
+    {
+      "path": "ArtSource/StoreRedesign/host-minimap.png",
+      "bytes": 236703,
+      "sha256": "f660454a41aeeb5d28b3e062185c31b47bd49c6cc30316578c511f4a72431bf7"
+    },
+    {
+      "path": "ArtSource/VoiceChat/history-scroll.png",
+      "bytes": 224923,
+      "sha256": "2a112e7f147e2af8d745403cca2ea525cefdfbd664105c6c9c44344dc968e105"
+    },
+    {
+      "path": "ArtSource/VoiceChat/network-side-history.png",
+      "bytes": 290856,
+      "sha256": "17fb4f8f08fe3dbdef02b2ac379b9b98ec9f9a5b12886aaa45f0ad682d6342dc"
+    },
+    {
+      "path": "ArtSource/VoiceChat/side-history.png",
+      "bytes": 208902,
+      "sha256": "d2eee6a40b270e5342f3abc3ced398e8dd20b39ee82262aeff9ca6f9e028e281"
+    }
+  ],
+  "protectedAssets": [
+    {
+      "path": "Assets/Prefabs/NetworkPlayer.prefab",
+      "guid": "c31d5a1af24a4484f9518562402216f9"
+    },
+    {
+      "path": "Assets/DefaultPrefabObjects.asset",
+      "guid": "cd1f4521a05434294ac3dcc60da9b8e7"
+    },
+    {
+      "path": "Assets/Resources/OutfitRating.asset",
+      "guid": "dfb70ed264e6b4f6c989b70367b20d20"
+    },
+    {
+      "path": "Assets/Resources/Pigs/PigAvatar.prefab",
+      "guid": "84e57e55db5a0407b808419e262a778a"
+    },
+    {
+      "path": "Assets/Resources/GameLanguageIndex.json",
+      "guid": "a9c5c2a9bb4cd4e0e95c32db2906603a"
+    },
+    {
+      "path": "Assets/Resources/PhotoCameraHand.mat",
+      "guid": "9ad34876ead604edebd5ea50e0ef1eb5"
+    },
+    {
+      "path": "Assets/Settings/DefaultVolumeProfile.asset",
+      "guid": "ab09877e2e707104187f6f83e2f62510"
+    },
+    {
+      "path": "Assets/Settings/PC_Renderer.asset",
+      "guid": "f288ae1f4751b564a96ac7587541f7a2"
+    },
+    {
+      "path": "Assets/Scenes/Lobby.unity",
+      "guid": "63bee7c6beac046b1831477d251ef883"
+    },
+    {
+      "path": "Assets/Scenes/SampleScene.unity",
+      "guid": "99c9720ab356a0642a771bea13969a05"
+    },
+    {
+      "path": "Assets/Scenes/FriendslopLobby.unity",
+      "guid": "47ebfe35cfc4c4830ba8407b8db7cc6c"
+    }
+  ],
+  "runtimeFiles": [
+    {
+      "path": "Assets/Plugins/SQLite/Windows/x86_64/sqlite3.dll",
+      "bytes": 3518976,
+      "sha256": "5ca6a16bdd2c5a5037b1e3a942d9ac1c66efe2def902b202d44774680a8a4656"
+    },
+    {
+      "path": "Assets/StreamingAssets/LobbyMedia/youtube-player.html",
+      "bytes": 3027,
+      "sha256": "2843181ecf3732797c58a4097b5c11e56396149a85f23b2f9a416f7f1a9ebec1"
+    },
+    {
+      "path": "Assets/StreamingAssets/svinki-eos.json",
+      "bytes": 281,
+      "sha256": "eb60df8700c1328e714d8913e2902f38b7f99de848abfc91fa6a96ebb18a78c9"
+    },
+    {
+      "path": "Assets/StreamingAssets/EOS/eos_windows_config.json",
+      "bytes": 1052,
+      "sha256": "3eb667a7d9a7f1ad8c01ab54e39f392c49eccb5ad46fa45b301bad238ec039e8"
+    }
+  ],
+  "clothingIds": [
+    {
+      "guid": "137d768a40c51449ab5b69c113df38f9",
+      "name": "Hat1",
+      "path": "Assets/ClothingItems/Hat1.asset"
+    },
+    {
+      "guid": "1859bb4124c7e4a1885f0d90281eda66",
+      "name": "Pants1",
+      "path": "Assets/ClothingItems/Pants1.asset"
+    },
+    {
+      "guid": "6036e796e5dc04a79b5a6c326ea8966d",
+      "name": "Shirt1",
+      "path": "Assets/ClothingItems/Shirt1.asset"
+    },
+    {
+      "guid": "50794f24c24c949a4ac4dca9b282a8a1",
+      "name": "Sneakers2",
+      "path": "Assets/ClothingItems/Sneakers2.asset"
+    },
+    {
+      "guid": "012f0c26540fc4346bf9f7b9339383b7",
+      "name": "hoodie1 7c5f534e",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Hoodies/hoodie1 7c5f534e.asset"
+    },
+    {
+      "guid": "070906be49e893e45be34234db9a2186",
+      "name": "Cap1_Tex a02523f7",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Hats/Cap1_Tex a02523f7.asset"
+    },
+    {
+      "guid": "1afe75d01caaf9a4d8abd1535e95cf33",
+      "name": "Hat1_Tex d64e1d64",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Hats/Hat1_Tex d64e1d64.asset"
+    },
+    {
+      "guid": "ae3559964ef87aa42838e3eca52232d9",
+      "name": "Hat2_Tex 9bc6b617",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Hats/Hat2_Tex 9bc6b617.asset"
+    },
+    {
+      "guid": "d55b0fbd0b9374346acbd43fcb830980",
+      "name": "pants3_Tex f30d498c",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Pants/pants3_Tex f30d498c.asset"
+    },
+    {
+      "guid": "75e15a94a682e9642933d4263c3817ca",
+      "name": "pants2_Tex 496f89fd",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Pants/pants2_Tex 496f89fd.asset"
+    },
+    {
+      "guid": "c682acfff784fb6479992c78d3a3f896",
+      "name": "pants1 ef62673f",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Pants/pants1 ef62673f.asset"
+    },
+    {
+      "guid": "0710cad53216e7c47968a26a4d900d48",
+      "name": "Shirt2_withTex 408d0903",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Shirts/Shirt2_withTex 408d0903.asset"
+    },
+    {
+      "guid": "8747b48414e703b498884d1eb2a34125",
+      "name": "Shirt1_withTex 7171f6ab",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Shirts/Shirt1_withTex 7171f6ab.asset"
+    },
+    {
+      "guid": "c4594ed84f09dd44fb8503a9f6c1f487",
+      "name": "Shirt3_withTex 0d3cfeed",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Shirts/Shirt3_withTex 0d3cfeed.asset"
+    },
+    {
+      "guid": "0496e82296662744aa7194ef0e0d0f6b",
+      "name": "sneakers2 908f6008",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Shoes/sneakers2 908f6008.asset"
+    },
+    {
+      "guid": "e1fef239fce00bb42b31036a3cf8ce08",
+      "name": "loafers1 6513f8d5",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Shoes/loafers1 6513f8d5.asset"
+    },
+    {
+      "guid": "85a035a871612f44d99cb3895541caea",
+      "name": "sneakers3 1cea5a11",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Shoes/sneakers3 1cea5a11.asset"
+    },
+    {
+      "guid": "7984225d6c8e75c48a41d6495ec2ed9c",
+      "name": "sleeve1_Tex 401f24cb",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Hoodies/sleeve1_Tex 401f24cb.asset"
+    },
+    {
+      "guid": "1b20345fbef14374c8be9247459a3c0f",
+      "name": "sweater1_Tex 772fb87a",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Hoodies/sweater1_Tex 772fb87a.asset"
+    },
+    {
+      "guid": "12aa2086d73ad5d49bfbbe8675cbc975",
+      "name": "hoodie1 cacb21f9",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Hoodies/hoodie1 cacb21f9.asset"
+    },
+    {
+      "guid": "68f5989caf41148d2aad447877414e5c",
+      "name": "hat1_worn b0bbe9aa",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Hats/hat1_worn b0bbe9aa.asset"
+    },
+    {
+      "guid": "b0e3378c494e1406d8798fb0d6c3782e",
+      "name": "hat2_worn 72ccb5f4",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Hats/hat2_worn 72ccb5f4.asset"
+    },
+    {
+      "guid": "e23ad20c9db944863bbb33b5072806e4",
+      "name": "cap1_worn 725d9f1b",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Hats/cap1_worn 725d9f1b.asset"
+    },
+    {
+      "guid": "b385f84f2195e4f4585c7597dab73fd1",
+      "name": "shirt3_worn 9313e04a",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Shirts/shirt3_worn 9313e04a.asset"
+    },
+    {
+      "guid": "1e5b4ffcc39df4913aa638663e30a44a",
+      "name": "shirt2_worn b30105ae",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Shirts/shirt2_worn b30105ae.asset"
+    },
+    {
+      "guid": "2369e03dfafbb4e5e9f83e0e9300970e",
+      "name": "shirt1_worn fca821cd",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Shirts/shirt1_worn fca821cd.asset"
+    },
+    {
+      "guid": "41def5fc47c2a4140ba72158da008e97",
+      "name": "sleeve1_worn 860254e8",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Hoodies/sleeve1_worn 860254e8.asset"
+    },
+    {
+      "guid": "8cf3bb290949741a8bff3be903fc1620",
+      "name": "sweater1_worn 7817e5f0",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Hoodies/sweater1_worn 7817e5f0.asset"
+    },
+    {
+      "guid": "4f054a38124a84b209f6f2654b14dd60",
+      "name": "hoodie1_worn c9a221b4",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Hoodies/hoodie1_worn c9a221b4.asset"
+    },
+    {
+      "guid": "e3dcc64d726d34794848c23fc2ff1d44",
+      "name": "pants2_worn b5b24f81",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Pants/pants2_worn b5b24f81.asset"
+    },
+    {
+      "guid": "2a69a30dee2af473b869c71ebed55590",
+      "name": "pants3_worn 277122c8",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Pants/pants3_worn 277122c8.asset"
+    },
+    {
+      "guid": "1d05ca6ea3cb9483dbc77fc41ece28a9",
+      "name": "pants1_worn c8c742cb",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Pants/pants1_worn c8c742cb.asset"
+    },
+    {
+      "guid": "824141d35caba44b0abd8c487f8c20cf",
+      "name": "sneakers2_worn 0339e899",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Shoes/sneakers2_worn 0339e899.asset"
+    },
+    {
+      "guid": "343ccc8b17d33470fbb53150fbb9bff1",
+      "name": "sneakers3_worn 355e9906",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Shoes/sneakers3_worn 355e9906.asset"
+    },
+    {
+      "guid": "fd83dbc442bf84864b2a7b387299d711",
+      "name": "loafers1_worn d5992eb8",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Shoes/loafers1_worn d5992eb8.asset"
+    },
+    {
+      "guid": "0c71aeaaf671ad846b33dcb978ad85f0",
+      "name": "hat3_worn 28091b83",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Hats/hat3_worn 28091b83.asset"
+    },
+    {
+      "guid": "a938cc6407f026346a04b972009c04ed",
+      "name": "cap2_worn aa324fcf",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Hats/cap2_worn aa324fcf.asset"
+    },
+    {
+      "guid": "7659e4ec8baa166438a1cbe823af4243",
+      "name": "cap2 0c6ee935",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Hats/cap2 0c6ee935.asset"
+    },
+    {
+      "guid": "be4a377e0313a0045a06baf6587ce19d",
+      "name": "hat3 cf9c2490",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Hats/hat3 cf9c2490.asset"
+    },
+    {
+      "guid": "ccdeb097e72cd114f822d16adc462d7f",
+      "name": "shirt6 a0af363c",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Shirts/shirt6 a0af363c.asset"
+    },
+    {
+      "guid": "b46f0b6480693674b959f8b9c95c811e",
+      "name": "shirt7 c2a2cecf",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Shirts/shirt7 c2a2cecf.asset"
+    },
+    {
+      "guid": "bf30008ded43d9e4e9fe193efe542ed7",
+      "name": "shirt5_worn 64453632",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Shirts/shirt5_worn 64453632.asset"
+    },
+    {
+      "guid": "08fd14727526e6c42b8093a46afd24a3",
+      "name": "shirt6_worn 5622a220",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Shirts/shirt6_worn 5622a220.asset"
+    },
+    {
+      "guid": "20c9ef327a9a85448bb55c0499456c69",
+      "name": "shirt4 da05fec9",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Shirts/shirt4 da05fec9.asset"
+    },
+    {
+      "guid": "5094e6ab53207b54581749a4e67e6aa4",
+      "name": "shirt5 4d8be9b4",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Shirts/shirt5 4d8be9b4.asset"
+    },
+    {
+      "guid": "af430081cbe21e346bebed39a0b7d4d8",
+      "name": "shirt4_worn ae290f63",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Shirts/shirt4_worn ae290f63.asset"
+    },
+    {
+      "guid": "70bb475b46ffd1c4a9269a6a3079735b",
+      "name": "shirt7_worn 9f12253e",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Shirts/shirt7_worn 9f12253e.asset"
+    },
+    {
+      "guid": "f674d31c1257b4c46a8873635d0e2214",
+      "name": "sweater6_worn 51e91c56",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Hoodies/sweater6_worn 51e91c56.asset"
+    },
+    {
+      "guid": "d1c5aed6cabc2054da438b3f5718a2ff",
+      "name": "hoodie5 a242e608",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Hoodies/hoodie5 a242e608.asset"
+    },
+    {
+      "guid": "3cdd90f90e2a0ee4a91cc47b027113b3",
+      "name": "sweater5 a23576b4",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Hoodies/sweater5 a23576b4.asset"
+    },
+    {
+      "guid": "d5b149047ae8ac5428ca2c410e970d34",
+      "name": "hoodie4_worn 2379fa0a",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Hoodies/hoodie4_worn 2379fa0a.asset"
+    },
+    {
+      "guid": "127bb08f628d7e14f96c7c47de8a6b06",
+      "name": "sweater2 353173f4",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Hoodies/sweater2 353173f4.asset"
+    },
+    {
+      "guid": "2de29defb3d7bd54283740b60836fe97",
+      "name": "sweater5_worn c6142f13",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Hoodies/sweater5_worn c6142f13.asset"
+    },
+    {
+      "guid": "9545a107b376fec4bae58acc0c5142cd",
+      "name": "hoodie5_worn 771cc6a8",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Hoodies/hoodie5_worn 771cc6a8.asset"
+    },
+    {
+      "guid": "8ff1081cee48b03438fb1be3f69820e1",
+      "name": "sweater6 09f6429b",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Hoodies/sweater6 09f6429b.asset"
+    },
+    {
+      "guid": "31c14813a22d89d479962aa3a32bbdc7",
+      "name": "sweater2_worn 8962662f",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Hoodies/sweater2_worn 8962662f.asset"
+    },
+    {
+      "guid": "0b57f7244091f1d4cb88275a249a66ee",
+      "name": "hoodie4 9c258909",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Hoodies/hoodie4 9c258909.asset"
+    },
+    {
+      "guid": "14ea568926c911f498f8bf75870302d1",
+      "name": "sweater4_worn 8eed7f53",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Hoodies/sweater4_worn 8eed7f53.asset"
+    },
+    {
+      "guid": "ed0ff6a17411ca248acd1bf388107d90",
+      "name": "sweater4 5fad1169",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Hoodies/sweater4 5fad1169.asset"
+    },
+    {
+      "guid": "46fd1c9b43162e14289a79a47718ece9",
+      "name": "pants9 d0ddeb04",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Pants/pants9 d0ddeb04.asset"
+    },
+    {
+      "guid": "46a5cda5683cfa34180a2faa03ec0475",
+      "name": "pants7 13424237",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Pants/pants7 13424237.asset"
+    },
+    {
+      "guid": "088c34c0051563d44aa0b12708dfa2ef",
+      "name": "pants6 052a9f52",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Pants/pants6 052a9f52.asset"
+    },
+    {
+      "guid": "03c8c2a65d934924ba91a6e43350d461",
+      "name": "pants8 866300fc",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Pants/pants8 866300fc.asset"
+    },
+    {
+      "guid": "c174f4450e9cfdd46bd847000af310b5",
+      "name": "pants8_worn e949739d",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Pants/pants8_worn e949739d.asset"
+    },
+    {
+      "guid": "f926d58ffbdb51c479b0b44034dd5692",
+      "name": "pants6_worn 5ab3f975",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Pants/pants6_worn 5ab3f975.asset"
+    },
+    {
+      "guid": "f280df3020afc4c4f82351d37afee424",
+      "name": "pants7_worn ad84714e",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Pants/pants7_worn ad84714e.asset"
+    },
+    {
+      "guid": "1437aef5bf2791149b5b07ab80a02e04",
+      "name": "pants9_worn 1e49be6e",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Pants/pants9_worn 1e49be6e.asset"
+    },
+    {
+      "guid": "165fc0788934ea34ba148d7b6d0c2386",
+      "name": "sneakers4_worn 02ae06b1",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Shoes/sneakers4_worn 02ae06b1.asset"
+    },
+    {
+      "guid": "f8caf3a4e2951a14cbd592bfdf617c6f",
+      "name": "loafers2_worn d53cc482",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Shoes/loafers2_worn d53cc482.asset"
+    },
+    {
+      "guid": "2ce2fb4cc6ee1e744932e8e6e165b05a",
+      "name": "sneakers4 4e7edf63",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Shoes/sneakers4 4e7edf63.asset"
+    },
+    {
+      "guid": "ba0f8856d6f344541a82737a621ca046",
+      "name": "loafers2 3ff09013",
+      "path": "Assets/ClothingLibrary/Generated/Definitions/Shoes/loafers2 3ff09013.asset"
+    }
+  ],
+  "activeRatingGuids": [
+    "e23ad20c9db944863bbb33b5072806e4",
+    "68f5989caf41148d2aad447877414e5c",
+    "b0e3378c494e1406d8798fb0d6c3782e",
+    "2369e03dfafbb4e5e9f83e0e9300970e",
+    "1e5b4ffcc39df4913aa638663e30a44a",
+    "b385f84f2195e4f4585c7597dab73fd1",
+    "4f054a38124a84b209f6f2654b14dd60",
+    "41def5fc47c2a4140ba72158da008e97",
+    "8cf3bb290949741a8bff3be903fc1620",
+    "1d05ca6ea3cb9483dbc77fc41ece28a9",
+    "e3dcc64d726d34794848c23fc2ff1d44",
+    "2a69a30dee2af473b869c71ebed55590",
+    "fd83dbc442bf84864b2a7b387299d711",
+    "824141d35caba44b0abd8c487f8c20cf",
+    "343ccc8b17d33470fbb53150fbb9bff1",
+    "a938cc6407f026346a04b972009c04ed",
+    "0c71aeaaf671ad846b33dcb978ad85f0",
+    "af430081cbe21e346bebed39a0b7d4d8",
+    "bf30008ded43d9e4e9fe193efe542ed7",
+    "08fd14727526e6c42b8093a46afd24a3",
+    "70bb475b46ffd1c4a9269a6a3079735b",
+    "d5b149047ae8ac5428ca2c410e970d34",
+    "9545a107b376fec4bae58acc0c5142cd",
+    "31c14813a22d89d479962aa3a32bbdc7",
+    "14ea568926c911f498f8bf75870302d1",
+    "2de29defb3d7bd54283740b60836fe97",
+    "f674d31c1257b4c46a8873635d0e2214",
+    "f926d58ffbdb51c479b0b44034dd5692",
+    "f280df3020afc4c4f82351d37afee424",
+    "c174f4450e9cfdd46bd847000af310b5",
+    "1437aef5bf2791149b5b07ab80a02e04",
+    "f8caf3a4e2951a14cbd592bfdf617c6f",
+    "165fc0788934ea34ba148d7b6d0c2386"
+  ],
+  "networkPrefabGuids": [
+    "fa9616d5bcaec714fa8b710d53b00955",
+    "d5731399e7676ad4a999d220b7763283",
+    "9a02c74c45b624941ad5a92f5f991d48",
+    "02e190b2cee26e64c88bcf9bbb8d82a7",
+    "01f5ed560d0cad74cb13c9badfde9ad2",
+    "7b8c4a713f3f6494f8ba04393e1192fe",
+    "b606c88eea5324cdd833e9099476aeac",
+    "7e5bdca6dcac34e929c3bdc240a5d065",
+    "deb2c86c06b4a1945ad9c2c1834fb162",
+    "66773fc35a5350d459fa56511e29accd",
+    "24289bc7647b60d4cb387d5ed621e57d",
+    "a148c7a5e9852b0438c15924ca7a441c",
+    "b4acd38a649fd334184064cf98eff1b2",
+    "b6052d6c5707f4a84982dec6eb8d7687",
+    "0a6be01e1e87241cd8108734902f8c45",
+    "bfbab7b7013354de99d063549cb90b0a",
+    "355d9abac7244fd459ad8f0a7aa96f9c",
+    "7bc4f40301aad43bc949dec91966b466",
+    "8543296bb4b14496c98e7f1f5c5af475",
+    "19be2d417d7663a42b0f42753546fbeb",
+    "067e0ac436f45eb429b226662c6e4d13",
+    "ed2210c1e10bcc14fb93eefa0d5fc747",
+    "56a6a19630209704d877a7ece534b795",
+    "2e78c4c2395fa734bb5d7de0eb282732",
+    "433468fc36fa68f48b24dcb5f1dab4eb",
+    "8589e2a9b1b80a14999072e7d9047be3",
+    "7fc964b64f3392c4782e8328790effb9",
+    "2dcb0c678820c5149b3ba2145e35e894",
+    "192117bd824e459449b7b8995fa12c1e",
+    "7449e87f96c5bc94eafced50727f7ad8",
+    "c31d5a1af24a4484f9518562402216f9",
+    "ab8837ed45fd3d349aa8755a3fdb4341",
+    "cea9564f45dc1485586be5a7fa6284ec",
+    "bf0de2bf5b08c48489673e644a2a28ac",
+    "419d5165b361d40e4acee890f1326d0e",
+    "b409b3e573486154e9a097fbd11e86a4",
+    "bbb1de53a0649ce4290aa2bc3f06c76f",
+    "63cf8bf811d3a4d40b54763122080e82",
+    "05846132740d4b449b2f3c510113f61d",
+    "0dd0dda11191746aa85f954325c90fc2",
+    "43cc5fcef0069be479a83bd08aadc779",
+    "c81a4a8728a0bc9438c2e1b3838debcd",
+    "893eb7878942f63459a63519e9bd8593",
+    "c71cecfe007c5ca4ebe50be34a40f8b7",
+    "bb03ff73cc314204da6e711cc8a7dc0c",
+    "993c06588569d9c47b008caae25f92a6",
+    "84e06928a37941e49848232fb560cd02",
+    "3751fd0766b16452da53d9903f450c57",
+    "68ea42a098d7b904fa803dad4bf26bae",
+    "910c5f3ba218b294383f922b3130ab5c",
+    "f2d79ae1ec7e48c48974a9b085906a4c",
+    "9ec0865bd5b0148bcb18c1bdb30be211",
+    "9d24e58da7bdfd043b2a1bd84b0b83b9",
+    "908babcc0cc9a8d41b346f6c46816731",
+    "bc71aaeb457a12f48850666cbd2cfe3a",
+    "451bf996ad525ab40a820994c3118d2e",
+    "75a802e3bd8674a55921e6a4e08554f9",
+    "1b45f5888155f4d43a49d5ec6fb30fda",
+    "7f5be4301bc09e545a4d72d9f160a4cd",
+    "a855c451ce6a63841a28e2ffe04a1bf8",
+    "2f6aacf5a9e17485e91db712bea271e4",
+    "539e11e4dad87a64a9ecca2ef07345ec",
+    "77cbd484e4edb42cc8e1b2792036c4b0",
+    "a1654041473402b4cbef562e932cc8dc",
+    "77e4a64afddde8e4d88b72a3a0f3ea3c",
+    "21c14e24d3cb84e199771971cbf00d2a",
+    "7bf5e312134c53c4ca3f323a98de9cc1",
+    "8089915292222274a938684e5cbe82dd",
+    "4f4331727bfe6374cbfde190d9f2eb21",
+    "4d30887f8edb84ea3aae172dfc49658b",
+    "21b9dd610e053b64ab0aeaf4454d5ec2",
+    "d46e5bd38bec4864d9c1ce0e04d4a350",
+    "2a5173e79460b254891cacfd297e494e",
+    "fbd9752d94ce04fb4bac23ad35b5d752"
+  ]
+}
