@@ -1,5 +1,5 @@
 """Convert CC0 GLB/Blender parts into Unity-native FBX; preserve provenance."""
-import bpy,json,os
+import bpy,json,os,re
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 DEST=ROOT/'Assets/Art/IndustrialCC0'
@@ -20,7 +20,8 @@ for name in ['wall_basketball_hoop','locker_bank']:
         if node and node.inputs['Base Color'].is_linked:
             tex=node.inputs['Base Color'].links[0].from_node
             if tex.type=='TEX_IMAGE':
-                image=tex.image; image.filepath_raw=str(path/(mat.name.replace('/','_')+'.png'));image.file_format='PNG';image.save()
+                texture_name=re.sub(r'[<>:"/\\|?*\x00-\x20]+','_',mat.name).rstrip('. ')
+                image=tex.image; image.filepath_raw=str(path/(texture_name+'.png'));image.file_format='PNG';image.save()
                 entry['texture']=Path(image.filepath_raw).name
         mats.append(entry)
     (path/'materials.json').write_text(json.dumps(mats,indent=2))
