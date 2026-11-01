@@ -1,0 +1,34 @@
+{
+  "parser": "psd-tools 1.26.0",
+  "size": [
+    1920,
+    2160
+  ],
+  "layers": 278,
+  "type_layers": 117,
+  "shape_layers": 122,
+  "group_layers": 13,
+  "fonts": [
+    "AdobeInvisFont",
+    "ClimateCrisis-Regular",
+    "GreenMatcha",
+    "Hogles-Regular",
+    "Yomogi-Regular"
+  ],
+  "inventory_photo_layers": [
+    "Head / картинка одежды — заменить PNG отдельно",
+    "Torso / картинка одежды — заменить PNG отдельно",
+    "Legs / картинка одежды — заменить PNG отдельно",
+    "Feet / картинка одежды — заменить PNG отдельно"
+  ],
+  "play_options_hidden": true,
+  "button_text_fit": "Smaller maximum font sizes; live Unity labels use single-line auto-fit; ru/en checked.",
+  "ingame_typography": "Climate Crisis headings/actions, Yomogi body/chat/inputs; original logo retained.",
+  "button_scale": 0.92,
+  "button_text_scale": 0.9,
+  "appearance_presets": false,
+  "skin_colors": 12,
+  "appearance_controls": "Bidirectional arrows, grouped rows, one hair colour",
+  "hair_styles": 10,
+  "hair_colour_channels": 1
+}

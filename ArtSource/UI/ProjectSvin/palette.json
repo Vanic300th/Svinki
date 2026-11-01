@@ -1,0 +1,11 @@
+{
+  "base": "#241921",
+  "panel": "#3D2633",
+  "button": "#754253",
+  "primary": "#EDB3C5",
+  "text": "#F8E9E4",
+  "dark": "#301D26",
+  "muted": "#C99DAE",
+  "border": "#B77B90",
+  "track": "#573341"
+}

@@ -1,0 +1,13 @@
+{
+    "combinations": 288,
+    "presets": 3,
+    "playerPrefabs": 2,
+    "extendedCombinations": 3744,
+    "colors": 12,
+    "patterns": 6,
+    "modernRoundtrips": 1000,
+    "menuButtons": true,
+    "offlineSpawn": true,
+    "networkLobbySelection": false,
+    "networkSpawn": false
+}

@@ -1,0 +1,16 @@
+{
+  "in_game_panels": 0.62,
+  "in_game_buttons": 0.78,
+  "in_game_cards": 0.4,
+  "observed_inventory_panel_alpha": 0.6014,
+  "observed_hud_panel_alpha": 0.565,
+  "observed_button_alpha": 0.78,
+  "observed_map_floor_alpha": 0.4,
+  "text_alpha": 1,
+  "raw_image_alpha": 1,
+  "main_menu_panel_alpha": 0.97,
+  "close_button_raycast": true,
+  "close_and_reopen": true,
+  "selected_tint_remains_translucent": true,
+  "local_game_verified": true
+}
