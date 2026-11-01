@@ -1,0 +1,115 @@
+{
+  "version": 3,
+  "storage": "signed 64-bit integer, non-negative; decimal PlayerPrefs string",
+  "used_bits": 50,
+  "preference": "svinki.pig.face.v3",
+  "legacy_preference": "svinki.pig.face.v1",
+  "protocol": 26,
+  "fields": {
+    "eyes": [
+      0,
+      31
+    ],
+    "brows": [
+      1,
+      2,
+      32
+    ],
+    "mustache": [
+      3,
+      4,
+      33
+    ],
+    "glasses_enabled": [
+      5
+    ],
+    "goatee": [
+      6
+    ],
+    "ear_piercing": [
+      7
+    ],
+    "brow_piercing": [
+      8
+    ],
+    "glasses_style_minus_one": [
+      9,
+      10,
+      11,
+      30
+    ],
+    "legacy_mohawk": [
+      12
+    ],
+    "nose_piercing": [
+      13
+    ],
+    "skin": [
+      14,
+      15,
+      16,
+      29
+    ],
+    "pattern": [
+      17,
+      18,
+      19
+    ],
+    "hair_base": [
+      20,
+      21,
+      22,
+      46
+    ],
+    "pattern_colour": [
+      23,
+      24,
+      25,
+      47
+    ],
+    "tattoo": [
+      26,
+      27,
+      28
+    ],
+    "hair_style_if_above_one": [
+      34,
+      35,
+      36,
+      37
+    ],
+    "hair_accent": [
+      38,
+      39,
+      40,
+      48
+    ],
+    "hair_tips": [
+      41,
+      42,
+      43,
+      49
+    ],
+    "tattoo_placement": [
+      44,
+      45
+    ]
+  },
+  "counts": {
+    "eyes": 3,
+    "brows": 6,
+    "moustache_including_none": 5,
+    "glasses_including_none": 13,
+    "hair_including_none": 11,
+    "skin": 12,
+    "hair_colours": 12,
+    "patterns": 6,
+    "tattoos_including_none": 5,
+    "tattoo_placements": 4
+  },
+  "legacy_visual_fields_ignored": [
+    "hair_accent",
+    "hair_tips"
+  ],
+  "editable_hair_colour_channels": 1
+}

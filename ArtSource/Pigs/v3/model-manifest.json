@@ -1,0 +1,96 @@
+{
+  "new_slots": [
+    "Beard__Goatee",
+    "Eyes__Bulging",
+    "Brows__Unibrow",
+    "Brows__Thick",
+    "Brows__Angry",
+    "Mustache__Bushy",
+    "Mustache__LongCurled",
+    "Hair__Curtains",
+    "Hair__Ponytail",
+    "Hair__Barcode",
+    "Hair__Bowl",
+    "Hair__Emo",
+    "Hair__SplitBob",
+    "Hair__Dreads",
+    "Hair__Pompadour",
+    "Hair__LeopardBuzz",
+    "Glasses__Heart",
+    "Glasses__GiantRound",
+    "Glasses__Pixel",
+    "Glasses__Kamina",
+    "Glasses__MiddleFinger",
+    "Glasses__Spiked"
+  ],
+  "slots": [
+    "Beard__Goatee",
+    "BrowPiercing__Bar",
+    "Brows__Angry",
+    "Brows__Confident",
+    "Brows__Neutral",
+    "Brows__Raised",
+    "Brows__Thick",
+    "Brows__Unibrow",
+    "EarPiercing__Hoop",
+    "Eyes__Bulging",
+    "Eyes__Open",
+    "Eyes__Squint",
+    "Glasses__Aviator",
+    "Glasses__CatEye",
+    "Glasses__GiantRound",
+    "Glasses__Heart",
+    "Glasses__Kamina",
+    "Glasses__MiddleFinger",
+    "Glasses__Pixel",
+    "Glasses__Round",
+    "Glasses__Spiked",
+    "Glasses__Square",
+    "Glasses__SunRound",
+    "Glasses__SunSquare",
+    "Hair__Barcode",
+    "Hair__Bowl",
+    "Hair__Curtains",
+    "Hair__Dreads",
+    "Hair__Emo",
+    "Hair__LeopardBuzz",
+    "Hair__Mohawk",
+    "Hair__Pompadour",
+    "Hair__Ponytail",
+    "Hair__SplitBob",
+    "Mustache__Bushy",
+    "Mustache__Classic",
+    "Mustache__Curled",
+    "Mustache__LongCurled",
+    "NosePiercing__Septum"
+  ],
+  "meshes": 54,
+  "triangles": 246712,
+  "continuous_hair": {
+    "Hair__Curtains": {
+      "connected_volumes": 1,
+      "non_manifold_edges": 0,
+      "mesh_objects": 1
+    },
+    "Hair__Barcode": {
+      "connected_volumes": 1,
+      "non_manifold_edges": 0,
+      "mesh_objects": 1
+    },
+    "Hair__Emo": {
+      "connected_volumes": 1,
+      "non_manifold_edges": 0,
+      "mesh_objects": 1
+    },
+    "Hair__SplitBob": {
+      "connected_volumes": 1,
+      "non_manifold_edges": 0,
+      "mesh_objects": 1
+    },
+    "Hair__LeopardBuzz": {
+      "connected_volumes": 1,
+      "non_manifold_edges": 0,
+      "mesh_objects": 1
+    }
+  }
+}

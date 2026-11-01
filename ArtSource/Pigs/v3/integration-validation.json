@@ -1,0 +1,55 @@
+{
+  "editor": "Unity 6000.6.2f1",
+  "protocol": 26,
+  "appearance_bits": 50,
+  "fishnet_binary_roundtrip": true,
+  "binary_test_appearance": 1115869106146848,
+  "offline_spawn_appearance": 641685302951936,
+  "preview_head_focus": 1.47,
+  "preview_back_yaw": 180,
+  "colour_channels_cycle": 12,
+  "shader_errors": false,
+  "appearance_panel_overflow": [],
+  "locales_checked": [
+    "ru",
+    "en"
+  ],
+  "live_two_client_session_tested": false,
+  "native_preview_count": 53,
+  "hair_colour_channels": 1,
+  "approved_style_geometry_unchanged": true,
+  "stochastic_patterns": [
+    "spots",
+    "leopard",
+    "stars"
+  ],
+  "legacy_accent_and_tip_fields": "Preserved in the code; ignored by visual materials",
+  "continuous_hair": {
+    "Hair__Curtains": {
+      "connected_volumes": 1,
+      "non_manifold_edges": 0,
+      "mesh_objects": 1
+    },
+    "Hair__Barcode": {
+      "connected_volumes": 1,
+      "non_manifold_edges": 0,
+      "mesh_objects": 1
+    },
+    "Hair__Emo": {
+      "connected_volumes": 1,
+      "non_manifold_edges": 0,
+      "mesh_objects": 1
+    },
+    "Hair__SplitBob": {
+      "connected_volumes": 1,
+      "non_manifold_edges": 0,
+      "mesh_objects": 1
+    },
+    "Hair__LeopardBuzz": {
+      "connected_volumes": 1,
+      "non_manifold_edges": 0,
+      "mesh_objects": 1
+    }
+  },
+  "integrated_hair_ink": true
+}

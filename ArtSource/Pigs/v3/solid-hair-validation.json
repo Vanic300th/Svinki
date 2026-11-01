@@ -1,0 +1,40 @@
+{
+  "one_continuous_volume": {
+    "Hair__Curtains": {
+      "connected_volumes": 1,
+      "non_manifold_edges": 0,
+      "mesh_objects": 1
+    },
+    "Hair__Barcode": {
+      "connected_volumes": 1,
+      "non_manifold_edges": 0,
+      "mesh_objects": 1
+    },
+    "Hair__Emo": {
+      "connected_volumes": 1,
+      "non_manifold_edges": 0,
+      "mesh_objects": 1
+    },
+    "Hair__SplitBob": {
+      "connected_volumes": 1,
+      "non_manifold_edges": 0,
+      "mesh_objects": 1
+    },
+    "Hair__LeopardBuzz": {
+      "connected_volumes": 1,
+      "non_manifold_edges": 0,
+      "mesh_objects": 1
+    }
+  },
+  "native_leopard_materials": 1,
+  "native_leopard_material": "Pig_HairLeopardBase",
+  "native_shader": "Svinki/Pig Skin",
+  "native_hair_ink": 1,
+  "native_mesh_colour_count": 36866,
+  "native_vertices_with_ink_above_half": 7872,
+  "native_offline_spawn": true,
+  "native_shader_errors": false,
+  "native_frame_observed": 20815,
+  "preview_renders": 53,
+  "total_variant_triangles": 246712
+}

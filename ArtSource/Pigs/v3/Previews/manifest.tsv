@@ -1,0 +1,54 @@
+category	file	label	appearance
+hair	hair-1.png	mohawk	1069056
+hair	hair-2.png	curtains	34360803328
+hair	hair-3.png	ponytail	51540672512
+hair	hair-4.png	barcode	68720541696
+hair	hair-5.png	bowl cut	85900410880
+hair	hair-6.png	emo fringe	103080280064
+hair	hair-7.png	bob	120260149248
+hair	hair-8.png	dreadlocks	137440018432
+hair	hair-9.png	pompadour	154619887616
+hair	hair-10.png	leopard buzz	70540542885888
+glasses	glasses-7.png	hearts	3104
+glasses	glasses-8.png	giant round	3616
+glasses	glasses-9.png	pixel shades	1073741856
+glasses	glasses-10.png	Kamina	1073742368
+glasses	glasses-11.png	middle fingers	1073742880
+glasses	glasses-12.png	spiked frame	1073743392
+face	eyes-0.png	Eyes: open	16384
+face	eyes-1.png	Eyes: squinting	16385
+face	eyes-2.png	Eyes: bulging	2147500032
+face	brows-0.png	Brows: relaxed	16384
+face	brows-1.png	Brows: raised	16386
+face	brows-2.png	Brows: cheeky	16388
+face	brows-3.png	Brows: unibrow	16390
+face	brows-4.png	Brows: bushy	4294983680
+face	brows-5.png	Brows: angry	4294983682
+face	moustache-1.png	Moustache: curled	16392
+face	moustache-2.png	Moustache: straight	16400
+face	moustache-3.png	Moustache: very bushy	16408
+face	moustache-4.png	Moustache: long curled	8589950976
+face	goatee.png	Goatee	16448
+patterns	pattern-0.png	solid	8404992
+patterns	pattern-1.png	spots	8536064
+patterns	pattern-2.png	stripes	8667136
+patterns	pattern-3.png	leopard	8798208
+patterns	pattern-4.png	checkered	8929280
+patterns	pattern-5.png	stars	9060352
+tattoos	tattoo-0.png	arm	67125248
+tattoos	tattoo-1.png	shoulder blade	17592253169664
+tattoos	tattoo-2.png	leg	35184439214080
+tattoos	tattoo-3.png	back	52776625258496
+palette	skin-0.png	pink	0
+palette	skin-1.png	cream	16384
+palette	skin-2.png	chocolate	32768
+palette	skin-3.png	grey	49152
+palette	skin-4.png	mint	65536
+palette	skin-5.png	blue	81920
+palette	skin-6.png	lavender	98304
+palette	skin-7.png	coral	114688
+palette	skin-8.png	ivory	536870912
+palette	skin-9.png	sand	536887296
+palette	skin-10.png	cinnamon	536903680
+palette	skin-11.png	charcoal	536920064
+hero	comedy-pig.png	Project S.V.I.N.	49393175650

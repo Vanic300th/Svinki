@@ -1,0 +1,66 @@
+{
+  "skin": [
+    {
+      "name": "pink",
+      "hex": "#ECA4B6"
+    },
+    {
+      "name": "cream",
+      "hex": "#ECDCAB"
+    },
+    {
+      "name": "chocolate",
+      "hex": "#8D604B"
+    },
+    {
+      "name": "grey",
+      "hex": "#8A909A"
+    },
+    {
+      "name": "mint",
+      "hex": "#9BC7AD"
+    },
+    {
+      "name": "blue",
+      "hex": "#9BBADB"
+    },
+    {
+      "name": "lavender",
+      "hex": "#B9A1D2"
+    },
+    {
+      "name": "coral",
+      "hex": "#E6A28C"
+    },
+    {
+      "name": "ivory",
+      "hex": "#F3ECDB"
+    },
+    {
+      "name": "sand",
+      "hex": "#CBB28A"
+    },
+    {
+      "name": "cinnamon",
+      "hex": "#AA6C49"
+    },
+    {
+      "name": "charcoal",
+      "hex": "#4C4A4B"
+    }
+  ],
+  "hair": [
+    "503C32",
+    "383333",
+    "D8BE8D",
+    "EDE8DF",
+    "ADC9B6",
+    "A5BCD5",
+    "B9A3CB",
+    "D6A5BA",
+    "D8894B",
+    "D95E72",
+    "64AA9D",
+    "354F86"
+  ]
+}
