@@ -1,0 +1,180 @@
+<div id="svin-menu-oct25">
+  <section data-variant="Ушки и буквы-пятачки" aria-label="Прозрачный текст с ушками и пятачком при наведении">
+   <div class="sv-screen hover-mode" data-design="Ушки и буквы-пятачки">
+    <div class="sv-bg" aria-hidden="true"></div><div class="sv-shade" aria-hidden="true"></div>
+    <header class="sv-logo"><span>PROJECT</span><strong>S.V.I.N.</strong></header>
+    <nav class="sv-menu" aria-label="Главное меню">
+     <button class="sv-action cursor-interaction" data-action="play">Играть</button>
+     <button class="sv-action cursor-interaction" data-action="customize">Кастомайз</button>
+     <button class="sv-action cursor-interaction" data-action="settings">Настройки</button>
+     <button class="sv-action cursor-interaction" data-action="guide">Как играть</button>
+     <button class="sv-action sv-exit cursor-interaction" data-action="exit"><span class="sv-hoof" aria-hidden="true"><b></b><b></b></span>Выход</button>
+    </nav>
+    <footer class="sv-footer"><span>РАЗДЕВАЛКА</span><span>RU · PROJECT S.V.I.N.</span></footer>
+    <div class="sv-layer" hidden></div>
+   </div>
+  </section>
+ <template id="sv-custom-template">
+  <div class="sv-dialog sv-custom" role="dialog" aria-modal="true" aria-label="Кастомизация свинки">
+   <div class="sv-dialog-head"><h2>Твоя свинка</h2><button class="sv-close cursor-interaction" data-action="close" aria-label="Закрыть"><i data-lucide="x" aria-hidden="true"></i></button></div>
+   <div class="sv-custom-grid">
+    <div class="sv-avatar-stage"><div class="sv-avatar" role="img" aria-label="Свинка с тёмной причёской"></div><div class="sv-turn"><button class="sv-arrow cursor-interaction" data-turn="-1" aria-label="Повернуть влево"><i data-lucide="chevron-left" aria-hidden="true"></i></button><span>ТВОЙ ОБРАЗ</span><button class="sv-arrow cursor-interaction" data-turn="1" aria-label="Повернуть вправо"><i data-lucide="chevron-right" aria-hidden="true"></i></button></div></div>
+    <div class="sv-controls"><div class="sv-tabs"><button class="cursor-interaction is-active" data-cat="Голова">Голова</button><button class="cursor-interaction" data-cat="Тело">Тело</button><button class="cursor-interaction" data-cat="Аксессуары">Аксессуары</button></div><div class="sv-options"></div><button class="sv-solid sv-done cursor-interaction" data-action="close">Готово</button></div>
+   </div>
+  </div>
+ </template>
+ <template id="sv-play-template">
+  <div class="sv-dialog sv-play" role="dialog" aria-modal="true" aria-label="Выбор игры"><div class="sv-dialog-head"><h2>Играть</h2><button class="sv-close cursor-interaction" data-action="close" aria-label="Закрыть"><i data-lucide="x" aria-hidden="true"></i></button></div><button class="sv-solid cursor-interaction" data-action="lobby">Создать лобби</button><div class="sv-join"><input aria-label="Код лобби" placeholder="Код друга" maxlength="6"><button class="sv-arrow cursor-interaction" data-action="join" aria-label="Войти по коду"><i data-lucide="arrow-right" aria-hidden="true"></i></button></div><button class="sv-subtle cursor-interaction" data-action="solo">Играть одному</button></div>
+ </template>
+ <template id="sv-lobby-template">
+  <div class="sv-lobby"><button class="sv-code cursor-interaction" aria-label="Код лобби S V 4 K 2 9"><small>КОД ЛОББИ</small><strong>SV4K29</strong><i data-lucide="copy" aria-hidden="true"></i></button><div class="sv-room-title"><h2>Все свои.</h2><p>В лобби · 3 / 8</p></div><div class="sv-friends" aria-label="Три игрока в одном лобби"><div><div class="sv-mini-pig"></div><span>Ты</span></div><div><div class="sv-mini-pig friend-two"></div><span>Хрюша</span></div><div><div class="sv-mini-pig friend-three"></div><span>Пятачок</span></div></div><div class="sv-lobby-bottom"><button class="sv-subtle cursor-interaction" data-action="close"><i data-lucide="arrow-left" aria-hidden="true"></i> В меню</button><button class="sv-solid cursor-interaction" data-action="customize">Кастомайз</button><button class="sv-solid cursor-interaction" data-action="ready">Готов</button></div></div>
+ </template>
+</div>
+<style>
+__FONTS__
+#svin-menu-oct25{--sv-bg-img:url('__BG__');--sv-pig-img:url('__PIG__');color-scheme:dark}
+#svin-menu-oct25 *{box-sizing:border-box}
+#svin-menu-oct25 [hidden]{display:none!important}
+#svin-menu-oct25 .sv-screen{--sv-pink:#e8b4c1;--sv-ink:#39232e;--sv-cream:#f5e8db;--sv-dim:#d9bcc2;--sv-panel:#48313c;position:relative;isolation:isolate;overflow:hidden;min-height:760px;background:#251e23;color:var(--sv-cream);font-family:'SvYomogi',sans-serif;border-radius:5px}
+#svin-menu-oct25 button,#svin-menu-oct25 input{font:inherit;color:inherit}
+#svin-menu-oct25 button{border:0}
+#svin-menu-oct25 .sv-bg{position:absolute;z-index:-3;inset:-3%;background:var(--sv-bg-img) center/cover;animation:sv-drift 16s ease-in-out infinite alternate;will-change:transform}
+#svin-menu-oct25 .sv-shade{position:absolute;inset:0;z-index:-2;background:linear-gradient(90deg,#22191e50,#33212c75 50%,#22191e50),linear-gradient(#261b251a,#1d1722a6)}
+#svin-menu-oct25 .sv-logo{padding-top:35px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:0;filter:drop-shadow(0 4px 12px #160c16b3)}
+#svin-menu-oct25 .sv-logo span{font-family:'SvClimate',sans-serif;font-size:24px;letter-spacing:5px;font-weight:400}
+#svin-menu-oct25 .sv-logo strong{font-family:'SvHogles',cursive;font-size:104px;font-weight:400;line-height:1.1;color:var(--sv-pink)}
+#svin-menu-oct25 .sv-menu{margin:45px auto 75px;display:flex;flex-direction:column;align-items:center;gap:21px;width:min(88%,400px)}
+#svin-menu-oct25 .sv-action{position:relative;background:transparent;font-family:'SvClimate',sans-serif;font-size:22px;font-weight:400;min-height:63px;width:100%;display:flex;align-items:center;justify-content:center;gap:13px;transition:transform .22s cubic-bezier(.2,.8,.3,1.3),color .2s;transform-origin:center;text-shadow:0 3px 16px #1d101a}
+#svin-menu-oct25 .sv-action:hover,#svin-menu-oct25 .sv-action:focus-visible{transform:scale(1.07);color:var(--sv-pink)}
+#svin-menu-oct25 .text-mode .sv-menu{margin-left:clamp(24px,6%,64px);margin-right:0;width:min(400px,calc(100% - 48px));align-items:flex-start}
+#svin-menu-oct25 .text-mode .sv-action{justify-content:flex-start;text-align:left;transform-origin:left center}
+#svin-menu-oct25 .text-mode .sv-action:first-child{font-size:29px;color:var(--sv-pink)}
+#svin-menu-oct25 .sv-hoof{display:inline-flex;gap:3px;width:24px;height:26px;transform:rotate(-12deg);align-items:flex-end}
+#svin-menu-oct25 .sv-hoof b{width:11px;height:22px;background:currentColor;border-radius:8px 8px 3px 3px;transform:rotate(-9deg)}
+#svin-menu-oct25 .sv-hoof b+b{transform:rotate(9deg);height:24px}
+#svin-menu-oct25 .sv-footer{position:absolute;bottom:23px;left:30px;right:30px;display:flex;justify-content:space-between;gap:18px;font-size:11px;letter-spacing:2px;color:var(--sv-dim)}
+#svin-menu-oct25 .pig-mode .sv-menu{width:min(80%,360px);gap:23px;margin-top:36px}
+#svin-menu-oct25 .pig-mode .sv-action{height:65px;min-height:65px;background:var(--sv-pink);color:var(--sv-ink);border-radius:19px 24px 21px 15px;font-size:18px;text-shadow:none;box-shadow:0 5px 0 #3b242d80;padding:0 12px 0 37px;width:100%}
+#svin-menu-oct25 .pig-mode .sv-action:nth-child(2){--sv-pink:#d9a8b9}
+#svin-menu-oct25 .pig-mode .sv-action:nth-child(3){--sv-pink:#cfaaa7}
+#svin-menu-oct25 .pig-mode .sv-action:nth-child(4){--sv-pink:#c8b3b4}
+#svin-menu-oct25 .pig-mode .sv-action:nth-child(5){--sv-pink:#b9a1af}
+#svin-menu-oct25 .sv-pig-head{position:absolute;left:-26px;top:-3px;width:81px;height:72px;border-radius:37% 43% 40% 48%;background:var(--sv-pink);box-shadow:inset 0 -4px 0 #6d3e4b1c;transition:transform .25s cubic-bezier(.2,.8,.3,1.4);transform-origin:70% 50%}
+#svin-menu-oct25 .sv-pig-ear{position:absolute;left:20px;top:-13px;width:25px;height:32px;background:var(--sv-pink);border-radius:70% 10% 50% 20%;transform:rotate(-26deg);box-shadow:inset 4px 5px 0 #ad748b70}
+#svin-menu-oct25 .sv-pig-eye{position:absolute;top:23px;left:37px;width:6px;height:8px;background:var(--sv-ink);border-radius:50%}
+#svin-menu-oct25 .sv-pig-snout{position:absolute;left:-7px;top:35px;background:#f4cccb;width:41px;height:25px;border-radius:48%;box-shadow:0 3px 0 #9a60733b;display:flex;align-items:center;justify-content:center;gap:8px;transition:transform .25s}
+#svin-menu-oct25 .sv-pig-snout b{height:8px;width:4px;border-radius:50%;background:#9c6174}
+#svin-menu-oct25 .sv-pig-cheek{position:absolute;left:43px;top:41px;width:19px;height:14px;border-radius:50%;background:#bf75945c;transition:transform .25s}
+#svin-menu-oct25 .sv-pig-tail{position:absolute;right:-17px;top:25px;width:24px;height:18px;border:5px solid var(--sv-pink);border-left:0;border-bottom:0;border-radius:50%;transform:rotate(25deg)}
+#svin-menu-oct25 .sv-pig-leg{position:absolute;bottom:-8px;width:17px;height:13px;background:var(--sv-pink);border-radius:0 0 4px 4px;box-shadow:inset 0 -4px 0 #654453}
+#svin-menu-oct25 .sv-pig-leg.left{left:38px}#svin-menu-oct25 .sv-pig-leg.right{right:29px}
+#svin-menu-oct25 .pig-mode .sv-action:hover .sv-pig-head,#svin-menu-oct25 .pig-mode .sv-action:focus-visible .sv-pig-head{transform:scale(1.19,1.12)}
+#svin-menu-oct25 .pig-mode .sv-action:hover .sv-pig-cheek{transform:scale(1.35)}
+#svin-menu-oct25 .pig-mode .sv-action:hover .sv-pig-snout{transform:scale(1.08)}
+#svin-menu-oct25 .pig-mode .sv-hoof{width:18px;height:20px;gap:2px}#svin-menu-oct25 .pig-mode .sv-hoof b{width:8px;height:17px}#svin-menu-oct25 .pig-mode .sv-hoof b+b{height:19px}
+#svin-menu-oct25 .sv-layer{position:absolute;inset:0;background:#1b1522a3;backdrop-filter:blur(5px);z-index:5;display:grid;grid-template-columns:minmax(0,1fr);place-items:center;padding:26px}
+#svin-menu-oct25 .sv-dialog{background:var(--sv-panel);border:1px solid #b181934d;border-radius:25px;padding:28px;box-shadow:0 30px 90px #110a19a6;width:min(100%,700px);min-width:0}
+#svin-menu-oct25 .sv-dialog-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;gap:14px}
+#svin-menu-oct25 h2{font-family:'SvClimate',sans-serif;font-size:25px;font-weight:400;margin:0}
+#svin-menu-oct25 .sv-close,#svin-menu-oct25 .sv-arrow{width:44px;height:44px;display:grid;place-items:center;flex-shrink:0;background:#6a4857;border-radius:13px;color:var(--sv-cream)}
+#svin-menu-oct25 .sv-arrow svg,#svin-menu-oct25 .sv-close svg{width:19px;height:19px;display:block}
+#svin-menu-oct25 .sv-custom-grid{display:grid;grid-template-columns:220px 1fr;gap:25px}
+#svin-menu-oct25 .sv-avatar-stage{position:relative;display:flex;flex-direction:column;justify-content:space-between;background:radial-gradient(ellipse at 50% 35%,#94778060,transparent 70%);border-radius:20px}
+#svin-menu-oct25 .sv-avatar{background:var(--sv-pig-img) center bottom/contain no-repeat;width:100%;height:298px;transition:transform .25s}
+#svin-menu-oct25 .sv-turn{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:10px;letter-spacing:1px;margin-top:12px}
+#svin-menu-oct25 .sv-controls{min-width:0}
+#svin-menu-oct25 .sv-tabs{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:22px}
+#svin-menu-oct25 .sv-tabs button{background:transparent;padding:7px 6px;color:var(--sv-dim);font-size:13px;border-bottom:2px solid transparent}
+#svin-menu-oct25 .sv-tabs .is-active{color:var(--sv-cream);border-color:var(--sv-pink)}
+#svin-menu-oct25 .sv-choice{margin-bottom:14px}
+#svin-menu-oct25 .sv-choice small{display:block;color:var(--sv-dim);font-size:12px;margin-bottom:6px}
+#svin-menu-oct25 .sv-cycle{display:grid;grid-template-columns:44px 1fr 44px;align-items:center;gap:8px;background:#3a2732;border-radius:14px;min-height:48px;padding:2px;text-align:center;font-size:16px}
+#svin-menu-oct25 .sv-cycle .sv-arrow{background:transparent}
+#svin-menu-oct25 .sv-swatches{display:flex;gap:10px;padding:5px 0}
+#svin-menu-oct25 .sv-swatch{width:29px;height:29px;border-radius:50%;background:var(--swatch);border:2px solid transparent;padding:0}
+#svin-menu-oct25 .sv-swatch[aria-pressed=true]{outline:2px solid var(--sv-cream);outline-offset:3px}
+#svin-menu-oct25 .sv-solid{background:var(--sv-pink);color:var(--sv-ink);font-family:'SvClimate',sans-serif;font-size:16px;min-height:46px;padding:12px 20px;border-radius:14px;transition:transform .2s;display:flex;align-items:center;justify-content:center;gap:10px}
+#svin-menu-oct25 .sv-solid:hover{transform:scale(1.035)}
+#svin-menu-oct25 .sv-done{width:100%;margin-top:21px}
+#svin-menu-oct25 .sv-play{width:min(100%,390px)}
+#svin-menu-oct25 .sv-play>.sv-solid{width:100%;margin-bottom:15px}
+#svin-menu-oct25 .sv-join{display:flex;gap:10px}
+#svin-menu-oct25 input{width:100%;min-width:0;border:1px solid #96707f;background:#30212b;border-radius:13px;padding:10px 15px;font-size:16px}
+#svin-menu-oct25 .sv-subtle{background:transparent;color:var(--sv-dim);padding:15px 0;display:flex;align-items:center;justify-content:center;gap:9px;min-height:44px}
+#svin-menu-oct25 .sv-play>.sv-subtle{width:100%;margin-top:8px}
+#svin-menu-oct25 .sv-lobby{width:100%;height:100%;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:0 10px 8px}
+#svin-menu-oct25 .sv-screen:has(.sv-layer:not([hidden]) .sv-lobby)>.sv-logo,#svin-menu-oct25 .sv-screen:has(.sv-layer:not([hidden]) .sv-lobby)>.sv-menu,#svin-menu-oct25 .sv-screen:has(.sv-layer:not([hidden]) .sv-lobby)>.sv-footer{visibility:hidden}
+#svin-menu-oct25 .sv-layer:has(.sv-lobby){background:#1e16254a;backdrop-filter:none}
+#svin-menu-oct25 .sv-code{display:grid;grid-template-columns:1fr auto;column-gap:18px;padding:11px 23px;background:#382630f2;border:1px solid #bc8e9c66;border-radius:0 0 18px 18px;margin-top:-26px;text-align:center;box-shadow:0 5px 20px #25162255}
+#svin-menu-oct25 .sv-code small{grid-column:1;font-size:10px;letter-spacing:3px;color:var(--sv-dim)}
+#svin-menu-oct25 .sv-code strong{grid-column:1;font-size:25px;font-weight:400;letter-spacing:5px}
+#svin-menu-oct25 .sv-code svg{grid-column:2;grid-row:1/3;align-self:center;width:18px;height:18px}
+#svin-menu-oct25 .sv-room-title{text-align:center;margin-top:50px}#svin-menu-oct25 .sv-room-title p{font-size:16px;color:var(--sv-dim)}
+#svin-menu-oct25 .sv-friends{display:flex;gap:40px;align-items:flex-end;margin:auto 0 30px}
+#svin-menu-oct25 .sv-friends>div{text-align:center;font-size:15px}
+#svin-menu-oct25 .sv-mini-pig{background:var(--sv-pig-img) center bottom/contain no-repeat;width:170px;height:235px;filter:drop-shadow(0 15px 12px #140f1d90)}
+#svin-menu-oct25 .sv-mini-pig.friend-two{transform:scale(.9);filter:sepia(.3) hue-rotate(300deg)}
+#svin-menu-oct25 .sv-mini-pig.friend-three{transform:scale(.97);filter:sepia(.4) hue-rotate(330deg)}
+#svin-menu-oct25 .sv-lobby-bottom{display:flex;width:100%;justify-content:space-between;align-items:center;gap:12px}
+#svin-menu-oct25 .sv-mini-dialog{width:min(100%,430px)}
+#svin-menu-oct25 .sv-setting-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;gap:10px}
+#svin-menu-oct25 .sv-setting-row input{accent-color:var(--sv-pink);width:140px}
+#svin-menu-oct25 .sv-notice{text-align:center;color:var(--sv-dim);font-size:15px}
+@keyframes sv-drift{from{transform:translateX(-1.2%)}to{transform:translateX(1.2%)}}
+@media(prefers-reduced-motion:reduce){#svin-menu-oct25 .sv-bg{animation:none}#svin-menu-oct25 *{transition:none!important}}
+@media(max-width:600px){#svin-menu-oct25 .sv-screen{min-height:740px}#svin-menu-oct25 .sv-logo{padding-top:42px}#svin-menu-oct25 .sv-logo strong{font-size:83px}#svin-menu-oct25 .sv-logo span{font-size:18px}#svin-menu-oct25 .sv-menu{margin-top:50px;gap:20px}#svin-menu-oct25 .sv-action{font-size:18px}#svin-menu-oct25 .pig-mode .sv-menu{width:min(72%,330px);gap:25px;margin-top:45px}#svin-menu-oct25 .pig-mode .sv-action{font-size:15px;padding-left:42px}#svin-menu-oct25 .sv-footer{left:17px;right:17px;font-size:9px;letter-spacing:1px}#svin-menu-oct25 .sv-layer{padding:15px}#svin-menu-oct25 .sv-dialog{padding:19px}#svin-menu-oct25 .sv-custom-grid{grid-template-columns:1fr;gap:12px}#svin-menu-oct25 .sv-avatar-stage{max-width:240px;margin:auto;width:100%}#svin-menu-oct25 .sv-avatar{height:150px}#svin-menu-oct25 .sv-turn{margin-top:0}#svin-menu-oct25 .sv-dialog-head{margin-bottom:12px}#svin-menu-oct25 h2{font-size:21px}#svin-menu-oct25 .sv-tabs{justify-content:center;margin-bottom:12px}#svin-menu-oct25 .sv-choice{margin-bottom:9px}#svin-menu-oct25 .sv-done{margin-top:12px}#svin-menu-oct25 .sv-friends{gap:0;width:100%;justify-content:center}#svin-menu-oct25 .sv-mini-pig{width:90px;height:170px}#svin-menu-oct25 .sv-lobby-bottom{flex-wrap:wrap;justify-content:center}#svin-menu-oct25 .sv-lobby-bottom .sv-subtle{width:100%;order:3}#svin-menu-oct25 .sv-lobby-bottom .sv-solid{font-size:13px;padding:12px}#svin-menu-oct25 .sv-code{margin-top:-15px}}
+@media(max-width:380px){#svin-menu-oct25 .sv-screen{min-height:850px}}
+
+#svin-menu-oct25 .hover-mode .sv-logo{align-items:flex-start;text-align:left;padding-left:clamp(24px,6%,64px)}
+#svin-menu-oct25 .hover-mode .sv-menu{margin-left:clamp(44px,6%,64px);margin-right:0;width:min(350px,calc(100% - 72px));align-items:flex-start;margin-top:40px;gap:17px}
+#svin-menu-oct25 .hover-mode .sv-action{width:max-content;max-width:100%;height:79px;min-height:79px;padding:10px 27px 28px;margin-left:-27px;justify-content:flex-start;text-align:left;transform-origin:27px center;font-size:22px;background:transparent;box-shadow:none}
+#svin-menu-oct25 .hover-mode .sv-action:first-child{font-size:29px}
+#svin-menu-oct25 .sv-button-label{position:relative;display:inline-flex;align-items:center;gap:12px;width:max-content;max-width:100%;white-space:nowrap;transition:color .15s}
+#svin-menu-oct25 .sv-word{position:relative;z-index:1}
+#svin-menu-oct25 .sv-text-ear{position:absolute;left:-13px;top:-.05em;width:1.1em;height:1.5em;background:#39232e;clip-path:polygon(2% 4%,95% 0%,88% 37%,40% 97%,12% 73%);opacity:0;transform:rotate(-8deg) scale(.7);transform-origin:88% 8%;transition:opacity .12s,transform .22s cubic-bezier(.2,.8,.3,1.3);pointer-events:none;z-index:0}
+#svin-menu-oct25 .sv-text-ear:after{content:'';position:absolute;inset:2.5px;background:var(--sv-pink);clip-path:polygon(2% 4%,95% 0%,88% 37%,40% 97%,12% 73%)}
+#svin-menu-oct25 .sv-text-ear.right{left:auto;right:-16px;transform:rotate(8deg) scale(-.7,.7);transform-origin:12% 8%}
+#svin-menu-oct25 .hover-mode .sv-action:hover .sv-text-ear,#svin-menu-oct25 .hover-mode .sv-action:focus-visible .sv-text-ear{opacity:1;transform:rotate(7deg) scale(1)}
+#svin-menu-oct25 .hover-mode .sv-action:hover .sv-text-ear.right,#svin-menu-oct25 .hover-mode .sv-action:focus-visible .sv-text-ear.right{opacity:1;transform:rotate(-7deg) scale(-1,1)}
+@media(max-width:600px){#svin-menu-oct25 .hover-mode .sv-logo strong{font-size:74px}#svin-menu-oct25 .hover-mode .sv-menu{margin-top:45px}#svin-menu-oct25 .hover-mode .sv-action{font-size:18px}#svin-menu-oct25 .hover-mode .sv-action:first-child{font-size:24px}}
+#svin-menu-oct25 .sv-o-letter{position:relative;display:inline-block;white-space:pre}
+#svin-menu-oct25 .sv-o-glyph{transition:opacity .1s}
+#svin-menu-oct25 .sv-o-snout{position:absolute;inset:0;font-family:'SvClimateSnout',sans-serif;opacity:0;pointer-events:none;transition:opacity .1s}
+#svin-menu-oct25 .hover-mode .sv-action:hover .sv-o-glyph,#svin-menu-oct25 .hover-mode .sv-action:focus-visible .sv-o-glyph{opacity:0}
+#svin-menu-oct25 .hover-mode .sv-action:hover .sv-o-snout,#svin-menu-oct25 .hover-mode .sv-action:focus-visible .sv-o-snout{opacity:1}
+</style>
+<script>
+(()=>{
+ const root=document.getElementById('svin-menu-oct25');
+ const screens=[...root.querySelectorAll('.sv-screen')];
+ const saved=window.openai?.widgetState?.privateContent||{};
+ const design={accent:saved.accent||'#e8b4c1',motion:saved.motion??true,hover:saved.hover||1.07};
+ const options={Голова:[['Причёска',['Шторы','Дреды','Зачёс назад','Ирокез']],['Глаза',['Обычные','Вылупившиеся','Прищур']],['Брови',['Спокойные','Густые','Монобровь']]],Тело:[['Цвет кожи',['Пудровый','Кремовый','Персиковый','Графитовый']],['Узор',['Без узора','Точки','Леопард','Звёздочки']],['Татуировка',['Нет','Звезда','Сердце']]],Аксессуары:[['Очки',['Нет','Сердечки','Круглые','Пиксельные']],['Пирсинг',['Нет','Ухо','Нос','Бровь']],['Усы',['Нет','Густые','С закрутом']]]};
+ const indices={};
+ function remember(screen,action){window.openai?.setWidgetState?.({modelContent:{concept:screen.dataset.design,view:action},privateContent:design})?.catch(()=>{});}
+ function icons(){globalThis.lucide?.createIcons({attrs:{width:18,height:18}})}
+ function open(screen,template){const layer=screen.querySelector('.sv-layer');layer.replaceChildren(root.querySelector(template).content.cloneNode(true));layer.hidden=false;screen.querySelector('.sv-menu').inert=true;icons();layer.querySelector('button')?.focus();}
+ function close(screen){if(screen.dataset.returnTo==='lobby'){delete screen.dataset.returnTo;open(screen,'#sv-lobby-template');return;}screen.querySelector('.sv-layer').hidden=true;screen.querySelector('.sv-menu').inert=false;screen.querySelector('[data-action=play]').focus();}
+ function choices(screen,cat){const parent=screen.querySelector('.sv-options');parent.replaceChildren();for(const [label,values]of options[cat]){const key=screen.dataset.design+label;indices[key]??=0;const row=document.createElement('div');row.className='sv-choice';row.innerHTML='<small>'+label+'</small><div class="sv-cycle"><button class="sv-arrow cursor-interaction" aria-label="Предыдущий вариант"><i data-lucide="chevron-left" aria-hidden="true"></i></button><span aria-live="polite"></span><button class="sv-arrow cursor-interaction" aria-label="Следующий вариант"><i data-lucide="chevron-right" aria-hidden="true"></i></button></div>';const text=row.querySelector('.sv-cycle span');text.textContent=values[indices[key]];row.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{indices[key]=(indices[key]+(i?1:-1)+values.length)%values.length;text.textContent=values[indices[key]];});parent.append(row);}const small=document.createElement('small');small.textContent=cat==='Голова'?'Цвет волос':'Цвет';small.style.cssText='display:block;font-size:12px;margin:14px 0 5px;color:var(--sv-dim)';parent.append(small);const swatches=document.createElement('div');swatches.className='sv-swatches';for(const [i,c]of ['#38313d','#b6a289','#ad7765','#c99bae','#d9c9a9'].entries()){const b=document.createElement('button');b.className='sv-swatch cursor-interaction';b.setAttribute('aria-label',['Тёмный','Песочный','Медный','Пыльная роза','Кремовый'][i]);b.setAttribute('aria-pressed',String(i===0));b.style.setProperty('--swatch',c);b.onclick=()=>{swatches.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));};swatches.append(b);}parent.append(swatches);icons();}
+ for(const screen of screens){
+  if(screen.classList.contains('hover-mode'))for(const button of screen.querySelectorAll('.sv-action')){button.setAttribute('aria-label',button.textContent.trim());const label=document.createElement('span');label.className='sv-button-label';for(const node of [...button.childNodes]){if(node.nodeType===Node.TEXT_NODE){const word=document.createElement('span');word.className='sv-word';word.textContent=node.textContent;label.append(word);node.remove();}else label.append(node);}const walker=document.createTreeWalker(label,NodeFilter.SHOW_TEXT);const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);for(const node of nodes){if(!/[оОoO]/.test(node.textContent))continue;const fragment=document.createDocumentFragment();for(const part of node.textContent.split(/([оОoO])/)){if(!part)continue;if(/[оОoO]/.test(part)&&part.length===1){const letter=document.createElement('span');letter.className='sv-o-letter';const glyph=document.createElement('span');glyph.className='sv-o-glyph';glyph.textContent=part;const nose=document.createElement('span');nose.className='sv-o-snout';nose.textContent=part;nose.setAttribute('aria-hidden','true');letter.append(glyph,nose);fragment.append(letter);}else fragment.append(document.createTextNode(part));}node.replaceWith(fragment);}for(const side of ['left','right']){const ear=document.createElement('span');ear.className='sv-text-ear '+side;ear.setAttribute('aria-hidden','true');label.append(ear);}button.append(label);}
+  if(screen.classList.contains('pig-mode'))for(const button of screen.querySelectorAll('.sv-action')){const pig=document.createElement('span');pig.setAttribute('aria-hidden','true');pig.className='sv-pig-head';pig.innerHTML='<span class="sv-pig-ear"></span><span class="sv-pig-eye"></span><span class="sv-pig-cheek"></span><span class="sv-pig-snout"><b></b><b></b></span>';button.prepend(pig);for(const name of ['sv-pig-tail','sv-pig-leg left','sv-pig-leg right']){const e=document.createElement('span');e.setAttribute('aria-hidden','true');e.className=name;button.append(e);}}
+  screen.addEventListener('click',event=>{const code=event.target.closest('.sv-code');if(code){const selection=window.getSelection();const range=document.createRange();range.selectNodeContents(code.querySelector('strong'));selection.removeAllRanges();selection.addRange(range);code.querySelector('small').textContent='КОД ВЫДЕЛЕН';return;}const action=event.target.closest('[data-action]')?.dataset.action;const cat=event.target.closest('[data-cat]');if(cat){screen.querySelectorAll('[data-cat]').forEach(b=>b.classList.toggle('is-active',b===cat));choices(screen,cat.dataset.cat);return;}
+   if(event.target===screen.querySelector('.sv-layer')){close(screen);return;}
+   if(!action)return;
+   if(action==='close'){close(screen);return;}
+   if(action==='customize'){if(screen.querySelector('.sv-layer:not([hidden]) .sv-lobby'))screen.dataset.returnTo='lobby';open(screen,'#sv-custom-template');choices(screen,'Голова');}
+   if(action==='play')open(screen,'#sv-play-template');
+   if(action==='lobby'||action==='join'){open(screen,'#sv-lobby-template');if(action==='join'){screen.querySelector('.sv-code strong').textContent='SV4K29';}}
+   if(action==='ready'){const b=event.target.closest('button');b.textContent=b.textContent==='Готов'?'Готов ✓':'Готов';}
+   if(action==='settings'||action==='guide'||action==='solo'||action==='exit'){const layer=screen.querySelector('.sv-layer');layer.innerHTML='<div class="sv-dialog sv-mini-dialog" role="dialog" aria-modal="true"><div class="sv-dialog-head"><h2>'+({settings:'Настройки',guide:'Как играть',solo:'Одиночная игра',exit:'Выйти?'}[action])+'</h2><button class="sv-close cursor-interaction" data-action="close" aria-label="Закрыть"><i data-lucide="x"></i></button></div>'+ (action==='settings'?'<label class="sv-setting-row">Музыка <input aria-label="Громкость музыки" type="range" value="35"></label><label class="sv-setting-row">Звуки <input aria-label="Громкость звуков" type="range" value="70"></label>': '<p class="sv-notice">'+({guide:'Собирайте вещи, примеряйте образы и удивляйте друзей.',solo:'Твоя свинка готова к приключениям.',exit:'Покинуть раздевалку?'}[action])+'</p>')+'<button class="sv-solid sv-done cursor-interaction" data-action="close">'+(action==='exit'?'Остаться':'Назад')+'</button></div>';layer.hidden=false;screen.querySelector('.sv-menu').inert=true;icons();}
+   remember(screen,action);
+  });
+  screen.addEventListener('click',event=>{const turn=event.target.closest('[data-turn]');if(turn){const avatar=screen.querySelector('.sv-avatar');avatar.style.transform='perspective(400px) rotateY('+(Number(turn.dataset.turn)*18)+'deg)';}});
+  screen.addEventListener('keydown',event=>{if(event.key==='Escape')close(screen);});
+ }
+ function render(){for(const screen of screens){screen.style.setProperty('--sv-pink',design.accent);screen.querySelector('.sv-bg').style.animationPlayState=design.motion?'running':'paused';for(const b of screen.querySelectorAll('.sv-action')){b.onpointerenter=()=>b.style.transform='scale('+design.hover+')';b.onpointerleave=()=>b.style.transform='';}}}
+ window.addEventListener('openai:set_globals',event=>{const state=event.detail?.globals?.widgetState?.privateContent;if(state){Object.assign(design,state);render();}});
+ render();if(globalThis.Tweak){const tweak=new Tweak({container:root,onChange:render});tweak.addColorPicker(design,'accent',{label:'Акцент',reference:'--sv-pink'});tweak.addToggle(design,'motion',{label:'Движение фона'});tweak.addSlider(design,'hover',{label:'Увеличение при наведении',min:1.02,max:1.12,step:.01});}
+})();
+</script>

@@ -1,0 +1,14 @@
+#svin-menu-oct25 .hover-mode .sv-logo{align-items:flex-start;text-align:left;padding-left:clamp(24px,6%,64px)}
+#svin-menu-oct25 .hover-mode .sv-menu{margin-left:clamp(24px,6%,64px);margin-right:0;width:min(350px,calc(100% - 48px));align-items:flex-start;margin-top:40px;gap:17px}
+#svin-menu-oct25 .hover-mode .sv-action{width:max-content;max-width:100%;height:79px;min-height:79px;padding:10px 27px 28px;margin-left:-27px;justify-content:flex-start;text-align:left;transform-origin:27px center;font-size:22px;background:transparent;box-shadow:none}
+#svin-menu-oct25 .hover-mode .sv-action:first-child{font-size:29px}
+#svin-menu-oct25 .sv-button-label{position:relative;display:inline-flex;align-items:center;gap:12px;width:max-content;max-width:100%;white-space:nowrap;transition:color .15s}
+#svin-menu-oct25 .sv-text-ear{position:absolute;left:-27px;top:-7px;width:18px;height:25px;border:2.5px solid #39232e;border-radius:75% 15% 60% 35%;background:var(--sv-pink);opacity:0;transform:translateX(5px) rotate(-25deg) scale(.65);transform-origin:80% 90%;transition:opacity .12s,transform .22s cubic-bezier(.2,.8,.3,1.4);pointer-events:none}
+#svin-menu-oct25 .sv-text-ear:after{content:'';position:absolute;inset:5px 3px 4px 4px;background:#bc7e98;border-radius:75% 15% 60% 35%}
+#svin-menu-oct25 .sv-text-ear.right{left:auto;right:-27px;transform:translateX(-5px) rotate(25deg) scale(-.65,.65);transform-origin:20% 90%}
+#svin-menu-oct25 .sv-text-snout{position:absolute;left:50%;top:calc(100% + 6px);width:32px;height:20px;border:2px solid #39232e;border-radius:48%;background:var(--sv-pink);display:flex;justify-content:center;align-items:center;gap:7px;opacity:0;transform:translate(-50%,-5px) scale(.6);transition:opacity .12s,transform .22s cubic-bezier(.2,.8,.3,1.4);pointer-events:none}
+#svin-menu-oct25 .sv-text-snout b{width:3px;height:6px;border-radius:50%;background:#704152}
+#svin-menu-oct25 .hover-mode .sv-action:hover .sv-text-ear,#svin-menu-oct25 .hover-mode .sv-action:focus-visible .sv-text-ear{opacity:1;transform:translateX(0) rotate(-25deg) scale(1)}
+#svin-menu-oct25 .hover-mode .sv-action:hover .sv-text-ear.right,#svin-menu-oct25 .hover-mode .sv-action:focus-visible .sv-text-ear.right{opacity:1;transform:translateX(0) rotate(25deg) scale(-1,1)}
+#svin-menu-oct25 .hover-mode .sv-action:hover .sv-text-snout,#svin-menu-oct25 .hover-mode .sv-action:focus-visible .sv-text-snout{opacity:1;transform:translate(-50%,0) scale(1)}
+@media(max-width:600px){#svin-menu-oct25 .hover-mode .sv-logo strong{font-size:74px}#svin-menu-oct25 .hover-mode .sv-menu{margin-top:45px}#svin-menu-oct25 .hover-mode .sv-action{font-size:18px}#svin-menu-oct25 .hover-mode .sv-action:first-child{font-size:24px}}
