@@ -131,3 +131,10 @@ InitTestScene*.unity*
 
 # macOS Finder metadata
 .DS_Store
+
+# Local builds, editor recovery copies and tool checkpoints
+/Svinushki MAC/
+/Svinushki MAC.zip
+/Tools/Unity/.deps/
+/Assets/_Recovery/
+/Assets/_Recovery.meta
