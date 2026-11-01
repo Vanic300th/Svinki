@@ -1,0 +1,1 @@
+PASS: 30 rooms, sides 10–12m, 56×68m footprint, 96 accessible garments, 22 furniture groups; unique network IDs preserved.

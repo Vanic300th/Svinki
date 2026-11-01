@@ -1,0 +1,159 @@
+{
+    "rooms": 30,
+    "fixtures": 203,
+    "posters": 60,
+    "renderers": 1468,
+    "departments": [
+        {
+            "room": "01 ВХОД / ПЕРСИК",
+            "fixtures": 1,
+            "posters": 2
+        },
+        {
+            "room": "02 АТРИУМ / ПОДИУМ",
+            "fixtures": 9,
+            "posters": 2
+        },
+        {
+            "room": "03 БУТИК",
+            "fixtures": 7,
+            "posters": 2
+        },
+        {
+            "room": "04 ОБУВЬ / АТЕЛЬЕ",
+            "fixtures": 5,
+            "posters": 2
+        },
+        {
+            "room": "05 ЛАБИРИНТ ПРИМЕРОЧНЫХ",
+            "fixtures": 7,
+            "posters": 2
+        },
+        {
+            "room": "06 ГАЛЕРЕЯ",
+            "fixtures": 4,
+            "posters": 2
+        },
+        {
+            "room": "07 СЛУЖЕБНЫЙ СРЕЗ",
+            "fixtures": 1,
+            "posters": 2
+        },
+        {
+            "room": "08 СКЛАД / СТЕЛЛАЖИ",
+            "fixtures": 7,
+            "posters": 2
+        },
+        {
+            "room": "09 АРХИВ КОЛЛЕКЦИЙ",
+            "fixtures": 7,
+            "posters": 2
+        },
+        {
+            "room": "10 ГНЕЗДО ВОРИШЕК",
+            "fixtures": 5,
+            "posters": 2
+        },
+        {
+            "room": "11 / VINTAGE",
+            "fixtures": 5,
+            "posters": 2
+        },
+        {
+            "room": "12 / SPORTS",
+            "fixtures": 5,
+            "posters": 2
+        },
+        {
+            "room": "13 / LOUNGE",
+            "fixtures": 5,
+            "posters": 2
+        },
+        {
+            "room": "14 / SHOWROOM",
+            "fixtures": 5,
+            "posters": 2
+        },
+        {
+            "room": "15 / COLOUR LAB",
+            "fixtures": 9,
+            "posters": 2
+        },
+        {
+            "room": "16 / DENIM ARCADE",
+            "fixtures": 7,
+            "posters": 2
+        },
+        {
+            "room": "17 / STREET MARKET",
+            "fixtures": 7,
+            "posters": 2
+        },
+        {
+            "room": "18 / THE TAILOR",
+            "fixtures": 9,
+            "posters": 2
+        },
+        {
+            "room": "19 / NEON LOUNGE",
+            "fixtures": 9,
+            "posters": 2
+        },
+        {
+            "room": "20 / SPORTS CLUB",
+            "fixtures": 7,
+            "posters": 2
+        },
+        {
+            "room": "21 / SUMMER COURT",
+            "fixtures": 7,
+            "posters": 2
+        },
+        {
+            "room": "22 / WINTER CABIN",
+            "fixtures": 9,
+            "posters": 2
+        },
+        {
+            "room": "23 / PRINT GALLERY",
+            "fixtures": 9,
+            "posters": 2
+        },
+        {
+            "room": "24 / SHOE VAULT",
+            "fixtures": 9,
+            "posters": 2
+        },
+        {
+            "room": "25 / ACCESSORY BAR",
+            "fixtures": 9,
+            "posters": 2
+        },
+        {
+            "room": "26 / COLLECTIONS",
+            "fixtures": 9,
+            "posters": 2
+        },
+        {
+            "room": "27 / COUTURE SALON",
+            "fixtures": 7,
+            "posters": 2
+        },
+        {
+            "room": "28 / CARGO DEPOT",
+            "fixtures": 9,
+            "posters": 2
+        },
+        {
+            "room": "29 / LIFESTYLE",
+            "fixtures": 7,
+            "posters": 2
+        },
+        {
+            "room": "30 / THE OUTLET",
+            "fixtures": 7,
+            "posters": 2
+        }
+    ],
+    "failures": []
+}

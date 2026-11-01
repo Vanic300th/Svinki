@@ -1,0 +1,1 @@
+PASS: 42 connected rooms, 96 accessible garments, preserved unique network IDs; 92% width/depth, 84.64% floor area. Static geometry compacted, actor dimensions unchanged.

@@ -1,0 +1,16 @@
+231: 93 reachable, clear round spawns
+517: 93 reachable, clear round spawns
+1039: 93 reachable, clear round spawns
+2027: 93 reachable, clear round spawns
+812: 42 connected rooms, all 96 garments accessible to pickup ray
+1613: 42 connected rooms, all 96 garments accessible to pickup ray
+2417: 42 connected rooms, all 96 garments accessible to pickup ray
+730: 42 connected rooms, all 96 garments accessible to pickup ray
+731: 42 connected rooms, all 96 garments accessible to pickup ray
+732: 42 connected rooms, all 96 garments accessible to pickup ray
+733: 42 connected rooms, all 96 garments accessible to pickup ray
+734: 42 connected rooms, all 96 garments accessible to pickup ray
+735: 42 connected rooms, all 96 garments accessible to pickup ray
+736: 42 connected rooms, all 96 garments accessible to pickup ray
+737: 42 connected rooms, all 96 garments accessible to pickup ray
+738: 42 connected rooms, all 96 garments accessible to pickup ray

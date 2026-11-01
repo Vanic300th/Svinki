@@ -1,0 +1,4 @@
+PASS: offline lobby -> freight lift -> SampleScene.
+PASS: world layout seeds 231, 517, 1039, 2027; 93 reachable clear spawns per seed.
+PASS: clothing seeds 812, 1613, 2417; all 30 department centres and 96 garments reachable for each seed.
+PASS: E key picked up and equipped Department garment 0-0 beside new furnishings.
