@@ -41,22 +41,22 @@ public static class StoreRedesignCheck
         var roomJson=floors.Select(b=>"{\"name\":\""+b.transform.parent.name+"\",\"x0\":"+N(b.bounds.min.x)+",\"x1\":"+N(b.bounds.max.x)+",\"z0\":"+N(b.bounds.min.z)+",\"z1\":"+N(b.bounds.max.z)+"}");
         var layout=new SerializedObject(All<RoundClothingLayout>().Single());var poses=layout.FindProperty("positions");var angles=layout.FindProperty("rotations");var slots=new List<string>();
         for(int i=0;i<poses.arraySize;i++){var p=poses.GetArrayElementAtIndex(i).vector3Value;slots.Add("{\"x\":"+N(p.x)+",\"y\":"+N(p.y)+",\"z\":"+N(p.z)+",\"yaw\":"+N(angles.GetArrayElementAtIndex(i).quaternionValue.eulerAngles.y)+"}");}
-        File.WriteAllText("ArtSource/StoreRedesign/layout.json","{\"rooms\":["+string.Join(",",roomJson)+"],\"anchors\":["+string.Join(",",slots)+"]}");return "Exported 30 department bounds and 96 authored hiding slots";
+        File.WriteAllText("ArtSource/StoreRedesign/layout.json","{\"rooms\":["+string.Join(",",roomJson)+"],\"anchors\":["+string.Join(",",slots)+"]}");return "Exported "+floors.Length+" department bounds and 96 authored hiding slots";
     }
     public static string SavedScene()
     {
         var floors=All<BoxCollider>().Where(b=>b.name=="Floor"&&b.bounds.center.y<.3f).ToArray();Assert(floors.Length==30,"Department count");
-        double area=floors.Sum(b=>(double)b.bounds.size.x*b.bounds.size.z);Assert(Math.Abs(area-13087.5)<.05,"Area changed unexpectedly: "+area);
-        Assert(floors.Max(b=>b.bounds.max.x)-floors.Min(b=>b.bounds.min.x)>100,"Outline remains narrow rectangle");
-        Assert(floors.Select(b=>Mathf.RoundToInt(b.bounds.size.x*100)).Distinct().Count()>8,"Departments still identical widths");
-        Assert(All<ShoppingCart>().Length==3&&All<MannequinBrain>().Length==12,"Cart / attacker counts");
+        double area=floors.Sum(b=>(double)b.bounds.size.x*b.bounds.size.z);Assert(Math.Abs(area-3808)<.05,"Area changed unexpectedly: "+area);
+        Assert(Math.Abs(floors.Max(b=>b.bounds.max.x)-floors.Min(b=>b.bounds.min.x)-56)<.01,"Compact width");
+        Assert(floors.All(b=>b.bounds.size.x<=12.01f&&b.bounds.size.z<=12.01f),"A room is still oversized");
+        Assert(All<ShoppingCart>().Length==3&&All<MannequinBrain>().Length==16,"Cart / attacker counts");
         var ids=All<NetworkObject>().Select(n=>(ulong)typeof(NetworkObject).GetField("SceneId",Private).GetValue(n)).ToArray();Assert(ids.All(i=>i!=0)&&ids.Distinct().Count()==ids.Length,"Network scene IDs");
         var clothes=All<ClothingPickup>();Assert(clothes.Length==96,"Clothing count");Physics.SyncTransforms();
         var fail=clothes.Where(c=>!Reachable(c,out _)).Select(c=>c.name+" @ "+c.transform.position).ToArray();
         var report=new ReachReport{count=clothes.Length,reachable=clothes.Length-fail.Length,unreachable=fail};
         Directory.CreateDirectory("ArtSource/StoreRedesign");File.WriteAllText("ArtSource/StoreRedesign/reachability.json",JsonUtility.ToJson(report,true));
         Assert(fail.Length==0,string.Join("; ",fail));
-        return "PASS: 30 varied departments, original x3 floor area, 3 carts, 12 attackers, unique network IDs, all 96 hiding places reachable and visible to pickup ray";
+        return "PASS: 30 small departments, compact footprint, 3 carts, preserved attackers, unique network IDs, all 96 hiding places reachable and visible to pickup ray";
     }
     public static string Shuffles()
     {

@@ -47,8 +47,8 @@ public sealed class LobbyProp : LobbyInteractable
         }
         else if (kind == LobbyPropKind.Basketball)
         {
-            body.mass = .65f; body.linearDamping = .12f; body.angularDamping = .15f;
-            playMaterial = new PhysicsMaterial("Basketball bounce") { bounciness = .84f, dynamicFriction = .35f,
+            body.mass = .65f; body.linearDamping = .22f; body.angularDamping = .25f;
+            playMaterial = new PhysicsMaterial("Basketball bounce") { bounciness = .64f, dynamicFriction = .35f,
                 staticFriction = .35f, bounceCombine = PhysicsMaterialCombine.Maximum };
             shape.sharedMaterial = playMaterial;
             body.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;

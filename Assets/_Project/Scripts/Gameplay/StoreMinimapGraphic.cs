@@ -31,9 +31,12 @@ public sealed class StoreMinimapGraphic : UnityEngine.UI.MaskableGraphic
     {
         vertices.Clear(); if (map == null) return;
         float scale = Scale;
-        foreach (var floor in map.Floors) Box(vertices, Project(new Vector3(floor.center.x, 0, floor.center.y)), floor.size * scale, new Color(.16f, .25f, .30f), floor.angle);
+        var theme = ProjectSvinTheme.Current;
+        Color floorTint = theme != null ? theme.track : new Color(.16f, .25f, .30f);
+        if (theme != null && ProjectSvinSkin.InGame) floorTint.a *= theme.inGameTrackOpacity;
+        foreach (var floor in map.Floors) Box(vertices, Project(new Vector3(floor.center.x, 0, floor.center.y)), floor.size * scale, floorTint, floor.angle);
         float lineWidth = canvas != null ? 2f / Mathf.Max(.1f, canvas.scaleFactor) : 2f;
-        foreach (var wall in map.Walls) Box(vertices, Project(new Vector3(wall.center.x, 0, wall.center.y)), new Vector2(Mathf.Max(lineWidth, wall.size.x * scale), Mathf.Max(lineWidth, wall.size.y * scale)), new Color(.55f, .68f, .72f), wall.angle);
+        foreach (var wall in map.Walls) Box(vertices, Project(new Vector3(wall.center.x, 0, wall.center.y)), new Vector2(Mathf.Max(lineWidth, wall.size.x * scale), Mathf.Max(lineWidth, wall.size.y * scale)), theme != null ? theme.border : new Color(.55f, .68f, .72f), wall.angle);
     }
     private static void Box(UnityEngine.UI.VertexHelper vh, Vector2 center, Vector2 size, Color tint, float angle)
     {

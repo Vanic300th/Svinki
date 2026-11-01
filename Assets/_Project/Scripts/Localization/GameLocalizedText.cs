@@ -21,6 +21,7 @@ public sealed class GameLocalizedText : MonoBehaviour
     }
     private void Start()
     {
+        if (label.GetComponent<ProjectSvinElement>()?.preserveFontSize == true) return;
         label.fontSizeMax = label.fontSize; label.fontSizeMin = label.fontSize * .7f; label.enableAutoSizing = true;
     }
     private void OnEnable() { GameLanguage.Changed += Refresh; if (source != null) Refresh(); }
@@ -31,7 +32,10 @@ public sealed class GameLocalizedText : MonoBehaviour
         if (source == null) return;
         localize.enabled = false;
         if (!GameLanguage.Ready || source.Length == 0) { label.text = source; return; }
-        label.font = GameLanguage.Font;
+        var skin = label.GetComponent<ProjectSvinElement>();
+        if (skin == null || skin.useThemeFont)
+            label.font = skin != null && skin.ResolvedFont != null ? skin.ResolvedFont :
+                ProjectSvinTheme.Current != null ? ProjectSvinTheme.Current.FontFor(ProjectSvinElement.RoleFor(label)) : GameLanguage.Font;
         direct = GameLanguage.Reference(source, out string key, out object[] arguments);
         if (literal) { direct = true; key = "passthrough"; arguments = new object[] { source }; }
         localize.StringReference = new UnityEngine.Localization.LocalizedString(GameLanguage.Table,key) { Arguments = arguments };

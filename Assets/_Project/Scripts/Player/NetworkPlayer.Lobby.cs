@@ -13,7 +13,7 @@ public sealed partial class NetworkPlayer
     {
         if (Time.unscaledTime < nextLobbyCommand || target == null || target.gameObject.scene != gameObject.scene ||
             text == null || text.Length > 2048 || points != null && points.Length > 32) return;
-        nextLobbyCommand = Time.unscaledTime + .08f;
+        nextLobbyCommand = Time.unscaledTime + (action == LobbyAction.Stroke && target.GetComponent<AirHockeyTable>() != null ? .03f : .08f);
         var item = target.GetComponent<LobbyInteractable>();
         var avatar = GetComponent<PlayerAvatar>();
         if (item != null && item.Validate(avatar)) item.Apply(avatar, action, text, index, points);

@@ -14,8 +14,7 @@ public sealed class PlayerBallForm : MonoBehaviour
     private GameObject visual;
     private Rigidbody body;
     private SphereCollider shape;
-    private Material material;
-    private Material eyes;
+    private PigBallVisual identity;
     private PhysicsMaterial bounce;
     private PlayerBallPose remote;
     public bool IsBall { get; private set; }
@@ -32,30 +31,30 @@ public sealed class PlayerBallForm : MonoBehaviour
         visual = GameObject.CreatePrimitive(PrimitiveType.Sphere); visual.name = "Player ball";
         SceneManager.MoveGameObjectToScene(visual, gameObject.scene); visual.transform.localScale = Vector3.one * .86f;
         shape = visual.GetComponent<SphereCollider>();
-        material = new Material(Shader.Find("Universal Render Pipeline/Lit"));
-        int face = GetComponentInChildren<PigAppearance>(true)?.FaceCode ?? PigFace.Selected;
-        material.color = PigAppearance.SkinColors[PigFace.Decode(face).skinColor];
-        visual.GetComponent<Renderer>().sharedMaterial = material;
-        eyes = new Material(material); eyes.color = new Color(.02f, .025f, .04f);
-        bounce = new PhysicsMaterial("Player volleyball") { bounciness = .82f, bounceCombine = PhysicsMaterialCombine.Maximum,
+        identity = new PigBallVisual(visual.transform);
+        RefreshIdentity();
+        bounce = new PhysicsMaterial("Player volleyball") { bounciness = .58f, bounceCombine = PhysicsMaterialCombine.Maximum,
             dynamicFriction = .2f, staticFriction = .2f };
         shape.sharedMaterial = bounce;
-        body = visual.AddComponent<Rigidbody>(); body.mass = 3; body.linearDamping = .15f; body.angularDamping = .2f;
+        body = visual.AddComponent<Rigidbody>(); body.mass = 3; body.linearDamping = .3f; body.angularDamping = .35f;
         body.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic; body.interpolation = RigidbodyInterpolation.Interpolate;
         visual.AddComponent<PlayerBallCollision>().Owner = this;
-        foreach (float x in new[] { -.16f, .16f })
-        {
-            var eye = GameObject.CreatePrimitive(PrimitiveType.Sphere); eye.name = "Ball eye"; eye.transform.SetParent(visual.transform, false);
-            eye.transform.localPosition = new Vector3(x, .12f, .44f); eye.transform.localScale = Vector3.one * .08f;
-            var collider = eye.GetComponent<Collider>(); collider.enabled = false; Destroy(collider);
-            eye.GetComponent<Renderer>().sharedMaterial = eyes;
-        }
+        body.isKinematic = true;
+        visual.SetActive(false);
+    }
+    private void RefreshIdentity()
+    {
+        long face = GetComponentInChildren<PigAppearance>(true)?.FaceCode ?? PigFace.Selected;
+        identity?.Apply(face);
     }
     public bool Enter()
     {
         if (!Authority || IsBall || !CarryRules.FreeHands(avatar) || NetworkLobby.Instance?.Results != null) return false;
-        Build(); IsBall = true; Holder = null; visual.SetActive(true);
+        Build(); RefreshIdentity();
+        if (!ClothingDropper.TryDropAll(avatar, network != null ? network.NetworkObject.NetworkManager : null)) return false;
+        IsBall = true; Holder = null; visual.SetActive(true);
         body.isKinematic = false; body.position = transform.position + Vector3.up * .5f; body.rotation = transform.rotation;
+        visual.transform.SetPositionAndRotation(body.position, body.rotation);
         body.linearVelocity = Vector3.zero; body.angularVelocity = Vector3.zero; ApplyVisibility(); return true;
     }
     private void ApplyVisibility()
@@ -113,7 +112,7 @@ public sealed class PlayerBallForm : MonoBehaviour
         remote = value; bool previous = IsBall; IsBall = value.Active; Holder = value.Holder?.GetComponent<PlayerAvatar>();
         if (IsBall)
         {
-            Build(); body.isKinematic = true; shape.enabled = Holder == null;
+            Build(); RefreshIdentity(); body.isKinematic = true; shape.enabled = Holder == null;
             if (!previous) visual.transform.SetPositionAndRotation(value.Position, value.Rotation);
         }
         else if (previous) { if (controller != null) controller.enabled = false; transform.position = value.Position; }
@@ -122,6 +121,7 @@ public sealed class PlayerBallForm : MonoBehaviour
     private void LateUpdate()
     {
         if (!IsBall) return;
+        RefreshIdentity();
         if (Authority && (!avatar.IsAlive || NetworkLobby.Instance?.Results != null)) { if (network != null) network.StopBall(); else Exit(); return; }
         if (Authority && Holder != null && !Holder.IsAlive) Release(Holder, false);
         if (Holder != null)
@@ -146,7 +146,7 @@ public sealed class PlayerBallForm : MonoBehaviour
         if (target == null && proxy?.Owner != null) target = proxy.Owner.GetComponent<MannequinStun>();
         target?.TryStun(body.linearVelocity.sqrMagnitude > .01f ? body.linearVelocity.normalized : -collision.GetContact(0).normal);
     }
-    private void OnDestroy() { if (visual != null) Destroy(visual); if (material != null) Destroy(material); if (eyes != null) Destroy(eyes); if (bounce != null) Destroy(bounce); }
+    private void OnDestroy() { if (visual != null) Destroy(visual); identity?.Dispose(); if (bounce != null) Destroy(bounce); }
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)] private static void Reset() => balls.Clear();
 }
 public sealed class PlayerBallCollision : MonoBehaviour

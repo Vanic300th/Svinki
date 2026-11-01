@@ -8,7 +8,7 @@ public sealed class OutfitRoundResults
     public int round;
     public OutfitResultEntry[] entries = Array.Empty<OutfitResultEntry>();
 
-    public static OutfitResultEntry Rate(OutfitRatingCatalog rules, string id, string nickname, int appearance,
+    public static OutfitResultEntry Rate(OutfitRatingCatalog rules, string id, string nickname, long appearance,
         IEnumerable<ClothingDefinition> outfit, bool eliminated = false)
     {
         var clothes = (eliminated ? Enumerable.Empty<ClothingDefinition>() : outfit ?? Enumerable.Empty<ClothingDefinition>()).Where(c => c != null).OrderBy(c => c.Slot).ToArray();
@@ -21,7 +21,7 @@ public sealed class OutfitRoundResults
 public sealed class OutfitResultEntry
 {
     public string id, nickname;
-    public int appearance;
+    public long appearance;
     public bool eliminated;
     public int presentationPose;
     public RunwayMovement movement = new RunwayMovement { position = new UnityEngine.Vector3(0, 0, -2.5f) };

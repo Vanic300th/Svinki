@@ -65,11 +65,15 @@ public static class PigAvatarSetup
             for (int i = 0; i < materials.Length; i++)
             {
                 Material original = materials[i];
-                if (original == null || !original.name.StartsWith("Pig_Skin", StringComparison.Ordinal)) continue;
-                string path = folder + "/Pig_Skin.mat";
+                if (original == null) continue;
+                bool hair = original.name.StartsWith("Pig_HairLeopard", StringComparison.Ordinal);
+                if (!hair && !original.name.StartsWith("Pig_Skin", StringComparison.Ordinal)) continue;
+                string materialName = hair ? "Pig_HairLeopardBase" : "Pig_Skin";
+                string path = folder + "/" + materialName + ".mat";
                 Material skin = AssetDatabase.LoadAssetAtPath<Material>(path);
-                if (skin == null) { skin = new Material(shader) { name = "Pig_Skin" }; AssetDatabase.CreateAsset(skin, path); }
+                if (skin == null) { skin = new Material(shader) { name = materialName }; AssetDatabase.CreateAsset(skin, path); }
                 skin.shader = shader; skin.SetColor("_BaseColor", PigAppearance.SkinColors[0]);
+                skin.SetFloat("_HairInk", hair ? 1 : 0);
                 skin.SetFloat("_Smoothness", .25f); EditorUtility.SetDirty(skin);
                 materials[i] = skin;
             }

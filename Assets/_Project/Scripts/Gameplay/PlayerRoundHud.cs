@@ -25,9 +25,10 @@ public sealed class PlayerRoundHud : MonoBehaviour
         graphic = Rect("Floorplan", viewport, new Vector2(.5f, .5f), new Vector2(.5f, .5f), Vector2.zero, new Vector2(315, 315)).gameObject.AddComponent<StoreMinimapGraphic>();
         graphic.raycastTarget = false;
         mapLegend = Text(Rect("Legend", minimap.transform, new Vector2(.5f, 0), new Vector2(.5f, 0), new Vector2(0, 8), new Vector2(320, 42)), "Players ▲ · Carts ■ · Lift L\nNames match player colours", 16);
-        statusRoot = Rect("Round health", canvas, new Vector2(0, 1), new Vector2(0, 1), new Vector2(22, -82), new Vector2(285, 49)).gameObject;
+        statusRoot = Rect("Round health", canvas, new Vector2(0, 1), new Vector2(0, 1), new Vector2(22, -82), new Vector2(390, 49)).gameObject;
         statusRoot.AddComponent<UnityEngine.UI.Image>().color = new Color(.025f, .045f, .06f, .94f);
-        status = Text(Rect("Hits remaining", statusRoot.transform, new Vector2(.5f, .5f), new Vector2(.5f, .5f), Vector2.zero, new Vector2(260, 40)), "HITS LEFT  2 / 2", 23);
+        status = Text(Rect("Hits remaining", statusRoot.transform, new Vector2(.5f, .5f), new Vector2(.5f, .5f), Vector2.zero, new Vector2(365, 40)), "HITS LEFT  2 / 2", 23);
+        status.textWrappingMode = TextWrappingModes.NoWrap;
         spectatorRoot = Rect("Spectator banner", canvas, new Vector2(.5f, 0), new Vector2(.5f, 0), new Vector2(0, 95), new Vector2(880, 95)).gameObject;
         spectatorRoot.AddComponent<UnityEngine.UI.Image>().color = new Color(.025f, .045f, .06f, .94f);
         spectating = Text(Rect("Spectator status", spectatorRoot.transform, new Vector2(.5f, .5f), new Vector2(.5f, .5f), Vector2.zero, new Vector2(850, 85)), "", 24);
@@ -40,6 +41,7 @@ public sealed class PlayerRoundHud : MonoBehaviour
     private void LateUpdate()
     {
         if (lobby == null || minimap == null) return;
+        minimap.transform.localScale = Vector3.one * HudDisplaySettings.MinimapScale;
         bool playing = lobby.Results == null && (lobby.Offline || lobby.Snapshot.phase == SessionPhase.Round || lobby.Snapshot.phase == SessionPhase.Lobby) && !lobby.MenuVisible;
         minimap.SetActive(playing); statusRoot.SetActive(playing); spectatorRoot.SetActive(playing && lobby.IsSpectator);
         restart.gameObject.SetActive(playing && lobby.Offline && lobby.IsEliminated);

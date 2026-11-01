@@ -18,7 +18,21 @@ public static class GameLanguage
     public static event Action Changed;
     public static bool Ready { get; internal set; }
     public static TMP_FontAsset Font { get; internal set; }
-    public static string Code => LocalizationSettings.SelectedLocale?.Identifier.Code ?? "en";
+    public static string Code
+    {
+        get
+        {
+#if UNITY_WEBGL && !UNITY_EDITOR
+            // The menu can read its language before Addressables has finished loading.
+            // SelectedLocale's synchronous getter cannot wait on a Web player.
+            var locale = LocalizationSettings.SelectedLocaleAsync;
+            return locale.IsDone && locale.Result != null ? locale.Result.Identifier.Code :
+                PlayerPrefs.GetString(PreferenceKey, "en");
+#else
+            return LocalizationSettings.SelectedLocale?.Identifier.Code ?? "en";
+#endif
+        }
+    }
     [Serializable] public class Entry { public string source, translation; public bool translateArguments; }
     [Serializable] public class Catalog { public Entry[] entries; }
     private static Dictionary<string, Entry> exact;

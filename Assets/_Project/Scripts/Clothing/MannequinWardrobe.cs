@@ -26,15 +26,12 @@ public sealed class MannequinWardrobe : MonoBehaviour
     private void EnsurePreview()
     {
         if (preview != null || mannequinRoot == null) return;
-        preview = mannequinRoot.GetComponentInChildren<PigAppearance>(true);
-        if (preview == null)
-        {
-            foreach (Renderer old in mannequinRoot.GetComponentsInChildren<Renderer>(true)) old.enabled = false;
-            foreach (Animator old in mannequinRoot.GetComponentsInChildren<Animator>(true)) old.enabled = false;
-            GameObject prefab = Resources.Load<GameObject>("Pigs/PigAvatar");
-            if (prefab == null) return;
-            preview = Instantiate(prefab, mannequinRoot).GetComponent<PigAppearance>();
-        }
+        // Scene copies can predate newly added face/hair options. Always use the current avatar catalog.
+        GameObject prefab = Resources.Load<GameObject>("Pigs/PigAvatar");
+        if (prefab == null) return;
+        foreach (Renderer old in mannequinRoot.GetComponentsInChildren<Renderer>(true)) old.enabled = false;
+        foreach (Animator old in mannequinRoot.GetComponentsInChildren<Animator>(true)) old.enabled = false;
+        preview = Instantiate(prefab, mannequinRoot).GetComponent<PigAppearance>();
         foreach (PigMotion motion in preview.GetComponentsInChildren<PigMotion>(true)) motion.enabled = false;
         foreach (Animator animator in preview.GetComponentsInChildren<Animator>(true)) animator.enabled = false;
         foreach (Transform part in preview.GetComponentsInChildren<Transform>(true)) part.gameObject.layer = 5;
@@ -56,7 +53,10 @@ public sealed class MannequinWardrobe : MonoBehaviour
         var sourceBones = new Dictionary<string, Transform>();
         foreach (Transform part in source.ModelRoot.GetComponentsInChildren<Transform>(true))
             if (!sourceBones.ContainsKey(part.name)) sourceBones.Add(part.name, part);
-        foreach (Transform part in preview.ModelRoot.GetComponentsInChildren<Transform>(true))
+        var targetBones = new HashSet<Transform>();
+        foreach (var skin in preview.ModelRoot.GetComponentsInChildren<SkinnedMeshRenderer>(true))
+            foreach (var bone in skin.bones) if (bone != null) targetBones.Add(bone);
+        foreach (Transform part in targetBones)
             if (sourceBones.TryGetValue(part.name, out Transform from)) poseLinks.Add((from, part));
     }
 
@@ -91,6 +91,9 @@ public sealed class MannequinWardrobe : MonoBehaviour
             pose.Encapsulate(new Bounds(bone.position, Vector3.one * .36f));
             if (bone.name == "Head") pose.Encapsulate(new Bounds(bone.position + bone.up * .2f, Vector3.one * .8f));
         }
+        // Fit the selected meshes too: hair and accessories can extend beyond the rig.
+        foreach (Renderer part in preview.GetComponentsInChildren<Renderer>())
+            if (part.enabled && part.gameObject.activeInHierarchy) pose.Encapsulate(part.bounds);
         Vector3 direction = new Vector3(.55f, .1f, 4.8f).normalized;
         Quaternion rotation = Quaternion.LookRotation(-direction);
         Vector3 right = rotation * Vector3.right, up = rotation * Vector3.up;

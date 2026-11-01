@@ -134,6 +134,7 @@ public class PlayerPickupInteractor : MonoBehaviour
             cartTarget = hit.collider.GetComponentInParent<ShoppingCart>();
             monkeyTarget = hit.collider.GetComponentInParent<MonkeyToy>();
             lobbyTarget = hit.collider.GetComponentInParent<LobbyInteractable>();
+            if (lobbyTarget is AirHockeyTable hockey && !hockey.IsTopHit(LocalAvatar, hit)) lobbyTarget = null;
             var proxyOwner = hit.collider.GetComponentInParent<RagdollColliderOwner>();
             bodyTarget = hit.collider.GetComponentInParent<PlayerBodyCarry>();
             if (bodyTarget != null && !bodyTarget.IsDead) bodyTarget = null;

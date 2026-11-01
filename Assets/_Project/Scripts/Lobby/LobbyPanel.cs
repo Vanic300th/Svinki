@@ -89,14 +89,7 @@ public sealed partial class LobbyPanel : MonoBehaviour
             var clear = Button("CLEAR · HOST", new Vector2(280, -280), () => item.Request(player, LobbyAction.ClearBoard));
             clear.interactable = NetworkLobby.Instance?.Offline == true || NetworkLobby.Instance?.IsHost == true;
         }
-        else if (item is AirHockeyTable hockey)
-        {
-            status.rectTransform.anchoredPosition = new Vector2(0, 290);
-            drawingArea = Rect("Paddle control", content, new Vector2(600, 450), new Vector2(0, -30));
-            drawingArea.gameObject.AddComponent<Image>().color = new Color(.12f, .27f, .3f);
-            Label("Hold LMB and move to control your paddle", new Vector2(900, 40), new Vector2(0, -285), 22);
-            item.Request(player, LobbyAction.Toggle);
-        }
+
     }
     private void Update()
     {
@@ -110,7 +103,7 @@ public sealed partial class LobbyPanel : MonoBehaviour
         {
             string queue = media is LobbyJukebox box ? "\nQUEUE\n" + string.Join("\n", box.Queue.Take(3).Select((t, i) => (i + 1) + ". " + t.Title + " — " + t.Player)) + (box.Queue.Count() > 3 ? "\n… " + (box.Queue.Count() - 3) + " more queued" : "") : "";
             status.text = (media.State.Title ?? "No media") + " — " + (media.State.AddedBy ?? "") + "\n" + FormatTime(media.Position) + " / " + FormatTime(media.State.Duration) +
-                " · volume " + Mathf.RoundToInt(media.LocalVolume * 100) + "%" + (mediaInputError != null ? "\n" + mediaInputError : media.LocalError != null ? "\n" + media.LocalError : queue);
+                " · volume " + Mathf.RoundToInt(media.LocalVolume * 100) + "%" + (media.IsPreparing ? " · buffering…" : "") + (mediaInputError != null ? "\n" + mediaInputError : media.LocalError != null ? "\n" + media.LocalError : queue);
             if (preview != null) preview.texture = media.LocalPreview;
             if(musicAttribution!=null)musicAttribution.text=media.LocalCatalogTrack!=null ? "ccMixter · "+media.LocalCatalogTrack.Credit+" · "+media.LocalCatalogTrack.LicenseName : "Music continues after closing this menu · local volume";
         }
@@ -126,7 +119,7 @@ public sealed partial class LobbyPanel : MonoBehaviour
             status.text = (erase ? "ERASE" : "DRAW") + " · " + board.CommandCount + " commands · hold LMB";
             ReadPointer();
         }
-        else if (target is AirHockeyTable hockey) { status.text = hockey.Status; ReadPointer(); }
+
     }
     private void ReadPointer()
     {
@@ -150,7 +143,6 @@ public sealed partial class LobbyPanel : MonoBehaviour
     private void Close()
     {
         if (panel == null) return;
-        if (target is AirHockeyTable && player != null) target.Request(player, LobbyAction.Reset);
         Destroy(panel); panel = null; target = null; player = null; preview = null; drawingArea = null; pending.Clear();
         CancelMusicSearch(); mediaInputError = null;
         if (NetworkLobby.Instance != null) NetworkLobby.Instance.CargoOpen = false;

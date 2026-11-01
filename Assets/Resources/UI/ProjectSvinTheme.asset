@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2279cad63e5394f56958e10fcfe85e0b, type: 3}
+  m_Name: ProjectSvinTheme
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectSvinTheme
+  projectName: Project
+  gameName: S.V.I.N.
+  font: {fileID: 11400000, guid: 16653f6c60f0640a6a239afc077a93e2, type: 2}
+  headingFont: {fileID: 11400000, guid: 9da6902b8608b4b52b6406b72f563592, type: 2}
+  bodyFont: {fileID: 11400000, guid: e89b758f02f624833900d32a6d9be2e2, type: 2}
+  logoFont: {fileID: 11400000, guid: 46fc8cc7dbbc7441b986597910990dca, type: 2}
+  inputFont: {fileID: 11400000, guid: e89b758f02f624833900d32a6d9be2e2, type: 2}
+  brandFont: {fileID: 11400000, guid: 25cfe0467014849dfb9087f2d732f824, type: 2}
+  worldHeadingFont: {fileID: 12800000, guid: 134ce7760a05c4d1fb19af651217691f, type: 3}
+  buttonScale: 0.92
+  buttonTextScale: 0.9
+  background: {r: 0.14117648, g: 0.09803922, b: 0.12941177, a: 1}
+  panel: {r: 0.28235295, g: 0.19215687, b: 0.23529412, a: 1}
+  button: {r: 0.45882353, g: 0.25882354, b: 0.3254902, a: 1}
+  primary: {r: 0.9098039, g: 0.7058824, b: 0.75686276, a: 1}
+  text: {r: 0.9607843, g: 0.9098039, b: 0.85882354, a: 1}
+  primaryText: {r: 0.22352941, g: 0.13725491, b: 0.18039216, a: 1}
+  muted: {r: 0.8509804, g: 0.7372549, b: 0.7607843, a: 1}
+  border: {r: 0.7176471, g: 0.48235294, b: 0.5647059, a: 1}
+  track: {r: 0.34117648, g: 0.2, b: 0.25490198, a: 1}
+  selected: {r: 0.62352943, g: 0.36078432, b: 0.46666667, a: 1}
+  backgroundOpacity: 0.8
+  panelOpacity: 0.97
+  inGamePanelOpacity: 0.38
+  inGameButtonOpacity: 0.55
+  inGameTrackOpacity: 0.22
+  backgroundTravel: 26
+  backgroundPeriod: 20
+  backgroundZoom: 1.06
+  appearanceControlScale: 1.5
+  menuBackground: {fileID: 21300000, guid: 10c63e01698c849a088cb42bd1e286c5, type: 3}
+  panelShape: {fileID: 21300000, guid: 7caee5c58dc9d4b4faa0ffb85c10b329, type: 3}
+  buttonShape: {fileID: 21300000, guid: 433b32dda33b84ed49d801b8c41617a7, type: 3}
+  snout: {fileID: 21300000, guid: 0bc479c9d6ffb46a79c01d704074903b, type: 3}
+  hoof: {fileID: 21300000, guid: 5d87fe87a7182411a97cadda314b5851, type: 3}
+  hanger: {fileID: 21300000, guid: fb48e76e2587d4982b43df4122186287, type: 3}
+  gamepad: {fileID: 21300000, guid: f8decbfadc1934a7992dd86759bbcfe1, type: 3}
+  actionIcons:
+  - {fileID: 21300000, guid: 71d72e83ff76e4b13b89748265f6ccae, type: 3}
+  - {fileID: 21300000, guid: 4a6cc4eff4a0f4f7bb5c8380fda51bc3, type: 3}
+  - {fileID: 21300000, guid: e5b089338ddc04993ad276eb1ea1860b, type: 3}
+  - {fileID: 21300000, guid: 3e9365892c6e84ad6867fb7106d3f7ca, type: 3}
+  - {fileID: 21300000, guid: 78a90f80bcb9e4b1e8fe55812f099bab, type: 3}
+  - {fileID: 21300000, guid: 5d87fe87a7182411a97cadda314b5851, type: 3}
+  labels:
+  - key: Create Lobby
+    english: Create Lobby
+    russian: "\u0421\u043E\u0437\u0434\u0430\u0442\u044C \u043B\u043E\u0431\u0431\u0438"
+  - key: Join by Code
+    english: Join by Code
+    russian: "\u0412\u043E\u0439\u0442\u0438 \u043F\u043E \u043A\u043E\u0434\u0443"
+  - key: Play Solo
+    english: Play Solo
+    russian: "\u0418\u0433\u0440\u0430\u0442\u044C \u043E\u0434\u043D\u043E\u043C\u0443"
+  - key: How to Play
+    english: How to Play
+    russian: "\u041A\u0430\u043A \u0438\u0433\u0440\u0430\u0442\u044C"
+  - key: Settings
+    english: Settings
+    russian: "\u041D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438"
+  - key: Exit
+    english: Exit
+    russian: "\u0412\u044B\u0445\u043E\u0434"
+  - key: YOUR PIG
+    english: YOUR PIG
+    russian: "\u0422\u0412\u041E\u042F \u0421\u0412\u0418\u041D\u041A\u0410"
+  - key: Play
+    english: Play
+    russian: "\u0418\u0433\u0440\u0430\u0442\u044C"
+  - key: Back
+    english: "\u2190 Back"
+    russian: "\u2190 \u041D\u0430\u0437\u0430\u0434"
+  - key: Customize
+    english: Customize
+    russian: "\u041A\u0430\u0441\u0442\u043E\u043C\u0430\u0439\u0437"

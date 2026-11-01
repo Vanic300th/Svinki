@@ -76,7 +76,7 @@ public static class QuickGameAudit
   try
   {
    Move(p,table.transform.position+Vector3.back*2+Vector3.down*table.transform.position.y+Vector3.up*.05f);await Task.Delay(150);
-   Need(table.Validate(p),"Cannot approach hockey table");LobbyPanel.Open(table,p);await Task.Delay(300);
+   Need(table.Validate(p),"Cannot approach hockey table");AirHockeyControls.Open(table,p);await Task.Delay(300);
    Need(table.Status.Contains(lobby.Nickname),"Paddle was not assigned");
    Move(p,table.transform.position+Vector3.back*8+Vector3.down*table.transform.position.y+Vector3.up*.05f);await Task.Delay(650);
    Need(!table.Status.Contains(lobby.Nickname),"BUG: walking away closes hockey UI but keeps paddle assigned");

@@ -25,10 +25,13 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
+    - _HairInk: 0
     - _Pattern: 0
     - _Smoothness: 0.25
+    - _Tattoo: 0
+    - _TattooPlacement: 0
     m_Colors:
-    - _BaseColor: {r: 0.81, g: 0.365, b: 0.32, a: 1}
+    - _BaseColor: {r: 0.9254902, g: 0.6431373, b: 0.7137255, a: 1}
     - _PatternColor: {r: 0.08499997, g: 0.037, b: 0.024, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

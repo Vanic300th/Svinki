@@ -26,14 +26,14 @@ public sealed partial class NetworkLobby : MonoBehaviour
         public NetworkObject Avatar;
         public float ReservedUntil;
         public float NextReaction;
-        public int Appearance;
+        public long Appearance;
         public int ColorSlot;
     }
     public const int Capacity = 6;
     public int LastLobbyAnomalyRound { get; set; }
     public int LobbyAnomalyChoice { get; set; }
     public const float ReconnectGrace = 60f;
-    public const int ProtocolVersion = 25;
+    public const int ProtocolVersion = 27;
     public static NetworkLobby Instance { get; private set; }
     [SerializeField] private NetworkObject playerPrefab;
     [SerializeField] private GameObject offlinePlayerPrefab;
@@ -62,8 +62,8 @@ public sealed partial class NetworkLobby : MonoBehaviour
     public bool IsFinishReady => Snapshot.players.Any(p => p.id == identity && p.finishReady);
     public bool NearFinish => PlayerRegistry.Players.Any(p => p != null && p.IsLocal && RoundFinishStation.ForScene(p.gameObject.scene)?.Contains(p) == true);
     public string Identity => identity;
-    public int SelectedAppearance => PigFace.Selected;
-    public void SelectAppearance(int value)
+    public long SelectedAppearance => PigFace.Selected;
+    public void SelectAppearance(long value)
     {
         if (Busy || Offline || InSession && Snapshot.phase != SessionPhase.Lobby) return;
         PigFace.SaveSelection(value);
@@ -615,7 +615,7 @@ public sealed partial class NetworkLobby : MonoBehaviour
         }
         if (awaitingHello && Time.unscaledTime > connectionDeadline)
         { awaitingHello = false; EndFromService("The host did not respond. Check the code and connection, then try again."); }
-        if (Results == null && !LockerPhotoViewer.ConsumedEscape && !LobbyPanel.ConsumedEscape && !HowToPlay.ConsumedEscape && !PhotoAlbum.ConsumedEscape && !OutfitInventoryView.ConsumedEscape && !CartCargoView.ConsumedEscape && !InventoryOpen && !CargoOpen && !PlayerChat.ConsumedEscape && !EmoteWheel.ConsumedEscape && UnityEngine.InputSystem.Keyboard.current?.escapeKey.wasPressedThisFrame == true && (Snapshot.phase == SessionPhase.Round || Snapshot.phase == SessionPhase.Lobby || Offline))
+        if (Results == null && !SessionMenu.ConsumedEscape && !LockerPhotoViewer.ConsumedEscape && !LobbyPanel.ConsumedEscape && !AirHockeyControls.ConsumedEscape && !HowToPlay.ConsumedEscape && !PhotoAlbum.ConsumedEscape && !OutfitInventoryView.ConsumedEscape && !CartCargoView.ConsumedEscape && !InventoryOpen && !CargoOpen && !PlayerChat.ConsumedEscape && !EmoteWheel.ConsumedEscape && UnityEngine.InputSystem.Keyboard.current?.escapeKey.wasPressedThisFrame == true && (Snapshot.phase == SessionPhase.Round || Snapshot.phase == SessionPhase.Lobby || Offline))
         {
             MenuVisible = !MenuVisible;
             Cursor.lockState = MenuVisible ? CursorLockMode.None : CursorLockMode.Locked; Cursor.visible = MenuVisible;

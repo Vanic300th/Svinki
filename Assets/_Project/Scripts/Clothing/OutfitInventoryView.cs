@@ -10,7 +10,12 @@ public sealed class OutfitInventoryView : MonoBehaviour
     private NetworkLobby lobby;
     private TMP_FontAsset font;
     private GameObject panel;
-    private TMP_Text[] names = new TMP_Text[4];
+    private readonly UnityEngine.UI.RawImage[] pictures = new UnityEngine.UI.RawImage[4];
+    private readonly UnityEngine.UI.Image[] customPictures = new UnityEngine.UI.Image[4];
+    private readonly ClothingSlotGlyph[] emptySlots = new ClothingSlotGlyph[4];
+    private readonly ClothingDefinition[] shown = new ClothingDefinition[4];
+    private readonly RenderTexture[] thumbnails = new RenderTexture[4];
+    private ClothingIconRenderer iconRenderer;
     private UnityEngine.UI.Button[] drop = new UnityEngine.UI.Button[4];
     private UnityEngine.UI.Button dropAll;
     private TMP_Text state, finishHint;
@@ -23,23 +28,39 @@ public sealed class OutfitInventoryView : MonoBehaviour
         panel = new GameObject("Outfit Inventory", typeof(RectTransform), typeof(UnityEngine.UI.Image));
         panel.transform.SetParent(canvas, false);
         var root = (RectTransform)panel.transform; root.anchorMin = root.anchorMax = new Vector2(.5f, .5f);
-        root.sizeDelta = new Vector2(820, 690);
+        root.sizeDelta = new Vector2(1240, 540);
         var ownCanvas = panel.AddComponent<Canvas>(); ownCanvas.overrideSorting = true; ownCanvas.sortingOrder = 115;
         panel.AddComponent<UnityEngine.UI.GraphicRaycaster>();
         panel.GetComponent<UnityEngine.UI.Image>().color = new Color(.035f, .055f, .08f, 1);
         Label("YOUR OUTFIT", 35, 28, 580, 50, 34);
-        Button("Close", 640, 30, 145, 46, () => SetOpen(false));
-        Label("Dropped clothes can be picked up again", 35, 91, 750, 52, 23);
+        Button("Close", 1060, 30, 145, 46, () => SetOpen(false));
+        Label("Dropped clothes can be picked up again", 35, 86, 790, 42, 23);
+        state = Label("", 850, 90, 355, 34, 22); state.alignment = TextAlignmentOptions.MidlineRight;
+        var row = Rect("Clothing cards", panel.transform, 35, 143, 1170, 275);
+        var layout = row.gameObject.AddComponent<UnityEngine.UI.HorizontalLayoutGroup>();
+        layout.spacing = 18; layout.childControlWidth = layout.childControlHeight = true;
+        layout.childForceExpandWidth = layout.childForceExpandHeight = true;
         for (int i = 0; i < 4; i++)
         {
             int index = i;
-            Label(OutfitRatingCatalog.SlotName((ClothingSlot)i).ToUpperInvariant(), 35, 173 + i * 88, 450, 26, 18).color = new Color(.55f, .72f, .82f);
-            names[i] = Label("", 35, 200 + i * 88, 500, 43, 25);
-            drop[i] = Button("Drop", 560, 184 + i * 88, 225, 51, () => Drop((ClothingSlot)index));
+            var card = Rect(((ClothingSlot)i) + " clothing card", row, 0, 0, 279, 275);
+            var surface = card.gameObject.AddComponent<UnityEngine.UI.Image>(); surface.raycastTarget = false;
+            ProjectSvinSkin.Bind(surface, ProjectSvinRole.Track); ProjectSvinSkin.Outline(surface);
+            if (ProjectSvinTheme.Current != null) { surface.sprite = ProjectSvinTheme.Current.panelShape; surface.type = UnityEngine.UI.Image.Type.Sliced; }
+            var picture = Rect("Clothing picture", card, 18, 14, 243, 202);
+            pictures[i] = picture.gameObject.AddComponent<UnityEngine.UI.RawImage>();
+            pictures[i].raycastTarget = false; pictures[i].gameObject.SetActive(false);
+            var custom = Rect("Custom clothing icon", card, 18, 14, 243, 202);
+            customPictures[i] = custom.gameObject.AddComponent<UnityEngine.UI.Image>();
+            customPictures[i].preserveAspect = true; customPictures[i].raycastTarget = false; custom.gameObject.SetActive(false);
+            var empty = Rect("Empty slot silhouette", card, 78, 56, 123, 123);
+            emptySlots[i] = empty.gameObject.AddComponent<ClothingSlotGlyph>(); emptySlots[i].slot = (ClothingSlot)i;
+            emptySlots[i].color = ProjectSvinTheme.Current != null ? ProjectSvinTheme.Current.muted * new Color(1, 1, 1, .35f) : new Color(1, 1, 1, .25f);
+            emptySlots[i].raycastTarget = false;
+            drop[i] = Button("Drop", 16, 226, 247, 43, () => Drop((ClothingSlot)index), card);
         }
-        state = Label("", 35, 533, 750, 44, 23);
-        dropAll = Button("Drop All", 35, 592, 300, 52, () => { for (int i = 0; i < 4; i++) Drop((ClothingSlot)i); });
-        Label("Tab / I — inventory · Esc — close", 355, 606, 430, 38, 20);
+        dropAll = Button("Drop All", 35, 450, 300, 54, () => { for (int i = 0; i < 4; i++) Drop((ClothingSlot)i); });
+        Label("Tab / I — inventory · Esc — close", 625, 460, 580, 38, 20).alignment = TextAlignmentOptions.MidlineRight;
         panel.SetActive(false);
         var hint = Rect("Finish readiness", canvas, 0, 0, 760, 100);
         hint.anchorMin = hint.anchorMax = new Vector2(.5f, 0); hint.pivot = new Vector2(.5f, 0); hint.anchoredPosition = new Vector2(0, 35);
@@ -62,7 +83,7 @@ public sealed class OutfitInventoryView : MonoBehaviour
         {
             var outfit = Player.Outfit;
             for (int i = 0; i < 4; i++)
-            { var clothing = outfit.Get((ClothingSlot)i); GameLanguage.Set(names[i], clothing != null ? clothing.DisplayName : "Empty"); drop[i].interactable = clothing != null; }
+            { var clothing = outfit.Get((ClothingSlot)i); RefreshPicture(i, clothing); drop[i].interactable = clothing != null; }
             GameLanguage.Set(state, outfit.IsEmpty ? "No clothes equipped" : "Equipped: " + outfit.Count + " / 4");
             dropAll.interactable = !outfit.IsEmpty;
         }
@@ -73,6 +94,32 @@ public sealed class OutfitInventoryView : MonoBehaviour
             GameLanguage.Set(finishHint, lobby.Offline ? "Stay in the lift to finish the run" :
                 "In return lift: " + players.Count(p => p.finishReady) + " / " + players.Length + "\nStay inside · Leaving cancels departure");
         }
+    }
+    private void RefreshPicture(int index, ClothingDefinition clothing)
+    {
+        if (shown[index] == clothing) return;
+        shown[index] = clothing;
+        pictures[index].gameObject.SetActive(false); customPictures[index].gameObject.SetActive(false);
+        emptySlots[index].gameObject.SetActive(true);
+        if (clothing == null) return;
+        if (clothing.InventoryIcon != null)
+        {
+            customPictures[index].sprite = clothing.InventoryIcon;
+            customPictures[index].gameObject.SetActive(true); emptySlots[index].gameObject.SetActive(false); return;
+        }
+        if (iconRenderer == null) iconRenderer = new ClothingIconRenderer(transform);
+        if (thumbnails[index] == null)
+        {
+            thumbnails[index] = new RenderTexture(384, 320, 24, RenderTextureFormat.ARGB32) { name = "Inventory " + (ClothingSlot)index };
+            thumbnails[index].Create(); pictures[index].texture = thumbnails[index];
+        }
+        bool rendered = iconRenderer.Render(clothing, thumbnails[index]);
+        pictures[index].gameObject.SetActive(rendered); emptySlots[index].gameObject.SetActive(!rendered);
+    }
+    private void OnDestroy()
+    {
+        iconRenderer?.Dispose();
+        foreach (var texture in thumbnails) if (texture != null) { texture.Release(); Destroy(texture); }
     }
     public void SetOpen(bool value)
     {
@@ -103,9 +150,9 @@ public sealed class OutfitInventoryView : MonoBehaviour
         return label;
     }
     private TMP_Text Label(string text, float x, float y, float width, float height, float size) => Text(Rect(text, panel.transform, x, y, width, height), text, size);
-    private UnityEngine.UI.Button Button(string text, float x, float y, float width, float height, Action action)
+    private UnityEngine.UI.Button Button(string text, float x, float y, float width, float height, Action action, Transform parent = null)
     {
-        var rect = Rect(text, panel.transform, x, y, width, height);
+        var rect = Rect(text, parent != null ? parent : panel.transform, x, y, width, height);
         var image = rect.gameObject.AddComponent<UnityEngine.UI.Image>(); image.color = new Color(.19f, .27f, .34f);
         var button = rect.gameObject.AddComponent<UnityEngine.UI.Button>(); button.targetGraphic = image;
         var label = Text(Rect("Label", rect, 10, 4, width - 20, height - 8), text, 23); label.alignment = TextAlignmentOptions.Center;

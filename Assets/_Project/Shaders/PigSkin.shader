@@ -6,6 +6,8 @@ Shader "Svinki/Pig Skin"
         _PatternColor("Markings", Color) = (.085,.037,.024,1)
         _Pattern("Pattern", Float) = 0
         _Tattoo("Tattoo", Float) = 0
+        _TattooPlacement("Tattoo placement", Float) = 0
+        _HairInk("Integrated hair outline", Float) = 0
         _Smoothness("Smoothness", Range(0,1)) = .25
     }
     SubShader
@@ -18,6 +20,8 @@ Shader "Svinki/Pig Skin"
             half4 _PatternColor;
             half _Pattern;
             half _Tattoo;
+            half _TattooPlacement;
+            half _HairInk;
             half _Smoothness;
         CBUFFER_END
         struct Attributes
@@ -26,6 +30,7 @@ Shader "Svinki/Pig Skin"
             float3 normalOS : NORMAL;
             // Bind-pose coordinates survive skinning, so markings never slide on an animated pig.
             float3 restPosition : TEXCOORD3;
+            half4 color : COLOR;
             UNITY_VERTEX_INPUT_INSTANCE_ID
         };
         struct Varyings
@@ -35,6 +40,7 @@ Shader "Svinki/Pig Skin"
             half3 normalWS : TEXCOORD1;
             float3 restPosition : TEXCOORD2;
             half fog : TEXCOORD3;
+            half hairInk : TEXCOORD4;
             UNITY_VERTEX_OUTPUT_STEREO
         };
         Varyings PigVertex(Attributes input)
@@ -47,33 +53,92 @@ Shader "Svinki/Pig Skin"
             output.positionWS = position.positionWS;
             output.normalWS = TransformObjectToWorldNormal(input.normalOS);
             output.restPosition = input.restPosition;
+            output.hairInk = input.color.r;
             output.fog = ComputeFogFactor(position.positionCS.z);
             return output;
+        }
+        float2 CoatUV(float3 p)
+        {
+            // Project by the bind-pose surface normal, including limbs and the top of the head.
+            // 3D spheres used to intersect only occasional patches of the skin.
+            float3 n=abs(cross(ddx(p),ddy(p)));
+            return n.z>=max(n.x,n.y)?p.xy:n.x>=n.y?p.zy:p.xz;
+        }
+        float StarDistance(float2 q)
+        {
+            float sector=1.256637;
+            float angle=abs(frac(atan2(q.x,q.y)/sector+.5)-.5)*sector;
+            float2 folded=float2(sin(angle),cos(angle))*length(q);
+            float2 normal=normalize(float2(.9-.36*cos(.6283185),.36*sin(.6283185)));
+            return dot(folded,normal)-.9*normal.y;
+        }
+        float3 CoatRandom(float2 cell)
+        {
+            float3 h=frac(float3(cell.x,cell.y,cell.x)*float3(.1031,.1030,.0973));
+            h+=dot(h,h.yxz+33.33);
+            return frac((h.xxy+h.yzz)*h.zyx);
+        }
+        half ScatteredMarkings(float2 q)
+        {
+            float2 origin=floor(q);
+            float coverage=0;
+            // Search neighbouring centres so marks can cross cell boundaries without clipping.
+            // Vacancies, large jitter, scale and rotation changes remove visible rows.
+            [unroll] for(int y=-1;y<=1;y++)
+            [unroll] for(int x=-1;x<=1;x++)
+            {
+                float2 cell=origin+float2(x,y);
+                float3 random=CoatRandom(cell);
+                float3 variation=CoatRandom(cell+float2(41.73,19.29));
+                float2 local=q-cell-(.08+.84*random.xy);
+                float angle=variation.x*6.2831853;
+                local=mul(float2x2(cos(angle),-sin(angle),sin(angle),cos(angle)),local);
+                float size=lerp(.18,.35,random.z);
+                float d;
+                float mark;
+                if(_Pattern<1.5)
+                {
+                    d=length(local*float2(1,lerp(.85,1.18,variation.y)))-size;
+                    float edge=max(fwidth(d),.008);
+                    mark=1-smoothstep(-edge,edge,d);
+                }
+                else if(_Pattern<3.5)
+                {
+                    float2 shape=local*float2(1,lerp(.8,1.2,variation.y));
+                    float a=atan2(shape.y,shape.x);
+                    float radius=length(shape);
+                    float ring=abs(radius-size*(1+.15*sin(a*3+variation.z*6)))-size*.19;
+                    float edge=max(fwidth(ring),.008);
+                    float broken=smoothstep(-.55,-.15,sin(a*2+variation.z*8));
+                    float center=(1-smoothstep(size*.16,size*.32,radius))*step(.73,variation.y);
+                    mark=max((1-smoothstep(-edge,edge,ring))*broken,center);
+                }
+                else
+                {
+                    d=StarDistance(local/(size*1.65));
+                    float edge=max(fwidth(d),.018);
+                    mark=1-smoothstep(-edge,edge,d);
+                }
+                coverage=max(coverage,mark*step(.22,variation.z));
+            }
+            return coverage;
         }
         half Markings(float3 p)
         {
             if (_Pattern < .5) return 0;
-            if (_Pattern < 1.5)
-            {
-                float3 q = p * 8;
-                float3 cell = floor(q);
-                float3 center = .5 + .14 * sin(dot(cell, float3(12.3, 7.1, 19.7)) + float3(0, 2, 4));
-                float distance = length(frac(q) - center);
-                float edge = max(fwidth(distance), .018);
-                return 1 - smoothstep(.29 - edge, .29 + edge, distance);
-            }
+            float2 q=CoatUV(p)*8;
+            if (_Pattern < 1.5) return ScatteredMarkings(q);
             if (_Pattern < 2.5)
             {
-                float stripe = sin(p.y * 32 + p.x * 9 + p.z * 5);
-                float edge = max(fwidth(stripe), .04);
-                return smoothstep(.15 - edge, .15 + edge, stripe);
+                float stripe=sin(p.y*32+p.x*9+p.z*5);float edge=max(fwidth(stripe),.04);
+                return smoothstep(.15-edge,.15+edge,stripe);
             }
-            if (_Pattern < 3.5)
+            if (_Pattern < 3.5) return ScatteredMarkings(q);
+            if (_Pattern < 4.5)
             {
-                float saddle = length(float2(p.x / .46, (p.y - .91) / .35));
-                return (1 - smoothstep(.9, 1.03, saddle)) * (1 - smoothstep(-.02, .11, p.z));
+                return fmod(abs(floor(q.x)+floor(q.y)),2);
             }
-            return 1 - smoothstep(.38, .44, p.y);
+            return ScatteredMarkings(q);
         }
         float TriangleDistance(float2 q, float2 a, float2 b, float2 c)
         {
@@ -89,7 +154,27 @@ Shader "Svinki/Pig Skin"
         half Tattoo(float3 p)
         {
             if (_Tattoo < .5) return 0;
-            float2 q = float2(p.x, p.y - .88) / .16;
+            float2 q;float mask;
+            if(_TattooPlacement<.5)
+            {
+                q=float2(p.x-.425,p.y-.87)/.095;
+                mask=smoothstep(.34,.38,p.x)*smoothstep(.015,.065,p.z);
+            }
+            else if(_TattooPlacement<1.5)
+            {
+                q=float2(p.x+.18,p.y-1.08)/.13;
+                mask=(1-smoothstep(-.14,-.05,p.z))*(1-smoothstep(-.02,.02,p.x));
+            }
+            else if(_TattooPlacement<2.5)
+            {
+                q=float2(p.x-.177,p.y-.29)/.085;
+                mask=(1-smoothstep(.43,.49,p.y))*smoothstep(.01,.055,p.z);
+            }
+            else
+            {
+                q=float2(p.x,p.y-.96)/.20;
+                mask=1-smoothstep(-.14,-.05,p.z);
+            }
             float d=1;
             if (_Tattoo < 1.5)
             {
@@ -99,11 +184,7 @@ Shader "Svinki/Pig Skin"
             }
             else if (_Tattoo < 2.5)
             {
-                float sector=1.256637;
-                float angle=abs(frac(atan2(q.x,q.y)/sector+.5)-.5)*sector;
-                float2 folded=float2(sin(angle),cos(angle))*length(q);
-                float2 normal=normalize(float2(.9-.36*cos(.6283185),.36*sin(.6283185)));
-                d=dot(folded,normal)-.9*normal.y;
+                d=StarDistance(q);
             }
             else if (_Tattoo < 3.5)
             {
@@ -113,12 +194,11 @@ Shader "Svinki/Pig Skin"
             }
             else
             {
-                float bands=abs(sin((p.y-.93)*85));
-                return smoothstep(.355,.38,abs(p.x)) * (1-smoothstep(.58,.61,abs(p.x))) *
-                    smoothstep(.90,.915,p.y) * (1-smoothstep(1.035,1.05,p.y)) * smoothstep(.52,.65,bands);
+                float bands=abs(sin(q.y*10));
+                return mask*(1-smoothstep(.65,.8,abs(q.x)))*(1-smoothstep(.65,.8,abs(q.y)))*smoothstep(.42,.62,bands);
             }
             float edge=max(fwidth(d),.012);
-            return (1-smoothstep(-edge,edge,d)) * smoothstep(.10,.18,p.z);
+            return (1-smoothstep(-edge,edge,d))*mask;
         }
         half4 PigFragment(Varyings input) : SV_Target
         {
@@ -136,6 +216,7 @@ Shader "Svinki/Pig Skin"
             SurfaceData surface = (SurfaceData)0;
             surface.albedo = lerp(_BaseColor.rgb, _PatternColor.rgb, Markings(input.restPosition));
             surface.albedo = lerp(surface.albedo, half3(.015,.024,.032), Tattoo(input.restPosition));
+            surface.albedo = lerp(surface.albedo, half3(.012,.010,.009), _HairInk*smoothstep(.15,.85,input.hairInk));
             surface.alpha = 1;
             surface.smoothness = _Smoothness;
             surface.normalTS = half3(0,0,1);

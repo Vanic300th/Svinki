@@ -295,7 +295,7 @@ public static class SocialLobbySetup
     }
     private static void Anomaly(Scene scene, Transform parent)
     {
-        var go = Root("Lobby anomalies", parent, Vector3.zero); var manager = Network<LobbyAnomalyManager>(go);
+        var go = Root("Lobby anomalies", parent, Vector3.zero); var manager = Network<LobbyAnomalyManager>(go); Set(manager, "chancePerRound", 1f);
         var eventGo = Root("Quiet mannequin", go.transform, new Vector3(-9.2f, 0, 4.4f));
         var original = Items<ThrowableMannequin>(scene).First();
         // Clone only the visible model, never its AI, physics or network scripts.

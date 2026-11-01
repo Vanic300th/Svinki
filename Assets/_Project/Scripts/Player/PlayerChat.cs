@@ -44,6 +44,7 @@ public sealed class PlayerChat : MonoBehaviour
     {
         get
         {
+            if (ProjectSvinTheme.Current?.bodyFont != null) return ProjectSvinTheme.Current.bodyFont;
             if (font == null)
             {
                 var source = NetworkLobby.Instance != null ? NetworkLobby.Instance.MenuFont : null;

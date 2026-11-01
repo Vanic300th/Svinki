@@ -60,7 +60,7 @@ public sealed class ResultsPhotoAlbumsView : MonoBehaviour
             bool exists=i<results.entries.Length;players[i].gameObject.SetActive(exists);if(!exists)continue;
             var entry=results.entries[i];int count=lobby.RoundPhotoCount(entry.id);
             GameLanguage.Set(players[i].GetComponentInChildren<TMP_Text>(), entry.nickname+"\n"+(lobby.RoundAlbumReceived(entry.id)?count+" photos":"Receiving album…"));
-            players[i].GetComponent<UnityEngine.UI.Image>().color=i==playerIndex?new Color(.18f,.36f,.4f):new Color(.1f,.16f,.22f);
+            players[i].GetComponent<UnityEngine.UI.Image>().color=ProjectSvinSkin.Selection(i == playerIndex);
         }
         if(results.entries.Length==0)return;
         var selected=results.entries[playerIndex];var photos=lobby.RoundPhotos(selected.id);int expected=lobby.RoundPhotoCount(selected.id);

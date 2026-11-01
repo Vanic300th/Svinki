@@ -20,8 +20,19 @@ public sealed class SessionMenu : MonoBehaviour
     private OutfitResultsView resultsView;
     private HowToPlay guide;
     private UnityEngine.UI.Button englishLanguage, russianLanguage;
+    private ProjectSvinMenuLayout editableMenu;
+    private int themeRevision = -1;
+    private bool choosingPlay;
+    private bool appearanceOpen;
+    private TMP_Text lobbyCode;
+    private static SessionMenu activeMenu;
+    private static int escapeFrame = -1;
+    public static bool ConsumedEscape => escapeFrame == Time.frameCount || activeMenu != null && activeMenu.panel != null && activeMenu.panel.activeInHierarchy &&
+        (activeMenu.appearanceOpen || activeMenu.choosingPlay || activeMenu.settingsPanel != null && activeMenu.settingsPanel.activeSelf) &&
+        UnityEngine.InputSystem.Keyboard.current?.escapeKey.wasPressedThisFrame == true;
     private void Start()
     {
+        activeMenu = this;
         lobby = GetComponent<NetworkLobby>();
         var eventSystem = FindAnyObjectByType<EventSystem>();
         if (eventSystem == null)
@@ -44,7 +55,32 @@ public sealed class SessionMenu : MonoBehaviour
         canvasObject.GetComponent<Canvas>().sortingOrder = 100;
         var scaler = canvasObject.GetComponent<UnityEngine.UI.CanvasScaler>();
         scaler.uiScaleMode = UnityEngine.UI.CanvasScaler.ScaleMode.ScaleWithScreenSize;
-        scaler.referenceResolution = new Vector2(1920, 1080); scaler.matchWidthOrHeight = .5f;
+        scaler.referenceResolution = new Vector2(1920, 1080); scaler.matchWidthOrHeight = 1;
+        var menuPrefab = Resources.Load<GameObject>("UI/ProjectSvinMainMenu");
+        if (menuPrefab != null) editableMenu = Instantiate(menuPrefab, canvasObject.transform, false).GetComponent<ProjectSvinMenuLayout>();
+        if (editableMenu != null)
+        {
+            panel = editableMenu.menuPanel; title = editableMenu.gameTitle; status = editableMenu.status; roster = editableMenu.roster;
+            nickname = editableMenu.nickname; code = editableMenu.joinCode; nickname.text = lobby.Nickname;
+            var main = editableMenu.mainButtons;
+            if (editableMenu.playButton != null) editableMenu.playButton.onClick.AddListener(() => { choosingPlay = true; Refresh(); });
+            if (editableMenu.playBackButton != null) editableMenu.playBackButton.onClick.AddListener(() => { choosingPlay = false; Refresh(); });
+            if (editableMenu.customizeButton != null) editableMenu.customizeButton.onClick.AddListener(() => { appearanceOpen = true; Refresh(); });
+            if (editableMenu.appearanceClose != null) editableMenu.appearanceClose.onClick.AddListener(CloseAppearance);
+            if (editableMenu.russianLanguageButton != null) editableMenu.russianLanguageButton.onClick.AddListener(() => GameLanguage.Select("ru"));
+            if (editableMenu.englishLanguageButton != null) editableMenu.englishLanguageButton.onClick.AddListener(() => GameLanguage.Select("en"));
+            main[0].onClick.AddListener(() => guide.BeforeStart(() => { lobby.Nickname = nickname.text; lobby.CreateOnline(); }));
+            main[1].onClick.AddListener(() => guide.BeforeStart(() => { lobby.Nickname = nickname.text; lobby.JoinOnline(code.text); }));
+            main[2].onClick.AddListener(() => guide.BeforeStart(lobby.StartOffline));
+            main[3].onClick.AddListener(() => guide.Show());
+            main[4].onClick.AddListener(ShowSettings);
+            main[5].onClick.AddListener(QuitGame);
+            editableMenu.continueButton.onClick.AddListener(() => guide.BeforeStart(() => { lobby.Nickname = nickname.text; lobby.CreateOnline(true); }));
+            foreach (var label in editableMenu.GetComponentsInChildren<TMP_Text>(true))
+                if (GameLanguage.HasSource(label.text)) GameLanguage.Set(label, label.text);
+        }
+        else
+        {
         panel = new GameObject("Lobby panel", typeof(RectTransform), typeof(UnityEngine.UI.Image));
         panel.transform.SetParent(canvasObject.transform, false);
         RectTransform rect = panel.GetComponent<RectTransform>(); rect.anchorMin = rect.anchorMax = new Vector2(.5f, .5f);
@@ -60,8 +96,14 @@ public sealed class SessionMenu : MonoBehaviour
         nickname.onEndEdit.AddListener(value => lobby.Nickname = value);
         code.onValueChanged.AddListener(value => { if (value != value.ToUpperInvariant()) code.SetTextWithoutNotify(value.ToUpperInvariant()); });
         roster = Label("", 52, 305, 800, 285, 26);
+        }
+        if (editableMenu != null)
+        {
+            nickname.onEndEdit.AddListener(value => lobby.Nickname = value);
+            code.onValueChanged.AddListener(value => { if (value != value.ToUpperInvariant()) code.SetTextWithoutNotify(value.ToUpperInvariant()); });
+        }
         appearanceMenu = gameObject.AddComponent<PigAppearanceMenu>();
-        appearanceMenu.Build(canvasObject.transform, font, lobby);
+        appearanceMenu.Build(canvasObject.transform, font, lobby, editableMenu);
         BuildSettings();
         resultsView = gameObject.AddComponent<OutfitResultsView>();
         resultsView.Build(canvasObject.transform, font, lobby);
@@ -69,12 +111,14 @@ public sealed class SessionMenu : MonoBehaviour
         gameObject.AddComponent<CartCargoView>().Build(canvasObject.transform, font, lobby);
         gameObject.AddComponent<PlayerRoundHud>().Build(canvasObject.transform, font, lobby);
         guide=gameObject.AddComponent<HowToPlay>();guide.Build(canvasObject.transform,font,lobby);
+        BuildLobbyCode(canvasObject.transform);
         lobby.Changed += Refresh;
         GameLanguage.Changed += RefreshLanguage;
         Refresh();
     }
     private void OnDestroy()
     {
+        if (activeMenu == this) { activeMenu = null; escapeFrame = -1; }
         UnityEngine.SceneManagement.SceneManager.sceneLoaded -= OnSceneLoaded;
         if (lobby != null) lobby.Changed -= Refresh;
         GameLanguage.Changed -= RefreshLanguage;
@@ -87,11 +131,42 @@ public sealed class SessionMenu : MonoBehaviour
     }
     private void Update()
     {
+        if (ConsumedEscape)
+        {
+            escapeFrame = Time.frameCount;
+            if (appearanceOpen) CloseAppearance();
+            else if (settingsPanel.activeSelf) settingsPanel.SetActive(false);
+            else { choosingPlay = false; Refresh(); }
+        }
+        if (lobbyCode != null)
+        {
+            bool visible = lobby.InSession && !lobby.Offline && !string.IsNullOrEmpty(lobby.Snapshot.code);
+            lobbyCode.transform.parent.gameObject.SetActive(visible);
+            if (visible)
+            {
+                string value = (GameLanguage.Code == "ru" ? "КОД ЛОББИ  " : "LOBBY CODE  ") + lobby.Snapshot.code;
+                if (lobbyCode.text != value) GameLanguage.SetLiteral(lobbyCode, value);
+            }
+        }
         if (panel != null)
         {
             bool showingResults = lobby.Results != null;
             panel.SetActive(!showingResults && !lobby.InventoryOpen && (lobby.MenuVisible || !lobby.InSession && !lobby.Offline));
-            appearanceMenu?.SetVisible(panel.activeSelf);
+            if (editableMenu != null)
+            {
+                editableMenu.background.SetActive(panel.activeSelf);
+                editableMenu.gameObject.SetActive(panel.activeSelf);
+                if (!panel.activeSelf && settingsPanel.activeSelf) settingsPanel.SetActive(false);
+                var theme = ProjectSvinTheme.Current;
+                if (theme != null && themeRevision != theme.revision) { themeRevision = theme.revision; RefreshMenuText(); }
+            }
+            if (!panel.activeSelf) appearanceOpen = false;
+            if (editableMenu != null && editableMenu.appearanceOverlay != null)
+            {
+                editableMenu.appearanceOverlay.SetActive(panel.activeSelf && appearanceOpen);
+                if (appearanceOpen) editableMenu.appearanceOverlay.transform.SetAsLastSibling();
+            }
+            appearanceMenu?.SetVisible(panel.activeSelf && (editableMenu == null || appearanceOpen));
             resultsView?.SetVisible(showingResults);
             if (panel.activeSelf && (lobby.Offline || lobby.Snapshot.phase == SessionPhase.Round)) Refresh();
         }
@@ -100,10 +175,40 @@ public sealed class SessionMenu : MonoBehaviour
     {
         if (panel == null) return;
         var snapshot = lobby.Snapshot;
-        GameLanguage.Set(title, lobby.Offline ? "SVINKI — Single Player" : lobby.InSession ? "LOBBY  " + snapshot.code : "SVINKI — Play with Friends");
+        if (editableMenu == null) GameLanguage.Set(title, lobby.Offline ? "Project S.V.I.N. — Single Player" : lobby.InSession ? "LOBBY  " + snapshot.code : "Project S.V.I.N.");
+        else RefreshMenuText();
         GameLanguage.Set(status, lobby.Status);
         nickname.gameObject.SetActive(!lobby.InSession && !lobby.Offline && !lobby.Busy);
         code.gameObject.SetActive(nickname.gameObject.activeSelf);
+        if (editableMenu != null)
+        {
+            bool home = !lobby.InSession && !lobby.Offline && !lobby.Busy;
+            if (!home) choosingPlay = false;
+            bool compactMenu = editableMenu.playButton != null;
+            bool modes = home && (!compactMenu || choosingPlay);
+            for (int i = 0; i < editableMenu.mainButtons.Length; i++)
+                editableMenu.mainButtons[i].gameObject.SetActive(home && (i < 3 ? modes : !compactMenu || !choosingPlay));
+            if (editableMenu.customizeButton != null) editableMenu.customizeButton.gameObject.SetActive(home && !choosingPlay);
+            if (compactMenu)
+            {
+                editableMenu.playButton.gameObject.SetActive(home && !choosingPlay);
+                editableMenu.playBackButton.gameObject.SetActive(modes);
+                editableMenu.playOptionsPanel.SetActive(modes);
+                nickname.gameObject.SetActive(modes); code.gameObject.SetActive(modes);
+                status.gameObject.SetActive(!home || modes);
+            }
+#if UNITY_WEBGL
+            editableMenu.mainButtons[0].interactable = editableMenu.mainButtons[1].interactable = false;
+#endif
+            editableMenu.continueButton.gameObject.SetActive(modes && System.IO.File.Exists(CheckpointStore.DefaultPath));
+            editableMenu.sessionActions.gameObject.SetActive(!home);
+            roster.gameObject.SetActive(lobby.InSession);
+            if (home)
+            {
+                if (controls.Count > 0) { foreach (var control in controls) Destroy(control); controls.Clear(); layoutKey = null; }
+                return;
+            }
+        }
         // Names remain literal even when a nickname happens to be an English UI word.
         roster.text = string.Join("\n", snapshot.players.Select(p =>
             (p.id == snapshot.host ? GameLanguage.Text("Host: ") : "• ") + p.nickname + (p.id == lobby.Identity ? GameLanguage.Text(" (you)") : "") + " — " +
@@ -118,10 +223,11 @@ public sealed class SessionMenu : MonoBehaviour
         int row = 0;
         void Add(string label, Action action, bool enabled = true)
         {
-            var button = Button(label, 52, 605 + row++ * 60, 795, action); button.interactable = enabled; controls.Add(button.gameObject);
+            var button = editableMenu != null ? SessionAction(label, row++, action) : Button(label, 52, 605 + row++ * 60, 795, action);
+            button.interactable = enabled; controls.Add(button.gameObject);
         }
         if (lobby.Busy) { Add("Cancel Connection", lobby.Cancel); return; }
-        if (lobby.Offline) { Add("Resume", Resume); Add("Main Menu", lobby.Leave); return; }
+        if (lobby.Offline) { Add("Resume", Resume); Add("Settings", ShowSettings); Add("Main Menu", lobby.Leave); return; }
         if (!lobby.InSession)
         {
 #if !UNITY_WEBGL
@@ -138,6 +244,8 @@ public sealed class SessionMenu : MonoBehaviour
         if (snapshot.phase == SessionPhase.Lobby)
         {
             Add("Enter Friendslop Lobby", Resume);
+            if (editableMenu != null && editableMenu.customizeButton != null)
+                Add(GameLanguage.Code == "ru" ? "Кастомайз" : "Customize", () => { appearanceOpen = true; Refresh(); });
         }
         else if (snapshot.phase == SessionPhase.Round)
         {
@@ -146,22 +254,41 @@ public sealed class SessionMenu : MonoBehaviour
         Add("Copy Code: " + snapshot.code, () => { GUIUtility.systemCopyBuffer = snapshot.code; lobby.Report("Code copied: " + snapshot.code); });
         if (lobby.IsHost) Add(snapshot.closed ? "Open Admission" : "Close Admission", lobby.ToggleAdmission);
         Add(lobby.IsHost ? "End Session" : "Leave Session", lobby.Leave);
+        if (editableMenu != null) Add("Settings", ShowSettings);
         if (lobby.IsHost)
         {
             int n = 0;
             foreach (var player in snapshot.players.Where(p => p.id != snapshot.host))
             {
                 string id = player.id;
-                var button = Button("× " + player.nickname, 600, 315 + n++ * 44, 245, () => lobby.Kick(id), 38);
+                var button = Button("× " + player.nickname, editableMenu != null ? 440 : 600, 330 + n++ * 44, editableMenu != null ? 210 : 245, () => lobby.Kick(id), 38);
                 controls.Add(button.gameObject);
             }
         }
     }
     private void BuildSettings()
     {
-        var box = Rect("Settings", panel.transform, 52, 250, 795, 530);
-        settingsPanel = box.gameObject;
-        settingsPanel.AddComponent<UnityEngine.UI.Image>().color = new Color(.07f,.10f,.15f,1);
+        RectTransform box;
+        if (editableMenu != null)
+        {
+            var overlay = Rect("Settings Overlay", editableMenu.transform, 0, 0, 1920, 1080);
+            var wash = overlay.gameObject.AddComponent<UnityEngine.UI.Image>(); wash.color = new Color(.07f, .03f, .055f, .9f);
+            settingsPanel = overlay.gameObject;
+            var window = Rect("Settings Window", overlay, 535, 80, 850, 920);
+            ProjectSvinSkin.Bind(window.gameObject.AddComponent<UnityEngine.UI.Image>(), ProjectSvinRole.Panel); ProjectSvinSkin.Outline(window.GetComponent<UnityEngine.UI.Image>());
+            Label("Settings", 28, 20, 650, 60, 36, window);
+            var closeRect = Rect("Close", window, 748, 20, 72, 54);
+            var closeImage = closeRect.gameObject.AddComponent<UnityEngine.UI.Image>(); ProjectSvinSkin.Bind(closeImage, ProjectSvinRole.Button);
+            var close = closeRect.gameObject.AddComponent<UnityEngine.UI.Button>(); close.targetGraphic = closeImage;
+            Label("×", 0, 0, 72, 54, 32, closeRect).alignment = TextAlignmentOptions.Center;
+            close.onClick.AddListener(() => settingsPanel.SetActive(false));
+            box = Rect("Settings Controls", window, 28, 95, 795, 795);
+        }
+        else
+        {
+            box = Rect("Settings", panel.transform, 52, 250, 795, 530); settingsPanel = box.gameObject;
+            settingsPanel.AddComponent<UnityEngine.UI.Image>().color = new Color(.07f,.10f,.15f,1);
+        }
         Label("Mouse Sensitivity", 24, 20, 730, 44, 26, box);
         var value = Label("", 24, 65, 730, 34, 22, box);
         var track = Rect("Mouse sensitivity", box, 28, 122, 735, 40);
@@ -206,21 +333,102 @@ public sealed class SessionMenu : MonoBehaviour
         {
             var language = Rect(name + " language", box, x, 450, 350, 52);
             var image = language.gameObject.AddComponent<UnityEngine.UI.Image>();
+            if (ProjectSvinTheme.Current != null) { ProjectSvinSkin.Bind(image, ProjectSvinRole.Button); ProjectSvinSkin.Outline(image); }
             var choice = language.gameObject.AddComponent<UnityEngine.UI.Button>(); choice.targetGraphic = image;
             Label(name, 10, 5, 330, 42, 24, language).alignment = TextAlignmentOptions.Center;
             choice.onClick.AddListener(() => GameLanguage.Select(code)); return choice;
         }
         englishLanguage = LanguageButton("English",24,"en");
         russianLanguage = LanguageButton("Русский",400,"ru");
+        void HudSize(string caption, float y, float initial, Action<float> save)
+        {
+            var label = Label("", 24, y, 730, 38, 24, box);
+            var trackRect = Rect(caption, box, 28, y + 48, 735, 36);
+            trackRect.gameObject.AddComponent<UnityEngine.UI.Image>().color = background.color;
+            var area = Rect("Handle area", trackRect, 12, 0, 711, 36);
+            var grip = Rect("Handle", area, 0, 0, 24, 36);
+            grip.sizeDelta = new Vector2(24, 0); grip.pivot = new Vector2(.5f, .5f); grip.anchoredPosition = Vector2.zero;
+            var gripImage = grip.gameObject.AddComponent<UnityEngine.UI.Image>(); gripImage.color = handleImage.color;
+            var sizeSlider = trackRect.gameObject.AddComponent<UnityEngine.UI.Slider>();
+            sizeSlider.minValue = HudDisplaySettings.MinimumScale; sizeSlider.maxValue = HudDisplaySettings.MaximumScale;
+            sizeSlider.handleRect = grip; sizeSlider.targetGraphic = gripImage;
+            sizeSlider.SetValueWithoutNotify(initial);
+            void UpdateLabel(float amount) => GameLanguage.Set(label, caption + ": " + Mathf.RoundToInt(amount * 100) + "%");
+            UpdateLabel(initial);
+            sizeSlider.onValueChanged.AddListener(amount => { save(amount); UpdateLabel(amount); });
+        }
+        HudSize("Minimap size", 530, HudDisplaySettings.MinimapScale, HudDisplaySettings.SetMinimap);
+        HudSize("Pig portrait size", 640, HudDisplaySettings.PigScale, HudDisplaySettings.SetPig);
         RefreshLanguage();
         settingsPanel.SetActive(false);
     }
     private void RefreshLanguage()
     {
         layoutKey = null; Refresh();
-        if (englishLanguage != null) englishLanguage.targetGraphic.color = GameLanguage.Code == "en" ? new Color(.28f,.47f,.5f) : new Color(.16f,.26f,.36f);
-        if (russianLanguage != null) russianLanguage.targetGraphic.color = GameLanguage.Code == "ru" ? new Color(.28f,.47f,.5f) : new Color(.16f,.26f,.36f);
+        if (englishLanguage != null) englishLanguage.targetGraphic.color = ProjectSvinSkin.Selection(GameLanguage.Code == "en");
+        if (russianLanguage != null) russianLanguage.targetGraphic.color = ProjectSvinSkin.Selection(GameLanguage.Code == "ru");
         if (settingsPanel != null && settingsPanel.activeSelf) settingsPanel.transform.SetAsLastSibling();
+    }
+    private void RefreshMenuText()
+    {
+        var theme = ProjectSvinTheme.Current;
+        if (editableMenu == null || theme == null) return;
+        GameLanguage.SetLiteral(editableMenu.projectTitle, theme.projectName);
+        GameLanguage.SetLiteral(title, theme.gameName);
+        GameLanguage.SetLiteral(editableMenu.appearanceTitle, theme.Label("YOUR PIG"));
+        if (editableMenu.playButton != null) GameLanguage.SetLiteral(editableMenu.playButton.GetComponentInChildren<TMP_Text>(), theme.Label("Play"));
+        if (editableMenu.playBackButton != null) GameLanguage.SetLiteral(editableMenu.playBackButton.GetComponentInChildren<TMP_Text>(), theme.Label("Back"));
+        if (editableMenu.customizeButton != null) GameLanguage.SetLiteral(editableMenu.customizeButton.GetComponentInChildren<TMP_Text>(), theme.Label("Customize"));
+        if (editableMenu.appearanceClose != null) GameLanguage.SetLiteral(editableMenu.appearanceClose.GetComponentInChildren<TMP_Text>(), "×");
+        string[] keys = { "Create Lobby", "Join by Code", "Play Solo", "How to Play", "Settings", "Exit" };
+        for (int i = 0; i < keys.Length; i++) GameLanguage.SetLiteral(editableMenu.mainButtons[i].GetComponentInChildren<TMP_Text>(), theme.Label(keys[i]));
+        RefreshLanguageButton(editableMenu.russianLanguageButton, "ru", theme);
+        RefreshLanguageButton(editableMenu.englishLanguageButton, "en", theme);
+    }
+    private static void RefreshLanguageButton(UnityEngine.UI.Button button, string code, ProjectSvinTheme theme)
+    {
+        if (button == null) return;
+        var label = button.GetComponentInChildren<TMP_Text>();
+        if (label == null) return;
+        bool selected = GameLanguage.Code == code;
+        label.color = selected ? theme.primary : theme.muted;
+        label.fontStyle = selected ? FontStyles.Underline : FontStyles.Normal;
+    }
+    private void CloseAppearance()
+    {
+        appearanceOpen = false;
+        if (sessionEvents != null) sessionEvents.SetSelectedGameObject(null);
+    }
+    private void BuildLobbyCode(Transform canvas)
+    {
+        var root = Rect("Shared lobby code", canvas, 0, 0, 430, 66);
+        root.anchorMin = root.anchorMax = root.pivot = new Vector2(.5f, 1);
+        root.anchoredPosition = new Vector2(0, -14);
+        var image = root.gameObject.AddComponent<UnityEngine.UI.Image>();
+        ProjectSvinSkin.Bind(image, ProjectSvinRole.Panel);
+        image.raycastTarget = false;
+        lobbyCode = Label("", 12, 0, 406, 66, 25, root);
+        lobbyCode.alignment = TextAlignmentOptions.Center;
+        lobbyCode.textWrappingMode = TextWrappingModes.NoWrap;
+        var typography = ProjectSvinSkin.Bind(lobbyCode, ProjectSvinRole.Text);
+        typography.fontRole = ProjectSvinFontRole.Heading; typography.Apply();
+        root.gameObject.SetActive(false);
+    }
+    private void ShowSettings() { settingsPanel.SetActive(!settingsPanel.activeSelf); if (settingsPanel.activeSelf) { RefreshLanguage(); settingsPanel.transform.SetAsLastSibling(); } }
+    private void QuitGame()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+    }
+    private UnityEngine.UI.Button SessionAction(string text, int row, Action action)
+    {
+        var button = Instantiate(editableMenu.actionTemplate, editableMenu.sessionActions, false);
+        button.name = text; button.gameObject.SetActive(true);
+        button.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -row * 72);
+        GameLanguage.Set(button.GetComponentInChildren<TMP_Text>(), text); button.onClick.AddListener(() => action()); return button;
     }
     private void Resume()
     {

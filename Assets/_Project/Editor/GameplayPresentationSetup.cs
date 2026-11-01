@@ -284,16 +284,7 @@ public static class GameplayPresentationSetup
             if (data == null) data = camera.gameObject.AddComponent<UniversalAdditionalCameraData>();
             data.renderPostProcessing = true; data.volumeLayerMask = 1;
         }
-        foreach (PlanarMirror mirror in InScene<PlanarMirror>(scene))
-        {
-            Transform fixture = mirror.transform.Find("Mirror warm light");
-            if (fixture == null) { fixture = new GameObject("Mirror warm light").transform; fixture.SetParent(mirror.transform, false); }
-            fixture.localPosition = new Vector3(0, .8f, 1);
-            var lamp = fixture.GetComponent<Light>();
-            if (lamp == null) lamp = fixture.gameObject.AddComponent<Light>();
-            lamp.type = LightType.Point; lamp.color = new Color(1, .85f, .65f); lamp.intensity = 4; lamp.range = 4;
-            lamp.shadows = LightShadows.Soft;
-        }
+        // Portrait lighting is authored with the mirror prefab.
         EditorUtility.SetDirty(profile);
     }
 

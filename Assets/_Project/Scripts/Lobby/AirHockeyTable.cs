@@ -22,14 +22,30 @@ public sealed class AirHockeyTable : LobbyInteractable
     public override void OnStartServer() { base.OnStartServer(); Set(new AirHockeyState { PaddleA = new Vector2(0, -1.3f), PaddleB = new Vector2(0, 1.3f) }); }
     private void Start() { if (NetworkLobby.Instance?.Offline == true) offlineState = new AirHockeyState { PaddleA = new Vector2(0, -1.3f), PaddleB = new Vector2(0, 1.3f) }; }
     public override string Prompt(PlayerAvatar player) => "E — air hockey · control a paddle";
-    public override void Interact(PlayerAvatar player) => LobbyPanel.Open(this, player);
+    public bool CanPlayFrom(PlayerAvatar player) => player != null && transform.InverseTransformPoint(player.EyePosition).y >= 1.25f &&
+        transform.InverseTransformPoint(player.Position).y >= -.2f;
+    public bool IsTopHit(PlayerAvatar player, RaycastHit hit) => CanPlayFrom(player) &&
+        Vector3.Dot(hit.normal, transform.up) > .45f && transform.InverseTransformPoint(hit.point).y >= 1f;
+    protected override bool OwnsInteractionHit(Collider hit) => base.OwnsInteractionHit(hit) || hit.GetComponentInParent<LobbyProp>() == puck;
+    public override bool Validate(PlayerAvatar player) => CanPlayFrom(player) && base.Validate(player);
+    public int PreferredSide(PlayerAvatar player) => transform.InverseTransformPoint(player.Position).z <= 0 ? 0 : 1;
+    public int Seat(PlayerAvatar player) => State.A == Identity(player) ? 0 : State.B == Identity(player) ? 1 : -1;
+    private float HorizontalLimit => Mathf.Max(.1f, halfSize.x - .2f);
+    public Vector2 EncodePointer(Vector3 local, int side) => new Vector2(Mathf.InverseLerp(-HorizontalLimit, HorizontalLimit, local.x),
+        side == 0 ? Mathf.InverseLerp(-.25f, -halfSize.y + .25f, local.z) : Mathf.InverseLerp(.25f, halfSize.y - .25f, local.z));
+    public override void Interact(PlayerAvatar player) => AirHockeyControls.Open(this, player);
     public override void Apply(PlayerAvatar player, LobbyAction action, string text, int index, Vector2[] points)
     {
+        if (action != LobbyAction.Reset && !CanPlayFrom(player)) return;
         string id = Identity(player); var next = State;
         if (action == LobbyAction.Toggle)
         {
             if (next.A == id || next.B == id) return;
-            if (string.IsNullOrEmpty(next.A)) next.A = id; else if (string.IsNullOrEmpty(next.B)) next.B = id;
+            if (index == 1 && string.IsNullOrEmpty(next.B)) next.B = id;
+            else if (string.IsNullOrEmpty(next.A)) next.A = id;
+            else if (string.IsNullOrEmpty(next.B)) next.B = id;
+            if (next.A == id) lastA = Time.unscaledTime - .1f;
+            if (next.B == id) lastB = Time.unscaledTime - .1f;
         }
         else if (action == LobbyAction.Reset) { if (next.A == id) next.A = null; if (next.B == id) next.B = null; }
         else if (action == LobbyAction.Stroke && points != null && points.Length > 0)
@@ -39,12 +55,12 @@ public sealed class AirHockeyTable : LobbyInteractable
             float now = Time.unscaledTime;
             if (next.A == id)
             {
-                var wanted = new Vector2((point.x * 2 - 1) * halfSize.x, -.25f - point.y * (halfSize.y - .5f));
+                var wanted = new Vector2((point.x * 2 - 1) * HorizontalLimit, -.25f - point.y * (halfSize.y - .5f));
                 next.PaddleA = Vector2.MoveTowards(next.PaddleA, wanted, paddleSpeed * Mathf.Min(.15f, now - lastA)); lastA = now;
             }
             else if (next.B == id)
             {
-                var wanted = new Vector2((point.x * 2 - 1) * halfSize.x, .25f + point.y * (halfSize.y - .5f));
+                var wanted = new Vector2((point.x * 2 - 1) * HorizontalLimit, .25f + point.y * (halfSize.y - .5f));
                 next.PaddleB = Vector2.MoveTowards(next.PaddleB, wanted, paddleSpeed * Mathf.Min(.15f, now - lastB)); lastB = now;
             }
         }
@@ -67,7 +83,7 @@ public sealed class AirHockeyTable : LobbyInteractable
         if (string.IsNullOrEmpty(id)) return false;
         return PlayerRegistry.Players.Any(player => player != null && player.isActiveAndEnabled &&
             player.gameObject.scene == gameObject.scene && Identity(player) == id && player.IsAlive &&
-            player.GetComponent<PlayerKnockdown>()?.IsDown != true &&
+            player.GetComponent<PlayerKnockdown>()?.IsDown != true && CanPlayFrom(player) &&
             (player.Position - transform.position).sqrMagnitude <= controlRange * controlRange &&
             (NetworkLobby.Instance?.Offline == true || NetworkLobby.Instance?.CanUseLobby(player.GetComponent<NetworkPlayer>()) == true));
     }

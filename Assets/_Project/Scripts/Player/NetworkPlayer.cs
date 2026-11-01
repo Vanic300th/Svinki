@@ -75,7 +75,7 @@ public sealed partial class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
     private readonly SyncVar<string> participantId = new SyncVar<string>();
     private readonly SyncVar<string> participantName = new SyncVar<string>();
     private readonly SyncVar<PlayerPose> pose = new SyncVar<PlayerPose>();
-    private readonly SyncVar<int> pigFace = new SyncVar<int>();
+    private readonly SyncVar<long> pigFace = new SyncVar<long>();
     private readonly SyncVar<int> hitsTaken = new SyncVar<int>();
     public int HitsTaken => hitsTaken.Value;
     public bool IsDead => hitsTaken.Value >= 2;
@@ -90,12 +90,12 @@ public sealed partial class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
     public float VerticalSpeed => pose.Value.VerticalSpeed;
     public bool Grounded => pose.Value.Grounded;
     public void SetIdentity(string id, string nickname) { participantId.Value = id; participantName.Value = nickname; }
-    public void SetAppearance(int value)
+    public void SetAppearance(long value)
     {
         pigFace.Value = PigFace.Sanitize(value);
         pigAppearance?.Apply(pigFace.Value);
     }
-    private void OnPigFaceChanged(int previous, int next, bool asServer) => pigAppearance?.Apply(next);
+    private void OnPigFaceChanged(long previous, long next, bool asServer) => pigAppearance?.Apply(next);
     public void RestoreOutfit(string[] ids)
     {
         var items = new List<ClothingDefinition>();

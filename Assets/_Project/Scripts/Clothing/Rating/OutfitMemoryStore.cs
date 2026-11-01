@@ -7,7 +7,7 @@ using UnityEngine;
 /// <summary>Only outfits explicitly selected on the runway are saved, independently of round inventory.</summary>
 public static class OutfitMemoryStore
 {
-    [Serializable] public sealed class Entry { public string id, nickname; public int round, appearance; public string[] clothing, names; }
+    [Serializable] public sealed class Entry { public string id, nickname; public int round; public long appearance; public string[] clothing, names; }
     [Serializable] private sealed class Archive { public Entry[] entries = Array.Empty<Entry>(); }
     private static List<Entry> entries;
     private static string path;

@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
@@ -9,7 +11,8 @@ public sealed class PlanarMirror : MonoBehaviour
 {
     [SerializeField] private Camera sourceCamera;
     [SerializeField] private Renderer mirrorSurface;
-    [SerializeField, Range(0.25f, 1f)] private float resolutionScale = 0.6f;
+    [SerializeField, Range(0.25f, 1f)] private float resolutionScale = 0.85f;
+    [SerializeField, Range(512, 2048)] private int maximumResolution = 1536;
     [SerializeField, Min(0f)] private float clipPlaneOffset = 0.03f;
 
     private Camera reflectionCamera;
@@ -52,50 +55,56 @@ public sealed class PlanarMirror : MonoBehaviour
     {
         if (reflectionCamera == null) Initialize();
         if (reflectionCamera == null || sourceCamera == null) return;
+        reflectionCamera.enabled = sourceCamera.isActiveAndEnabled &&
+            PrepareReflection(sourceCamera, sourceCamera.pixelWidth, sourceCamera.pixelHeight);
+    }
+
+    private bool PrepareReflection(Camera view, int width, int height)
+    {
         Vector3 planePosition = mirrorSurface.bounds.center;
         Vector3 normal = transform.forward;
-        bool inFront = Vector3.Dot(sourceCamera.transform.position - planePosition, normal) > 0.05f;
-        GeometryUtility.CalculateFrustumPlanes(sourceCamera, frustum);
-        if (!sourceCamera.isActiveAndEnabled || !inFront || !GeometryUtility.TestPlanesAABB(frustum, mirrorSurface.bounds))
+        bool inFront = Vector3.Dot(view.transform.position - planePosition, normal) > 0.05f;
+        GeometryUtility.CalculateFrustumPlanes(view, frustum);
+        if (!inFront || !GeometryUtility.TestPlanesAABB(frustum, mirrorSurface.bounds))
         {
             reflectionCamera.enabled = false;
-            return;
+            return false;
         }
 
-        EnsureTexture();
-        reflectionCamera.CopyFrom(sourceCamera);
-        reflectionCamera.depth = sourceCamera.depth - 100f;
+        EnsureTexture(width, height);
+        reflectionCamera.CopyFrom(view);
+        reflectionCamera.depth = view.depth - 100f;
         reflectionCamera.targetTexture = reflectionTexture;
         int localPlayerLayer = LayerMask.NameToLayer("LocalPlayerMirror");
         int mirrorLayer = LayerMask.NameToLayer("MirrorSurface");
-        int mask = sourceCamera.cullingMask & ~(1 << 5); // HUD находится на слое UI.
+        int mask = view.cullingMask & ~(1 << 5); // HUD находится на слое UI.
         if (localPlayerLayer >= 0) mask |= 1 << localPlayerLayer;
         if (mirrorLayer >= 0) mask &= ~(1 << mirrorLayer);
         int bodyLayer = LayerMask.NameToLayer("FirstPersonBody");
         if (bodyLayer >= 0) mask &= ~(1 << bodyLayer);
         reflectionCamera.cullingMask = mask;
 
-        Vector3 sourcePosition = sourceCamera.transform.position;
+        Vector3 sourcePosition = view.transform.position;
         Vector3 reflectedPosition = sourcePosition - 2f * Vector3.Dot(sourcePosition - planePosition, normal) * normal;
-        Vector3 reflectedForward = Vector3.Reflect(sourceCamera.transform.forward, normal);
-        Vector3 reflectedUp = Vector3.Reflect(sourceCamera.transform.up, normal);
+        Vector3 reflectedForward = Vector3.Reflect(view.transform.forward, normal);
+        Vector3 reflectedUp = Vector3.Reflect(view.transform.up, normal);
         reflectionCamera.transform.SetPositionAndRotation(reflectedPosition,
             Quaternion.LookRotation(reflectedForward, reflectedUp));
 
         float distance = -Vector3.Dot(normal, planePosition);
         Matrix4x4 reflection = ReflectionMatrix(new Vector4(normal.x, normal.y, normal.z, distance));
-        reflectionCamera.worldToCameraMatrix = sourceCamera.worldToCameraMatrix * reflection;
-        reflectionCamera.projectionMatrix = sourceCamera.projectionMatrix;
+        reflectionCamera.worldToCameraMatrix = view.worldToCameraMatrix * reflection;
+        reflectionCamera.projectionMatrix = view.projectionMatrix;
         Vector4 clipPlane = CameraSpacePlane(planePosition, normal);
         reflectionCamera.projectionMatrix = reflectionCamera.CalculateObliqueMatrix(clipPlane);
-        reflectionCamera.enabled = true;
+        return true;
     }
 
-    private void EnsureTexture()
+    private void EnsureTexture(int sourceWidth, int sourceHeight)
     {
-        int sourceWidth = Mathf.Max(1, sourceCamera.pixelWidth);
-        int sourceHeight = Mathf.Max(1, sourceCamera.pixelHeight);
-        float scale = Mathf.Min(resolutionScale, 768f / Mathf.Max(sourceWidth, sourceHeight));
+        sourceWidth = Mathf.Max(1, sourceWidth);
+        sourceHeight = Mathf.Max(1, sourceHeight);
+        float scale = Mathf.Min(resolutionScale, (float)maximumResolution / Mathf.Max(sourceWidth, sourceHeight));
         int width = Mathf.Max(128, Mathf.RoundToInt(sourceWidth * scale));
         int height = Mathf.Max(128, Mathf.RoundToInt(sourceHeight * scale));
         if (reflectionTexture != null && reflectionTexture.width == width && reflectionTexture.height == height)
@@ -116,6 +125,46 @@ public sealed class PlanarMirror : MonoBehaviour
         reflectionTexture.Create();
         surfaceProperties.SetTexture("_ReflectionTex", reflectionTexture);
         mirrorSurface.SetPropertyBlock(surfaceProperties);
+    }
+
+    /// <summary>Uses the shutter camera's lens for reflections, then restores the live view.</summary>
+    public static IDisposable ForPhoto(Camera camera, int width, int height)
+    {
+        var scope = new PhotoReflectionScope();
+        try
+        {
+            foreach (var mirror in FindObjectsByType<PlanarMirror>())
+            {
+                if (!mirror.isActiveAndEnabled) continue;
+                mirror.Initialize();
+                if (mirror.reflectionCamera == null) continue;
+                scope.mirrors.Add(mirror);
+                mirror.reflectionCamera.enabled = false;
+                if (!mirror.PrepareReflection(camera, width, height)) continue;
+                var request = new UniversalRenderPipeline.SingleCameraRequest { destination = mirror.reflectionTexture };
+                if (!RenderPipeline.SupportsRenderRequest(mirror.reflectionCamera, request)) continue;
+                bool culling = GL.invertCulling;
+                try { RenderPipeline.SubmitRenderRequest(mirror.reflectionCamera, request); }
+                finally
+                {
+                    GL.invertCulling = culling;
+                    mirror.renderingReflection = false;
+                    mirror.reflectionCamera.enabled = false;
+                }
+            }
+            return scope;
+        }
+        catch { scope.Dispose(); throw; }
+    }
+
+    private sealed class PhotoReflectionScope : IDisposable
+    {
+        internal readonly List<PlanarMirror> mirrors = new List<PlanarMirror>();
+        public void Dispose()
+        {
+            foreach (var mirror in mirrors) if (mirror != null && mirror.isActiveAndEnabled) mirror.LateUpdate();
+            mirrors.Clear();
+        }
     }
 
     private Vector4 CameraSpacePlane(Vector3 point, Vector3 normal)
@@ -188,7 +237,7 @@ public sealed class PlanarMirror : MonoBehaviour
         surfaceProperties = null;
     }
 
-    private static void Release(Object value)
+    private static void Release(UnityEngine.Object value)
     {
         if (Application.isPlaying) Destroy(value);
         else DestroyImmediate(value);

@@ -16,6 +16,8 @@ public abstract class ClothingDefinition : ScriptableObject
     private bool pigRigged;
     [SerializeField] private GameObject pigWornModel;
     [SerializeField] private GameObject pickupPrefab;
+    [SerializeField, Tooltip("Необязательная картинка для инвентаря. Если не задана, меню показывает изображение 3D-модели.")]
+    private Sprite inventoryIcon;
     [SerializeField, Range(0f, 0.15f), Tooltip("Насколько колышется мягкая одежда на персонаже. 0 отключает эффект.")]
     private float flutterStrength = 0.04f;
 
@@ -31,5 +33,6 @@ public abstract class ClothingDefinition : ScriptableObject
     public bool PigRigged => pigRigged;
     public GameObject WornModel => pigWornModel != null ? pigWornModel : model;
     public GameObject PickupPrefab => pickupPrefab;
+    public Sprite InventoryIcon => inventoryIcon;
     public float FlutterStrength => flutterStrength;
 }

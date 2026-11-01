@@ -10,7 +10,7 @@ using UnityEngine.Video;
 {
     public string Url, Title, AddedBy, PlayerId;
     public int Version;
-    public bool Playing;
+    public bool Playing, Ready;
     public double StartedAt, Position, Duration;
 }
 
@@ -37,7 +37,8 @@ public abstract class LobbyMediaPlayer : LobbyInteractable
     public CatalogTrack LocalCatalogTrack { get; private set; }
     public virtual Texture LocalPreview => video != null ? video.targetTexture : null;
     public double Clock => NetworkObject != null && IsSpawned ? TimeManager.TicksToTime(TimeManager.Tick) : Time.unscaledTimeAsDouble;
-    public double Position => State.Position + (State.Playing ? Math.Max(0, Clock - State.StartedAt) : 0);
+    public bool IsPreparing => !string.IsNullOrEmpty(State.Url) && (loading != null || Kind == LobbyMediaKind.Audio && !State.Ready);
+    public double Position => State.Position + (State.Playing && (Kind != LobbyMediaKind.Audio || State.Ready) ? Math.Max(0, Clock - State.StartedAt) : 0);
     private string VolumeKey => "svinki.lobby." + Kind + ".volume";
     private float localVolume;
     public float LocalVolume { get => localVolume; set { localVolume = Mathf.Clamp01(value); PlayerPrefs.SetFloat(VolumeKey, localVolume); ApplyMusicVolume(); } }
@@ -55,7 +56,7 @@ public abstract class LobbyMediaPlayer : LobbyInteractable
     protected void Load(ResolvedMedia media, string player, string id)
     {
         SetState(new LobbyMediaState { Url = media.Url, Title = media.Title, PlayerId = id, AddedBy = player, Version = State.Version + 1,
-            Playing = true, StartedAt = Clock });
+            Playing = true, Ready = Kind != LobbyMediaKind.Audio, StartedAt = Clock });
     }
     protected bool AllowControl(PlayerAvatar player)
     {
@@ -93,7 +94,8 @@ public abstract class LobbyMediaPlayer : LobbyInteractable
         }
         if (loading != null || string.IsNullOrEmpty(State.Url)) return;
         bool prepared = video != null ? video.isPrepared : speaker.clip != null;
-        if (!prepared) return;
+        if (!prepared || Kind == LobbyMediaKind.Audio && !State.Ready) return;
+        if (State.Playing && Clock < State.StartedAt) return;
         double duration = video != null ? video.length : speaker.clip.length;
         if (Authority && State.Duration == 0 && double.IsFinite(duration) && duration > 0) { var current = State; current.Duration = duration; SetState(current); }
         if (Authority && State.Playing && duration > 0 && Position >= duration) { Finished(); return; }
@@ -151,22 +153,42 @@ public abstract class LobbyMediaPlayer : LobbyInteractable
         }
         else
         {
-            using (var request = UnityWebRequestMultimedia.GetAudioClip(media.Url, media.AudioType))
+            // Retry transient transport errors once. Keep the playback clock stopped until the host has decoded audio.
+            for (int attempt = 0; attempt < 2; attempt++)
             {
-                request.timeout = Mathf.CeilToInt(loadTimeout);
-                // ccMixter's public file server requires the validated source page as Referer.
-                // This comes from the official API, never an arbitrary client-supplied header.
-                if (LocalCatalogTrack != null) request.SetRequestHeader("Referer", LocalCatalogTrack.Source);
-                var operation = request.SendWebRequest();
-                while (!operation.isDone)
+                using (var request = UnityWebRequestMultimedia.GetAudioClip(media.Url, media.AudioType))
                 {
-                    if (request.downloadedBytes > (ulong)maxAudioMegabytes * 1024 * 1024) { request.Abort(); break; }
-                    yield return null;
+                    request.timeout = Mathf.CeilToInt(loadTimeout);
+                    if (LocalCatalogTrack != null) request.SetRequestHeader("Referer", LocalCatalogTrack.Source);
+                    var operation = request.SendWebRequest();
+                    while (!operation.isDone)
+                    {
+                        if (request.downloadedBytes > (ulong)maxAudioMegabytes * 1024 * 1024) { request.Abort(); break; }
+                        yield return null;
+                    }
+                    if (State.Version != version) yield break;
+                    bool oversized = request.downloadedBytes > (ulong)maxAudioMegabytes * 1024 * 1024;
+                    if (request.result != UnityWebRequest.Result.Success || oversized)
+                    {
+                        bool transient = !oversized && (request.responseCode == 0 || request.responseCode == 408 || request.responseCode == 429 || request.responseCode >= 500);
+                        if (attempt == 0 && transient) { yield return new WaitForSecondsRealtime(1); continue; }
+                        LocalError = oversized ? "Audio exceeds size limit" : "Audio could not load (HTTP " + request.responseCode + "): " + request.error;
+                        if (Authority) Finished();
+                        break;
+                    }
+                    audioClip = DownloadHandlerAudioClip.GetContent(request);
+                    if (audioClip == null || audioClip.loadState == AudioDataLoadState.Failed)
+                    { LocalError = "The audio format could not be decoded"; if (Authority) Finished(); break; }
+                    speaker.clip = audioClip;
+                    if (Authority)
+                    {
+                        var current = State;
+                        current.Ready = true;
+                        current.StartedAt = Clock + .35;
+                        SetState(current);
+                    }
+                    break;
                 }
-                if (State.Version != version) { loading = null; yield break; }
-                if (request.result != UnityWebRequest.Result.Success || request.downloadedBytes > (ulong)maxAudioMegabytes * 1024 * 1024)
-                { LocalError = request.downloadedBytes > (ulong)maxAudioMegabytes * 1024 * 1024 ? "Audio exceeds size limit" : "Audio could not load (HTTP " + request.responseCode + "): " + request.error; if (Authority) Finished(); }
-                else { audioClip = DownloadHandlerAudioClip.GetContent(request); speaker.clip = audioClip; }
             }
         }
         loading = null; nextCorrection = 0;

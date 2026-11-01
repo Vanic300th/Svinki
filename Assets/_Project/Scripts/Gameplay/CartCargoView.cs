@@ -27,6 +27,8 @@ public sealed class CartCargoView : MonoBehaviour
         var own = panel.AddComponent<Canvas>(); own.overrideSorting = true; own.sortingOrder = 120;
         panel.AddComponent<UnityEngine.UI.GraphicRaycaster>();
         heading = Label("CART", 30, 20, 590, 50, 30);
+        var headingStyle = ProjectSvinSkin.Bind(heading, ProjectSvinRole.Text);
+        headingStyle.fontRole = ProjectSvinFontRole.Heading; headingStyle.Apply();
         Button("Close", 670, 25, 150, 45, Close);
         Label("Store worn clothes", 30, 83, 780, 35, 22);
         for (int i = 0; i < 4; i++) { int slot = i; store[i] = Button(OutfitRatingCatalog.SlotName((ClothingSlot)i), 30 + i * 198, 127, 180, 46, () => Transfer(CargoAction.StoreWorn, slot)); }

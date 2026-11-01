@@ -113,7 +113,7 @@ public sealed class OutfitResultsView : MonoBehaviour
         for (int i = 0; i < measures.Length; i++)
         { bars[i].rectTransform.sizeDelta = new Vector2(670 * measures[i] / 100f, 8); GameLanguage.Set(values[i], measures[i] + "%"); }
         for (int i = 0; i < players.Count; i++) players[i].GetComponent<UnityEngine.UI.Image>().color =
-            i == index ? new Color(.20f, .36f, .43f) : new Color(.10f, .16f, .22f);
+            ProjectSvinSkin.Selection(i == index);
         ClearModel();
         var prefab = Resources.Load<GameObject>("Pigs/PigAvatar");
         if (prefab == null) return;
@@ -191,7 +191,8 @@ public sealed class OutfitResultsView : MonoBehaviour
         var rect = Rect(text.Length == 0 ? "Participant" : text, panel.transform, x, y, width, height);
         var image = rect.gameObject.AddComponent<UnityEngine.UI.Image>(); image.color = new Color(.10f, .16f, .22f);
         var button = rect.gameObject.AddComponent<UnityEngine.UI.Button>(); button.targetGraphic = image;
-        var label = Label(text, 12, 5, width - 24, height - 10, 23, rect); label.alignment = TextAlignmentOptions.Center;
+        var label = Label(text, 12, 5, width - 24, height - 10, width <= 120 ? 18 : 23, rect); label.alignment = TextAlignmentOptions.Center;
+        if (width <= 120) label.textWrappingMode = TextWrappingModes.NoWrap;
         button.onClick.AddListener(() => action()); return button;
     }
     private void OnDestroy()

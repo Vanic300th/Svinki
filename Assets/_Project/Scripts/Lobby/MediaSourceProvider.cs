@@ -14,6 +14,8 @@ public interface IMediaSourceProvider
 public static class MediaSourceProvider
 {
     private static readonly List<IMediaSourceProvider> providers = new List<IMediaSourceProvider> { new YouTubeMediaProvider(), new CcMixterMediaProvider(), new AudiusMediaProvider(), new DirectMediaProvider() };
+    public static string YouTubeSearchUrl(string query) =>
+        "https://www.youtube.com/results?search_query=" + Uri.EscapeDataString((query ?? "").Trim());
     public static void Register(IMediaSourceProvider provider) { if (provider != null && !providers.Contains(provider)) providers.Insert(0, provider); }
     public static bool TryResolve(string input, LobbyMediaKind kind, out ResolvedMedia media)
     {

@@ -3144,6 +3144,281 @@
             "source": "PLAYER LOCKER {0}",
             "translation": "ШКАФЧИК ИГРОКА {0}",
             "translateArguments": false
+        },
+        {
+            "source": "ivory",
+            "translation": "слоновая кость",
+            "translateArguments": false
+        },
+        {
+            "source": "sand",
+            "translation": "песочный",
+            "translateArguments": false
+        },
+        {
+            "source": "cinnamon",
+            "translation": "коричный",
+            "translateArguments": false
+        },
+        {
+            "source": "charcoal",
+            "translation": "угольный",
+            "translateArguments": false
+        },
+        {
+            "source": "FACE",
+            "translation": "ЛИЦО",
+            "translateArguments": false
+        },
+        {
+            "source": "HAIR & FACIAL HAIR",
+            "translation": "ВОЛОСЫ И УСЫ",
+            "translateArguments": false
+        },
+        {
+            "source": "HAIR COLOURS",
+            "translation": "ЦВЕТА ПРИЧЁСКИ",
+            "translateArguments": false
+        },
+        {
+            "source": "GLASSES",
+            "translation": "ОЧКИ",
+            "translateArguments": false
+        },
+        {
+            "source": "PIERCINGS",
+            "translation": "ПИРСИНГ",
+            "translateArguments": false
+        },
+        {
+            "source": "SKIN & PATTERNS",
+            "translation": "КОЖА И УЗОРЫ",
+            "translateArguments": false
+        },
+        {
+            "source": "TATTOOS",
+            "translation": "ТАТУИРОВКИ",
+            "translateArguments": false
+        },
+        {
+            "source": "bulging",
+            "translation": "выпученные",
+            "translateArguments": false
+        },
+        {
+            "source": "unibrow",
+            "translation": "монобровь",
+            "translateArguments": false
+        },
+        {
+            "source": "bushy",
+            "translation": "густые",
+            "translateArguments": false
+        },
+        {
+            "source": "angry",
+            "translation": "сердитые",
+            "translateArguments": false
+        },
+        {
+            "source": "mohawk",
+            "translation": "ирокез",
+            "translateArguments": false
+        },
+        {
+            "source": "curtains",
+            "translation": "шторы",
+            "translateArguments": false
+        },
+        {
+            "source": "ponytail",
+            "translation": "хвост назад",
+            "translateArguments": false
+        },
+        {
+            "source": "barcode",
+            "translation": "штрихкод",
+            "translateArguments": false
+        },
+        {
+            "source": "bowl cut",
+            "translation": "горшок",
+            "translateArguments": false
+        },
+        {
+            "source": "emo fringe",
+            "translation": "эмо-чёлка",
+            "translateArguments": false
+        },
+        {
+            "source": "split bob",
+            "translation": "двухцветное каре",
+            "translateArguments": false
+        },
+        {
+            "source": "dreadlocks",
+            "translation": "дреды",
+            "translateArguments": false
+        },
+        {
+            "source": "pompadour",
+            "translation": "зачёс назад",
+            "translateArguments": false
+        },
+        {
+            "source": "leopard buzz",
+            "translation": "леопардовый ёжик",
+            "translateArguments": false
+        },
+        {
+            "source": "hearts",
+            "translation": "сердечки",
+            "translateArguments": false
+        },
+        {
+            "source": "giant round",
+            "translation": "огромные круглые",
+            "translateArguments": false
+        },
+        {
+            "source": "pixel shades",
+            "translation": "пиксельные",
+            "translateArguments": false
+        },
+        {
+            "source": "Kamina",
+            "translation": "Камина",
+            "translateArguments": false
+        },
+        {
+            "source": "middle fingers",
+            "translation": "средние пальцы",
+            "translateArguments": false
+        },
+        {
+            "source": "spiked frame",
+            "translation": "шипованная оправа",
+            "translateArguments": false
+        },
+        {
+            "source": "very bushy",
+            "translation": "очень густые",
+            "translateArguments": false
+        },
+        {
+            "source": "long curled",
+            "translation": "длинные с закрутом",
+            "translateArguments": false
+        },
+        {
+            "source": "leopard",
+            "translation": "леопардовый",
+            "translateArguments": false
+        },
+        {
+            "source": "checkered",
+            "translation": "в клетку",
+            "translateArguments": false
+        },
+        {
+            "source": "stars",
+            "translation": "звёздочки",
+            "translateArguments": false
+        },
+        {
+            "source": "bands",
+            "translation": "полосы",
+            "translateArguments": false
+        },
+        {
+            "source": "arm",
+            "translation": "рука",
+            "translateArguments": false
+        },
+        {
+            "source": "shoulder blade",
+            "translation": "лопатка",
+            "translateArguments": false
+        },
+        {
+            "source": "leg",
+            "translation": "нога",
+            "translateArguments": false
+        },
+        {
+            "source": "back",
+            "translation": "спина",
+            "translateArguments": false
+        },
+        {
+            "source": "Hair style: {0}",
+            "translation": "Причёска: {0}",
+            "translateArguments": true
+        },
+        {
+            "source": "Hair base: {0}",
+            "translation": "Основа: {0}",
+            "translateArguments": true
+        },
+        {
+            "source": "Hair accent: {0}",
+            "translation": "Пряди: {0}",
+            "translateArguments": true
+        },
+        {
+            "source": "Hair tips: {0}",
+            "translation": "Кончики: {0}",
+            "translateArguments": true
+        },
+        {
+            "source": "Goatee: {0}",
+            "translation": "Козлиная бородка: {0}",
+            "translateArguments": true
+        },
+        {
+            "source": "Facial hair colour: {0}",
+            "translation": "Цвет усов и бровей: {0}",
+            "translateArguments": true
+        },
+        {
+            "source": "Tattoo placement: {0}",
+            "translation": "Место татуировки: {0}",
+            "translateArguments": true
+        },
+        {
+            "source": "copper",
+            "translation": "медный",
+            "translateArguments": false
+        },
+        {
+            "source": "red",
+            "translation": "красный",
+            "translateArguments": false
+        },
+        {
+            "source": "teal",
+            "translation": "бирюзовый",
+            "translateArguments": false
+        },
+        {
+            "source": "navy",
+            "translation": "тёмно-синий",
+            "translateArguments": false
+        },
+        {
+            "source": "bob",
+            "translation": "каре",
+            "translateArguments": false
+        },
+        {
+            "source": "Minimap size: {0}%",
+            "translation": "Размер миникарты: {0}%",
+            "translateArguments": false
+        },
+        {
+            "source": "Pig portrait size: {0}%",
+            "translation": "Размер свиньи: {0}%",
+            "translateArguments": false
         }
     ]
 }

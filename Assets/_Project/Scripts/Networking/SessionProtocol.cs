@@ -8,7 +8,7 @@ public struct SessionRequest : IBroadcast
     public SessionAction Action;
     public string Identity, Nickname, Target;
     public bool Value;
-    public int Appearance;
+    public long Appearance;
 }
 public struct SessionMessage : IBroadcast
 {
@@ -33,6 +33,6 @@ public struct SessionMessage : IBroadcast
     public string id, nickname;
     public bool ready, connected, spectator, finishReady, eliminated;
     public float reservation;
-    public int appearance;
+    public long appearance;
     public int colorSlot;
 }

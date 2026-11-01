@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using FishNet.Managing;
 using FishNet.Object;
 using UnityEngine;
@@ -26,6 +27,39 @@ public static class ClothingDropper
         pickup.PlaceAt(floor); pickup.ProtectFromThieves(3);
         return true;
     }
+    /// <summary>Plan every placement before removing anything, so transformation never hides worn clothes.</summary>
+    public static bool TryDropAll(PlayerAvatar player, NetworkManager server = null)
+    {
+        if (player == null || player.GetComponent<PlayerKnockdown>()?.IsDown == true) return false;
+        var plans = new List<(ClothingDefinition clothing, ClothingPickup pickup, Vector3 floor)>();
+        foreach (var clothing in player.Outfit.Items)
+        {
+            var pickup = ClothingPickup.FindPickedUp(clothing, player.gameObject.scene);
+            if ((pickup == null && clothing.PickupPrefab == null) || !FloorPoint(player, clothing.Slot, out var floor)) return false;
+            plans.Add((clothing, pickup, floor));
+        }
+        foreach (var plan in plans)
+        {
+            var pickup = plan.pickup;
+            if (pickup == null)
+            {
+                var obj = Object.Instantiate(plan.clothing.PickupPrefab, plan.floor + Vector3.up * .025f, Quaternion.identity);
+                SceneManager.MoveGameObjectToScene(obj, player.gameObject.scene);
+                pickup = obj.GetComponent<ClothingPickup>();
+                if (server != null) server.ServerManager.Spawn(obj.GetComponent<NetworkObject>(), null, player.gameObject.scene);
+                else
+                {
+                    if (obj.TryGetComponent<NetworkPickup>(out var networkPickup)) networkPickup.enabled = false;
+                    if (obj.TryGetComponent<NetworkObject>(out var networkObject)) { networkObject.SetIsNetworked(false); networkObject.enabled = false; }
+                }
+            }
+            player.Outfit.Remove(plan.clothing.Slot, "Dropped", out _);
+            pickup.PlaceAt(plan.floor);
+            pickup.ProtectFromThieves(3);
+        }
+        return true;
+    }
+
     public static bool TryPlace(ClothingDefinition clothing, PlayerAvatar player, NetworkManager server = null)
     {
         if (clothing == null || clothing.PickupPrefab == null || player == null || !FloorPoint(player, clothing.Slot, out Vector3 floor)) return false;

@@ -21,7 +21,7 @@ public abstract class LobbyInteractable : NetworkBehaviour
         if (network != null) network.RequestLobbyAction(NetworkObject, action, text, index, points);
         else if (Validate(player)) Apply(player, action, text, index, points);
     }
-    public bool Validate(PlayerAvatar player)
+    public virtual bool Validate(PlayerAvatar player)
     {
         if (!Authority || player == null || !player.IsAlive || player.gameObject.scene != gameObject.scene ||
             player.GetComponent<PlayerKnockdown>()?.IsDown == true) return false;
@@ -33,8 +33,9 @@ public abstract class LobbyInteractable : NetworkBehaviour
         if (!float.IsFinite(direction.x) || !float.IsFinite(direction.y) || !float.IsFinite(direction.z) || direction.sqrMagnitude > 4 * 4) return false;
         // Distance alone would allow controlling the TV or somebody's locker through a wall.
         return direction.sqrMagnitude < .01f || !gameObject.scene.GetPhysicsScene().Raycast(player.EyePosition, direction.normalized,
-            out var hit, direction.magnitude + .05f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore) || hit.collider.transform.IsChildOf(transform);
+            out var hit, direction.magnitude + .05f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore) || OwnsInteractionHit(hit.collider);
     }
+    protected virtual bool OwnsInteractionHit(Collider hit) => hit.transform.IsChildOf(transform);
     public abstract void Apply(PlayerAvatar player, LobbyAction action, string text, int index, Vector2[] points);
     public virtual void LobbyTick(float delta) { }
     public static string Identity(PlayerAvatar player) => NetworkLobby.Instance?.Offline == true ? "offline" : player?.GetComponent<NetworkPlayer>()?.ParticipantId ?? "offline";

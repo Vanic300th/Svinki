@@ -6,7 +6,7 @@ using UnityEngine;
 public sealed class LobbyAnomalyManager : NetworkBehaviour
 {
     [SerializeField] private LobbyAnomalyEvent[] events;
-    [SerializeField, Range(0, 1)] private float chancePerRound = .3f;
+    [SerializeField, Range(0, 1)] private float chancePerRound = 1f;
     private readonly SyncVar<int> choice = new SyncVar<int>();
     private void Awake() => choice.OnChange += (previous, next, asServer) => Apply(next);
     public override void OnStartServer() { base.OnStartServer(); Choose(); }
@@ -19,10 +19,15 @@ public sealed class LobbyAnomalyManager : NetworkBehaviour
         int round = lobby.LobbyRound;
         if (lobby.LastLobbyAnomalyRound != round)
         {
-            if (lobby.LastLobbyAnomalyRound > 0 && Random.value < chancePerRound) lobby.LobbyAnomalyChoice++;
+            int variants = 1;
+            foreach (var anomaly in events) if (anomaly != null) variants = Mathf.Max(variants, anomaly.VariantCount);
+            if (lobby.LastLobbyAnomalyRound <= 0) lobby.LobbyAnomalyChoice = Random.Range(0, variants);
+            else if (variants > 1 && Random.value < chancePerRound)
+                lobby.LobbyAnomalyChoice = (lobby.LobbyAnomalyChoice + Random.Range(1, variants)) % variants;
             lobby.LastLobbyAnomalyRound = round;
         }
-        if (lobby.Offline) Apply(lobby.LobbyAnomalyChoice); else choice.Value = lobby.LobbyAnomalyChoice;
+        if (!lobby.Offline) choice.Value = lobby.LobbyAnomalyChoice;
+        Apply(lobby.LobbyAnomalyChoice);
     }
     private void Apply(int value) { foreach (var anomaly in events) if (anomaly != null) anomaly.Apply(value); }
 }

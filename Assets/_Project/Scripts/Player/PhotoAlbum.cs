@@ -43,7 +43,9 @@ public sealed partial class PhotoAlbum : MonoBehaviour
             if(shown)heldModel.gameObject.SetActive(false);
             var request=new UniversalRenderPipeline.SingleCameraRequest {destination=target};
             if(!RenderPipeline.SupportsRenderRequest(camera,request))return;
-            RenderPipeline.SubmitRenderRequest(camera,request);RenderTexture.active=target;
+            using(PlanarMirror.ForPhoto(camera,PhotoWidth,PhotoHeight))
+                RenderPipeline.SubmitRenderRequest(camera,request);
+            RenderTexture.active=target;
             image=new Texture2D(PhotoWidth,PhotoHeight,TextureFormat.RGB24,false);image.ReadPixels(new Rect(0,0,PhotoWidth,PhotoHeight),0,0);image.Apply(false,false);
             ApplyPhotoNoise(image);
             if(photos.Count==Capacity){Destroy(photos[0]);photos.RemoveAt(0);}

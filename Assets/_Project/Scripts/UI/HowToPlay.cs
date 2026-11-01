@@ -15,7 +15,7 @@ public sealed class HowToPlay : MonoBehaviour
     private TMP_FontAsset font;
     private GameObject root;
     private RectTransform content;
-    private TMP_Text footer,continueLabel;
+    private TMP_Text footer,continueLabel,heading;
     private UnityEngine.UI.Button[] tabs;
     private Action pending;
     private bool acknowledged;
@@ -52,7 +52,8 @@ public sealed class HowToPlay : MonoBehaviour
         var wash=Rect("Guide backdrop",canvas,Vector2.zero,Vector2.zero,Vector2.zero,Vector2.zero);wash.anchorMax=Vector2.one;wash.offsetMin=wash.offsetMax=Vector2.zero;
         wash.gameObject.AddComponent<UnityEngine.UI.Image>().color=new Color(.015f,.025f,.04f,.91f);root=wash.gameObject;
         var panel=Rect("Guide panel",wash,Vector2.one*.5f,Vector2.one*.5f,Vector2.zero,new Vector2(1480,920));panel.gameObject.AddComponent<UnityEngine.UI.Image>().color=new Color(.04f,.075f,.095f,1);
-        Label("HOW TO PLAY SVINKI",panel,new Vector2(44,-32),new Vector2(1392,62),38,new Color(1,.79f,.57f));
+        heading=Label("HOW TO PLAY SVINKI",panel,new Vector2(44,-32),new Vector2(1392,62),38,new Color(1,.79f,.57f));
+        GameLanguage.Changed+=RefreshHeading;RefreshHeading();
         Label("Find an outfit. Keep an eye on the mannequins. Meet your friends at the entrance.",panel,new Vector2(44,-102),new Vector2(1392,40),23,new Color(.75f,.86f,.89f));
         tabs=new UnityEngine.UI.Button[Titles.Length];for(int i=0;i<tabs.Length;i++){int page=i;tabs[i]=Button(Titles[i],panel,new Vector2(44+i*280,-165),new Vector2(268,56),()=>SelectPage(page),24);}
         content=Rect("Guide page",panel,new Vector2(0,1),new Vector2(0,1),new Vector2(44,-250),new Vector2(1392,565));
@@ -65,13 +66,13 @@ public sealed class HowToPlay : MonoBehaviour
     {
         if(root==null)return;if(!IsOpen){previousLock=Cursor.lockState;previousVisible=Cursor.visible;}
         pending=action;root.SetActive(true);Cursor.lockState=CursorLockMode.None;Cursor.visible=true;SelectPage(0);
-        GameLanguage.Set(continueLabel, pending==null?"Back to game / menu":"Got it — Continue");
+        GameLanguage.Set(continueLabel, pending==null?"Close":"Continue");
     }
     public void SelectPage(int index)
     {
         Page=Mathf.Clamp(index,0,Titles.Length-1);
         foreach(Transform child in content){child.gameObject.SetActive(false);Destroy(child.gameObject);}
-        for(int i=0;i<tabs.Length;i++)tabs[i].targetGraphic.color=i==Page?new Color(.28f,.45f,.49f):new Color(.10f,.20f,.25f);
+        for(int i=0;i<tabs.Length;i++)tabs[i].targetGraphic.color=ProjectSvinSkin.Selection(i == Page);
         for(int i=0;i<Controls[Page].Length;i++)
         {
             var pair=Controls[Page][i].Split('|');float y=-i*68;
@@ -99,7 +100,13 @@ public sealed class HowToPlay : MonoBehaviour
         }
         else if(keys.f1Key.wasPressedThisFrame&&!PhotoAlbum.BlocksInput&&!PlayerChat.BlocksInput&&!EmoteWheel.BlocksInput&&!lobby.InventoryOpen&&!lobby.CargoOpen)Show();
     }
-    private void OnDestroy(){if(Instance==this)Instance=null;}
+    private void RefreshHeading()
+    {
+        var theme=ProjectSvinTheme.Current;
+        string brand=theme!=null?theme.projectName+" "+theme.gameName:"Project S.V.I.N.";
+        GameLanguage.SetLiteral(heading,GameLanguage.Text("HOW TO PLAY SVINKI").Replace("SVINKI",brand));
+    }
+    private void OnDestroy(){GameLanguage.Changed-=RefreshHeading;if(Instance==this)Instance=null;}
     private static RectTransform Rect(string name,Transform parent,Vector2 anchor,Vector2 pivot,Vector2 position,Vector2 size)
     {var go=new GameObject(name,typeof(RectTransform));var r=(RectTransform)go.transform;r.SetParent(parent,false);r.anchorMin=r.anchorMax=anchor;r.pivot=pivot;r.anchoredPosition=position;r.sizeDelta=size;return r;}
     private TMP_Text Label(string text,Transform parent,Vector2 position,Vector2 size,float points,Color colour)
