@@ -15,6 +15,7 @@ public class GrayboxPlayerController : MonoBehaviour
 
     private CharacterController characterController;
     private float verticalSpeed;
+    internal float PigClassSpeedMultiplier { get; set; } = 1f;
     private float standingHeight;
     private Vector3 standingCenter;
     private bool isCrouching;
@@ -106,7 +107,7 @@ public class GrayboxPlayerController : MonoBehaviour
         verticalSpeed += gravity * deltaTime;
         bool sprinting = !isCrouching && sprint;
         float speed = isCrouching ? crouchSpeed : sprinting ? sprintSpeed : moveSpeed;
-        characterController.Move((movement * speed + Vector3.up * verticalSpeed) * deltaTime);
+        characterController.Move((movement * (speed * PigClassSpeedMultiplier) + Vector3.up * verticalSpeed) * deltaTime);
     }
 
     public void SetRemoteStance(float amount)

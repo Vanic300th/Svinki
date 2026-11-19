@@ -46,7 +46,11 @@ public sealed partial class LobbyPanel : MonoBehaviour
         Label(item.name.ToUpperInvariant(), new Vector2(900, 65), new Vector2(0, 375), 32);
         Button("CLOSE · ESC", new Vector2(0, -370), Close);
         status = Label("", new Vector2(1000, 160), new Vector2(0, 200), 23);
-        if (item is LobbyMediaPlayer media)
+        if (item is LobbyGameSelector selector)
+        {
+            BuildGameSelection(selector);
+        }
+        else if (item is LobbyMediaPlayer media)
         {
             if (media is LobbyJukebox) BuildMusicSearch();
             bool tv = media is LobbyTelevision;
@@ -99,7 +103,11 @@ public sealed partial class LobbyPanel : MonoBehaviour
         if (target == null || player == null || !player.IsAlive || lobby != null && (lobby.Results != null || lobby.MenuVisible) ||
             Vector3.Distance(player.Position, target.transform.position) > 6) { Close(); return; }
         if (Keyboard.current?.escapeKey.wasPressedThisFrame == true) { escapeFrame = Time.frameCount; Close(); return; }
-        if (target is LobbyMediaPlayer media)
+        if (target is LobbyGameSelector)
+        {
+            RefreshGameSelection();
+        }
+        else if (target is LobbyMediaPlayer media)
         {
             string queue = media is LobbyJukebox box ? "\nQUEUE\n" + string.Join("\n", box.Queue.Take(3).Select((t, i) => (i + 1) + ". " + t.Title + " — " + t.Player)) + (box.Queue.Count() > 3 ? "\n… " + (box.Queue.Count() - 3) + " more queued" : "") : "";
             status.text = (media.State.Title ?? "No media") + " — " + (media.State.AddedBy ?? "") + "\n" + FormatTime(media.Position) + " / " + FormatTime(media.State.Duration) +

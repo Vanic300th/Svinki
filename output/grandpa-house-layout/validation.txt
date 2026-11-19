@@ -1,0 +1,3 @@
+Checked 29 room, staircase and spawn points with a player-sized capsule.
+NavMesh triangles: 529
+PASS: every room connects to the entrance; laundry doorway clear across three lanes; a player CharacterController walked up and down both stairs in center and side lanes.

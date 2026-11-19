@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.UI;
 
-public sealed class SessionMenu : MonoBehaviour
+public sealed partial class SessionMenu : MonoBehaviour
 {
     private NetworkLobby lobby;
     private GameObject panel, settingsPanel;
@@ -112,6 +112,7 @@ public sealed class SessionMenu : MonoBehaviour
         gameObject.AddComponent<PlayerRoundHud>().Build(canvasObject.transform, font, lobby);
         guide=gameObject.AddComponent<HowToPlay>();guide.Build(canvasObject.transform,font,lobby);
         BuildLobbyCode(canvasObject.transform);
+        BuildGrandpaRoleMenu(canvasObject.transform);
         lobby.Changed += Refresh;
         GameLanguage.Changed += RefreshLanguage;
         Refresh();
@@ -138,9 +139,10 @@ public sealed class SessionMenu : MonoBehaviour
             else if (settingsPanel.activeSelf) settingsPanel.SetActive(false);
             else { choosingPlay = false; Refresh(); }
         }
+        bool choosingGrandpaRole = UpdateGrandpaRoleMenu();
         if (lobbyCode != null)
         {
-            bool visible = lobby.InSession && !lobby.Offline && !string.IsNullOrEmpty(lobby.Snapshot.code);
+            bool visible = !choosingGrandpaRole && lobby.InSession && !lobby.Offline && !string.IsNullOrEmpty(lobby.Snapshot.code);
             lobbyCode.transform.parent.gameObject.SetActive(visible);
             if (visible)
             {
@@ -151,7 +153,7 @@ public sealed class SessionMenu : MonoBehaviour
         if (panel != null)
         {
             bool showingResults = lobby.Results != null;
-            panel.SetActive(!showingResults && !lobby.InventoryOpen && (lobby.MenuVisible || !lobby.InSession && !lobby.Offline));
+            panel.SetActive(!choosingGrandpaRole && !showingResults && !lobby.InventoryOpen && (lobby.MenuVisible || !lobby.InSession && !lobby.Offline));
             if (editableMenu != null)
             {
                 editableMenu.background.SetActive(panel.activeSelf);
@@ -160,13 +162,13 @@ public sealed class SessionMenu : MonoBehaviour
                 var theme = ProjectSvinTheme.Current;
                 if (theme != null && themeRevision != theme.revision) { themeRevision = theme.revision; RefreshMenuText(); }
             }
-            if (!panel.activeSelf) appearanceOpen = false;
+            if (!panel.activeSelf || !lobby.CanCustomizeAppearance) appearanceOpen = false;
             if (editableMenu != null && editableMenu.appearanceOverlay != null)
             {
                 editableMenu.appearanceOverlay.SetActive(panel.activeSelf && appearanceOpen);
                 if (appearanceOpen) editableMenu.appearanceOverlay.transform.SetAsLastSibling();
             }
-            appearanceMenu?.SetVisible(panel.activeSelf && (editableMenu == null || appearanceOpen));
+            appearanceMenu?.SetVisible(panel.activeSelf && lobby.CanCustomizeAppearance && (editableMenu == null || appearanceOpen));
             resultsView?.SetVisible(showingResults);
             if (panel.activeSelf && (lobby.Offline || lobby.Snapshot.phase == SessionPhase.Round)) Refresh();
         }
@@ -216,7 +218,7 @@ public sealed class SessionMenu : MonoBehaviour
             (lobby.InSession ? "\n\n" + string.Format(GameLanguage.Text("Players: {0}/6  ·  Round {1}{2}"),snapshot.players.Length,snapshot.round,
              GameLanguage.Text(snapshot.closed ? "  ·  Admission closed" : "  ·  Admission open")) : "");
         string key = snapshot.phase + ":" + lobby.IsHost + ":" + lobby.Busy + ":" + lobby.Offline + ":" +
-            string.Join(",", snapshot.players.Select(p => p.id + p.ready + p.connected + p.finishReady)) + ":" + snapshot.closed + ":" + lobby.NearFinish;
+            string.Join(",", snapshot.players.Select(p => p.id + p.ready + p.connected + p.finishReady)) + ":" + snapshot.closed + ":" + lobby.NearFinish + ":" + lobby.SelectedGame + ":" + lobby.InGrandpaPrototype + ":" + lobby.CanCustomizeAppearance;
         if (key == layoutKey) return;
         layoutKey = key;
         foreach (GameObject control in controls) Destroy(control); controls.Clear();
@@ -227,7 +229,20 @@ public sealed class SessionMenu : MonoBehaviour
             button.interactable = enabled; controls.Add(button.gameObject);
         }
         if (lobby.Busy) { Add("Cancel Connection", lobby.Cancel); return; }
-        if (lobby.Offline) { Add("Resume", Resume); Add("Settings", ShowSettings); Add("Main Menu", lobby.Leave); return; }
+        void AddAvatarCustomization()
+        {
+            if (lobby.CanCustomizeAppearance && editableMenu != null)
+                Add(GameLanguage.Code == "ru" ? "Изменить аватар" : "Customize Avatar", () => { appearanceOpen = true; Refresh(); });
+        }
+        if (lobby.Offline)
+        {
+            Add("Resume", Resume);
+            AddAvatarCustomization();
+            if (lobby.InGrandpaPrototype) Add("Return to Lobby", lobby.ReturnFromGrandpaPrototype);
+            Add("Settings", ShowSettings);
+            Add("Main Menu", lobby.Leave);
+            return;
+        }
         if (!lobby.InSession)
         {
 #if !UNITY_WEBGL
@@ -244,12 +259,12 @@ public sealed class SessionMenu : MonoBehaviour
         if (snapshot.phase == SessionPhase.Lobby)
         {
             Add("Enter Friendslop Lobby", Resume);
-            if (editableMenu != null && editableMenu.customizeButton != null)
-                Add(GameLanguage.Code == "ru" ? "Кастомайз" : "Customize", () => { appearanceOpen = true; Refresh(); });
+            AddAvatarCustomization();
         }
         else if (snapshot.phase == SessionPhase.Round)
         {
             Add(lobby.IsSpectator ? "Resume Spectating" : "Resume", Resume);
+            if (lobby.IsHost && lobby.InGrandpaPrototype) Add("Return to Lobby", lobby.ReturnFromGrandpaPrototype);
         }
         Add("Copy Code: " + snapshot.code, () => { GUIUtility.systemCopyBuffer = snapshot.code; lobby.Report("Code copied: " + snapshot.code); });
         if (lobby.IsHost) Add(snapshot.closed ? "Open Admission" : "Close Admission", lobby.ToggleAdmission);

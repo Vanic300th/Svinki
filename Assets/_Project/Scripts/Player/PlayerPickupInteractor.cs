@@ -262,8 +262,12 @@ public class PlayerPickupInteractor : MonoBehaviour
         if (target != null)
         {
             ClothingPickup clothing = target.GetComponent<ClothingPickup>();
-            bool canCollect = clothing == null || clothing.CanCollect(gameObject);
-            text = target.GetComponent<PhotoCameraPickup>()!=null ? PhotoCamera?.Owned==true?"You already have a camera":"E — pick up camera · K — equip · P — album" : canCollect ? "E — pick up: " + target.ItemName : "This clothing slot is already occupied";
+            if (target.GetComponent<PhotoCameraPickup>() != null)
+                text = PhotoCamera?.Owned == true ? "You already have a camera" : "E — pick up camera · K — equip · P — album";
+            else if (clothing != null && !clothing.CanCollect(gameObject))
+                text = "This clothing slot is already occupied";
+            else
+                text = "E — pick up: " + ClothingDefinition.ReadableName(clothing?.Clothing?.DisplayName ?? target.ItemName);
         }
         hud.ShowPrompt(text);
     }

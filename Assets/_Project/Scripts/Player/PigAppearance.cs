@@ -54,7 +54,7 @@ public sealed class PigAppearance : MonoBehaviour
 {
     [SerializeField] private Transform modelRoot;
     [SerializeField] private long faceCode = 42;
-    private readonly Dictionary<string, GameObject> options = new Dictionary<string, GameObject>();
+    private readonly List<(string name, GameObject part)> options = new List<(string, GameObject)>();
     private readonly List<Renderer> coloredParts = new List<Renderer>();
     private MaterialPropertyBlock colors;
     public static readonly string[] GlassesOptions = { "", "Round", "Square", "CatEye", "Aviator", "SunRound", "SunSquare", "Heart", "GiantRound", "Pixel", "Kamina", "MiddleFinger", "Spiked" };
@@ -78,6 +78,43 @@ public sealed class PigAppearance : MonoBehaviour
     public long FaceCode => faceCode;
     public Transform ModelRoot => modelRoot != null ? modelRoot : transform;
 
+    // The clothing art export names the individual meshes instead of the original option groups.
+    public static string OptionName(string partName)
+    {
+        if (partName.Contains("__")) return partName;
+        if (partName.StartsWith("Glasses_", StringComparison.Ordinal) ||
+            partName.StartsWith("Mustache_", StringComparison.Ordinal))
+            return partName.Insert(partName.IndexOf('_'), "_");
+
+        return partName switch
+        {
+            "Eye_Open_-1" or "Eye_Open_1" => "Eyes__Open",
+            "Eye_Squint_-1" or "Eye_Squint_1" => "Eyes__Squint",
+            "Eyes_Bulging" => "Eyes__Bulging",
+            "Brow_Neutral_-1" or "Brow_Neutral_1" => "Brows__Neutral",
+            "Brow_Raised_-1" or "Brow_Raised_1" => "Brows__Raised",
+            "Brow_Confident_-1" or "Brow_Confident_1" => "Brows__Confident",
+            "Unibrow" => "Brows__Unibrow",
+            "Brows_Thick" => "Brows__Thick",
+            "Brows_Angry" => "Brows__Angry",
+            "Beard_Goatee" => "Beard__Goatee",
+            "Piercing_EarHoop" => "EarPiercing__Hoop",
+            "Piercing_BrowBar" => "BrowPiercing__Bar",
+            "Piercing_Septum" => "NosePiercing__Septum",
+            "Hair_Mohawk" => "Hair__Mohawk",
+            "Curtains_One_Volume" => "Hair__Curtains",
+            "Hair_Ponytail" => "Hair__Ponytail",
+            "Barcode_Short_One_Volume" => "Hair__Barcode",
+            "Bowl_Cap" => "Hair__Bowl",
+            "Emo_Wrapped_Right_One_Volume" => "Hair__Emo",
+            "Bob_One_Continuous_Volume" => "Hair__SplitBob",
+            "Hair_Dreads" => "Hair__Dreads",
+            "Hair_Pompadour" => "Hair__Pompadour",
+            "Leopard_Raised_One_Surface" => "Hair__LeopardBuzz",
+            _ => null
+        };
+    }
+
     private void Awake() => Apply(faceCode);
     public void Bind(Transform model) { modelRoot = model; options.Clear(); coloredParts.Clear(); Apply(faceCode); }
 
@@ -89,22 +126,24 @@ public sealed class PigAppearance : MonoBehaviour
         if (options.Count == 0)
         {
             foreach (Transform part in ModelRoot.GetComponentsInChildren<Transform>(true))
-                if (part.name.Contains("__")) options[part.name] = part.gameObject;
+            {
+                string name = OptionName(part.name);
+                if (name != null) options.Add((name, part.gameObject));
+            }
             coloredParts.AddRange(ModelRoot.GetComponentsInChildren<Renderer>(true));
         }
         PigFace face = PigFace.Decode(faceCode);
         string eyes = "Eyes__" + new[]{"Open","Squint","Bulging"}[face.eyes];
         string brows = "Brows__" + new[]{"Neutral","Raised","Confident","Unibrow","Thick","Angry"}[face.brows];
-        foreach (var option in options)
+        foreach (var (name, part) in options)
         {
-            string name = option.Key;
             bool visible = name == eyes || name == brows || face.glasses && name == "Glasses__" + GlassesOptions[face.glassesStyle] ||
                 name == "Mustache__Curled" && face.mustache == 1 || name == "Mustache__Classic" && face.mustache == 2 ||
                 name == "Mustache__Bushy" && face.mustache == 3 || name == "Mustache__LongCurled" && face.mustache == 4 ||
                 name == "Beard__Goatee" && face.beard || name == "EarPiercing__Hoop" && face.earPiercing ||
                 name == "BrowPiercing__Bar" && face.browPiercing || face.hairStyle > 0 && name == "Hair__" + HairOptions[face.hairStyle] ||
                 name == "NosePiercing__Septum" && face.nosePiercing;
-            option.Value.SetActive(visible);
+            part.SetActive(visible);
         }
         ApplyColors(face);
     }

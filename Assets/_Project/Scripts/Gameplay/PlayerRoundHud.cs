@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [DefaultExecutionOrder(1300)]
 public sealed class PlayerRoundHud : MonoBehaviour
@@ -10,6 +11,8 @@ public sealed class PlayerRoundHud : MonoBehaviour
     private TMP_FontAsset font;
     private GameObject minimap, statusRoot, spectatorRoot;
     private StoreMap currentMap;
+    private Scene mapScene;
+    private StoreMap[] sceneMaps = System.Array.Empty<StoreMap>();
     private StoreMinimapGraphic graphic;
     private TMP_Text status, spectating, mapTitle, mapLegend;
     private UnityEngine.UI.Button restart;
@@ -49,7 +52,17 @@ public sealed class PlayerRoundHud : MonoBehaviour
         var local = PlayerRegistry.Players.FirstOrDefault(p => p != null && p.IsLocal);
         var life = local != null ? local.GetComponent<PlayerKnockdown>() : null;
         bool safeRoom = local != null && local.gameObject.scene.name == NetworkLobby.FriendslopSceneName;
-        GameLanguage.Set(status, safeRoom ? "SAFE ROOM" : lobby.IsEliminated ? "ELIMINATED" : life != null ? "HITS LEFT  " + life.HitsRemaining + " / 2" : "SPECTATOR");
+        var housePlayer = local?.GetComponent<NetworkPlayer>();
+        bool soloHouse = lobby.Offline && local != null && local.gameObject.scene.name == SessionGameModes.GrandpaScene;
+        if ((soloHouse || housePlayer != null && housePlayer.HouseRole != GrandpaRole.None) && !lobby.IsEliminated)
+        {
+            bool ru = GameLanguage.Code == "ru";
+            string role = housePlayer?.HouseRole == GrandpaRole.Hunter
+                ? ru ? "РОЛЬ · ДЕД" : "ROLE · GRANDPA"
+                : PigClassPreset.Find(soloHouse ? PigClassPreset.DefaultId : housePlayer.PigClassId)?.DisplayName ?? (ru ? "СВИНЬЯ" : "PIG");
+            if (status.text != role) GameLanguage.SetLiteral(status, role);
+        }
+        else GameLanguage.Set(status, safeRoom ? "SAFE ROOM" : lobby.IsEliminated ? "ELIMINATED" : life != null ? "HITS LEFT  " + life.HitsRemaining + " / 2" : "SPECTATOR");
         status.color = life != null && life.Hits == 1 ? new Color(1, .65f, .3f) : Color.white;
         var target = SpectatorCamera.CurrentTarget;
         GameLanguage.Set(spectating, lobby.Offline ? "ELIMINATED\nStart the next round to play again" :
@@ -57,10 +70,32 @@ public sealed class PlayerRoundHud : MonoBehaviour
         if (lobby.Offline && lobby.IsEliminated && !lobby.MenuVisible) { Cursor.lockState = CursorLockMode.None; Cursor.visible = true; }
         var reference = target != null ? target.gameObject.scene : local != null ? local.gameObject.scene : UnityEngine.SceneManagement.SceneManager.GetSceneByName("SampleScene");
         if (!reference.IsValid() || !reference.isLoaded) return;
-        if (currentMap == null || currentMap.gameObject.scene != reference)
+        bool house = reference.name == SessionGameModes.GrandpaScene;
+        bool sceneChanged = mapScene != reference;
+        if (sceneChanged)
         {
-            currentMap = reference.GetRootGameObjects().SelectMany(g => g.GetComponentsInChildren<StoreMap>()).FirstOrDefault();
+            mapScene = reference;
+            var maps = reference.GetRootGameObjects().SelectMany(g => g.GetComponentsInChildren<StoreMap>());
+            sceneMaps = (house ? maps.OrderBy(map => map.transform.position.y) : maps).ToArray();
+        }
+        float height = target != null ? target.transform.position.y : local != null ? local.Position.y : 0f;
+        int floor = house ? HouseFloorIndex(height) : 0;
+        var map = sceneMaps.Length == 0 ? null : sceneMaps[floor];
+        if (sceneChanged || currentMap != map)
+        {
+            currentMap = map;
             graphic.Bind(currentMap);
+        }
+        if (house)
+        {
+            bool ru = GameLanguage.Code == "ru";
+            string title = ru ? $"ДОМ ДЕДА · ЭТАЖ {floor + 1}" : $"HOUSE MAP · FLOOR {floor + 1}";
+            string legend = ru ? "Игроки на этаже ▲" : "Players on this floor ▲";
+            if (mapTitle.text != title) GameLanguage.SetLiteral(mapTitle, title);
+            if (mapLegend.text != legend) GameLanguage.SetLiteral(mapLegend, legend);
+        }
+        else if (sceneChanged)
+        {
             GameLanguage.Set(mapTitle, safeRoom ? "LOBBY MAP · NORTH" : "STORE MAP · NORTH");
             GameLanguage.Set(mapLegend, safeRoom ? "Players ▲ · Freight lift L\nEnter the lift together to start" : "Players ▲ · Carts ■ · Return lift L\nNames match player colours");
         }
@@ -69,6 +104,7 @@ public sealed class PlayerRoundHud : MonoBehaviour
         foreach (var marker in markers.Values) if (marker != null) marker.gameObject.SetActive(false);
         foreach (var player in PlayerRegistry.Players.Where(p => p != null && p.IsAlive && p.gameObject.scene == reference))
         {
+            if (house && HouseFloorIndex(player.Position.y) != floor) continue;
             Mark(player, player.Position, "▲", PlayerIdentityColor.For(player.GetComponent<NetworkPlayer>()), -player.transform.eulerAngles.y, 21);
         }
         foreach (var cart in ShoppingCart.All.Where(c => c != null && c.gameObject.scene == reference)) Mark(cart, cart.transform.position, "■", new Color(1, .82f, .22f), 0, 15);
@@ -77,6 +113,9 @@ public sealed class PlayerRoundHud : MonoBehaviour
         if (lift != null) Mark(lift, lift.transform.position, "L", new Color(.4f, 1, .58f), 0, 18);
         foreach (var key in markers.Keys.Where(k => k == null).ToArray()) { if (markers[key] != null) Destroy(markers[key].gameObject); markers.Remove(key); }
     }
+    private int HouseFloorIndex(float height) =>
+        sceneMaps.Length > 1 && height >= sceneMaps[1].transform.position.y - .45f ? 1 : 0;
+
     private void Mark(Object key, Vector3 position, string symbol, Color color, float angle, float size)
     {
         if (!markers.TryGetValue(key, out var label))

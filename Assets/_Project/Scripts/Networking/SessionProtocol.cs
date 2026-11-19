@@ -1,7 +1,7 @@
 using FishNet.Broadcast;
 using System;
-public enum SessionPhase : byte { Menu, Lobby, Loading, Round, Returning, Results }
-public enum SessionAction : byte { Hello, Ready, Start, EndRound, ToggleAdmission, Kick, Leave, Appearance, Continue, FinishReady, RunwayReact, RunwayPose, RunwayControl }
+public enum SessionPhase : byte { Menu, Lobby, Loading, Round, Returning, Results, ChoosingGrandpaRoles, ChoosingGrandpaClasses }
+public enum SessionAction : byte { Hello, Ready, Start, EndRound, ToggleAdmission, Kick, Leave, Appearance, Continue, FinishReady, RunwayReact, RunwayPose, RunwayControl, ReturnToLobby, GrandpaVolunteer, GrandpaConfirmClass }
 public struct SessionRequest : IBroadcast
 {
     public int Version;
@@ -22,6 +22,10 @@ public struct SessionMessage : IBroadcast
     public string code, host;
     public int round;
     public bool closed;
+    public SessionGameMode gameMode;
+    public bool gameSelected;
+    public double grandpaSelectionDeadline;
+    public bool grandpaSoloChoice;
     public ParticipantSnapshot[] players = Array.Empty<ParticipantSnapshot>();
     public OutfitRoundResults results;
     public string runwayReaction;
@@ -35,4 +39,7 @@ public struct SessionMessage : IBroadcast
     public float reservation;
     public long appearance;
     public int colorSlot;
+    public bool wantsGrandpa, grandpaClassReady;
+    public GrandpaRole grandpaRole;
+    public string pigClassId;
 }

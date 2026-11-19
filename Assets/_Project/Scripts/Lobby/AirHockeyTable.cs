@@ -30,9 +30,12 @@ public sealed class AirHockeyTable : LobbyInteractable
     public override bool Validate(PlayerAvatar player) => CanPlayFrom(player) && base.Validate(player);
     public int PreferredSide(PlayerAvatar player) => transform.InverseTransformPoint(player.Position).z <= 0 ? 0 : 1;
     public int Seat(PlayerAvatar player) => State.A == Identity(player) ? 0 : State.B == Identity(player) ? 1 : -1;
-    private float HorizontalLimit => Mathf.Max(.1f, halfSize.x - .2f);
+    // Leave a puck diameter between a fully extended paddle and the rail.
+    // Otherwise the kinematic paddle can pin it against the static wall.
+    private float HorizontalLimit => Mathf.Max(.1f, halfSize.x - .4f);
+    private float EndLimit => Mathf.Max(.25f, halfSize.y - .3f);
     public Vector2 EncodePointer(Vector3 local, int side) => new Vector2(Mathf.InverseLerp(-HorizontalLimit, HorizontalLimit, local.x),
-        side == 0 ? Mathf.InverseLerp(-.25f, -halfSize.y + .25f, local.z) : Mathf.InverseLerp(.25f, halfSize.y - .25f, local.z));
+        side == 0 ? Mathf.InverseLerp(-.25f, -EndLimit, local.z) : Mathf.InverseLerp(.25f, EndLimit, local.z));
     public override void Interact(PlayerAvatar player) => AirHockeyControls.Open(this, player);
     public override void Apply(PlayerAvatar player, LobbyAction action, string text, int index, Vector2[] points)
     {
@@ -55,12 +58,12 @@ public sealed class AirHockeyTable : LobbyInteractable
             float now = Time.unscaledTime;
             if (next.A == id)
             {
-                var wanted = new Vector2((point.x * 2 - 1) * HorizontalLimit, -.25f - point.y * (halfSize.y - .5f));
+                var wanted = new Vector2((point.x * 2 - 1) * HorizontalLimit, -.25f - point.y * (EndLimit - .25f));
                 next.PaddleA = Vector2.MoveTowards(next.PaddleA, wanted, paddleSpeed * Mathf.Min(.15f, now - lastA)); lastA = now;
             }
             else if (next.B == id)
             {
-                var wanted = new Vector2((point.x * 2 - 1) * HorizontalLimit, .25f + point.y * (halfSize.y - .5f));
+                var wanted = new Vector2((point.x * 2 - 1) * HorizontalLimit, .25f + point.y * (EndLimit - .25f));
                 next.PaddleB = Vector2.MoveTowards(next.PaddleB, wanted, paddleSpeed * Mathf.Min(.15f, now - lastB)); lastB = now;
             }
         }

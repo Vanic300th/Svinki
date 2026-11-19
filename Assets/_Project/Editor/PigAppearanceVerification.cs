@@ -26,8 +26,9 @@ public static class PigAppearanceVerification
         try
         {
             PigAppearance appearance = root.GetComponent<PigAppearance>();
-            var options = root.GetComponentsInChildren<Transform>(true).Where(t => t.name.Contains("__")).ToArray();
-            if (options.Length != 39) throw new Exception("Missing or duplicated appearance options: " + options.Length);
+            var options = root.GetComponentsInChildren<Transform>(true)
+                .GroupBy(part => PigAppearance.OptionName(part.name)).Where(group => group.Key != null).ToArray();
+            if (options.Length != 39) throw new Exception("Expected 39 appearance options, found " + options.Length);
             SkinnedMeshRenderer body = root.GetComponentsInChildren<SkinnedMeshRenderer>(true).Single(r => r.name == "Body");
             for (int eyes = 0; eyes < 2; eyes++) for (int brows = 0; brows < 3; brows++)
             for (int mustache = 0; mustache < 3; mustache++) for (int toggles = 0; toggles < 16; toggles++)
@@ -40,9 +41,9 @@ public static class PigAppearanceVerification
                 appearance.Apply(code);
                 int expected = 2 + (face.mustache != 0 ? 1 : 0) + (face.glasses ? 1 : 0) + (face.beard ? 1 : 0) +
                     (face.earPiercing ? 1 : 0) + (face.browPiercing ? 1 : 0);
-                if (options.Count(t => t.gameObject.activeSelf) != expected) throw new Exception("Incompatible face groups enabled.");
+                var active = ActiveOptions(options, expected);
                 if (!body.gameObject.activeInHierarchy) throw new Exception("Changing face hid the body.");
-                foreach (var option in options.Where(t => t.gameObject.activeSelf))
+                foreach (var option in active.SelectMany(group => group))
                     if (!option.GetComponentsInChildren<SkinnedMeshRenderer>().All(r => r.bones.Any(b => b.name == "Head")))
                         throw new Exception("Accessory no longer shares Head bone.");
                 Result.combinations++;
@@ -66,7 +67,15 @@ public static class PigAppearanceVerification
         return Save();
     }
 
-    private static void ValidateExtended(PigAppearance appearance, SkinnedMeshRenderer body, Transform[] options)
+    private static IGrouping<string, Transform>[] ActiveOptions(IGrouping<string, Transform>[] options, int expected)
+    {
+        var active = options.Where(group => group.Any(part => part.gameObject.activeSelf)).ToArray();
+        if (active.Length != expected || active.Any(group => group.Any(part => !part.gameObject.activeSelf)))
+            throw new Exception("Appearance options overlap or display only part of a group.");
+        return active;
+    }
+
+    private static void ValidateExtended(PigAppearance appearance, SkinnedMeshRenderer body, IGrouping<string, Transform>[] options)
     {
         Result.extendedCombinations = 0;
         var coordinates = new System.Collections.Generic.List<Vector3>();
@@ -92,11 +101,10 @@ public static class PigAppearanceVerification
                 throw new Exception("Session appearance serialization lost bits.");
             appearance.Apply(code);
             int expected = 6 + (style != 0 ? 1 : 0) + (face.mohawk ? 1 : 0) + (face.nosePiercing ? 1 : 0);
-            if (options.Count(t => t.gameObject.activeSelf) != expected)
-                throw new Exception("Extended appearance group conflict.");
-            if (options.Count(t => t.name.StartsWith("Glasses__") && t.gameObject.activeSelf) != (style == 0 ? 0 : 1))
+            var active = ActiveOptions(options, expected);
+            if (active.Count(group => group.Key.StartsWith("Glasses__")) != (style == 0 ? 0 : 1))
                 throw new Exception("Multiple glasses enabled.");
-            foreach (var option in options.Where(t => t.gameObject.activeSelf))
+            foreach (var option in active.SelectMany(group => group))
                 if (!option.GetComponentsInChildren<SkinnedMeshRenderer>().All(r => r.bones.Any(b => b.name == "Head")))
                     throw new Exception("New accessory lost Head bone.");
             var block = new MaterialPropertyBlock(); body.GetPropertyBlock(block, 0);
@@ -118,7 +126,7 @@ public static class PigAppearanceVerification
         Result.colors = PigFace.SkinColorCount; Result.patterns = PigFace.PatternCount;
     }
 
-    private static void ValidateModern(PigAppearance appearance,SkinnedMeshRenderer body,Transform[] options)
+    private static void ValidateModern(PigAppearance appearance, SkinnedMeshRenderer body, IGrouping<string, Transform>[] options)
     {
         var random=new System.Random(3817);Result.modernRoundtrips=0;
         for(int i=0;i<1000;i++)
@@ -136,23 +144,23 @@ public static class PigAppearanceVerification
             if(JsonUtility.FromJson<OutfitResultEntry>(JsonUtility.ToJson(entry)).appearance!=code)throw new Exception("Outfit archive lost appearance data.");
             appearance.Apply(code);
             int expected=2+(face.mustache>0?1:0)+(face.glassesStyle>0?1:0)+(face.beard?1:0)+(face.earPiercing?1:0)+(face.browPiercing?1:0)+(face.nosePiercing?1:0)+(face.hairStyle>0?1:0);
-            if(options.Count(t=>t.gameObject.activeSelf)!=expected)throw new Exception("Modern option groups overlap.");
+            var active = ActiveOptions(options, expected);
             var block=new MaterialPropertyBlock();body.GetPropertyBlock(block,0);
             if(block.GetFloat("_TattooPlacement")!=face.tattooPlacement)throw new Exception("Tattoo placement was not applied.");
-            foreach(var option in options.Where(t=>t.gameObject.activeSelf))
+            foreach(var option in active.SelectMany(group => group))
                 foreach(var renderer in option.GetComponentsInChildren<SkinnedMeshRenderer>())
                     if(!renderer.enabled||!renderer.bones.Any(b=>b.name=="Head"))throw new Exception("An accessory is invisible or detached from the rig: "+option.name);
             if(face.hairStyle>0)
             {
-                var hair=options.Single(t=>t.name=="Hair__"+PigAppearance.HairOptions[face.hairStyle]);
-                if(PigAppearance.HairColorSlots[face.hairStyle]!=1)throw new Exception("Hair has more than one editable colour: "+hair.name);
-                foreach(var renderer in hair.GetComponentsInChildren<SkinnedMeshRenderer>())
+                var hair = active.Single(group => group.Key == "Hair__" + PigAppearance.HairOptions[face.hairStyle]);
+                if(PigAppearance.HairColorSlots[face.hairStyle]!=1)throw new Exception("Hair has more than one editable colour: "+hair.Key);
+                foreach(var renderer in hair.SelectMany(part => part.GetComponentsInChildren<SkinnedMeshRenderer>()))
                     for(int slot=0;slot<renderer.sharedMaterials.Length;slot++)
                         if(renderer.sharedMaterials[slot].name.StartsWith("Pig_Hair",StringComparison.Ordinal))
                         {
                             renderer.GetPropertyBlock(block,slot);
                             if(block.GetColor("_BaseColor")!=PigAppearance.HairColors[face.hairColor])
-                                throw new Exception("Hair contains a second editable colour: "+hair.name);
+                                throw new Exception("Hair contains a second editable colour: "+hair.Key);
                         }
             }
             Result.modernRoundtrips++;

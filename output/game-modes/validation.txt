@@ -1,0 +1,8 @@
+PASS: Unity compilation, no errors or warnings.
+PASS: scene setup, scene registered in build, no missing scripts, 31 existing lobby network IDs preserved and 1 selector ID added.
+PASS: checkpoint validation (5 existing checks) and Grandpa scene roundtrip.
+PASS: end-to-end SOLO lobby -> Grandpa -> lobby -> Become a Model.
+PASS: end-to-end NETWORK HOST owned-player RPC -> Grandpa -> lobby -> Become a Model.
+PASS: host snapshots, player spawning, correct checkpoint scene, cleanup, selection required, countdown reset on mode change.
+Original player checkpoint restored after tests.
+Separate remote client session was not run.

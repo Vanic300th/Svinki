@@ -11,6 +11,7 @@ public static class SvinkiAssetPaths
     public const string Scenes = Root + "/Scenes";
     public const string BootstrapScene = Scenes + "/Bootstrap/Lobby.unity";
     public const string GameplayScene = Scenes + "/Gameplay/SampleScene.unity";
+    public const string GrandpaHouseScene = Scenes + "/Gameplay/GrandpasHouse.unity";
     public const string SocialLobbyScene = Scenes + "/Lobby/FriendslopLobby.unity";
     public const string DevelopmentScene = Scenes + "/Development/testroom.unity";
     public const string DevelopmentNavMesh = Scenes + "/Development/testroom_NavMesh.asset";
@@ -54,6 +55,7 @@ public static class SvinkiAssetPaths
         {
             case "Lobby": return BootstrapScene;
             case "SampleScene": return GameplayScene;
+            case "GrandpasHouse": return GrandpaHouseScene;
             case "FriendslopLobby": return SocialLobbyScene;
             case "testroom": return DevelopmentScene;
             default: throw new ArgumentException("Unknown project scene: " + sceneName, nameof(sceneName));

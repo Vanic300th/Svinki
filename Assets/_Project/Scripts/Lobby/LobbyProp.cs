@@ -26,18 +26,77 @@ public sealed class LobbyProp : LobbyInteractable
     private bool receivedPose;
     private Collider pickupArea;
     private PhysicsMaterial playMaterial;
+    private Mesh puckColliderMesh;
     public LobbyPropKind Kind => kind;
     public PlayerAvatar Holder => holder;
     public string LastThrower { get; private set; }
     public int ThrowSerial { get; private set; }
     public bool CanScore => Authority && holder == null && !stuck && ThrowSerial > 0 && !string.IsNullOrEmpty(LastThrower);
-    public override string Prompt(PlayerAvatar player) => "E — pick up " + name;
+    public override string Prompt(PlayerAvatar player)
+    {
+        bool russian = GameLanguage.Code == "ru";
+        var (englishName, russianName) = kind switch
+        {
+            LobbyPropKind.Basketball => ("Basketball", "Баскетбольный мяч"),
+            LobbyPropKind.Dart => ("Dart", "Дротик"),
+            LobbyPropKind.Puck => ("Hockey puck", "Шайба"),
+            _ => name switch
+            {
+                "Rusty can" or "Small rusty tin" => ("Tin can", "Консервная банка"),
+                "Small box" => ("Cardboard box", "Картонная коробка"),
+                "Cushion" => ("Cushion", "Подушка"),
+                "Toolbox" => ("Toolbox", "Ящик с инструментами"),
+                "Cleaner bottle" => ("Cleaning bottle", "Флакон чистящего средства"),
+                "Plastic jug" => ("Plastic jug", "Пластиковая канистра"),
+                "Rubber duck" => ("Rubber duck", "Резиновая уточка"),
+                "Ratchet wrench" => ("Ratchet wrench", "Ключ с трещоткой"),
+                _ => ("Item", "Предмет")
+            }
+        };
+        return russian ? "E — подобрать: " + russianName : "E — pick up: " + englishName;
+    }
     private void Awake()
     {
         body = GetComponent<Rigidbody>(); shape = GetComponent<Collider>();
         home = transform.position; homeRotation = transform.rotation;
         body.interpolation = RigidbodyInterpolation.Interpolate;
-        if (kind == LobbyPropKind.Dart)
+        if (kind == LobbyPropKind.Puck)
+        {
+            // A box catches on rails as it spins; use a flat, round convex collider.
+            var box = shape as BoxCollider;
+            if (box != null)
+            {
+                const int segments = 32;
+                var vertices = new Vector3[segments * 2];
+                var triangles = new int[(segments * 4 - 4) * 3];
+                int at = 0;
+                for (int i = 0; i < segments; i++)
+                {
+                    float angle = i * Mathf.PI * 2 / segments;
+                    for (int cap = 0; cap < 2; cap++)
+                        vertices[i + cap * segments] = box.center + new Vector3(Mathf.Cos(angle) * box.size.x * .5f,
+                            (cap - .5f) * box.size.y, Mathf.Sin(angle) * box.size.z * .5f);
+                    int next = (i + 1) % segments;
+                    triangles[at++] = i; triangles[at++] = i + segments; triangles[at++] = next;
+                    triangles[at++] = next; triangles[at++] = i + segments; triangles[at++] = next + segments;
+                    if (i < 1 || i >= segments - 1) continue;
+                    triangles[at++] = 0; triangles[at++] = i; triangles[at++] = next;
+                    triangles[at++] = segments; triangles[at++] = next + segments; triangles[at++] = i + segments;
+                }
+                puckColliderMesh = new Mesh { name = "Round hockey puck collider", vertices = vertices, triangles = triangles };
+                puckColliderMesh.RecalculateBounds();
+                box.enabled = false;
+                var round = gameObject.AddComponent<MeshCollider>();
+                round.convex = true; round.sharedMesh = puckColliderMesh;
+                shape = round; Destroy(box);
+            }
+            playMaterial = new PhysicsMaterial("Air hockey glide") { dynamicFriction = 0, staticFriction = 0,
+                bounciness = .95f, frictionCombine = PhysicsMaterialCombine.Minimum, bounceCombine = PhysicsMaterialCombine.Maximum };
+            shape.sharedMaterial = playMaterial; shape.contactOffset = .002f;
+            body.useGravity = false; body.linearDamping = .01f; body.angularDamping = .01f;
+            body.sleepThreshold = 0; body.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+        }
+        else if (kind == LobbyPropKind.Dart)
         {
             body.mass = .22f; body.linearDamping = .015f;
             body.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
@@ -147,8 +206,32 @@ public sealed class LobbyProp : LobbyInteractable
     public void Stick(Vector3 point) { if (!CanScore) return; body.linearVelocity = body.angularVelocity = Vector3.zero; body.isKinematic = true; transform.position = point; stuck = true; SendPose(); }
     private void OnCollisionEnter(Collision collision)
     {
+        if (kind == LobbyPropKind.Puck && Authority && holder == null && !body.isKinematic)
+        {
+            // Unity suppresses restitution below the global bounce threshold.
+            // Keep slow hockey shots bouncing without changing other lobby physics.
+            for (int i = 0; i < collision.contactCount; i++)
+            {
+                var contact = collision.GetContact(i);
+                var normal = Vector3.ProjectOnPlane(contact.normal, Vector3.up);
+                if (normal.sqrMagnitude < .5f) continue;
+                normal.Normalize();
+                float incoming = Vector3.Dot(collision.relativeVelocity, normal);
+                if (incoming <= .02f || incoming >= Physics.bounceThreshold) continue;
+                var otherVelocity = collision.rigidbody != null ? collision.rigidbody.GetPointVelocity(contact.point) : Vector3.zero;
+                float outgoing = Vector3.Dot(body.linearVelocity - otherVelocity, normal);
+                float rebound = incoming * playMaterial.bounciness;
+                if (outgoing < rebound) body.linearVelocity += normal * (rebound - outgoing);
+                break;
+            }
+            return;
+        }
         if (!CanScore || kind != LobbyPropKind.Dart || collision.contactCount == 0) return;
         collision.collider.GetComponentInParent<Dartboard>()?.Hit(this, collision.GetContact(0).point);
     }
-    private void OnDestroy() { if (playMaterial != null) Destroy(playMaterial); }
+    private void OnDestroy()
+    {
+        if (playMaterial != null) Destroy(playMaterial);
+        if (puckColliderMesh != null) Destroy(puckColliderMesh);
+    }
 }

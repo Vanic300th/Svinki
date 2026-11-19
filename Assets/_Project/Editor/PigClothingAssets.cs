@@ -18,46 +18,7 @@ public static class PigClothingAssets
     public const string ScatterRoot = "Hidden 3D clothing";
     private const string MeshFolder = SvinkiAssetPaths.ClothingGenerated + "/GroundMeshes";
 
-    public static string DisplayName(string model)
-    {
-        switch (model)
-        {
-            case "hat1_worn": return "Knitted hat";
-            case "hat2_worn": return "Light hat";
-            case "cap1_worn": return "Cap";
-            case "shirt1_worn": return "Collared shirt";
-            case "shirt2_worn": return "Dark T-shirt";
-            case "shirt3_worn": return "Colourful T-shirt";
-            case "hoodie1_worn": return "Hoodie";
-            case "sleeve1_worn": return "Camouflage long sleeve";
-            case "sweater1_worn": return "Warm sweater";
-            case "pants1_worn": return "Light trousers";
-            case "pants2_worn": return "Jeans";
-            case "pants3_worn": return "Patterned trousers";
-            case "loafers1_worn": return "Leather loafers";
-            case "sneakers2_worn": return "Lace-up sneakers";
-            case "sneakers3_worn": return "Sport sneakers";
-            case "cap2_worn": return "Woven cap";
-            case "hat3_worn": return "Speckled hat";
-            case "shirt4_worn": return "Cream floral T-shirt";
-            case "shirt5_worn": return "Tiger T-shirt";
-            case "shirt6_worn": return "Yellow floral T-shirt";
-            case "shirt7_worn": return "Sakura T-shirt";
-            case "hoodie4_worn": return "Army hoodie";
-            case "hoodie5_worn": return "Baron hoodie";
-            case "sweater2_worn": return "Sky sweater";
-            case "sweater4_worn": return "Autumn sweater";
-            case "sweater5_worn": return "Checked sweater";
-            case "sweater6_worn": return "Garden sweater";
-            case "pants6_worn": return "Golden trousers";
-            case "pants7_worn": return "Grey camouflage trousers";
-            case "pants8_worn": return "Autumn camouflage trousers";
-            case "pants9_worn": return "Pink dotted trousers";
-            case "loafers2_worn": return "Patterned loafers";
-            case "sneakers4_worn": return "Speckled sneakers";
-            default: return model.Replace("_worn", "");
-        }
-    }
+    public static string DisplayName(string model) => ClothingDefinition.ReadableName(model);
 
     public static void CreatePickup(ClothingDefinition clothing, string prefabPath)
     {

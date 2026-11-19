@@ -26,6 +26,7 @@ public sealed class LobbyFreightElevator : NetworkBehaviour
     private readonly SyncVar<LobbyLiftState> state = new SyncVar<LobbyLiftState>();
     private LobbyLiftState offlineState;
     private Vector3 leftOpen, rightOpen;
+    private bool hasGameSelector;
     public LobbyLiftState State => NetworkLobby.Instance?.Offline == true ? offlineState : state.Value;
     public bool CountdownFinished => State.Closing && Clock - State.StartedAt >= closingSeconds;
     public double Clock => NetworkObject != null && IsSpawned ? TimeManager.TicksToTime(TimeManager.Tick) : Time.unscaledTimeAsDouble;
@@ -37,6 +38,7 @@ public sealed class LobbyFreightElevator : NetworkBehaviour
     }
     private void Awake()
     {
+        hasGameSelector = GetComponentInChildren<LobbyGameSelector>(true) != null;
         if (leftDoor != null) leftOpen = leftDoor.localPosition;
         if (rightDoor != null) rightOpen = rightDoor.localPosition;
     }
@@ -62,6 +64,13 @@ public sealed class LobbyFreightElevator : NetworkBehaviour
         if (leftDoor != null) leftDoor.localPosition = Vector3.Lerp(leftDoor.localPosition, leftOpen + Vector3.right * target, Time.unscaledDeltaTime * 8);
         if (rightDoor != null) rightDoor.localPosition = Vector3.Lerp(rightDoor.localPosition, rightOpen + Vector3.left * target, Time.unscaledDeltaTime * 8);
         if (cabinLight != null) cabinLight.intensity = current.Closing && amount > .65f && Mathf.Sin(amount * 80) > .35f ? .3f : 2;
-        if (sign != null) sign.text = current.Closing ? destinationTitle + "\nDEPARTING…" : destinationTitle + "\nENTER TOGETHER  " + current.Inside + " / " + current.Required;
+        if (sign != null)
+        {
+            var lobby = NetworkLobby.Instance;
+            bool selector = hasGameSelector;
+            string title = selector && lobby != null ? SessionGameModes.Title(lobby.SelectedGame).ToUpperInvariant() : destinationTitle;
+            string instruction = selector && lobby != null && !lobby.GameSelected ? "CHOOSE GAME AT PANEL" : "ENTER TOGETHER";
+            sign.text = current.Closing ? title + "\nDEPARTING…" : title + "\n" + instruction + "  " + current.Inside + " / " + current.Required;
+        }
     }
 }

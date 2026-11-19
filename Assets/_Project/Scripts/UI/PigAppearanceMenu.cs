@@ -51,6 +51,13 @@ public sealed class PigAppearanceMenu : MonoBehaviour
         Button("Right", 364, 428, 90, () => RotatePreview(30));
 
         }
+        var reset = Button("Reset appearance", editableMenu != null ? 194 : 122,
+            editableMenu != null ? 762 : 428, editableMenu != null ? 232 : 236,
+            () => { if (lobby.CanCustomizeAppearance) SelectFace(0); });
+        ProjectSvinSkin.Bind((UnityEngine.UI.Image)reset.targetGraphic, ProjectSvinRole.Track);
+        var resetLabel = reset.GetComponentInChildren<TMP_Text>();
+        refreshLabels.Add(() => GameLanguage.SetLiteral(resetLabel,
+            GameLanguage.Code == "ru" ? "Сбросить внешность" : "Reset appearance"));
         CreateChoices();
         void Heading(string value, Func<bool> visible=null)
         {
@@ -118,8 +125,7 @@ public sealed class PigAppearanceMenu : MonoBehaviour
     {
         if (panel == null) return;
         panel.SetActive(visible);
-        bool editable = !lobby.Busy && !lobby.Offline &&
-            (lobby.Snapshot.phase == SessionPhase.Menu || lobby.Snapshot.phase == SessionPhase.Lobby);
+        bool editable = lobby.CanCustomizeAppearance;
         foreach (var button in buttons) button.interactable = editable;
         if(!editable && previewFocus!=.98f)FocusFor("Skin colour");
         if (visible && previewCamera != null && Time.unscaledTime >= nextRender)

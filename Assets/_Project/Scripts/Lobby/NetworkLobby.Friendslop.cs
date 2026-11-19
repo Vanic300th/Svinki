@@ -55,8 +55,8 @@ public sealed partial class NetworkLobby
             var player = PlayerRegistry.Players.FirstOrDefault(p => p != null && p.IsLocal && p.gameObject.scene.name == FriendslopSceneName);
             if (player == null) return;
             var lift = player.gameObject.scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<LobbyFreightElevator>(true)).FirstOrDefault();
-            if (lift != null && lift.Step(player.IsAlive && player.GetComponent<PlayerKnockdown>()?.IsDown != true && lift.Contains(player.Position) ? 1 : 0, 1, true))
-                LoadOfflineWorld("SampleScene");
+            if (lift != null && lift.Step(player.IsAlive && player.GetComponent<PlayerKnockdown>()?.IsDown != true && lift.Contains(player.Position) ? 1 : 0, 1, gameSelected))
+                LoadOfflineWorld(SelectedGameScene);
             return;
         }
         if (phase != SessionPhase.Lobby || StartLift == null) return;
@@ -68,14 +68,15 @@ public sealed partial class NetworkLobby
             if (member.Ready != inside) { member.Ready = inside; changed = true; }
         }
         if (changed) Publish();
-        if (start.Step(members.Values.Count(p => p.Ready), members.Count, members.Values.All(p => p.Connection != null && p.Avatar != null))) BeginRound();
+        if (start.Step(members.Values.Count(p => p.Ready), members.Count, gameSelected &&
+            members.Values.All(p => p.Connection != null && p.Avatar != null))) BeginRound();
     }
     private async void LoadOfflineWorld(string sceneName)
     {
         int token = ++operation;
         Busy = true; offlineChangingScene = true; offlineResults = null;
         InventoryOpen = false; CargoOpen = false;
-        Report("Loading " + (sceneName == FriendslopSceneName ? "Friendslop lobby" : "factory run") + "…");
+        Report("Loading " + (sceneName == FriendslopSceneName ? "Friendslop lobby" : SessionGameModes.Title(SelectedGame)) + "…");
         try
         {
             var previous = PlayerRegistry.Players.FirstOrDefault(p => p != null && p.IsLocal)?.gameObject.scene ?? default;
@@ -98,18 +99,32 @@ public sealed partial class NetworkLobby
                 foreach (var root in scene.GetRootGameObjects())
                     foreach (var agent in root.GetComponentsInChildren<UnityEngine.AI.NavMeshAgent>(true)) agent.enabled = true;
             }
-            var player = Instantiate(offlinePlayerPrefab, new Vector3(0, .05f, sceneName == FriendslopSceneName ? -22 : -3), Quaternion.identity);
-            player.GetComponentInChildren<PigAppearance>(true)?.Apply(SelectedAppearance);
-            SceneManager.MoveGameObjectToScene(player, scene);
-            player.GetComponent<WorldOutfitRenderer>()?.SetFirstPersonHidden(true);
-            Camera.main.GetComponent<GrayboxFirstPersonCamera>().SetTarget(player.transform);
-            FindAnyObjectByType<MannequinWardrobe>()?.Bind(player.GetComponent<PlayerOutfit>());
+            if (sceneName == SessionGameModes.GrandpaScene)
+            {
+                offlineGrandpaClassScene = scene;
+                MenuVisible = true;
+                Report("Choose your pig class.");
+                return;
+            }
+
+            SpawnOfflineAvatar(scene, new Vector3(0, .05f, sceneName == FriendslopSceneName ? -22 : -3));
             if (sceneName == "SampleScene") RoundMonkeySpawner.Begin(scene, 1);
             MenuVisible = false;
             if (sceneName == FriendslopSceneName) RestoreOfflineLockerPhotos();
-            Report(sceneName == FriendslopSceneName ? "Friendslop lobby. Enter the freight lift to begin a run." : "Factory run. Esc — menu.");
+            Report(sceneName == FriendslopSceneName ? "Friendslop lobby. Enter the freight lift to begin a run." : SessionGameModes.Title(SelectedGame) + ". Esc — menu.");
         }
         catch (Exception error) { await StopSession(); Report(error.Message); }
         finally { Busy = false; offlineChangingScene = false; Changed?.Invoke(); }
+    }
+
+    private GameObject SpawnOfflineAvatar(Scene scene, Vector3 position)
+    {
+        var player = Instantiate(offlinePlayerPrefab, position, Quaternion.identity);
+        player.GetComponentInChildren<PigAppearance>(true)?.Apply(SelectedAppearance);
+        SceneManager.MoveGameObjectToScene(player, scene);
+        player.GetComponent<WorldOutfitRenderer>()?.SetFirstPersonHidden(true);
+        Camera.main.GetComponent<GrayboxFirstPersonCamera>().SetTarget(player.transform);
+        FindAnyObjectByType<MannequinWardrobe>()?.Bind(player.GetComponent<PlayerOutfit>());
+        return player;
     }
 }

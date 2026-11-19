@@ -12,7 +12,7 @@ public sealed class SessionCheckpoint
     public CheckpointPlayer[] players = Array.Empty<CheckpointPlayer>();
     public void Validate()
     {
-        if (version != 1 || scene != "SampleScene" || round < 1 || players == null || players.Length < 1 || players.Length > 6 ||
+        if (version != 1 || !SessionGameModes.IsGameplayScene(scene) || round < 1 || players == null || players.Length < 1 || players.Length > 6 ||
             players.Any(p => p == null || string.IsNullOrEmpty(p.id) || p.outfit == null) ||
             players.Select(p => p.id).Distinct().Count() != players.Length)
             throw new InvalidDataException("Incompatible or damaged checkpoint.");

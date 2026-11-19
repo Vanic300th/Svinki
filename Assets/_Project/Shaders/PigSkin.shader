@@ -80,6 +80,9 @@ Shader "Svinki/Pig Skin"
         }
         half ScatteredMarkings(float2 q)
         {
+            // Different pixels can search different random cells. Differentiate the
+            // continuous coordinates, not those unrelated cells' distance fields.
+            float footprint=length(fwidth(q));
             float2 origin=floor(q);
             float coverage=0;
             // Search neighbouring centres so marks can cross cell boundaries without clipping.
@@ -99,7 +102,7 @@ Shader "Svinki/Pig Skin"
                 if(_Pattern<1.5)
                 {
                     d=length(local*float2(1,lerp(.85,1.18,variation.y)))-size;
-                    float edge=max(fwidth(d),.008);
+                    float edge=max(footprint,.008);
                     mark=1-smoothstep(-edge,edge,d);
                 }
                 else if(_Pattern<3.5)
@@ -108,7 +111,7 @@ Shader "Svinki/Pig Skin"
                     float a=atan2(shape.y,shape.x);
                     float radius=length(shape);
                     float ring=abs(radius-size*(1+.15*sin(a*3+variation.z*6)))-size*.19;
-                    float edge=max(fwidth(ring),.008);
+                    float edge=max(footprint,.008);
                     float broken=smoothstep(-.55,-.15,sin(a*2+variation.z*8));
                     float center=(1-smoothstep(size*.16,size*.32,radius))*step(.73,variation.y);
                     mark=max((1-smoothstep(-edge,edge,ring))*broken,center);
@@ -116,7 +119,7 @@ Shader "Svinki/Pig Skin"
                 else
                 {
                     d=StarDistance(local/(size*1.65));
-                    float edge=max(fwidth(d),.018);
+                    float edge=max(footprint/(size*1.65),.018);
                     mark=1-smoothstep(-edge,edge,d);
                 }
                 coverage=max(coverage,mark*step(.22,variation.z));

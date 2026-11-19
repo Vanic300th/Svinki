@@ -124,6 +124,7 @@ public sealed partial class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
     private void Awake()
     {
         motor = GetComponent<GrayboxPlayerController>();
+        grandpaProfile.OnChange += OnGrandpaProfileChanged;
         knockdown = GetComponent<PlayerKnockdown>();
         knockdownPose.OnChange += OnKnockdownChanged;
         hitsTaken.OnChange += (previous, next, asServer) => knockdown?.ApplyHit(next);
@@ -162,6 +163,7 @@ public sealed partial class NetworkPlayer : NetworkBehaviour, IPlayerViewSource
 
     public override void OnStartClient()
     {
+        ApplyGrandpaProfile(grandpaProfile.Value);
         base.OnStartClient();
         if (worldOutfit != null) worldOutfit.SetFirstPersonHidden(IsOwner && !IsDead);
         ApplyWornClothing();

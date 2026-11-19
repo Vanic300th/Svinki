@@ -1,7 +1,7 @@
 using FishNet.Object;
 using UnityEngine;
 
-public enum LobbyAction : byte { Toggle, AssignPhoto, ClearPhoto, PlayPause, Load, Seek, Stop, Skip, Reset, ClearBoard, Stroke, WearMemory }
+public enum LobbyAction : byte { Toggle, AssignPhoto, ClearPhoto, PlayPause, Load, Seek, Stop, Skip, Reset, ClearBoard, Stroke, WearMemory, SelectGame }
 
 /// <summary>Routes new social objects through the existing player's owned FishNet RPC.</summary>
 public abstract class LobbyInteractable : NetworkBehaviour
